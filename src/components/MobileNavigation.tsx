@@ -8,7 +8,7 @@ interface MobileNavigationProps {}
 export default function MobileNavigation({}: MobileNavigationProps) {
   useLockBodyScroll()
   return (
-    <nav className="bg-primary p-4 md:px-0 z-10 fixed left-0 right-0 bottom-0 top-16">
+    <nav className="bg-black p-4 md:px-0 z-50 fixed left-0 right-0 bottom-0 top-16">
       <div className="container mx-auto flex flex-col gap-6">
         <a href="/panel" className="text-xl pb-2 border-secondary-300 border-b-2">
           Panel użytkownika
