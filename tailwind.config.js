@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-body': `linear-gradient(
+        'gradient-primary': `linear-gradient(
           180deg,
           hsl(0deg 0% 12%) 0%,
           hsl(344deg 0% 11%) 21%,
@@ -21,19 +21,8 @@ module.exports = {
           hsl(344deg 0% 2%) 79%,
           hsl(0deg 0% 0%) 100%
         )`,
-        'gradient-accent': `linear-gradient(
-          135deg,
-          hsl(260deg 39% 50%) 0%,
-          hsl(290deg 40% 48%) 21%,
-          hsl(315deg 49% 52%) 30%,
-          hsl(330deg 70% 58%) 39%,
-          hsl(342deg 90% 64%) 46%,
-          hsl(355deg 100% 69%) 54%,
-          hsl(10deg 100% 68%) 61%,
-          hsl(23deg 100% 64%) 69%,
-          hsl(34deg 100% 61%) 79%,
-          hsl(43deg 95% 58%) 100%
-        );`
+        'gradient-accent': `linear-gradient(270deg, #6f4eb0, #fac02c)`,
+        'ltr-link-gradient': `linear-gradient(90deg, transparent 0%, black 50%)`,
       },
       colors: {
         'foreground': '#D6D6D6',
@@ -47,17 +36,20 @@ module.exports = {
         'danger-dark': '#541A1A',
         'notify': '#1B6EBB',
         'accent-purple': '#6F4EB0',
-        'accent-gold': '#FAC02C'
+        'accent-gold': '#FAC02C',
       },
       animation: {
-        'gradient-text': 'gradient-text 3s ease infinite'
+        'moving-gradient': 'gradient-text 3s ease infinite',
       },
       keyframes: {
         'gradient-text': {
           '0%, 100%': {backgroundPosition: '0% 50%'},
-          '50%': {backgroundPosition: '100% 50%'}
+          '50%': {backgroundPosition: '100% 50%'},
         }
       },
+      boxShadow: {
+        'card-inset': '0px 0px 10px 0px rgba(0, 0, 0, 0.25) inset',
+      }
     },
   },
   plugins: [],
