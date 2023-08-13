@@ -4,15 +4,13 @@ import { cn } from "@/lib/utils"
 import { XCircleIcon, Menu } from "lucide-react"
 import { useState } from "react"
 import MobileNavigation from "./MobileNavigation"
+import { usePathname } from "next/navigation"
 
-interface HeaderProps {
-  transparent?: boolean
-}
-
-export default function Header({ transparent }: HeaderProps) {
+export default function Header() {
+  const path = usePathname()
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   return (
-    <header className={cn({ "bg-primary": transparent }, "py-4")}>
+    <header className={cn({ "bg-primary": path !== "/" }, "py-4")}>
       <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
         <a href="/" className="text-2xl font-bold tracking-wide">
           teoriainformatyk
