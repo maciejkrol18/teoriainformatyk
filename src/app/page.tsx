@@ -1,7 +1,5 @@
 import Card from "@/components/Card"
-import { cn } from "@/lib/utils"
 import { Database, ScrollText, Search, Zap } from "lucide-react"
-import Image from "next/image"
 
 export default function Home() {
   return (
