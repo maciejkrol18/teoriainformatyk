@@ -20,7 +20,9 @@ teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams
 ## SQL Table definition
 
 There's a table for each set of exam questions. Replace "123" with the qualification name e.g. "inf.02".
-Images are stored as base64 strings.
+
+> [!IMPORTANT]
+> Images are stored as Base64 strings
 
 ```sql
 create table
