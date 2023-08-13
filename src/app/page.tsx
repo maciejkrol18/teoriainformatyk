@@ -3,7 +3,7 @@ import { Database, ScrollText, Search, Zap } from "lucide-react"
 
 export default function Home() {
   return (
-    <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
+    <>
       <h1 className="text-3xl text-center font-bold py-14">
         Najlepsza powtórka <br /> do teoretycznego <br />
         <span className="text-transparent bg-clip-text bg-gradient-accent animate-moving-gradient">
@@ -68,15 +68,12 @@ export default function Home() {
             Wyszukaj pytania z obu kwalifikacji w naszej bazie danych
           </p>
           <div className="flex flex-col gap-2">
-            <a
-              href="/szukaj"
-              className="bg-secondary-500 text-lg flex gap-2 items-center px-4 py-2"
-            >
-              <Search /> Przejdź do wyszukiwarki
+            <a href="/szukaj" className="bg-secondary-500 text-lg text-center px-4 py-2">
+              Przejdź do wyszukiwarki
             </a>
           </div>
         </Card>
       </main>
-    </div>
+    </>
   )
 }
