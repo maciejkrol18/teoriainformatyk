@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# teoriainformatyk
+
+teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams
+
+## Features
+
+- One question mode
+- Exam mode
+- Exam score history
+- List of hard/easy questions modifiable by the user
+- Question search bar
+
+## Technologies used
+
+- Typescript
+- NextJS 13 /w App Router
+- Tailwind CSS
+- Supabase
+
+## SQL Table definition
+
+There's a table for each set of exam questions. Replace "123" with the qualification name e.g. "inf.02".
+Images are stored as base64 strings.
+
+```sql
+create table
+  public.questions_123 (
+    id bigint not null,
+    created_at timestamp with time zone null,
+    content text not null,
+    answers jsonb not null,
+    correctAnswer text not null,
+    image text null,
+    constraint questions_123_new_pkey primary key (id)
+  ) tablespace pg_default;
+```
 
 ## Getting Started
 
-First, run the development server:
+Install required dependencies
+
+```bash
+npm install
+```
+
+Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
