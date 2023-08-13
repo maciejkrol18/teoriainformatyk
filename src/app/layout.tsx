@@ -35,12 +35,23 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+interface RootLayoutProps {
+  children: React.ReactNode
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "bg-gradient-body min-h-screen")}>
-        <Header />
-        {children}
+      <body>
+        <div
+          className={cn(
+            inter.className,
+            "bg-gradient-primary text-foreground min-h-screen flex flex-col",
+          )}
+        >
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   )
