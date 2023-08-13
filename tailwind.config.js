@@ -22,6 +22,14 @@ module.exports = {
           hsl(0deg 0% 0%) 100%
         )`,
         'gradient-accent': `linear-gradient(270deg, #6f4eb0, #fac02c)`,
+        'inf02-link': `
+          linear-gradient(90deg, transparent, black 80%),
+          url('../../public/inf02.webp') 
+        `,
+        'inf03-link': `
+          linear-gradient(90deg, black 20%, transparent),
+          url('../../public/inf03.webp') 
+        `,
         'ltr-link-gradient': `linear-gradient(90deg, transparent 0%, black 50%)`,
       },
       colors: {
