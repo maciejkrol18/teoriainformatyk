@@ -10,7 +10,7 @@ export default function Header() {
   const path = usePathname()
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   return (
-    <header className={cn({ "bg-primary": path !== "/" }, "py-4")}>
+    <header className={cn({ "bg-primary shadow-card-inset": path !== "/" }, "py-4")}>
       <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
         <a href="/" className="text-2xl font-bold tracking-wide">
           teoriainformatyk
