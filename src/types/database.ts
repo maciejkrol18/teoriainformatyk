@@ -11,26 +11,53 @@ export interface Database {
     Tables: {
       questions_inf03: {
         Row: {
-          answers: Json
+          answers: string[]
           content: string
-          correctAnswer: string
-          created_at: string | null
+          correct_answer: string
+          created_at: string
           id: number
           image: string | null
         }
         Insert: {
-          answers: Json
+          answers: string[]
           content: string
-          correctAnswer: string
-          created_at?: string | null
+          correct_answer: string
+          created_at: string
           id: number
           image?: string | null
         }
         Update: {
-          answers?: Json
+          answers?: string[]
           content?: string
-          correctAnswer?: string
-          created_at?: string | null
+          correct_answer?: string
+          created_at?: string
+          id?: number
+          image?: string | null
+        }
+        Relationships: []
+      }
+      questions_inf02: {
+        Row: {
+          answers: string[]
+          content: string
+          correct_answer: string
+          created_at: string
+          id: number
+          image: string | null
+        }
+        Insert: {
+          answers: string[]
+          content: string
+          correct_answer: string
+          created_at: string
+          id: number
+          image?: string | null
+        }
+        Update: {
+          answers?: string[]
+          content?: string
+          correct_answer?: string
+          created_at?: string
           id?: number
           image?: string | null
         }
