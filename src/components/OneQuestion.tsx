@@ -6,6 +6,7 @@ import Card from "./Card"
 import { Question } from "@/types/question"
 import { Database } from "@/types/database"
 import { cn } from "@/lib/utils"
+import CardSkeleton from "./skeletons/CardSkeleton"
 
 interface OneQuestionProps {
   database: keyof Database["public"]["Tables"]
@@ -70,8 +71,8 @@ export default function OneQuestion({ database }: OneQuestionProps) {
       {currentQuestion ? (
         <Card>
           <div className="flex flex-col gap-2">
-            <span className="text-lg text-secondary-300">#{currentQuestion.id}</span>
-            <h1 className="text-xl font-semibold">{currentQuestion.content}</h1>
+            <span className="text-secondary-300">#{currentQuestion.id}</span>
+            <h1 className="text-lg font-semibold">{currentQuestion.content}</h1>
           </div>
           <div className="flex flex-col gap-2">
             {currentQuestion.answers.map((answer, idx) => {
@@ -104,7 +105,7 @@ export default function OneQuestion({ database }: OneQuestionProps) {
           {currentQuestion.image && <img src={currentQuestion.image}></img>}
         </Card>
       ) : (
-        <p>Loading...</p>
+        <CardSkeleton />
       )}
     </main>
   )

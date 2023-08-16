@@ -21,6 +21,9 @@ module.exports = {
           hsl(344deg 0% 2%) 79%,
           hsl(0deg 0% 0%) 100%
         )`,
+        'gradient-loading': `
+          linear-gradient(270deg, #262626, #595b5a)
+        `,
         'gradient-accent': `linear-gradient(270deg, #6f4eb0, #fac02c)`,
         'inf02-link': `
           linear-gradient(90deg, transparent, black 80%),
@@ -31,6 +34,9 @@ module.exports = {
           url('../../public/inf03.webp') 
         `,
         'ltr-link-gradient': `linear-gradient(90deg, transparent 0%, black 50%)`,
+      },
+      backgroundSize: {
+        'size-loading': "400% 400%"
       },
       colors: {
         'foreground': '#D6D6D6',
@@ -47,10 +53,10 @@ module.exports = {
         'accent-gold': '#FAC02C',
       },
       animation: {
-        'moving-gradient': 'gradient-text 3s ease infinite',
+        'loading': 'gradient-moving 1s ease infinite',
       },
       keyframes: {
-        'gradient-text': {
+        'gradient-moving': {
           '0%, 100%': {backgroundPosition: '0% 50%'},
           '50%': {backgroundPosition: '100% 50%'},
         }
