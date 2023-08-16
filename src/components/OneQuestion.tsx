@@ -35,7 +35,7 @@ export default function OneQuestion({ database }: OneQuestionProps) {
   }
 
   const handleSpacebar = (e: KeyboardEvent) => {
-    if (e.key === "Space") {
+    if (e.code === "Space") {
       rollQuestion()
     }
   }
