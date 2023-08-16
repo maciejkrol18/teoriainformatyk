@@ -16,7 +16,8 @@ export default function OneQuestion({ database }: OneQuestionProps) {
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
 
   const getRandomQuestion = async () => {
-    const randomId = Math.round(Math.random() * (1043 - 1) + 1)
+    const amount = database === "questions_inf02" ? 2249 : 1043
+    const randomId = Math.round(Math.random() * (amount - 1) + 1)
 
     const { data, error } = await supabase
       .from(database)
