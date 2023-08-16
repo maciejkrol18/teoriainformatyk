@@ -64,7 +64,7 @@ export default function OneQuestion({ database }: OneQuestionProps) {
         onClick={() => rollQuestion()}
         className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
       >
-        Losuj (Spacja)
+        {selectedAnswer ? "Następne" : "Losuj"} (Spacja)
       </button>
       {currentQuestion ? (
         <Card>
