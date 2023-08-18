@@ -15,6 +15,7 @@ interface OneQuestionProps {
 export default function OneQuestion({ database }: OneQuestionProps) {
   const [currentQuestion, setCurrentQuestion] = React.useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
+  const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
     const amount = database === "questions_inf02" ? 2249 : 1043
@@ -38,6 +39,7 @@ export default function OneQuestion({ database }: OneQuestionProps) {
 
   const handleSpacebar = (e: KeyboardEvent) => {
     if (e.code === "Space") {
+      rollButtonRef.current?.blur()
       rollQuestion()
     }
   }
@@ -63,8 +65,9 @@ export default function OneQuestion({ database }: OneQuestionProps) {
   return (
     <main className="flex flex-col gap-6 pb-8">
       <button
+        ref={rollButtonRef}
         onClick={() => rollQuestion()}
-        className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
+        className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase focus:bg-red-500"
       >
         {selectedAnswer ? "Następne" : "Losuj"} (Spacja)
       </button>
