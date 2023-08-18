@@ -51,6 +51,7 @@ create table
     answers text[] not null,
     constraint questions_inf03_pkey primary key (id),
     constraint questions_inf03_content_key unique (content)
+    constraint questions_inf03_id_key unique (id)
   ) tablespace pg_default;
 ```
 
