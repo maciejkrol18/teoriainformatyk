@@ -7,6 +7,7 @@ import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { cn } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
+import ControlPanel from "./ControlPanel"
 
 interface OneQuestionProps {
   table: Table
@@ -123,6 +124,7 @@ export default function OneQuestion({ table }: OneQuestionProps) {
             </div>
             {currentQuestion.image && <img src={currentQuestion.image}></img>}
           </Card>
+          <ControlPanel id={currentQuestion.id} table={table} />
         </>
       ) : (
         <CardSkeleton />
