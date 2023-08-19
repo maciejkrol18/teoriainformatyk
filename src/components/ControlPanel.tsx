@@ -7,17 +7,21 @@ import { cn, getCollection } from "@/lib/utils"
 
 interface ControlPanelProps {
   id: number
+  hardCollection: number[]
+  setHardCollection: React.Dispatch<React.SetStateAction<number[]>>
+  easyCollection: number[]
+  setEasyCollection: React.Dispatch<React.SetStateAction<number[]>>
   table: Table
 }
 
-export default function ControlPanel({ id, table }: ControlPanelProps) {
-  const [hardCollection, setHardCollection] = React.useState<number[]>(() =>
-    getCollection(`${table}_hard`),
-  )
-  const [easyCollection, setEasyCollection] = React.useState<number[]>(() =>
-    getCollection(`${table}_easy`),
-  )
-  console.log("Re-rendering...")
+export default function ControlPanel({
+  id,
+  hardCollection,
+  setHardCollection,
+  easyCollection,
+  setEasyCollection,
+  table,
+}: ControlPanelProps) {
   const [isHard, setIsHard] = React.useState<boolean>(false)
   const [isEasy, setIsEasy] = React.useState<boolean>(false)
 

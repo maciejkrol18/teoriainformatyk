@@ -5,23 +5,51 @@ import * as React from "react"
 import Card from "./Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
-import { cn } from "@/lib/utils"
+import { cn, getCollection } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import ControlPanel from "./ControlPanel"
 
 interface OneQuestionProps {
+  hardMode?: boolean
   table: Table
 }
 
-export default function OneQuestion({ table }: OneQuestionProps) {
+export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const [currentQuestion, setCurrentQuestion] = React.useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
   const [questionCount, setQuestionCount] = React.useState<number | null>(null)
+  const [hardCollection, setHardCollection] = React.useState<number[]>(() =>
+    getCollection(`${table}_hard`),
+  )
+  const [easyCollection, setEasyCollection] = React.useState<number[]>(() =>
+    getCollection(`${table}_easy`),
+  )
   const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
-    if (questionCount) {
-      const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
+    if (!hardMode) {
+      // Regular mode
+      if (questionCount) {
+        const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
+
+        const { data, error } = await supabase
+          .from(table)
+          .select("answers, content, correct_answer, id, image")
+          .eq("id", randomId)
+
+        if (error) {
+          return error
+        }
+
+        if (data[0] === undefined) {
+          throw new Error("Returned question is undefined")
+        }
+
+        setCurrentQuestion(data[0])
+      }
+    } else {
+      // Hard mode - only hard questions
+      const randomId = Math.round(Math.random() * hardCollection.length)
 
       const { data, error } = await supabase
         .from(table)
@@ -64,7 +92,13 @@ export default function OneQuestion({ table }: OneQuestionProps) {
   }
 
   React.useEffect(() => {
-    getQuestionCount(table)
+    if (!hardMode) {
+      getQuestionCount(table)
+    } else {
+      if (hardCollection.length === 0) {
+        throw new Error("There are no IDs within the collection")
+      }
+    }
 
     window.addEventListener("keydown", handleSpacebar)
 
@@ -124,7 +158,14 @@ export default function OneQuestion({ table }: OneQuestionProps) {
             </div>
             {currentQuestion.image && <img src={currentQuestion.image}></img>}
           </Card>
-          <ControlPanel id={currentQuestion.id} table={table} />
+          <ControlPanel
+            hardCollection={hardCollection}
+            setHardCollection={setHardCollection}
+            easyCollection={easyCollection}
+            setEasyCollection={setEasyCollection}
+            id={currentQuestion.id}
+            table={table}
+          />
         </>
       ) : (
         <CardSkeleton />
