@@ -27,6 +27,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
+    console.log("getRandomQuestion root. Hard mode?", hardMode)
     if (!hardMode) {
       // Regular mode
       if (questionCount) {
@@ -49,7 +50,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       }
     } else {
       // Hard mode - only hard questions
-      const randomId = Math.round(Math.random() * hardCollection.length)
+      const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
+      console.log(randomId)
 
       const { data, error } = await supabase
         .from(table)
@@ -98,6 +100,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       if (hardCollection.length === 0) {
         throw new Error("There are no IDs within the collection")
       }
+      rollQuestion()
     }
 
     window.addEventListener("keydown", handleSpacebar)
@@ -106,8 +109,11 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [])
 
   React.useEffect(() => {
-    if (questionCount) {
-      rollQuestion()
+    if (!hardMode) {
+      // If regular mode, wait for questionCount to be truthy before rolling
+      if (questionCount) {
+        rollQuestion()
+      }
     }
   }, [questionCount])
 
