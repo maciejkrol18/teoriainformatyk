@@ -27,7 +27,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
-    console.log("getRandomQuestion root. Hard mode?", hardMode)
     if (!hardMode) {
       // Regular mode
       if (questionCount) {
@@ -51,7 +50,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     } else {
       // Hard mode - only hard questions
       const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
-      console.log(randomId)
 
       const { data, error } = await supabase
         .from(table)
