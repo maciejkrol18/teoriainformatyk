@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Table } from "@/types/table"
 import { BarChart, SkullIcon, SmileIcon } from "lucide-react"
-import { cn, getCollection } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
 interface ControlPanelProps {
   id: number
