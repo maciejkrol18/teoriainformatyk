@@ -5,11 +5,11 @@ export default function Page() {
     <>
       <div className="flex flex-col items-center py-12">
         <span className="text-transparent text-xl font-bold bg-clip-text bg-gradient-accent animate-moving-gradient">
-          INF.03
+          INF.02
         </span>
         <h1 className="text-2xl font-bold">Tryb jednego pytania</h1>
       </div>
-      <OneQuestion table="questions_inf03" />
+      <OneQuestion table="questions_inf02" hardMode />
     </>
   )
 }
