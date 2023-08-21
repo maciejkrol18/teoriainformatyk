@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Header from "@/components/Header"
 import React from "react"
+import { TailwindIndicator } from "@/components/TailwindIndicator"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             "bg-gradient-primary text-foreground min-h-screen flex flex-col",
           )}
         >
+          <TailwindIndicator />
           <Header />
           <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
             {children}
