@@ -31,11 +31,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     if (!hardMode) {
       // Regular mode
       if (questionCount) {
-        let randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-
-        while (easyCollection.includes(randomId)) {
-          randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        }
+        const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
 
         const { data, error } = await supabase
           .from(table)
