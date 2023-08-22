@@ -19,10 +19,14 @@ export default function Header() {
           <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Panel użytkownika
           </a>
-          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <a href="/szukaj" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Wyszukiwarka pytań
           </a>
-          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <a
+            href="https://github.com/maciejkrol18/teoriainformatyk"
+            target="_blank"
+            className="py-2 px-4 rounded-md hover:bg-secondary-300"
+          >
             Github
           </a>
         </nav>
