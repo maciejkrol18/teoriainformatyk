@@ -9,7 +9,7 @@ export default function Page() {
         </span>
         <h1 className="text-2xl font-bold">Egzamin</h1>
       </div>
-      <Exam table="questions_inf03" />
+      <Exam table="questions_inf02" />
     </>
   )
 }
