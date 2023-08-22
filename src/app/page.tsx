@@ -46,13 +46,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <a
-                href="/"
+                href="/inf02/egzamin"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
               </a>
               <a
-                href="/"
+                href="/inf03/egzamin"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
