@@ -37,7 +37,7 @@ export default function Exam({ table }: ExamProps) {
       const idArray: number[] = []
       for (let i = 0; i < 40; i++) {
         let randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        if (idArray.some((id) => id === randomId)) {
+        while (idArray.some((id) => id === randomId)) {
           randomId = Math.round(Math.random() * (questionCount - 1) + 1)
         }
         idArray.push(randomId)
