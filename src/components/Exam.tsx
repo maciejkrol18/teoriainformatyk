@@ -6,6 +6,8 @@ import Card from "./Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
 import { cn } from "@/lib/utils"
+import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
+import ExamSkeleton from "./skeletons/ExamSkeleton"
 
 interface ExamProps {
   table: Table
@@ -28,6 +30,7 @@ export default function Exam({ table }: ExamProps) {
     amountIncorrect: 0,
     amountUnanswered: 0,
   })
+  const [scorePercentage, setScorePercentage] = React.useState<number>(0)
 
   const getQuestions = async (table: Table) => {
     if (questionCount) {
@@ -102,15 +105,24 @@ export default function Exam({ table }: ExamProps) {
     return `${minutes} minut ${seconds} sekund`
   }
 
+  const endGame = () => {
+    if (gameState.isFinished) {
+      setGameState((prev) => ({ ...prev, isFinished: false }))
+      getQuestions(table)
+    } else {
+      setGameState((prev) => ({ ...prev, isFinished: true }))
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+
   const getQuestionCount = async (table: Table) => {
     const { count, error } = await supabase.from(table).select("id", { count: "exact" })
     if (error) return error
     setQuestionCount(count)
   }
-
-  React.useEffect(() => {
-    getQuestionCount(table)
-  }, [])
 
   React.useEffect(() => {
     setGameState((prev) => ({
@@ -126,6 +138,10 @@ export default function Exam({ table }: ExamProps) {
   }, [questionsArray])
 
   React.useEffect(() => {
+    setScorePercentage((gameState.amountCorrect / questionsArray.length) * 100)
+  }, [gameState])
+
+  React.useEffect(() => {
     if (questionCount) {
       getQuestions(table)
     }
@@ -135,28 +151,59 @@ export default function Exam({ table }: ExamProps) {
     return () => clearInterval(counterInterval)
   }, [questionCount])
 
+  React.useEffect(() => {
+    if (counter === 0) {
+      endGame()
+    }
+  }, [counter])
+
+  React.useEffect(() => {
+    getQuestionCount(table)
+  }, [])
+
   return (
     <>
       {questionsArray.length > 0 ? (
-        <main className="flex flex-col gap-8">
+        <main className="flex flex-col gap-8 pb-8">
           {gameState.isFinished && (
-            <div className={cn("bg-primary")}>
-              <h1>
-                Wynik{" "}
-                {gameState.amountCorrect / questionsArray.length > 0.75
-                  ? "pozytywny"
-                  : "negatywny"}
+            <Card
+              className={cn(
+                "text-center items-center",
+                {
+                  "border-2 border-danger-light": scorePercentage < 75,
+                },
+                {
+                  "border-2 border-positive-light": scorePercentage > 75,
+                },
+              )}
+            >
+              <h1 className="text-2xl font-bold">
+                Wynik {scorePercentage > 75 ? "pozytywny" : "negatywny"}
               </h1>
-              <p>Wynik procentowy: {gameState.amountCorrect / questionsArray.length}</p>
-              <p>Poprawne odp: {gameState.amountCorrect}</p>
-              <p>Niepoprawne odp: {gameState.amountIncorrect}</p>
-              <p>Bez odpowiedzi: {gameState.amountUnanswered}</p>
-            </div>
+              <div className="flex gap-8">
+                <div className="flex flex-col gap-2 items-center">
+                  <CheckCircle2 className="text-positive-light" />
+                  {gameState.amountCorrect}
+                </div>
+                <div className="flex flex-col gap-2 items-center">
+                  <XCircle className="text-danger-light" />
+                  {gameState.amountIncorrect}
+                </div>
+                <div className="flex flex-col gap-2 items-center">
+                  <HelpCircle className="text-notify" />
+                  {gameState.amountUnanswered}
+                </div>
+                <div className="flex flex-col gap-2 items-center">
+                  <BadgePercent className="text-accent-gold" />
+                  {(gameState.amountCorrect / questionsArray.length) * 100}%
+                </div>
+              </div>
+            </Card>
           )}
 
-          <p className="text-center">
-            Pozostały czas: {counter && getFormattedSeconds(counter)}
-          </p>
+          {!gameState.isFinished && counter && (
+            <p className="text-center">Pozostały czas: {getFormattedSeconds(counter)}</p>
+          )}
 
           {questionsArray.map((question) => (
             <Card key={question.id}>
@@ -175,6 +222,7 @@ export default function Exam({ table }: ExamProps) {
                   return (
                     <button
                       onClick={() => setAnswer(answer, question)}
+                      disabled={gameState.isFinished}
                       className={cn(
                         "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
                         {
@@ -210,21 +258,19 @@ export default function Exam({ table }: ExamProps) {
             </Card>
           ))}
 
-          <p className="text-center">
-            Pozostały czas: {counter && getFormattedSeconds(counter)}
-          </p>
+          {!gameState.isFinished && counter && (
+            <p className="text-center">Pozostały czas: {getFormattedSeconds(counter)}</p>
+          )}
 
           <button
-            onClick={() =>
-              setGameState((prev) => ({ ...prev, isFinished: !prev.isFinished }))
-            }
+            onClick={() => endGame()}
             className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
           >
-            Sprawdź odpowiedzi
+            {gameState.isFinished ? "Spróbuj ponownie" : "Sprawdź odpowiedzi"}
           </button>
         </main>
       ) : (
-        <p>Loading...</p>
+        <ExamSkeleton />
       )}
     </>
   )
