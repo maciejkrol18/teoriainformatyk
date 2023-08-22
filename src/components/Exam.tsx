@@ -164,7 +164,7 @@ export default function Exam({ table }: ExamProps) {
   return (
     <>
       {questionsArray.length > 0 ? (
-        <main className="flex flex-col gap-8 pb-8">
+        <main className="flex flex-col gap-8 pb-8 md:w-full md:max-w-lg md:mx-auto">
           {gameState.isFinished && (
             <Card
               className={cn(
