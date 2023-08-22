@@ -116,7 +116,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [questionCount])
 
   return (
-    <main className="flex flex-col gap-6 pb-8">
+    <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
       <button
         ref={rollButtonRef}
         onClick={() => rollQuestion()}
