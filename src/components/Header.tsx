@@ -15,8 +15,18 @@ export default function Header() {
         <a href="/" className="text-2xl font-bold tracking-wide">
           teoriainformatyk
         </a>
-        {/* Mobile nav menu */}
-        <button onClick={() => setMobileNavOpen((prev) => !prev)}>
+        <nav className="hidden lg:flex gap-8">
+          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+            Panel użytkownika
+          </a>
+          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+            Wyszukiwarka pytań
+          </a>
+          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+            Github
+          </a>
+        </nav>
+        <button className="lg:hidden" onClick={() => setMobileNavOpen((prev) => !prev)}>
           {mobileNavOpen ? (
             <XCircleIcon className="h-full aspect-square" />
           ) : (
