@@ -28,7 +28,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
 
   const getRandomQuestion = async () => {
     if (!hardMode) {
-      // Regular mode
       if (questionCount) {
         const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
 
@@ -38,7 +37,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
           .eq("id", randomId)
 
         if (error) {
-          return error
+          console.log(error)
+          return
         }
 
         if (data[0] === undefined) {
@@ -48,7 +48,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
         setCurrentQuestion(data[0])
       }
     } else {
-      // Hard mode - only hard questions
       const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
 
       const { data, error } = await supabase
@@ -57,7 +56,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
         .eq("id", randomId)
 
       if (error) {
-        return error
+        console.log(error)
+        return
       }
 
       if (data[0] === undefined) {
@@ -70,7 +70,10 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
 
   const getQuestionCount = async (table: Table) => {
     const { count, error } = await supabase.from(table).select("id", { count: "exact" })
-    if (error) return error
+    if (error) {
+      console.log(error)
+      return
+    }
     setQuestionCount(count)
   }
 
@@ -108,7 +111,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
 
   React.useEffect(() => {
     if (!hardMode) {
-      // If regular mode, wait for questionCount to be truthy before rolling
       if (questionCount) {
         rollQuestion()
       }
