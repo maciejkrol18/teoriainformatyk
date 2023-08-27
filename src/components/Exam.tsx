@@ -108,6 +108,7 @@ export default function Exam({ table }: ExamProps) {
   const endGame = () => {
     if (gameState.isFinished) {
       setGameState((prev) => ({ ...prev, isFinished: false }))
+      setCounter(3600)
       getQuestions(table)
     } else {
       setGameState((prev) => ({ ...prev, isFinished: true }))
