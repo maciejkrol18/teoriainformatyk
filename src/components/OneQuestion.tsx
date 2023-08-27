@@ -14,29 +14,29 @@ interface OneQuestionProps {
   table: Table
 }
 
-const getCollection = (name: string) => {
-  const item = localStorage.getItem(name)
-
-  if (!item) {
-    return []
-  }
-
-  let value: unknown
-
-  try {
-    value = JSON.parse(item)
-  } catch (error) {
-    throw new Error(`Failed to JSON parse ${name}`)
-  }
-
-  if (Array.isArray(value) && value.every((el) => typeof el === "number")) {
-    return value as number[]
-  } else {
-    throw new Error(`The local storage value of ${name} is not an array of numbers`)
-  }
-}
-
 export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
+  const getCollection = (name: string) => {
+    const item = localStorage.getItem(name)
+
+    if (!item) {
+      return []
+    }
+
+    let value: unknown
+
+    try {
+      value = JSON.parse(item)
+    } catch (error) {
+      throw new Error(`Failed to JSON parse ${name}`)
+    }
+
+    if (Array.isArray(value) && value.every((el) => typeof el === "number")) {
+      return value as number[]
+    } else {
+      throw new Error(`The local storage value of ${name} is not an array of numbers`)
+    }
+  }
+
   const [currentQuestion, setCurrentQuestion] = React.useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
   const [questionCount, setQuestionCount] = React.useState<number | null>(null)
