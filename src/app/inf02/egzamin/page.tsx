@@ -9,7 +9,9 @@ export default function Page() {
         </span>
         <h1 className="text-2xl font-bold">Egzamin</h1>
       </div>
-      <Exam table="questions_inf02" />
+      <div className="md:w-full md:max-w-lg md:mx-auto">
+        <Exam table="questions_inf02" />
+      </div>
     </>
   )
 }
