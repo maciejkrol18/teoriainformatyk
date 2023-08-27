@@ -9,7 +9,9 @@ export default function Page() {
         </span>
         <h1 className="text-2xl font-bold">Tryb jednego pytania</h1>
       </div>
-      <OneQuestion table="questions_inf03" hardMode />
+      <div className="md:w-full md:max-w-lg md:mx-auto">
+        <OneQuestion table="questions_inf03" hardMode />
+      </div>
     </>
   )
 }
