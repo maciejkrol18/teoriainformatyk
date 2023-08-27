@@ -5,13 +5,35 @@ import * as React from "react"
 import Card from "./Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
-import { cn, getCollection } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import ControlPanel from "./ControlPanel"
 
 interface OneQuestionProps {
   hardMode?: boolean
   table: Table
+}
+
+const getCollection = (name: string) => {
+  const item = localStorage.getItem(name)
+
+  if (!item) {
+    return []
+  }
+
+  let value: unknown
+
+  try {
+    value = JSON.parse(item)
+  } catch (error) {
+    throw new Error(`Failed to JSON parse ${name}`)
+  }
+
+  if (Array.isArray(value) && value.every((el) => typeof el === "number")) {
+    return value as number[]
+  } else {
+    throw new Error(`The local storage value of ${name} is not an array of numbers`)
+  }
 }
 
 export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
