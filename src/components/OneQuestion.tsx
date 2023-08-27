@@ -164,14 +164,14 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
             </div>
             {currentQuestion.image && <img src={currentQuestion.image}></img>}
           </Card>
-          {/* <ControlPanel
+          <ControlPanel
             hardCollection={hardCollection}
             setHardCollection={setHardCollection}
             easyCollection={easyCollection}
             setEasyCollection={setEasyCollection}
             id={currentQuestion.id}
             table={table}
-          /> */}
+          />
         </>
       ) : (
         <CardSkeleton />

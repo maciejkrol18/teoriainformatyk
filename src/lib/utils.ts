@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getCollection(name: string) {
-  if (typeof window !== undefined) {
+  if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
     const item = localStorage.getItem(name)
 
     if (!item) {
