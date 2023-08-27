@@ -1,5 +1,6 @@
 import Card from "@/components/Card"
 import { Database, ScrollText, Search, Zap } from "lucide-react"
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -21,18 +22,18 @@ export default function Home() {
               Nieskończenie losuj i rozwiązuj jedno pytanie z danej kwalifikacji
             </p>
             <div className="flex flex-col gap-2">
-              <a
+              <Link
                 href="/inf02/jedno-pytanie"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/inf03/jedno-pytanie"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
-              </a>
+              </Link>
             </div>
           </Card>
 
@@ -45,18 +46,18 @@ export default function Home() {
               Rozwiąż losowy egzamin składający się z 40 pytań. Masz na to 60 minut
             </p>
             <div className="flex flex-col gap-2">
-              <a
+              <Link
                 href="/inf02/egzamin"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/inf03/egzamin"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
-              </a>
+              </Link>
             </div>
           </Card>
         </section>
@@ -70,9 +71,12 @@ export default function Home() {
             Wyszukaj pytania z obu kwalifikacji w naszej bazie danych
           </p>
           <div className="flex flex-col gap-2">
-            <a href="/" className="bg-secondary-500 text-lg text-center px-4 py-2">
+            <Link
+              href="/szukaj"
+              className="bg-secondary-500 text-lg text-center px-4 py-2"
+            >
               Przejdź do wyszukiwarki
-            </a>
+            </Link>
           </div>
         </Card>
       </main>

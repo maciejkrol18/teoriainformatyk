@@ -2,26 +2,30 @@
 
 import { cn } from "@/lib/utils"
 import { XCircleIcon, Menu } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import MobileNavigation from "./MobileNavigation"
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 export default function Header() {
   const path = usePathname()
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  useEffect(() => {
+    setMobileNavOpen(false)
+  }, [path])
   return (
     <header className={cn({ "bg-primary shadow-card-inset": path !== "/" }, "py-4")}>
       <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
-        <a href="/" className="text-2xl font-bold tracking-wide">
+        <Link href="/" className="text-2xl font-bold tracking-wide">
           teoriainformatyk
-        </a>
+        </Link>
         <nav className="hidden lg:flex gap-8">
-          <a href="/" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <Link href="/panel" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Panel użytkownika
-          </a>
-          <a href="/szukaj" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          </Link>
+          <Link href="/szukaj" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Wyszukiwarka pytań
-          </a>
+          </Link>
           <a
             href="https://github.com/maciejkrol18/teoriainformatyk"
             target="_blank"
