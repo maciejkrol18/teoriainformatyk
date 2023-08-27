@@ -6,23 +6,25 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getCollection(name: string) {
-  const item = localStorage.getItem(name)
+  if (typeof window !== "undefined") {
+    const item = localStorage.getItem(name)
 
-  if (item === null) {
-    return []
-  }
+    if (!item) {
+      return []
+    }
 
-  let value: unknown
+    let value: unknown
 
-  try {
-    value = JSON.parse(item)
-  } catch (error) {
-    throw new Error(`Failed to JSON parse ${name}`)
-  }
+    try {
+      value = JSON.parse(item)
+    } catch (error) {
+      throw new Error(`Failed to JSON parse ${name}`)
+    }
 
-  if (Array.isArray(value) && value.every((el) => typeof el === "number")) {
-    return value as number[]
-  } else {
-    throw new Error(`The value of ${name} is not an array`)
+    if (Array.isArray(value) && value.every((el) => typeof el === "number")) {
+      return value as number[]
+    } else {
+      throw new Error(`The local storage value of ${name} is not an array of numbers`)
+    }
   }
 }
