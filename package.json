@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.1.2",
     "@supabase/supabase-js": "^2.32.0",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/node": "20.4.8",
