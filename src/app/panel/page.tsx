@@ -1,4 +1,5 @@
 import Card from "@/components/Card"
+import CollectionManager from "@/components/CollectionManager"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
 
 export default function Page() {
@@ -30,6 +31,7 @@ export default function Page() {
             danej kolekcji dostępne jest edytowalne pole z ID pytań oddzielonymi po
             przecinku oraz lista pytań wraz z poprawnymi odpowiedziami.
           </p>
+          <CollectionManager collectionType="hard" />
         </Card>
 
         <Card>
@@ -43,6 +45,7 @@ export default function Page() {
             pytań oddzielonymi po przecinku oraz lista pytań wraz z poprawnymi
             odpowiedziami.
           </p>
+          <CollectionManager collectionType="easy" />
         </Card>
 
         <Card>
