@@ -40,8 +40,8 @@ export default function Page() {
             <h2 className="text-2xl font-bold">Łatwe pytania</h2>
           </div>
           <p className="leading-6">
-            Pytania zawarte w kolekcji łatwych pytań nie pojawiają się w obu dostępnych
-            trybach. Po rozwinięciu danej kolekcji dostępne jest edytowalne pole z ID
+            Pytania zawarte w kolekcji łatwych pytań nie pojawiają się w trybie jednego
+            pytania. Po rozwinięciu danej kolekcji dostępne jest edytowalne pole z ID
             pytań oddzielonymi po przecinku oraz lista pytań wraz z poprawnymi
             odpowiedziami.
           </p>

@@ -59,12 +59,14 @@ export default function CollectionManager({ collectionType }: CollectionManagerP
   return (
     <Accordion.Root type="single" collapsible>
       <Accordion.Item value="inf-02">
-        <Accordion.Trigger>
-          <div className="flex justify-between">
-            <p>INF0.2</p>
-            <ChevronDown />
-          </div>
-        </Accordion.Trigger>
+        <Accordion.Header>
+          <Accordion.Trigger className="w-full group">
+            <div className="flex justify-between items-center">
+              <p className="text-lg font-semibold">INF.02</p>
+              <ChevronDown className="text-secondary-300 group-data-[state='open']:rotate-180" />
+            </div>
+          </Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>
           <div className="py-2 flex flex-col gap-4">
             {firstCollection && firstCollection.length > 0 ? (
@@ -84,13 +86,15 @@ export default function CollectionManager({ collectionType }: CollectionManagerP
           </div>
         </Accordion.Content>
       </Accordion.Item>
-      <Accordion.Item value="inf-03">
-        <Accordion.Trigger>
-          <div className="flex justify-between">
-            <p>INF0.3</p>
-            <ChevronDown />
-          </div>
-        </Accordion.Trigger>
+      <Accordion.Item className="py-4" value="inf-03">
+        <Accordion.Header>
+          <Accordion.Trigger className="w-full group">
+            <div className="flex justify-between items-center">
+              <p className="text-lg font-semibold">INF.03</p>
+              <ChevronDown className="text-secondary-300 group-data-[state='open']:rotate-180" />
+            </div>
+          </Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>
           <div className="py-2 flex flex-col gap-4">
             {secondCollection && secondCollection.length > 0 ? (
