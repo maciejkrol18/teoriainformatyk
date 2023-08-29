@@ -1,21 +1,25 @@
+"use client"
 import { Question } from "@/types/question"
 import Card from "./Card"
 import { cn } from "@/lib/utils"
 
 interface CollectionCardProps {
-  collectionType: "easy" | "hard"
   question: Question
+  setCollection: React.Dispatch<React.SetStateAction<Question[] | undefined>>
 }
 
-export default function CollectionCard({
-  collectionType,
-  question,
-}: CollectionCardProps) {
-  console.log("collection card")
+export default function CollectionCard({ question, setCollection }: CollectionCardProps) {
   return (
     <Card>
       <div className="flex flex-col gap-2">
-        <span className="text-secondary-300">#{question.id}</span>
+        <div className="flex justify-between items-center">
+          <span className="text-secondary-300">#{question.id}</span>
+          <button
+            onClick={() => setCollection((prev) => prev?.filter((el) => el !== question))}
+          >
+            Remove
+          </button>
+        </div>
         <h1 className="text-lg font-semibold">{question.content}</h1>
       </div>
       <div className="flex flex-col gap-2">

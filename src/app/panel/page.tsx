@@ -1,4 +1,5 @@
 import Card from "@/components/Card"
+import CollectionAccordion from "@/components/CollectionAccordion"
 import CollectionManager from "@/components/CollectionManager"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
 
@@ -31,7 +32,18 @@ export default function Page() {
             danej kolekcji dostępne jest edytowalne pole z ID pytań oddzielonymi po
             przecinku oraz lista pytań wraz z poprawnymi odpowiedziami.
           </p>
-          <CollectionManager collectionType="hard" />
+          <CollectionAccordion>
+            <CollectionManager
+              title="INF.02"
+              storageKey="questions_inf02_hard"
+              table="questions_inf02"
+            />
+            <CollectionManager
+              title="INF.03"
+              storageKey="questions_inf03_hard"
+              table="questions_inf03"
+            />
+          </CollectionAccordion>
         </Card>
 
         <Card>
@@ -45,7 +57,18 @@ export default function Page() {
             pytań oddzielonymi po przecinku oraz lista pytań wraz z poprawnymi
             odpowiedziami.
           </p>
-          <CollectionManager collectionType="easy" />
+          <CollectionAccordion>
+            <CollectionManager
+              title="INF.02"
+              storageKey="questions_inf02_easy"
+              table="questions_inf02"
+            />
+            <CollectionManager
+              title="INF.03"
+              storageKey="questions_inf03_easy"
+              table="questions_inf03"
+            />
+          </CollectionAccordion>
         </Card>
 
         <Card>
