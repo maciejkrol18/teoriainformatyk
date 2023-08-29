@@ -20,6 +20,15 @@ type GameState = {
   amountUnanswered: number
 }
 
+type ExamScore = {
+  qualification: string
+  date: Date
+  amountCorrect: number
+  amountIncorrect: number
+  amountUnanswered: number
+  scorePercentage: number
+}
+
 export default function Exam({ table }: ExamProps) {
   const [questionCount, setQuestionCount] = React.useState<number | null>(null)
   const [questionsArray, setQuestionsArray] = React.useState<ExamQuestion[]>([])
@@ -111,12 +120,36 @@ export default function Exam({ table }: ExamProps) {
       setCounter(3600)
       getQuestions(table)
     } else {
+      saveScore()
       setGameState((prev) => ({ ...prev, isFinished: true }))
     }
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
+  }
+
+  const saveScore = () => {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const localScores = localStorage.getItem("exam_scores")
+      const newScore = {
+        qualification: table === "questions_inf02" ? "INF.02" : "INF.03",
+        date: new Date(),
+        amountCorrect: gameState.amountCorrect,
+        amountIncorrect: gameState.amountIncorrect,
+        amountUnanswered: gameState.amountUnanswered,
+        scorePercentage: scorePercentage,
+      }
+      if (localScores) {
+        console.log("localScores truthy")
+        const parsedScores = JSON.parse(localScores) as ExamScore[]
+        parsedScores.unshift(newScore)
+        localStorage.setItem("exam_scores", JSON.stringify(parsedScores))
+      } else {
+        const scores: ExamScore[] = [newScore]
+        localStorage.setItem("exam_scores", JSON.stringify(scores))
+      }
+    }
   }
 
   const getQuestionCount = async (table: Table) => {
