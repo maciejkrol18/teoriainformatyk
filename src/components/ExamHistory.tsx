@@ -24,10 +24,10 @@ export default function ExamHistory() {
   return (
     <div className="flex flex-col gap-4">
       {examScores.length > 0 ? (
-        examScores.map((score) => {
+        examScores.map((score, idx) => {
           const formattedDate = dayjs(score.date).format("D MMMM YYYY [roku], HH:MM")
           return (
-            <Card>
+            <Card key={idx}>
               <p className="text-lg font-semibold">
                 Wynik {score.scorePercentage > 50 ? "pozytywny" : "negatywny"} (
                 {score.scorePercentage}%)
