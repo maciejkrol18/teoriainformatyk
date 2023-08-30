@@ -16,8 +16,9 @@ export default function CollectionCard({ question, setCollection }: CollectionCa
           <span className="text-secondary-300">#{question.id}</span>
           <button
             onClick={() => setCollection((prev) => prev?.filter((el) => el !== question))}
+            className="py-2 px-4 rounded-md hover:bg-secondary-300"
           >
-            Remove
+            Usuń
           </button>
         </div>
         <h1 className="text-lg font-semibold">{question.content}</h1>
