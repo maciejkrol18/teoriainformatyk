@@ -5,6 +5,7 @@ import * as React from "react"
 import Card from "./Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
+import { ExamScore } from "@/types/exam-score"
 import { cn } from "@/lib/utils"
 import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
 import ExamSkeleton from "./skeletons/ExamSkeleton"
@@ -111,12 +112,38 @@ export default function Exam({ table }: ExamProps) {
       setCounter(3600)
       getQuestions(table)
     } else {
+      saveScore()
       setGameState((prev) => ({ ...prev, isFinished: true }))
     }
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
+  }
+
+  const saveScore = () => {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      const localScores = localStorage.getItem("exam_scores")
+      const newScore = {
+        qualification: table === "questions_inf02" ? "INF.02" : "INF.03",
+        date: new Date(),
+        amountCorrect: gameState.amountCorrect,
+        amountIncorrect: gameState.amountIncorrect,
+        amountUnanswered: gameState.amountUnanswered,
+        scorePercentage: scorePercentage,
+      }
+      if (localScores) {
+        const parsedScores = JSON.parse(localScores) as ExamScore[]
+        parsedScores.unshift(newScore)
+        if (parsedScores.length > 5) {
+          parsedScores.pop()
+        }
+        localStorage.setItem("exam_scores", JSON.stringify(parsedScores))
+      } else {
+        const scores: ExamScore[] = [newScore]
+        localStorage.setItem("exam_scores", JSON.stringify(scores))
+      }
+    }
   }
 
   const getQuestionCount = async (table: Table) => {
