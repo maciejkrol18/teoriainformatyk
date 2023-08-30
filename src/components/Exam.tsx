@@ -133,7 +133,6 @@ export default function Exam({ table }: ExamProps) {
         scorePercentage: scorePercentage,
       }
       if (localScores) {
-        console.log("localScores truthy")
         const parsedScores = JSON.parse(localScores) as ExamScore[]
         parsedScores.unshift(newScore)
         if (parsedScores.length > 5) {
