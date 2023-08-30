@@ -5,6 +5,7 @@ import * as React from "react"
 import Card from "./Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
+import { ExamScore } from "@/types/exam-score"
 import { cn } from "@/lib/utils"
 import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
 import ExamSkeleton from "./skeletons/ExamSkeleton"
@@ -18,15 +19,6 @@ type GameState = {
   amountCorrect: number
   amountIncorrect: number
   amountUnanswered: number
-}
-
-type ExamScore = {
-  qualification: string
-  date: Date
-  amountCorrect: number
-  amountIncorrect: number
-  amountUnanswered: number
-  scorePercentage: number
 }
 
 export default function Exam({ table }: ExamProps) {
