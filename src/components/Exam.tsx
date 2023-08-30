@@ -136,6 +136,9 @@ export default function Exam({ table }: ExamProps) {
         console.log("localScores truthy")
         const parsedScores = JSON.parse(localScores) as ExamScore[]
         parsedScores.unshift(newScore)
+        if (parsedScores.length > 5) {
+          parsedScores.pop()
+        }
         localStorage.setItem("exam_scores", JSON.stringify(parsedScores))
       } else {
         const scores: ExamScore[] = [newScore]

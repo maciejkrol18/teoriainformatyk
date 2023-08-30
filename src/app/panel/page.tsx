@@ -28,10 +28,8 @@ export default function Page() {
             <h2 className="text-2xl font-bold">Trudne pytania</h2>
           </div>
           <p className="leading-6">
-            Kolekcja trudnych pytań służy do rozpoczęcia specjalnego trybu jednego
-            pytania/egzaminu w którym występują jedynie pytania z jej puli. Po rozwinięciu
-            danej kolekcji dostępne jest edytowalne pole z ID pytań oddzielonymi po
-            przecinku oraz lista pytań wraz z poprawnymi odpowiedziami.
+            Kolekcja trudnych pytań służy do rozpoczęcia specjalnego trybu jednego pytania
+            w którym występują jedynie pytania z jej puli.
           </p>
           <CollectionAccordion>
             <CollectionManager
@@ -54,9 +52,7 @@ export default function Page() {
           </div>
           <p className="leading-6">
             Pytania zawarte w kolekcji łatwych pytań nie pojawiają się w trybie jednego
-            pytania. Po rozwinięciu danej kolekcji dostępne jest edytowalne pole z ID
-            pytań oddzielonymi po przecinku oraz lista pytań wraz z poprawnymi
-            odpowiedziami.
+            pytania.
           </p>
           <CollectionAccordion>
             <CollectionManager
@@ -78,9 +74,9 @@ export default function Page() {
             <h2 className="text-2xl font-bold">Historia egzaminów</h2>
           </div>
           <p className="leading-6">
-            Poniżej znajduje się lista 10 ostatnio wykonanych przez ciebie egzaminów. W
-            skład danych o egzaminie wchodzi data wykonania, liczba poprawnych i
-            niepoprawnych odpowiedzi oraz procentowy wynik.
+            Poniżej znajduje się lista 5 ostatnio wykonanych przez ciebie egzaminów. W
+            skład danych o egzaminie wchodzi kwalifikacja egzaminu, data wykonania oraz
+            liczba poprawnych i niepoprawnych odpowiedzi.
           </p>
           <ExamHistory />
         </Card>
