@@ -1,6 +1,7 @@
 import Card from "@/components/Card"
 import CollectionAccordion from "@/components/CollectionAccordion"
 import CollectionManager from "@/components/CollectionManager"
+import ExamHistory from "@/components/ExamHistory"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
 
 export default function Page() {
@@ -81,6 +82,7 @@ export default function Page() {
             skład danych o egzaminie wchodzi data wykonania, liczba poprawnych i
             niepoprawnych odpowiedzi oraz procentowy wynik.
           </p>
+          <ExamHistory />
         </Card>
       </main>
     </>
