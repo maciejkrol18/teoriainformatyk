@@ -1,6 +1,5 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { XCircleIcon, Menu } from "lucide-react"
 import { useState, useEffect } from "react"
 import MobileNavigation from "./MobileNavigation"
@@ -14,7 +13,7 @@ export default function Header() {
     setMobileNavOpen(false)
   }, [path])
   return (
-    <header className={cn({ "bg-primary shadow-card-inset": path !== "/" }, "py-4")}>
+    <header className="py-4">
       <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold tracking-wide">
           teoriainformatyk
