@@ -65,8 +65,8 @@ export default function Search() {
           </h1>
           <div className="flex flex-col gap-4">
             {inf02Results && inf02Results.length > 0 ? (
-              inf02Results.map((question) => (
-                <Card>
+              inf02Results.map((question, idx) => (
+                <Card key={idx}>
                   <div className="flex flex-col gap-2">
                     <span className="text-secondary-300">#{question.id}</span>
                     <h1 className="text-lg font-semibold">{question.content}</h1>
@@ -108,8 +108,8 @@ export default function Search() {
           </h2>
           <div className="flex flex-col gap-4">
             {inf03Results && inf03Results.length > 0 ? (
-              inf03Results.map((question) => (
-                <Card>
+              inf03Results.map((question, idx) => (
+                <Card key={idx}>
                   <div className="flex flex-col gap-2">
                     <span className="text-secondary-300">#{question.id}</span>
                     <h1 className="text-lg font-semibold">{question.content}</h1>
