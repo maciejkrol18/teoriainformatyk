@@ -47,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div
           className={cn(
             inter.className,
-            "bg-gradient-primary text-foreground min-h-screen flex flex-col",
+            "bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col",
           )}
         >
           <TailwindIndicator />
