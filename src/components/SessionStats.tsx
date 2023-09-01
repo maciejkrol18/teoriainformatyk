@@ -1,5 +1,3 @@
-"use client"
-
 import { cn } from "@/lib/utils"
 import { BarChart, XCircle } from "lucide-react"
 import { Drawer } from "vaul"
@@ -8,16 +6,36 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import duration from "dayjs/plugin/duration"
 
-interface SessionStatsProps {}
+interface SessionStatsProps {
+  counter: number
+  correctAnswers: number
+  incorrectAnswers: number
+  timesRolled: number
+}
 
-export default function SessionStats({}: SessionStatsProps) {
+export default function SessionStats({
+  counter,
+  correctAnswers,
+  incorrectAnswers,
+  timesRolled,
+}: SessionStatsProps) {
   dayjs.extend(duration)
-  const [counter, setCounter] = useState<number>(0)
 
-  useEffect(() => {
-    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
-    return () => clearInterval(counterInterval)
-  }, [])
+  const statsContent = (
+    <div className="flex flex-col gap-4">
+      <p>Upłynęło czasu: {dayjs.duration(counter, "seconds").format("HH:mm:ss")}</p>
+      <p>Poprawne odpowiedzi: {correctAnswers}</p>
+      <p>Niepoprawne odpowiedzi: {incorrectAnswers}</p>
+      <p>Wylosowanych pytań: {timesRolled}</p>
+      <p>
+        Wynik procentowy:{" "}
+        {correctAnswers &&
+          incorrectAnswers &&
+          ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2)}
+        %
+      </p>
+    </div>
+  )
 
   return (
     <>
@@ -43,10 +61,7 @@ export default function SessionStats({}: SessionStatsProps) {
                   <Drawer.Title className="font-semibold text-3xl">
                     Statystyki sesji
                   </Drawer.Title>
-                  <p className="mb-2">
-                    Upłynęło czasu:{" "}
-                    {dayjs.duration(counter, "seconds").format("HH:mm:ss")}
-                  </p>
+                  {statsContent}
                 </div>
               </div>
             </Drawer.Content>
@@ -82,9 +97,7 @@ export default function SessionStats({}: SessionStatsProps) {
                   </button>
                 </Dialog.Close>
               </Dialog.Title>
-              <p className="mb-2">
-                Upłynęło czasu: {dayjs.duration(counter, "seconds").format("HH:mm:ss")}
-              </p>
+              {statsContent}
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>

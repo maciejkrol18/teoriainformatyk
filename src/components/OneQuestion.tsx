@@ -19,12 +19,19 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const [currentQuestion, setCurrentQuestion] = React.useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
   const [questionCount, setQuestionCount] = React.useState<number | null>(null)
+
+  const [correctAnswers, setCorrectAnswers] = React.useState<number>(0)
+  const [incorrectAnswers, setIncorrectAnswers] = React.useState<number>(0)
+  const [timesRolled, setTimesRolled] = React.useState<number>(0)
+  const [counter, setCounter] = React.useState<number>(0)
+
   const [hardCollection, setHardCollection] = React.useState<number[]>(() =>
     getCollection(`${table}_hard`),
   )
   const [easyCollection, setEasyCollection] = React.useState<number[]>(() =>
     getCollection(`${table}_easy`),
   )
+
   const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
@@ -86,6 +93,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }
 
   const rollQuestion = () => {
+    setTimesRolled((prev) => prev + 1)
     setCurrentQuestion(null)
     setSelectedAnswer(null)
     getRandomQuestion()
@@ -105,9 +113,13 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       rollQuestion()
     }
 
+    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
     window.addEventListener("keydown", handleSpacebar)
 
-    return () => window.removeEventListener("keydown", handleSpacebar)
+    return () => {
+      clearInterval(counterInterval)
+      window.removeEventListener("keydown", handleSpacebar)
+    }
   }, [])
 
   React.useEffect(() => {
@@ -117,6 +129,16 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       }
     }
   }, [questionCount])
+
+  React.useEffect(() => {
+    if (currentQuestion && selectedAnswer) {
+      if (selectedAnswer === currentQuestion.correct_answer) {
+        setCorrectAnswers((prev) => prev + 1)
+      } else {
+        setIncorrectAnswers((prev) => prev + 1)
+      }
+    }
+  }, [selectedAnswer])
 
   return (
     <main className="flex flex-col gap-6 pb-8">
@@ -174,7 +196,12 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
               id={currentQuestion.id}
               table={table}
             />
-            <SessionStats />
+            <SessionStats
+              counter={counter}
+              correctAnswers={correctAnswers}
+              incorrectAnswers={incorrectAnswers}
+              timesRolled={timesRolled}
+            />
           </div>
         </>
       ) : (
