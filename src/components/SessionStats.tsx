@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils"
 import { BarChart, XCircle } from "lucide-react"
 import { Drawer } from "vaul"
 import * as Dialog from "@radix-ui/react-dialog"
-import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import duration from "dayjs/plugin/duration"
 
@@ -57,7 +56,7 @@ export default function SessionStats({
             <Drawer.Content className="bg-gradient-primary flex flex-col rounded-t-md h-[96%] mt-24 fixed bottom-0 left-0 right-0">
               <div className="p-4 bg-gradient-primary rounded-t-[10px] flex-1 text-foreground border-secondary-300 border-[1px]">
                 <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-secondary-300 mb-8" />
-                <div className="max-w-md mx-auto">
+                <div className="flex flex-col gap-4 max-w-md mx-auto">
                   <Drawer.Title className="font-semibold text-3xl">
                     Statystyki sesji
                   </Drawer.Title>
