@@ -5,7 +5,7 @@ import { Table } from "@/types/table"
 import { BarChart, SkullIcon, SmileIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface ControlPanelProps {
+interface CollectionControlsProps {
   id: number
   hardCollection: number[]
   setHardCollection: React.Dispatch<React.SetStateAction<number[]>>
@@ -14,14 +14,14 @@ interface ControlPanelProps {
   table: Table
 }
 
-export default function ControlPanel({
+export default function CollectionControls({
   id,
   hardCollection,
   setHardCollection,
   easyCollection,
   setEasyCollection,
   table,
-}: ControlPanelProps) {
+}: CollectionControlsProps) {
   const [isHard, setIsHard] = React.useState<boolean>(false)
   const [isEasy, setIsEasy] = React.useState<boolean>(false)
 
@@ -74,7 +74,7 @@ export default function ControlPanel({
   }, [hardCollection, easyCollection])
 
   return (
-    <div className="flex gap-4 items-center justify-center text-secondary-300">
+    <>
       <button
         id="hard"
         onClick={handleHardBtnClick}
@@ -101,15 +101,6 @@ export default function ControlPanel({
       >
         <SmileIcon className="w-8 h-8" />
       </button>
-      <button
-        id="stats"
-        className={cn(
-          "border-2 border-secondary-300 rounded-full p-2",
-          "hover:text-foreground hover:border-foreground",
-        )}
-      >
-        <BarChart className="w-8 h-8" />
-      </button>
-    </div>
+    </>
   )
 }
