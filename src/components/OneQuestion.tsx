@@ -7,7 +7,8 @@ import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { cn, getCollection } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
-import ControlPanel from "./ControlPanel"
+import CollectionControls from "./CollectionControls"
+import SessionStats from "./SessionStats"
 
 interface OneQuestionProps {
   hardMode?: boolean
@@ -164,14 +165,17 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
             </div>
             {currentQuestion.image && <img src={currentQuestion.image}></img>}
           </Card>
-          <ControlPanel
-            hardCollection={hardCollection}
-            setHardCollection={setHardCollection}
-            easyCollection={easyCollection}
-            setEasyCollection={setEasyCollection}
-            id={currentQuestion.id}
-            table={table}
-          />
+          <div className="flex gap-4 items-center justify-center text-secondary-300">
+            <CollectionControls
+              hardCollection={hardCollection}
+              setHardCollection={setHardCollection}
+              easyCollection={easyCollection}
+              setEasyCollection={setEasyCollection}
+              id={currentQuestion.id}
+              table={table}
+            />
+            <SessionStats />
+          </div>
         </>
       ) : (
         <CardSkeleton />
