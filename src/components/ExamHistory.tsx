@@ -25,7 +25,7 @@ export default function ExamHistory() {
     <div className="flex flex-col gap-4">
       {examScores.length > 0 ? (
         examScores.map((score, idx) => {
-          const formattedDate = dayjs(score.date).format("D MMMM YYYY [roku], HH:MM")
+          const formattedDate = dayjs(score.date).format("D MMMM YYYY [roku], HH:mm")
           return (
             <Card key={idx}>
               <p className="text-lg font-semibold">
