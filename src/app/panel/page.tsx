@@ -3,6 +3,7 @@ import CollectionAccordion from "@/components/CollectionAccordion"
 import CollectionManager from "@/components/CollectionManager"
 import ExamHistory from "@/components/ExamHistory"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -31,6 +32,18 @@ export default function Page() {
             Kolekcja trudnych pytań służy do rozpoczęcia specjalnego trybu jednego pytania
             w którym występują jedynie pytania z jej puli.
           </p>
+          <Link
+            className="py-2 px-4 bg-accent-purple font-semibold rounded-md"
+            href="/inf02/jedno-pytanie/trudne"
+          >
+            Hard mode - INF.02
+          </Link>
+          <Link
+            className="py-2 px-4 bg-accent-purple font-semibold rounded-md"
+            href="/inf03/jedno-pytanie/trudne"
+          >
+            Hard mode - INF.03
+          </Link>
           <CollectionAccordion>
             <CollectionManager
               title="INF.02"
