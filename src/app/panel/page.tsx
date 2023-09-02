@@ -1,5 +1,5 @@
 import Card from "@/components/ui/Card"
-import CollectionAccordion from "@/components/CollectionAccordion"
+import CollectionAccordion from "@/components/collection/CollectionAccordion"
 import CollectionManager from "@/components/collection/CollectionManager"
 import ExamHistory from "@/components/ExamHistory"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
