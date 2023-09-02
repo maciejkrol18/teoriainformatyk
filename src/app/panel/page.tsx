@@ -9,7 +9,7 @@ import PageTitle from "@/components/ui/PageTitle"
 export default function Page() {
   return (
     <>
-      <PageTitle smallTitle="Baza danych" bigTitle="Twoje lokalne dane" />
+      <PageTitle smallTitle="Panel użytkownika" bigTitle="Twoje lokalne dane" />
       <main className="flex flex-col gap-8 mb-4 md:w-full md:max-w-lg md:mx-auto">
         <p className="text-secondary-300 text-justify">
           Wszystkie widoczne poniżej dane gromadzone są tylko i wyłącznie w pamięci

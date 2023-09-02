@@ -1,14 +1,10 @@
 import Exam from "@/components/Exam"
+import PageTitle from "@/components/ui/PageTitle"
 
 export default function Page() {
   return (
     <>
-      <div className="flex flex-col items-center py-12">
-        <span className="text-transparent text-xl font-bold bg-clip-text bg-gradient-accent animate-moving-gradient">
-          INF.02
-        </span>
-        <h1 className="text-2xl font-bold">Egzamin</h1>
-      </div>
+      <PageTitle smallTitle="INF.02" bigTitle="Egzamin" />
       <div className="md:w-full md:max-w-lg md:mx-auto">
         <Exam table="questions_inf02" />
       </div>
