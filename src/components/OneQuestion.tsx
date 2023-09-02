@@ -108,7 +108,9 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       getQuestionCount(table)
     } else {
       if (hardCollection.length === 0) {
-        throw new Error("There are no IDs within the collection")
+        throw new Error(
+          "Brak ID w kolekcji trudnych pytań. Dodaj do niej minimum jedno pytanie przed rozpoczęciem specjalnego trybu",
+        )
       }
       rollQuestion()
     }
