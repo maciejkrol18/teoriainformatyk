@@ -2,7 +2,7 @@
 
 import { ExamScore } from "@/types/exam-score"
 import { useEffect, useState } from "react"
-import Card from "./Card"
+import Card from "./ui/Card"
 import dayjs from "dayjs"
 import pl from "dayjs/locale/pl"
 import { Calendar, CheckCircle2, HelpCircle, XCircle } from "lucide-react"

@@ -1,4 +1,4 @@
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import { Database, ScrollText, Zap } from "lucide-react"
 import Link from "next/link"
 

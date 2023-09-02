@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { useState } from "react"
-import Card from "./Card"
+import Card from "./ui/Card"
 import { cn } from "@/lib/utils"
 
 export default function Search() {

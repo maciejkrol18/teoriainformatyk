@@ -2,12 +2,12 @@
 
 import { supabase } from "@/lib/supabase"
 import { useState, useEffect, useRef } from "react"
-import Card from "./Card"
+import Card from "./ui/Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { cn, getCollection } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
-import CollectionControls from "./CollectionControls"
+import CollectionControls from "./collection/CollectionControls"
 import SessionStats from "./SessionStats"
 
 interface OneQuestionProps {
