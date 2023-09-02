@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import Header from "@/components/Header"
+import Header from "@/components/ui/Header"
 import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 
