@@ -45,12 +45,14 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
           .eq("id", randomId)
 
         if (error) {
-          console.log(error)
-          return
+          console.error(error)
+          throw new Error(
+            "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
+          )
         }
 
         if (data[0] === undefined) {
-          throw new Error("Returned question is undefined")
+          throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
         }
 
         setCurrentQuestion(data[0])
@@ -64,12 +66,14 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
         .eq("id", randomId)
 
       if (error) {
-        console.log(error)
-        return
+        console.error(error)
+        throw new Error(
+          "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
+        )
       }
 
       if (data[0] === undefined) {
-        throw new Error("Returned question is undefined")
+        throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
       }
 
       setCurrentQuestion(data[0])
@@ -79,8 +83,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const getQuestionCount = async (table: Table) => {
     const { count, error } = await supabase.from(table).select("id", { count: "exact" })
     if (error) {
-      console.log(error)
-      return
+      console.error(error)
+      throw new Error("Bazie danych nie udało zwrócić się ilości rzędów w tabeli")
     }
     setQuestionCount(count)
   }

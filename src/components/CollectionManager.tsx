@@ -30,12 +30,14 @@ export default function CollectionManager({
         .filter("id", "in", `(${idList.join(",")})`)
 
       if (error) {
-        console.log(error)
-        return
+        console.error(error)
+        throw new Error(
+          "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
+        )
       }
 
       if (data === undefined) {
-        throw new Error("Supabase returned undefined")
+        throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
       }
 
       setQuestionArray(data)

@@ -50,11 +50,14 @@ export default function Exam({ table }: ExamProps) {
         .filter("id", "in", `(${idArray.join(",")})`)
 
       if (error) {
-        throw new Error(JSON.stringify(error))
+        console.error(error)
+        throw new Error(
+          "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
+        )
       }
 
       if (data[0] === undefined) {
-        throw new Error("Returned question is undefined")
+        throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
       }
 
       setQuestionsArray(
