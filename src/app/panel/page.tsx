@@ -4,16 +4,12 @@ import CollectionManager from "@/components/collection/CollectionManager"
 import ExamHistory from "@/components/ExamHistory"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
 import Link from "next/link"
+import PageTitle from "@/components/ui/PageTitle"
 
 export default function Page() {
   return (
     <>
-      <div className="flex flex-col items-center py-12">
-        <span className="uppercase text-transparent text-xl font-bold bg-clip-text bg-gradient-accent animate-moving-gradient">
-          Panel użytkownika
-        </span>
-        <h1 className="text-2xl font-bold">Twoje lokalne dane</h1>
-      </div>
+      <PageTitle smallTitle="Baza danych" bigTitle="Twoje lokalne dane" />
       <main className="flex flex-col gap-8 mb-4 md:w-full md:max-w-lg md:mx-auto">
         <p className="text-secondary-300 text-justify">
           Wszystkie widoczne poniżej dane gromadzone są tylko i wyłącznie w pamięci
