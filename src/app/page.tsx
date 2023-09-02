@@ -1,5 +1,5 @@
 import Card from "@/components/Card"
-import { Database, ScrollText, Search, Zap } from "lucide-react"
+import { Database, ScrollText, Zap } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {

@@ -1,7 +1,7 @@
 "use client"
 
 import { supabase } from "@/lib/supabase"
-import * as React from "react"
+import { useState, useEffect, useRef } from "react"
 import Card from "./Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
@@ -16,23 +16,23 @@ interface OneQuestionProps {
 }
 
 export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
-  const [currentQuestion, setCurrentQuestion] = React.useState<Question | null>(null)
-  const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null)
-  const [questionCount, setQuestionCount] = React.useState<number | null>(null)
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [questionCount, setQuestionCount] = useState<number | null>(null)
 
-  const [correctAnswers, setCorrectAnswers] = React.useState<number>(0)
-  const [incorrectAnswers, setIncorrectAnswers] = React.useState<number>(0)
-  const [timesRolled, setTimesRolled] = React.useState<number>(0)
-  const [counter, setCounter] = React.useState<number>(0)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0)
+  const [timesRolled, setTimesRolled] = useState(0)
+  const [counter, setCounter] = useState(0)
 
-  const [hardCollection, setHardCollection] = React.useState<number[]>(() =>
+  const [hardCollection, setHardCollection] = useState<number[]>(() =>
     getCollection(`${table}_hard`),
   )
-  const [easyCollection, setEasyCollection] = React.useState<number[]>(() =>
+  const [easyCollection, setEasyCollection] = useState<number[]>(() =>
     getCollection(`${table}_easy`),
   )
 
-  const rollButtonRef = React.useRef<HTMLButtonElement | null>(null)
+  const rollButtonRef = useRef<HTMLButtonElement | null>(null)
 
   const getRandomQuestion = async () => {
     if (!hardMode) {
@@ -107,7 +107,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     setSelectedAnswer(answer)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!hardMode) {
       getQuestionCount(table)
     } else {
@@ -128,7 +128,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     }
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!hardMode) {
       if (questionCount) {
         rollQuestion()
@@ -136,7 +136,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     }
   }, [questionCount])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentQuestion && selectedAnswer) {
       if (selectedAnswer === currentQuestion.correct_answer) {
         setCorrectAnswers((prev) => prev + 1)

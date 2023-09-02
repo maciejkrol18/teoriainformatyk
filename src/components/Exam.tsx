@@ -1,7 +1,7 @@
 "use client"
 
 import { supabase } from "@/lib/supabase"
-import * as React from "react"
+import { useState, useEffect } from "react"
 import Card from "./Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
@@ -22,16 +22,16 @@ type GameState = {
 }
 
 export default function Exam({ table }: ExamProps) {
-  const [questionCount, setQuestionCount] = React.useState<number | null>(null)
-  const [questionsArray, setQuestionsArray] = React.useState<ExamQuestion[]>([])
-  const [counter, setCounter] = React.useState<number>(3600)
-  const [gameState, setGameState] = React.useState<GameState>({
+  const [questionCount, setQuestionCount] = useState<number | null>(null)
+  const [questionsArray, setQuestionsArray] = useState<ExamQuestion[]>([])
+  const [counter, setCounter] = useState(3600)
+  const [gameState, setGameState] = useState<GameState>({
     isFinished: false,
     amountCorrect: 0,
     amountIncorrect: 0,
     amountUnanswered: 0,
   })
-  const [scorePercentage, setScorePercentage] = React.useState<number>(0)
+  const [scorePercentage, setScorePercentage] = useState(0)
 
   const getQuestions = async (table: Table) => {
     if (questionCount) {
@@ -155,7 +155,7 @@ export default function Exam({ table }: ExamProps) {
     setQuestionCount(count)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setGameState((prev) => ({
       ...prev,
       amountCorrect: questionsArray.filter((question) => question.correct_selected)
@@ -168,11 +168,11 @@ export default function Exam({ table }: ExamProps) {
     }))
   }, [questionsArray])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setScorePercentage((gameState.amountCorrect / questionsArray.length) * 100)
   }, [gameState])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (questionCount) {
       getQuestions(table)
     }
@@ -182,13 +182,13 @@ export default function Exam({ table }: ExamProps) {
     return () => clearInterval(counterInterval)
   }, [questionCount])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (counter === 0) {
       endGame()
     }
   }, [counter])
 
-  React.useEffect(() => {
+  useEffect(() => {
     getQuestionCount(table)
   }, [])
 

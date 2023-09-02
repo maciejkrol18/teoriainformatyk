@@ -1,8 +1,8 @@
 "use client"
 
-import * as React from "react"
+import { useState, useEffect } from "react"
 import { Table } from "@/types/table"
-import { BarChart, SkullIcon, SmileIcon } from "lucide-react"
+import { SkullIcon, SmileIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface CollectionControlsProps {
@@ -22,8 +22,8 @@ export default function CollectionControls({
   setEasyCollection,
   table,
 }: CollectionControlsProps) {
-  const [isHard, setIsHard] = React.useState<boolean>(false)
-  const [isEasy, setIsEasy] = React.useState<boolean>(false)
+  const [isHard, setIsHard] = useState(false)
+  const [isEasy, setIsEasy] = useState(false)
 
   const handleHardBtnClick = () => {
     if (isHard) {
@@ -51,7 +51,7 @@ export default function CollectionControls({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Reset the states
     setIsHard(false)
     setIsEasy(false)
@@ -60,15 +60,15 @@ export default function CollectionControls({
     setIsEasy(easyCollection.includes(id))
   }, [id])
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem(`${table}_hard`, JSON.stringify(hardCollection))
   }, [hardCollection])
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem(`${table}_easy`, JSON.stringify(easyCollection))
   }, [easyCollection])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsHard(hardCollection.includes(id))
     setIsEasy(easyCollection.includes(id))
   }, [hardCollection, easyCollection])
