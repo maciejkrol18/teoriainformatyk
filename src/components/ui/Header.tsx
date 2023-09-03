@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="py-4">
       <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold tracking-wide">
+        <Link href="/" className="text-2xl font-heading tracking-wide">
           teoriainformatyk
         </Link>
         <nav className="hidden lg:flex gap-8">
