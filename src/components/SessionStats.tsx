@@ -29,8 +29,9 @@ export default function SessionStats({
       <p>
         Wynik procentowy:{" "}
         {correctAnswers &&
-          incorrectAnswers &&
-          ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2)}
+          parseFloat(
+            ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2),
+          )}
         %
       </p>
     </div>
