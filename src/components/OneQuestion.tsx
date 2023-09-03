@@ -66,6 +66,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       if (randomId) {
         const question = await getQuestionById(randomId)
         setCurrentQuestion(question)
+      } else {
+        throw new Error("Nie udało się pobrać ID z kolekcji trudnych pytań")
       }
     }
   }
