@@ -93,10 +93,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     getRandomQuestion()
   }
 
-  const submitAnswer = (answer: string) => {
-    setSelectedAnswer(answer)
-  }
-
   useEffect(() => {
     if (!hardMode) {
       getQuestionCount(table)
@@ -158,7 +154,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
                 const letters = "abcd"
                 return (
                   <button
-                    onClick={() => submitAnswer(answer)}
+                    onClick={() => setSelectedAnswer(answer)}
                     disabled={Boolean(selectedAnswer)}
                     className={cn(
                       "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
