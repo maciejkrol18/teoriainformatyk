@@ -1,7 +1,7 @@
 "use client"
 
 import { supabase } from "@/lib/supabase"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Card from "./ui/Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
@@ -31,8 +31,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const [easyCollection, setEasyCollection] = useState<number[]>(() =>
     getCollection(`${table}_easy`),
   )
-
-  const rollButtonRef = useRef<HTMLButtonElement | null>(null)
 
   const getQuestionById = async (id: number) => {
     const { data, error } = await supabase
@@ -81,13 +79,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     setQuestionCount(count)
   }
 
-  const handleSpacebar = (e: KeyboardEvent) => {
-    if (e.code === "Space") {
-      rollButtonRef.current?.blur()
-      rollQuestion()
-    }
-  }
-
   const rollQuestion = () => {
     setTimesRolled((prev) => prev + 1)
     setCurrentQuestion(null)
@@ -108,12 +99,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     }
 
     const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
-    window.addEventListener("keydown", handleSpacebar)
 
-    return () => {
-      clearInterval(counterInterval)
-      window.removeEventListener("keydown", handleSpacebar)
-    }
+    return () => clearInterval(counterInterval)
   }, [])
 
   useEffect(() => {
@@ -137,12 +124,10 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   return (
     <main className="flex flex-col gap-6 pb-8">
       <button
-        ref={rollButtonRef}
         onClick={() => rollQuestion()}
         className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
       >
-        {selectedAnswer ? "Następne" : "Losuj"}{" "}
-        <span className="hidden lg:inline">(Spacja)</span>
+        {selectedAnswer ? "Następne" : "Losuj"}
       </button>
       {currentQuestion ? (
         <>
