@@ -3,18 +3,22 @@
 teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams available at [teoriainformatyk.vercel.app](https://teoriainformatyk.vercel.app)
 
 ## Features
-
-> [!IMPORTANT]
-> The app is still in development. Features written in italics are not yet available
-
-- One question mode - roll and answer to a random question idefinetely
-- _Exam mode - roll 40 random questions and see your results at the end_
-- _Exam score history - see your 10 latest scores obtained in the exam mode_
-- _Locally saved collection of hard and easy questions and modifiable by the user_
-- _Question search bar_
+- One question mode
+  - roll and answer to a random question idefinetely
+  - see the stats for the current session, including elapsed time and percentage score
+  - save questions to two local collections (easy and hard)
+- Exam mode
+  - roll 40 random questions and see the results at the end
+  - every score saves locally up to a max of 5 scores
+- User panel
+  - managing panels for both of the local collections
+    - Hard collection: those questions appear in special one question hard mode
+    - Easy collection: those questions do not appear at all in the one question mode
+  - exam score history
+- Question search bar
+  - search the database for questions by typing in its content
 
 ## Technologies used
-
 - Typescript
 - NextJS 13 /w App Router
 - Tailwind CSS
