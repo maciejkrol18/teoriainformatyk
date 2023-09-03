@@ -87,7 +87,6 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }
 
   const rollQuestion = () => {
-    console.log(questionCount)
     setTimesRolled((prev) => prev + 1)
     setCurrentQuestion(null)
     setSelectedAnswer(null)
