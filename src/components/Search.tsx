@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils"
 export default function Search() {
   const [inf02Results, setInf02Results] = useState<Question[] | null>(null)
   const [inf03Results, setInf03Results] = useState<Question[] | null>(null)
-  const [searchQuery, setSearchQuery] = useState<string>("")
-  const [isSearching, setIsSearching] = useState<boolean>(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isSearching, setIsSearching] = useState(false)
 
   const getSearchResults = async (query: string, table: Table) => {
     const { data, error } = await supabase

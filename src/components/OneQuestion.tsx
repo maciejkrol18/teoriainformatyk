@@ -34,49 +34,39 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
 
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
 
+  const getQuestionById = async (id: number) => {
+    const { data, error } = await supabase
+      .from(table)
+      .select("answers, content, correct_answer, id, image")
+      .eq("id", id)
+
+    if (error) {
+      console.error(error)
+      throw new Error(
+        "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
+      )
+    }
+
+    if (data[0] === undefined) {
+      throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
+    }
+
+    return data[0]
+  }
+
   const getRandomQuestion = async () => {
     if (!hardMode) {
       if (questionCount) {
         const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-
-        const { data, error } = await supabase
-          .from(table)
-          .select("answers, content, correct_answer, id, image")
-          .eq("id", randomId)
-
-        if (error) {
-          console.error(error)
-          throw new Error(
-            "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
-          )
-        }
-
-        if (data[0] === undefined) {
-          throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
-        }
-
-        setCurrentQuestion(data[0])
+        const question = await getQuestionById(randomId)
+        setCurrentQuestion(question)
       }
     } else {
       const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
-
-      const { data, error } = await supabase
-        .from(table)
-        .select("answers, content, correct_answer, id, image")
-        .eq("id", randomId)
-
-      if (error) {
-        console.error(error)
-        throw new Error(
-          "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
-        )
+      if (randomId) {
+        const question = await getQuestionById(randomId)
+        setCurrentQuestion(question)
       }
-
-      if (data[0] === undefined) {
-        throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
-      }
-
-      setCurrentQuestion(data[0])
     }
   }
 
@@ -97,6 +87,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }
 
   const rollQuestion = () => {
+    console.log(questionCount)
     setTimesRolled((prev) => prev + 1)
     setCurrentQuestion(null)
     setSelectedAnswer(null)
