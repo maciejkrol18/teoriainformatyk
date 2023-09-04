@@ -9,6 +9,7 @@ import { cn, getCollection } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import CollectionControls from "./collection/CollectionControls"
 import SessionStats from "./SessionStats"
+import Image from "next/image"
 
 interface OneQuestionProps {
   hardMode?: boolean
@@ -164,7 +165,9 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
                 )
               })}
             </div>
-            {currentQuestion.image && <img src={currentQuestion.image}></img>}
+            {currentQuestion.image && (
+              <Image src={currentQuestion.image} alt="" width={500} height={200} />
+            )}
           </Card>
           <div className="flex gap-4 items-center justify-center text-secondary-300">
             <CollectionControls

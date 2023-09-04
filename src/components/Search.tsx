@@ -5,6 +5,7 @@ import { Table } from "@/types/table"
 import { useState } from "react"
 import Card from "./ui/Card"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 export default function Search() {
   const [inf02Results, setInf02Results] = useState<Question[] | null>(null)
@@ -92,7 +93,9 @@ export default function Search() {
                       )
                     })}
                   </div>
-                  {question.image && <img src={question.image}></img>}
+                  {question.image && (
+                    <Image src={question.image} alt="" width={500} height={200} />
+                  )}
                 </Card>
               ))
             ) : inf02Results && inf02Results.length === 0 ? (
@@ -135,7 +138,9 @@ export default function Search() {
                       )
                     })}
                   </div>
-                  {question.image && <img src={question.image}></img>}
+                  {question.image && (
+                    <Image src={question.image} alt="" width={500} height={200} />
+                  )}
                 </Card>
               ))
             ) : inf03Results && inf03Results.length === 0 ? (

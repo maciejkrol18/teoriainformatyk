@@ -9,6 +9,7 @@ import { ExamScore } from "@/types/exam-score"
 import { cn } from "@/lib/utils"
 import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
 import ExamSkeleton from "./skeletons/ExamSkeleton"
+import Image from "next/image"
 
 interface ExamProps {
   table: Table
@@ -32,6 +33,7 @@ export default function Exam({ table }: ExamProps) {
     amountUnanswered: 0,
   })
   const [scorePercentage, setScorePercentage] = useState(0)
+  console.log("exam re-rendered")
 
   const getQuestions = async (table: Table) => {
     if (questionCount) {
@@ -285,7 +287,9 @@ export default function Exam({ table }: ExamProps) {
                   )
                 })}
               </div>
-              {question.image && <img src={question.image}></img>}
+              {question.image && (
+                <Image src={question.image} alt="" width={500} height={200} />
+              )}
             </Card>
           ))}
 

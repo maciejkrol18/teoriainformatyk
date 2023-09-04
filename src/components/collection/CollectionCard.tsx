@@ -2,6 +2,7 @@
 import { Question } from "@/types/question"
 import Card from "../ui/Card"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface CollectionCardProps {
   question: Question
@@ -39,7 +40,7 @@ export default function CollectionCard({ question, setCollection }: CollectionCa
           )
         })}
       </div>
-      {question.image && <img src={question.image}></img>}
+      {question.image && <Image src={question.image} alt="" width={500} height={200} />}
     </Card>
   )
 }
