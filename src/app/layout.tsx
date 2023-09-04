@@ -2,11 +2,16 @@ import { cn } from "@/lib/utils"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import localFont from "next/font/local"
 import Header from "@/components/ui/Header"
 import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+const calSans = localFont({
+  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-calsans",
+})
 
 export const metadata: Metadata = {
   title: {
@@ -46,8 +51,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <div
           className={cn(
-            inter.className,
-            "bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col",
+            "bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col font-inter",
+            inter.variable,
+            calSans.variable,
           )}
         >
           <TailwindIndicator />

@@ -65,7 +65,8 @@ module.exports = {
         'card-inset': '0px 0px 10px 0px rgba(0, 0, 0, 0.25) inset',
       },
       fontFamily: {
-        "heading": ["CalSans", "sans-serif"]
+        "inter": ["var(--font-inter)"],
+        "calsans": ["var(--font-calsans)"]
       }
     },
   },

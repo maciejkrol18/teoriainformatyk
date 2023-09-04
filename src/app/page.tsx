@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function Home() {
   return (
     <>
-      <h1 className="text-3xl lg:text-4xl text-center py-14 font-heading leading-8 tracking-wide">
+      <h1 className="text-3xl lg:text-4xl text-center py-14 font-calsans leading-8 tracking-wide">
         Najlepsza powtórka <br /> do teoretycznego <br />
         <span className="text-transparent bg-clip-text bg-gradient-accent animate-moving-gradient">
           egzaminu zawodowego
