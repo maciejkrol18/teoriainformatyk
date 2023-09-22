@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
 import ExamSkeleton from "./skeletons/ExamSkeleton"
 import Image from "next/image"
+import ExamStopwatch from "./ExamTimer"
 
 interface ExamProps {
   table: Table
@@ -102,13 +103,6 @@ export default function Exam({ table }: ExamProps) {
         }
       }),
     )
-  }
-
-  const getFormattedSeconds = (x: number) => {
-    let hours = Math.floor(x / 3600)
-    let minutes = Math.floor((x - hours * 3600) / 60)
-    let seconds = x - hours * 3600 - minutes * 60
-    return `${minutes} minut ${seconds} sekund`
   }
 
   const endGame = () => {
@@ -234,9 +228,7 @@ export default function Exam({ table }: ExamProps) {
             </Card>
           )}
 
-          {!gameState.isFinished && counter && (
-            <p className="text-center">Pozostały czas: {getFormattedSeconds(counter)}</p>
-          )}
+          {!gameState.isFinished && <ExamStopwatch initialValue={3600} onEnd={endGame} />}
 
           {questionsArray.map((question) => (
             <Card key={question.id}>
@@ -293,9 +285,7 @@ export default function Exam({ table }: ExamProps) {
             </Card>
           ))}
 
-          {!gameState.isFinished && counter && (
-            <p className="text-center">Pozostały czas: {getFormattedSeconds(counter)}</p>
-          )}
+          {!gameState.isFinished && <ExamStopwatch initialValue={3600} onEnd={endGame} />}
 
           <button
             onClick={() => endGame()}
