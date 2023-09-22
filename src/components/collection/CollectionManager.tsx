@@ -70,6 +70,7 @@ export default function CollectionManager({
             questionArray.map((question, idx) => (
               <CollectionCard
                 key={idx}
+                table={table}
                 question={question}
                 setCollection={setQuestionArray}
               />
