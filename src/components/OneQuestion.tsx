@@ -166,7 +166,12 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
               })}
             </div>
             {currentQuestion.image && (
-              <Image src={currentQuestion.image} alt="" width={500} height={200} />
+              <Image
+                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${currentQuestion.id}.webp`}
+                alt="Obrazek załączony do pytania"
+                width={500}
+                height={200}
+              />
             )}
           </Card>
           <div className="flex gap-4 items-center justify-center text-secondary-300">

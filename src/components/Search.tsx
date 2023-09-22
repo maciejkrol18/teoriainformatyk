@@ -94,7 +94,12 @@ export default function Search() {
                     })}
                   </div>
                   {question.image && (
-                    <Image src={question.image} alt="" width={500} height={200} />
+                    <Image
+                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf02_images/${question.id}.webp`}
+                      alt="Obrazek załączony do pytania"
+                      width={500}
+                      height={200}
+                    />
                   )}
                 </Card>
               ))
@@ -139,7 +144,12 @@ export default function Search() {
                     })}
                   </div>
                   {question.image && (
-                    <Image src={question.image} alt="" width={500} height={200} />
+                    <Image
+                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf03_images/${question.id}.webp`}
+                      alt="Obrazek załączony do pytania"
+                      width={500}
+                      height={200}
+                    />
                   )}
                 </Card>
               ))
