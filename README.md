@@ -3,6 +3,7 @@
 teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams available at [teoriainformatyk.vercel.app](https://teoriainformatyk.vercel.app)
 
 ## Features
+
 - One question mode
   - roll and answer to a random question idefinetely
   - see the stats for the current session, including elapsed time and percentage score
@@ -19,6 +20,7 @@ teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams ava
   - search the database for questions by typing in its content
 
 ## Technologies used
+
 - Typescript
 - NextJS 13 /w App Router
 - Tailwind CSS
@@ -27,7 +29,7 @@ teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams ava
 ## SQL Table definition
 
 > [!NOTE]
-> Images are stored as Base64 strings
+> Images are stored in a Supabase bucket. Whether a question has an image attached to it is determined by the "image" boolean value within the table
 
 ```sql
 create table
@@ -36,10 +38,9 @@ create table
     created_at timestamp with time zone not null,
     content text not null,
     correct_answer text not null,
-    image text null,
+    image boolean not null,
     answers text[] not null,
     constraint questions_inf02_pkey primary key (id),
-    constraint questions_inf02_content_key unique (content),
     constraint questions_inf02_id_key unique (id)
   ) tablespace pg_default;
 ```
@@ -51,10 +52,9 @@ create table
     created_at timestamp with time zone not null,
     content text not null,
     correct_answer text not null,
-    image text null,
+    image boolean not null default false,
     answers text[] not null,
-    constraint questions_inf03_pkey primary key (id),
-    constraint questions_inf03_content_key unique (content)
+    constraint inf03_kopia_pkey primary key (id),
     constraint questions_inf03_id_key unique (id)
   ) tablespace pg_default;
 ```

@@ -24,7 +24,7 @@ export interface Database {
           correct_answer?: string
           created_at?: string
           id?: number
-          image: boolean
+          image?: boolean
         }
         Relationships: []
       }
@@ -43,7 +43,7 @@ export interface Database {
           correct_answer: string
           created_at: string
           id?: number
-          image: boolean
+          image?: boolean
         }
         Update: {
           answers?: string[]
@@ -51,7 +51,7 @@ export interface Database {
           correct_answer?: string
           created_at?: string
           id?: number
-          image: boolean
+          image?: boolean
         }
         Relationships: []
       }
@@ -60,7 +60,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      hello_world: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
