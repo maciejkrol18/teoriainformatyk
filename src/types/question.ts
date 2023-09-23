@@ -5,5 +5,5 @@ export type Question = {
   content: string
   correct_answer: string
   id: number
-  image: string | null
+  image: boolean
 }

@@ -3,13 +3,19 @@ import { Question } from "@/types/question"
 import Card from "../ui/Card"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import { Table } from "@/types/table"
 
 interface CollectionCardProps {
+  table: Table
   question: Question
   setCollection: React.Dispatch<React.SetStateAction<Question[] | undefined>>
 }
 
-export default function CollectionCard({ question, setCollection }: CollectionCardProps) {
+export default function CollectionCard({
+  table,
+  question,
+  setCollection,
+}: CollectionCardProps) {
   return (
     <Card>
       <div className="flex flex-col gap-2">
@@ -40,7 +46,14 @@ export default function CollectionCard({ question, setCollection }: CollectionCa
           )
         })}
       </div>
-      {question.image && <Image src={question.image} alt="" width={500} height={200} />}
+      {question.image && (
+        <Image
+          src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${question.id}.webp`}
+          alt="Obrazek załączony do pytania"
+          width={500}
+          height={200}
+        />
+      )}
     </Card>
   )
 }

@@ -1,11 +1,3 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
-
 export interface Database {
   public: {
     Tables: {
@@ -16,7 +8,7 @@ export interface Database {
           correct_answer: string
           created_at: string
           id: number
-          image: string | null
+          image: boolean
         }
         Insert: {
           answers: string[]
@@ -24,7 +16,7 @@ export interface Database {
           correct_answer: string
           created_at: string
           id?: number
-          image?: string | null
+          image: boolean
         }
         Update: {
           answers?: string[]
@@ -32,7 +24,7 @@ export interface Database {
           correct_answer?: string
           created_at?: string
           id?: number
-          image?: string | null
+          image: boolean
         }
         Relationships: []
       }
@@ -43,7 +35,7 @@ export interface Database {
           correct_answer: string
           created_at: string
           id: number
-          image: string | null
+          image: boolean
         }
         Insert: {
           answers: string[]
@@ -51,7 +43,7 @@ export interface Database {
           correct_answer: string
           created_at: string
           id?: number
-          image?: string | null
+          image: boolean
         }
         Update: {
           answers?: string[]
@@ -59,7 +51,7 @@ export interface Database {
           correct_answer?: string
           created_at?: string
           id?: number
-          image?: string | null
+          image: boolean
         }
         Relationships: []
       }

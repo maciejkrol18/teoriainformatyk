@@ -280,7 +280,12 @@ export default function Exam({ table }: ExamProps) {
                 })}
               </div>
               {question.image && (
-                <Image src={question.image} alt="" width={500} height={200} />
+                <Image
+                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${question.id}.webp`}
+                  alt="Obrazek załączony do pytania"
+                  width={500}
+                  height={200}
+                />
               )}
             </Card>
           ))}

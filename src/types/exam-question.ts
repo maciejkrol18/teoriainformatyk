@@ -5,5 +5,5 @@ export type ExamQuestion = {
   selected_answer: string | null
   correct_selected: boolean
   id: number
-  image: string | null
+  image: boolean
 }
