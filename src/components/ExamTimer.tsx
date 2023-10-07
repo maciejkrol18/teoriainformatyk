@@ -1,31 +1,49 @@
 import { useEffect, useState } from "react"
 
 interface ExamStopwatchProps {
-  initialValue: number
+  toCountdownMiliseconds: number
+  intervalMiliseconds: number
   onEnd: () => void
 }
 
-export default function ExamTimer({ initialValue, onEnd }: ExamStopwatchProps) {
-  const [counter, setCounter] = useState(initialValue)
+export default function ExamTimer({
+  toCountdownMiliseconds,
+  intervalMiliseconds,
+  onEnd,
+}: ExamStopwatchProps) {
+  const [time, setTime] = useState(toCountdownMiliseconds)
+  const [refTime, setRefTime] = useState(Date.now())
 
-  const getFormattedSeconds = (x: number) => {
-    let hours = Math.floor(x / 3600)
-    let minutes = Math.floor((x - hours * 3600) / 60)
-    let seconds = x - hours * 3600 - minutes * 60
-    return `${minutes} minut ${seconds} sekund`
+  const padTo2Digits = (num: number) => num.toString().padStart(2, "0")
+
+  const getFormattedSeconds = (ms: number) => {
+    let seconds = Math.floor(ms / 1000)
+    let minutes = Math.floor(seconds / 60)
+
+    seconds = seconds % 60
+    minutes = minutes % 60
+
+    return `${padTo2Digits(minutes)} minut ${padTo2Digits(seconds)} sekund`
   }
 
   useEffect(() => {
-    const counterInterval = setInterval(() => setCounter((prev) => prev - 1), 1000)
-
-    return () => clearInterval(counterInterval)
-  }, [])
-
-  useEffect(() => {
-    if (counter === 0) {
+    if (time === 0) {
       onEnd()
     }
-  }, [counter])
 
-  return <p className="text-center">Pozostały czas: {getFormattedSeconds(counter)}</p>
+    const countDownUntilZero = () => {
+      setTime((prevTime) => {
+        if (prevTime <= 0) return 0
+
+        const now = Date.now()
+        const interval = now - refTime
+        setRefTime(now)
+        return prevTime - interval
+      })
+    }
+
+    setTimeout(countDownUntilZero, intervalMiliseconds)
+  }, [time])
+
+  return <p className="text-center">Pozostały czas: {getFormattedSeconds(time)}</p>
 }

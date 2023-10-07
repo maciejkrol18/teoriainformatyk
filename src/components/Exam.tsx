@@ -228,7 +228,13 @@ export default function Exam({ table }: ExamProps) {
             </Card>
           )}
 
-          {!gameState.isFinished && <ExamStopwatch initialValue={3600} onEnd={endGame} />}
+          {!gameState.isFinished && (
+            <ExamStopwatch
+              toCountdownMiliseconds={3600000}
+              intervalMiliseconds={100}
+              onEnd={endGame}
+            />
+          )}
 
           {questionsArray.map((question, idx) => (
             <Card key={question.id}>
@@ -290,7 +296,13 @@ export default function Exam({ table }: ExamProps) {
             </Card>
           ))}
 
-          {!gameState.isFinished && <ExamStopwatch initialValue={3600} onEnd={endGame} />}
+          {!gameState.isFinished && (
+            <ExamStopwatch
+              toCountdownMiliseconds={3600000}
+              intervalMiliseconds={100}
+              onEnd={endGame}
+            />
+          )}
 
           <button
             onClick={() => endGame()}
