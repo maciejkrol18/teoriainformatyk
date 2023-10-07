@@ -1,7 +1,7 @@
 "use client"
 
 import { supabase } from "@/lib/supabase"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Card from "./ui/Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
@@ -26,7 +26,7 @@ type GameState = {
 export default function Exam({ table }: ExamProps) {
   const [questionCount, setQuestionCount] = useState<number | null>(null)
   const [questionsArray, setQuestionsArray] = useState<ExamQuestion[]>([])
-  const [counter, setCounter] = useState(3600)
+  const gameLengthMiliseconds = useRef(10000)
   const [gameState, setGameState] = useState<GameState>({
     isFinished: false,
     amountCorrect: 0,
@@ -107,9 +107,7 @@ export default function Exam({ table }: ExamProps) {
 
   const endGame = () => {
     if (gameState.isFinished) {
-      setGameState((prev) => ({ ...prev, isFinished: false }))
-      setCounter(3600)
-      getQuestions(table)
+      window.location.reload()
     } else {
       saveScore()
       setGameState((prev) => ({ ...prev, isFinished: true }))
@@ -172,17 +170,7 @@ export default function Exam({ table }: ExamProps) {
     if (questionCount) {
       getQuestions(table)
     }
-    const counterInterval = setInterval(() => {
-      setCounter((prev) => prev - 1)
-    }, 1000)
-    return () => clearInterval(counterInterval)
   }, [questionCount])
-
-  useEffect(() => {
-    if (counter === 0) {
-      endGame()
-    }
-  }, [counter])
 
   useEffect(() => {
     getQuestionCount(table)
@@ -230,7 +218,7 @@ export default function Exam({ table }: ExamProps) {
 
           {!gameState.isFinished && (
             <ExamStopwatch
-              toCountdownMiliseconds={3600000}
+              toCountdownMiliseconds={gameLengthMiliseconds.current}
               intervalMiliseconds={100}
               onEnd={endGame}
             />
@@ -298,7 +286,7 @@ export default function Exam({ table }: ExamProps) {
 
           {!gameState.isFinished && (
             <ExamStopwatch
-              toCountdownMiliseconds={3600000}
+              toCountdownMiliseconds={gameLengthMiliseconds.current}
               intervalMiliseconds={100}
               onEnd={endGame}
             />

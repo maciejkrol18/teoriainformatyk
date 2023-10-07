@@ -14,8 +14,6 @@ export default function ExamTimer({
   const [time, setTime] = useState(toCountdownMiliseconds)
   const [refTime, setRefTime] = useState(Date.now())
 
-  const padTo2Digits = (num: number) => num.toString().padStart(2, "0")
-
   const getFormattedSeconds = (ms: number) => {
     let seconds = Math.floor(ms / 1000)
     let minutes = Math.floor(seconds / 60)
@@ -23,11 +21,11 @@ export default function ExamTimer({
     seconds = seconds % 60
     minutes = minutes % 60
 
-    return `${padTo2Digits(minutes)} minut ${padTo2Digits(seconds)} sekund`
+    return `${minutes} minut ${seconds} sekund`
   }
 
   useEffect(() => {
-    if (time === 0) {
+    if (time <= 0) {
       onEnd()
     }
 
