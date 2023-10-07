@@ -5,12 +5,12 @@ import { useState, useEffect, useRef } from "react"
 import Card from "./ui/Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
-import { ExamScore } from "@/types/exam-score"
 import { cn } from "@/lib/utils"
-import { BadgePercent, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
+import ExamScoreDisplay from "./ExamScoreDisplay"
 import ExamSkeleton from "./skeletons/ExamSkeleton"
 import Image from "next/image"
 import ExamStopwatch from "./ExamTimer"
+import { ExamScore } from "@/types/exam-score"
 
 interface ExamProps {
   table: Table
@@ -181,39 +181,13 @@ export default function Exam({ table }: ExamProps) {
       {questionsArray.length > 0 ? (
         <main className="flex flex-col gap-8 pb-8 md:w-full md:max-w-lg md:mx-auto">
           {gameState.isFinished && (
-            <Card
-              className={cn(
-                "text-center items-center",
-                {
-                  "border-2 border-danger-light": scorePercentage < 75,
-                },
-                {
-                  "border-2 border-positive-light": scorePercentage > 75,
-                },
-              )}
-            >
-              <h1 className="text-2xl font-bold">
-                Wynik {scorePercentage > 75 ? "pozytywny" : "negatywny"}
-              </h1>
-              <div className="flex gap-8">
-                <div className="flex flex-col gap-2 items-center">
-                  <CheckCircle2 className="text-positive-light" />
-                  {gameState.amountCorrect}
-                </div>
-                <div className="flex flex-col gap-2 items-center">
-                  <XCircle className="text-danger-light" />
-                  {gameState.amountIncorrect}
-                </div>
-                <div className="flex flex-col gap-2 items-center">
-                  <HelpCircle className="text-notify" />
-                  {gameState.amountUnanswered}
-                </div>
-                <div className="flex flex-col gap-2 items-center">
-                  <BadgePercent className="text-accent-gold" />
-                  {(gameState.amountCorrect / questionsArray.length) * 100}%
-                </div>
-              </div>
-            </Card>
+            <ExamScoreDisplay
+              scorePercentage={scorePercentage}
+              amountCorrect={gameState.amountCorrect}
+              amountIncorrect={gameState.amountIncorrect}
+              amountUnanswered={gameState.amountUnanswered}
+              questionCount={questionsArray.length}
+            />
           )}
 
           {!gameState.isFinished && (
