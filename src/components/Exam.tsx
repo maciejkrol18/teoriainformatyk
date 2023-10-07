@@ -26,7 +26,7 @@ type GameState = {
 export default function Exam({ table }: ExamProps) {
   const [questionCount, setQuestionCount] = useState<number | null>(null)
   const [questionsArray, setQuestionsArray] = useState<ExamQuestion[]>([])
-  const gameLengthMiliseconds = useRef(10000)
+  const gameLengthMiliseconds = useRef(3600000)
   const [gameState, setGameState] = useState<GameState>({
     isFinished: false,
     amountCorrect: 0,
