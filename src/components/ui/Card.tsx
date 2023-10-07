@@ -8,7 +8,7 @@ export default function Card({ children, className }: CardProps) {
     <div
       className={`${
         className ? className : ""
-      } flex flex-col p-4 gap-6 bg-primary shadow-card-inset drop-shadow-lg rounded-md`}
+      } flex flex-col p-4 gap-6 bg-primary shadow-card-inset rounded-md`}
     >
       {children}
     </div>
