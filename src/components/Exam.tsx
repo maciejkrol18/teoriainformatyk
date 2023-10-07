@@ -230,11 +230,11 @@ export default function Exam({ table }: ExamProps) {
 
           {!gameState.isFinished && <ExamStopwatch initialValue={3600} onEnd={endGame} />}
 
-          {questionsArray.map((question) => (
+          {questionsArray.map((question, idx) => (
             <Card key={question.id}>
               <div className="flex flex-col gap-2">
                 <span className="text-secondary-300">
-                  Pytanie {questionsArray.indexOf(question) + 1}. (ID #{question.id})
+                  Pytanie {idx}. (ID #{question.id})
                 </span>
                 <p className="text-lg font-semibold">{question.content}</p>
               </div>
