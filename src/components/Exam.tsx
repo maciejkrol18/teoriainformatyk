@@ -202,7 +202,7 @@ export default function Exam({ table }: ExamProps) {
             <Card key={question.id}>
               <div className="flex flex-col gap-2">
                 <span className="text-secondary-300">
-                  Pytanie {idx}. (ID #{question.id})
+                  Pytanie {idx + 1}. (ID #{question.id})
                 </span>
                 <p className="text-lg font-semibold">{question.content}</p>
               </div>
