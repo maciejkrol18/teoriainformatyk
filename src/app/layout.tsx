@@ -6,6 +6,7 @@ import localFont from "next/font/local"
 import Header from "@/components/ui/Header"
 import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const calSans = localFont({
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
             {children}
+            <Analytics />
           </div>
         </div>
       </body>
