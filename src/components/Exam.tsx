@@ -67,6 +67,7 @@ export default function Exam({ table }: ExamProps) {
         data.map((el) => {
           return {
             ...el,
+            answers: el.answers.sort((a, b) => 0.5 - Math.random()),
             selected_answer: null,
             correct_selected: false,
           }
