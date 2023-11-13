@@ -18,6 +18,7 @@ interface OneQuestionProps {
 
 export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
+  const [shuffledAnswers, setShuffledAnswers] = useState<Question["answers"] | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [questionCount, setQuestionCount] = useState<number | null>(null)
 
@@ -122,6 +123,12 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     }
   }, [selectedAnswer])
 
+  useEffect(() => {
+    if (currentQuestion) {
+      setShuffledAnswers(currentQuestion.answers.sort((a, b) => 0.5 - Math.random()))
+    }
+  }, [currentQuestion])
+
   return (
     <main className="flex flex-col gap-6 pb-8">
       <button
@@ -130,7 +137,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       >
         {selectedAnswer ? "Następne" : "Losuj"}
       </button>
-      {currentQuestion ? (
+      {currentQuestion && shuffledAnswers ? (
         <>
           <Card>
             <div className="flex flex-col gap-2">
@@ -138,7 +145,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
               <h1 className="text-lg font-semibold">{currentQuestion.content}</h1>
             </div>
             <div className="flex flex-col gap-2">
-              {currentQuestion.answers.map((answer, idx) => {
+              {shuffledAnswers.map((answer, idx) => {
                 const letters = "abcd"
                 return (
                   <button
