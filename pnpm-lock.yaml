@@ -69,8 +69,8 @@ dependencies:
     specifier: 5.1.6
     version: 5.1.6
   vaul:
-    specifier: ^0.4.5
-    version: 0.4.5(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.7.9
+    version: 0.7.9(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
   eslint-config-prettier:
@@ -3321,8 +3321,8 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: false
 
-  /vaul@0.4.5(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-6H7Jlm9yi2Iyc4ZnE7DS7dgI1F7eo3sFCD1+4xk1nVQMSQ4ku8scftSLGZK8IqlmezNQguI/PtlZybkckmpFZA==}
+  /vaul@0.7.9(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-RrcnGOHOq/cEU3YpyyZrnjh0H79xMpF3IrHZs9ichvHlpKjLDc4Vwjn4VkuGzeUGrmQ3wamfm/cpdKWpvBIgQw==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
