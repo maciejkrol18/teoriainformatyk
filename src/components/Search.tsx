@@ -34,8 +34,8 @@ export default function Search() {
     setInf02Results(null)
     setInf03Results(null)
 
-    const inf02 = await getSearchResults(searchQuery, "questions_inf02")
-    const inf03 = await getSearchResults(searchQuery, "questions_inf03")
+    const inf02 = await getSearchResults(searchQuery, "inf02")
+    const inf03 = await getSearchResults(searchQuery, "inf03")
 
     setInf02Results(inf02)
     setInf03Results(inf03)

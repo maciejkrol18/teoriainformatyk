@@ -1,7 +1,7 @@
 export interface Database {
   public: {
     Tables: {
-      questions_inf02: {
+      inf02: {
         Row: {
           answers: string[]
           content: string
@@ -28,7 +28,7 @@ export interface Database {
         }
         Relationships: []
       }
-      questions_inf03: {
+      inf03: {
         Row: {
           answers: string[]
           content: string

@@ -23,13 +23,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="/inf02/jedno-pytanie"
+                href="/jedno-pytanie/inf02"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
               </Link>
               <Link
-                href="/inf03/jedno-pytanie"
+                href="/jedno-pytanie/inf03"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
@@ -47,13 +47,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="/inf02/egzamin"
+                href="/egzamin/inf02"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
               </Link>
               <Link
-                href="/inf03/egzamin"
+                href="/egzamin/inf03"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03

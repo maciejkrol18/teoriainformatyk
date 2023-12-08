@@ -44,12 +44,12 @@ export default function Page() {
             <CollectionManager
               title="INF.02"
               storageKey="questions_inf02_hard"
-              table="questions_inf02"
+              table="inf02"
             />
             <CollectionManager
               title="INF.03"
               storageKey="questions_inf03_hard"
-              table="questions_inf03"
+              table="inf03"
             />
           </CollectionAccordion>
         </Card>
@@ -67,12 +67,12 @@ export default function Page() {
             <CollectionManager
               title="INF.02"
               storageKey="questions_inf02_easy"
-              table="questions_inf02"
+              table="inf02"
             />
             <CollectionManager
               title="INF.03"
               storageKey="questions_inf03_easy"
-              table="questions_inf03"
+              table="inf03"
             />
           </CollectionAccordion>
         </Card>

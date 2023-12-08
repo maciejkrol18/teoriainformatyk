@@ -130,7 +130,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [currentQuestion])
 
   return (
-    <main className="flex flex-col gap-6 pb-8">
+    <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
       <button
         onClick={() => rollQuestion()}
         className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
