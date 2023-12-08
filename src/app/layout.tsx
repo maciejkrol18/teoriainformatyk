@@ -61,9 +61,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
             {children}
-            <Analytics />
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   )
