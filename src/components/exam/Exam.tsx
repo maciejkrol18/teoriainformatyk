@@ -2,14 +2,14 @@
 
 import { supabase } from "@/lib/supabase"
 import { useState, useEffect, useRef } from "react"
-import Card from "./ui/Card"
+import Card from "../ui/Card"
 import { ExamQuestion } from "@/types/exam-question"
 import { Table } from "@/types/table"
 import { cn } from "@/lib/utils"
-import ExamScoreDisplay from "./ExamScoreDisplay"
-import ExamSkeleton from "./skeletons/ExamSkeleton"
+import ExamScoreDisplay from "../exam/ExamScoreDisplay"
+import ExamSkeleton from "../skeletons/ExamSkeleton"
 import Image from "next/image"
-import ExamStopwatch from "./ExamTimer"
+import ExamStopwatch from "../exam/ExamTimer"
 import { ExamScore } from "@/types/exam-score"
 
 interface ExamProps {

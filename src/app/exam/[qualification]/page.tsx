@@ -1,4 +1,4 @@
-import Exam from "@/components/Exam"
+import Exam from "@/components/exam/Exam"
 import PageTitle from "@/components/ui/PageTitle"
 import { notFound } from "next/navigation"
 

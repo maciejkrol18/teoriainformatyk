@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { CheckCircle2, XCircle, HelpCircle, BadgePercent } from "lucide-react"
-import Card from "./ui/Card"
+import Card from "../ui/Card"
 
 interface ExamScoreDisplayProps {
   scorePercentage: number

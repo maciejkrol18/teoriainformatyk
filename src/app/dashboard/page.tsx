@@ -1,7 +1,7 @@
 import Card from "@/components/ui/Card"
 import CollectionAccordion from "@/components/collection/CollectionAccordion"
 import CollectionManager from "@/components/collection/CollectionManager"
-import ExamHistory from "@/components/ExamHistory"
+import ExamHistory from "@/components/exam/ExamHistory"
 import { FileClock, SkullIcon, SmileIcon } from "lucide-react"
 import Link from "next/link"
 import PageTitle from "@/components/ui/PageTitle"
