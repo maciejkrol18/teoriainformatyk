@@ -123,7 +123,7 @@ export default function Exam({ table }: ExamProps) {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const localScores = localStorage.getItem("exam_scores")
       const newScore = {
-        qualification: table === "questions_inf02" ? "INF.02" : "INF.03",
+        qualification: table === "inf02" ? "INF.02" : "INF.03",
         date: new Date(),
         amountCorrect: gameState.amountCorrect,
         amountIncorrect: gameState.amountIncorrect,
@@ -250,7 +250,7 @@ export default function Exam({ table }: ExamProps) {
               </div>
               {question.image && (
                 <Image
-                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${question.id}.webp`}
+                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
                   alt="Obrazek załączony do pytania"
                   width={500}
                   height={200}
@@ -275,7 +275,9 @@ export default function Exam({ table }: ExamProps) {
           </button>
         </main>
       ) : (
-        <ExamSkeleton />
+        <main className="flex flex-col gap-8 pb-8 md:w-full md:max-w-lg md:mx-auto">
+          <ExamSkeleton />
+        </main>
       )}
     </>
   )

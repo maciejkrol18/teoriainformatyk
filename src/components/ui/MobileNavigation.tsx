@@ -13,10 +13,10 @@ export default function MobileNavigation({}: MobileNavigationProps) {
         <Link href="/" className="text-xl pb-2 border-secondary-300 border-b-2">
           Strona główna
         </Link>
-        <Link href="/panel" className="text-xl pb-2 border-secondary-300 border-b-2">
+        <Link href="/dashboard" className="text-xl pb-2 border-secondary-300 border-b-2">
           Panel użytkownika
         </Link>
-        <Link href="/szukaj" className="text-xl pb-2 border-secondary-300 border-b-2">
+        <Link href="/search" className="text-xl pb-2 border-secondary-300 border-b-2">
           Wyszukiwarka pytań
         </Link>
         <a

@@ -19,10 +19,10 @@ export default function Header() {
           teoriainformatyk
         </Link>
         <nav className="hidden lg:flex gap-8">
-          <Link href="/panel" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <Link href="/dashboard" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Panel użytkownika
           </Link>
-          <Link href="/szukaj" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <Link href="/search" className="py-2 px-4 rounded-md hover:bg-secondary-300">
             Wyszukiwarka pytań
           </Link>
           <a
