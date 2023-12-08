@@ -174,7 +174,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
             </div>
             {currentQuestion.image && (
               <Image
-                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${currentQuestion.id}.webp`}
+                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${currentQuestion.id}.webp`}
                 alt="Obrazek załączony do pytania"
                 width={500}
                 height={200}
