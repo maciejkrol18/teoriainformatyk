@@ -7,7 +7,7 @@ import dayjs from "dayjs"
 import pl from "dayjs/locale/pl"
 import relativeTime from "dayjs/plugin/relativeTime"
 import duration from "dayjs/plugin/duration"
-import { Calendar, CheckCircle2, HelpCircle, XCircle } from "lucide-react"
+import { CheckCircle2, HelpCircle, XCircle, BadgePercent } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function ExamHistory() {
@@ -63,6 +63,13 @@ export default function ExamHistory() {
                 <div className="flex flex-col gap-2" title="Pytania bez odpowiedzi">
                   <HelpCircle className="text-notify" />
                   {score.amountUnanswered}
+                </div>
+                <div
+                  className="flex flex-col gap-2 items-center"
+                  title="Wynik procentowy"
+                >
+                  <BadgePercent className="text-accent-gold" />
+                  {score.scorePercentage}
                 </div>
               </div>
             </Card>
