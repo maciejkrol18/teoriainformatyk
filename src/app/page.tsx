@@ -23,13 +23,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="/jedno-pytanie/inf02"
+                href="/one-question/inf02"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
               </Link>
               <Link
-                href="/jedno-pytanie/inf03"
+                href="/one-question/inf03"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
@@ -47,13 +47,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="/egzamin/inf02"
+                href="/exam/inf02"
                 className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
               >
                 INF.02
               </Link>
               <Link
-                href="/egzamin/inf03"
+                href="/exam/inf03"
                 className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
               >
                 INF.03
@@ -72,7 +72,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col gap-2">
             <Link
-              href="/szukaj"
+              href="/search"
               className="bg-secondary-500 text-lg text-center px-4 py-2"
             >
               Przejdź do wyszukiwarki
