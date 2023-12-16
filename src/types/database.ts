@@ -15,7 +15,7 @@ export interface Database {
           content: string
           correct_answer: string
           created_at: string
-          id?: number
+          id: number
           image: boolean
         }
         Update: {
@@ -42,7 +42,7 @@ export interface Database {
           content: string
           correct_answer: string
           created_at: string
-          id?: number
+          id: number
           image?: boolean
         }
         Update: {
@@ -52,6 +52,17 @@ export interface Database {
           created_at?: string
           id?: number
           image?: boolean
+        }
+        Relationships: []
+      }
+      query_training: {
+        Row: {
+          answers: string[]
+          comment: string
+          created_at: string
+          exam_code: string
+          id: number
+          questions: string[]
         }
         Relationships: []
       }

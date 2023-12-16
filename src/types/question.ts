@@ -1,5 +1,3 @@
-import { Database } from "./database"
-
 export type Question = {
   answers: string[]
   content: string
