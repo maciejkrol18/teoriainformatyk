@@ -81,6 +81,12 @@ export default function SqlTraining() {
     }
   }
 
+  const solve = () => {
+    if (answer) {
+      setCode(answer)
+    }
+  }
+
   useEffect(() => {
     getExamCount()
   }, [])
@@ -123,14 +129,22 @@ export default function SqlTraining() {
                 {question}
               </h1>
             </div>
-            <div className="flex justify-between gap-2">
+            <div className="flex flex-col gap-2">
               <QueryInput state={code} setState={setCode} />
-              <button
-                onClick={() => checkAnswer()}
-                className="bg-secondary-300 text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase"
-              >
-                Sprawdź
-              </button>
+              <div className="flex justify-between gap-2 w-full">
+                <button
+                  onClick={() => checkAnswer()}
+                  className="bg-secondary-300 text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase grow"
+                >
+                  Sprawdź
+                </button>
+                <button
+                  onClick={() => solve()}
+                  className="bg-positive-dark text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase grow"
+                >
+                  Rozwiąż
+                </button>
+              </div>
             </div>
             {isAnswerSubmitted && (
               <p

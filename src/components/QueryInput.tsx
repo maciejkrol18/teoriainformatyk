@@ -17,6 +17,7 @@ export default function QueryInput({ state, setState }: QueryInputProps) {
         backgroundColor: "#232323",
         overflow: "auto",
         maxHeight: "60px",
+        fontSize: "1.125rem",
       }}
     />
   )
