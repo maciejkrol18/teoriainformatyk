@@ -7,14 +7,13 @@ teoriainformatyk is a web app for revising to polish INF.02 and INF.03 exams ava
 - One question mode
   - roll and answer to a random question idefinetely
   - see the stats for the current session, including elapsed time and percentage score
-  - save questions to two local collections (easy and hard)
+  - save questions to two local collections
 - Exam mode
   - roll 40 random questions and see the results at the end
   - every score saves locally up to a max of 5 scores
 - User panel
   - managing panels for both of the local collections
-    - Hard collection: those questions appear in special one question hard mode
-    - Easy collection: those questions do not appear at all in the one question mode
+    - a hard and an easy collection (features coming to them soon)
   - exam score history
 - Question search bar
   - search the database for questions by typing in its content

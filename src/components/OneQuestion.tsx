@@ -12,11 +12,10 @@ import SessionStats from "./SessionStats"
 import Image from "next/image"
 
 interface OneQuestionProps {
-  hardMode?: boolean
   table: Table
 }
 
-export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
+export default function OneQuestion({ table }: OneQuestionProps) {
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
   const [shuffledAnswers, setShuffledAnswers] = useState<Question["answers"] | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -55,20 +54,10 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }
 
   const getRandomQuestion = async () => {
-    if (!hardMode) {
-      if (questionCount) {
-        const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        const question = await getQuestionById(randomId)
-        setCurrentQuestion(question)
-      }
-    } else {
-      const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
-      if (randomId) {
-        const question = await getQuestionById(randomId)
-        setCurrentQuestion(question)
-      } else {
-        throw new Error("Nie udało się pobrać ID z kolekcji trudnych pytań")
-      }
+    if (questionCount) {
+      const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
+      const question = await getQuestionById(randomId)
+      setCurrentQuestion(question)
     }
   }
 
@@ -89,16 +78,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }
 
   useEffect(() => {
-    if (!hardMode) {
-      getQuestionCount(table)
-    } else {
-      if (hardCollection.length === 0) {
-        throw new Error(
-          "Brak ID w kolekcji trudnych pytań. Dodaj do niej minimum jedno pytanie przed rozpoczęciem specjalnego trybu",
-        )
-      }
-      rollQuestion()
-    }
+    getQuestionCount(table)
 
     const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
 
@@ -106,10 +86,8 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [])
 
   useEffect(() => {
-    if (!hardMode) {
-      if (questionCount) {
-        rollQuestion()
-      }
+    if (questionCount) {
+      rollQuestion()
     }
   }, [questionCount])
 
