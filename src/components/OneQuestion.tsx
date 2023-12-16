@@ -12,13 +12,12 @@ import SessionStats from "./SessionStats"
 import Image from "next/image"
 
 interface OneQuestionProps {
-  hardMode?: boolean
   table: Table
 }
 
-export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
-  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
-  const [shuffledAnswers, setShuffledAnswers] = useState<Question["answers"] | null>(null)
+export default function OneQuestion({ table }: OneQuestionProps) {
+  const [question, setQuestion] = useState<Question | null>(null)
+  const [answers, setAnswers] = useState<Question["answers"] | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [questionCount, setQuestionCount] = useState<number | null>(null)
 
@@ -42,33 +41,21 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
 
     if (error) {
       console.error(error)
-      throw new Error(
-        "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
-      )
+      throw new Error("Database error, check browser console")
     }
 
     if (data[0] === undefined) {
-      throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
+      throw new Error("An error occured while fetching data from the database")
     }
 
     return data[0]
   }
 
   const getRandomQuestion = async () => {
-    if (!hardMode) {
-      if (questionCount) {
-        const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        const question = await getQuestionById(randomId)
-        setCurrentQuestion(question)
-      }
-    } else {
-      const randomId = hardCollection[Math.floor(Math.random() * hardCollection.length)]
-      if (randomId) {
-        const question = await getQuestionById(randomId)
-        setCurrentQuestion(question)
-      } else {
-        throw new Error("Nie udało się pobrać ID z kolekcji trudnych pytań")
-      }
+    if (questionCount) {
+      const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
+      const question = await getQuestionById(randomId)
+      setQuestion(question)
     }
   }
 
@@ -76,29 +63,20 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
     const { count, error } = await supabase.from(table).select("id", { count: "exact" })
     if (error) {
       console.error(error)
-      throw new Error("Bazie danych nie udało zwrócić się ilości rzędów w tabeli")
+      throw new Error("Database failed to return the amount of rows")
     }
     setQuestionCount(count)
   }
 
   const rollQuestion = () => {
     setTimesRolled((prev) => prev + 1)
-    setCurrentQuestion(null)
+    setQuestion(null)
     setSelectedAnswer(null)
     getRandomQuestion()
   }
 
   useEffect(() => {
-    if (!hardMode) {
-      getQuestionCount(table)
-    } else {
-      if (hardCollection.length === 0) {
-        throw new Error(
-          "Brak ID w kolekcji trudnych pytań. Dodaj do niej minimum jedno pytanie przed rozpoczęciem specjalnego trybu",
-        )
-      }
-      rollQuestion()
-    }
+    getQuestionCount(table)
 
     const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
 
@@ -106,16 +84,14 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [])
 
   useEffect(() => {
-    if (!hardMode) {
-      if (questionCount) {
-        rollQuestion()
-      }
+    if (questionCount) {
+      rollQuestion()
     }
   }, [questionCount])
 
   useEffect(() => {
-    if (currentQuestion && selectedAnswer) {
-      if (selectedAnswer === currentQuestion.correct_answer) {
+    if (question && selectedAnswer) {
+      if (selectedAnswer === question.correct_answer) {
         setCorrectAnswers((prev) => prev + 1)
       } else {
         setIncorrectAnswers((prev) => prev + 1)
@@ -124,10 +100,10 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
   }, [selectedAnswer])
 
   useEffect(() => {
-    if (currentQuestion) {
-      setShuffledAnswers(currentQuestion.answers.sort((a, b) => 0.5 - Math.random()))
+    if (question) {
+      setAnswers(question.answers.sort((a, b) => 0.5 - Math.random()))
     }
-  }, [currentQuestion])
+  }, [question])
 
   return (
     <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
@@ -137,15 +113,15 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
       >
         {selectedAnswer ? "Następne" : "Losuj"}
       </button>
-      {currentQuestion && shuffledAnswers ? (
+      {question && answers ? (
         <>
           <Card>
             <div className="flex flex-col gap-2">
-              <span className="text-secondary-300">#{currentQuestion.id}</span>
-              <h1 className="text-lg font-semibold">{currentQuestion.content}</h1>
+              <span className="text-secondary-300">#{question.id}</span>
+              <h1 className="text-lg font-semibold">{question.content}</h1>
             </div>
             <div className="flex flex-col gap-2">
-              {shuffledAnswers.map((answer, idx) => {
+              {answers.map((answer, idx) => {
                 const letters = "abcd"
                 return (
                   <button
@@ -155,13 +131,13 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
                       "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
                       {
                         "bg-positive-light":
-                          selectedAnswer && answer === currentQuestion.correct_answer,
+                          selectedAnswer && answer === question.correct_answer,
                       },
                       {
                         "bg-danger-light":
                           selectedAnswer &&
                           selectedAnswer === answer &&
-                          answer !== currentQuestion.correct_answer,
+                          answer !== question.correct_answer,
                       },
                     )}
                     key={idx}
@@ -172,9 +148,9 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
                 )
               })}
             </div>
-            {currentQuestion.image && (
+            {question.image && (
               <Image
-                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${currentQuestion.id}.webp`}
+                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
                 alt="Obrazek załączony do pytania"
                 width={500}
                 height={200}
@@ -187,7 +163,7 @@ export default function OneQuestion({ hardMode, table }: OneQuestionProps) {
               setHardCollection={setHardCollection}
               easyCollection={easyCollection}
               setEasyCollection={setEasyCollection}
-              id={currentQuestion.id}
+              id={question.id}
               table={table}
             />
             <SessionStats

@@ -24,22 +24,6 @@ export default function Page() {
             <SkullIcon className="text-danger-light h-full aspect-square" />
             <h2 className="text-2xl font-bold">Trudne pytania</h2>
           </div>
-          <p className="leading-6">
-            Kolekcja trudnych pytań służy do rozpoczęcia specjalnego trybu jednego pytania
-            w którym występują jedynie pytania z jej puli.
-          </p>
-          <Link
-            className="py-2 px-4 bg-accent-purple font-semibold rounded-md"
-            href="/inf02/jedno-pytanie/trudne"
-          >
-            Hard mode - INF.02
-          </Link>
-          <Link
-            className="py-2 px-4 bg-accent-purple font-semibold rounded-md"
-            href="/inf03/jedno-pytanie/trudne"
-          >
-            Hard mode - INF.03
-          </Link>
           <CollectionAccordion>
             <CollectionManager
               title="INF.02"
@@ -59,10 +43,6 @@ export default function Page() {
             <SmileIcon className="text-positive-light h-full aspect-square" />
             <h2 className="text-2xl font-bold">Łatwe pytania</h2>
           </div>
-          <p className="leading-6">
-            Pytania zawarte w kolekcji łatwych pytań nie pojawiają się w trybie jednego
-            pytania.
-          </p>
           <CollectionAccordion>
             <CollectionManager
               title="INF.02"
