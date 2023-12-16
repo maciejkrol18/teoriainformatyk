@@ -66,18 +66,23 @@ export default function SqlTraining() {
 
   const checkAnswer = () => {
     if (answer) {
-      setIsAnswerSubmitted(true)
+      try {
+        setIsAnswerSubmitted(true)
 
-      const parsedAnswer = parser.current.parse(
-        code.charAt(code.length - 1) === ";"
-          ? code.substring(0, code.indexOf(";"))
-          : code,
-      )
-      const parsedValidAnswer = parser.current.parse(answer)
+        const parsedAnswer = parser.current.parse(
+          code.charAt(code.length - 1) === ";"
+            ? code.substring(0, code.indexOf(";"))
+            : code,
+        )
+        const parsedValidAnswer = parser.current.parse(answer)
 
-      setIsAnswerCorrect(
-        JSON.stringify(parsedAnswer) === JSON.stringify(parsedValidAnswer),
-      )
+        setIsAnswerCorrect(
+          JSON.stringify(parsedAnswer) === JSON.stringify(parsedValidAnswer),
+        )
+      } catch (error) {
+        setIsAnswerCorrect(false)
+        console.error(error)
+      }
     }
   }
 
