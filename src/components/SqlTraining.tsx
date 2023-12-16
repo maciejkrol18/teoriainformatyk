@@ -1,21 +1,26 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Card from "./ui/Card"
 import { QueryExam } from "@/types/query-question"
 import { supabase } from "@/lib/supabase"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import Image from "next/image"
+import QueryInput from "./QueryInput"
+import { Parser } from "node-sql-parser"
 
 const TABLE_NAME = "query_training" as const
 
-interface SqlTrainingProps {}
-
-export default function SqlTraining({}: SqlTrainingProps) {
+export default function SqlTraining() {
   const [currentExam, setCurrentExam] = useState<QueryExam | null>(null)
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null)
   const [currentAnswer, setCurrentAnswer] = useState<string | null>(null)
   const [examCount, setExamCount] = useState<number | null>(0)
+
+  const [code, setCode] = useState("")
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false)
+  const parser = useRef(new Parser())
 
   const getExamById = async (id: number) => {
     const { data, error } = await supabase
@@ -52,7 +57,26 @@ export default function SqlTraining({}: SqlTrainingProps) {
       const exam = await getExamById(randomId)
       setCurrentQuestion(null)
       setCurrentAnswer(null)
+      setIsAnswerCorrect(false)
+      setIsAnswerSubmitted(false)
       setCurrentExam(exam)
+    }
+  }
+
+  const checkAnswer = () => {
+    if (currentAnswer) {
+      setIsAnswerSubmitted(true)
+
+      const parsedAnswer = parser.current.parse(
+        code.charAt(code.length - 1) === ";"
+          ? code.substring(0, code.indexOf(";"))
+          : code,
+      )
+      const parsedValidAnswer = parser.current.parse(currentAnswer)
+
+      setIsAnswerCorrect(
+        JSON.stringify(parsedAnswer) === JSON.stringify(parsedValidAnswer),
+      )
     }
   }
 
@@ -99,20 +123,21 @@ export default function SqlTraining({}: SqlTrainingProps) {
               </h1>
             </div>
             <div className="flex justify-between gap-2">
-              <input
-                className="bg-primary placeholder:text-secondary-300 shadow-card-inset rounded-md p-2 w-full"
-                // value={searchQuery}
-                // onChange={(e) => setSearchQuery(e.target.value)}
-                type="text"
-                placeholder="Wpisz kwerendę"
-              />
+              <QueryInput state={code} setState={setCode} />
               <button
-                onClick={() => rollExam()}
-                className="bg-secondary-300 text-xl shadow-card-inset rounded-lg px-4 py-2 w-max"
+                onClick={() => checkAnswer()}
+                className="bg-secondary-300 text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase"
               >
                 Sprawdź
               </button>
             </div>
+            {isAnswerSubmitted && (
+              <p
+                className={isAnswerCorrect ? "text-positive-light" : "text-danger-light"}
+              >
+                {isAnswerCorrect ? "Poprawna odpowiedź" : "Niepoprawna odpowiedź"}
+              </p>
+            )}
             <div className="flex flex-col gap-2">
               <Image
                 src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/query_images/${currentExam.exam_code}.webp`}
