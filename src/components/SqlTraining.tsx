@@ -12,9 +12,9 @@ import { Parser } from "node-sql-parser"
 const TABLE_NAME = "query_training" as const
 
 export default function SqlTraining() {
-  const [currentExam, setCurrentExam] = useState<QueryExam | null>(null)
-  const [currentQuestion, setCurrentQuestion] = useState<string | null>(null)
-  const [currentAnswer, setCurrentAnswer] = useState<string | null>(null)
+  const [exam, setExam] = useState<QueryExam | null>(null)
+  const [question, setQuestion] = useState<string | null>(null)
+  const [answer, setAnswer] = useState<string | null>(null)
   const [examCount, setExamCount] = useState<number | null>(0)
 
   const [code, setCode] = useState("")
@@ -55,17 +55,17 @@ export default function SqlTraining() {
     if (examCount) {
       const randomId = Math.round(Math.random() * (examCount - 1) + 1)
       const exam = await getExamById(randomId)
-      setCurrentQuestion(null)
-      setCurrentAnswer(null)
+      setQuestion(null)
+      setAnswer(null)
       setIsAnswerCorrect(false)
       setIsAnswerSubmitted(false)
       setCode("")
-      setCurrentExam(exam)
+      setExam(exam)
     }
   }
 
   const checkAnswer = () => {
-    if (currentAnswer) {
+    if (answer) {
       setIsAnswerSubmitted(true)
 
       const parsedAnswer = parser.current.parse(
@@ -73,7 +73,7 @@ export default function SqlTraining() {
           ? code.substring(0, code.indexOf(";"))
           : code,
       )
-      const parsedValidAnswer = parser.current.parse(currentAnswer)
+      const parsedValidAnswer = parser.current.parse(answer)
 
       setIsAnswerCorrect(
         JSON.stringify(parsedAnswer) === JSON.stringify(parsedValidAnswer),
@@ -86,18 +86,18 @@ export default function SqlTraining() {
   }, [])
 
   useEffect(() => {
-    if (currentExam) {
+    if (exam) {
       const randomIndex = Math.round(Math.random() * 3)
-      const question = currentExam.questions[randomIndex]
-      const answer = currentExam.answers[randomIndex]
+      const question = exam.questions[randomIndex]
+      const answer = exam.answers[randomIndex]
       if (question && answer) {
-        setCurrentQuestion(question)
-        setCurrentAnswer(answer)
+        setQuestion(question)
+        setAnswer(answer)
       } else {
         throw new Error("question or answer was undefined")
       }
     }
-  }, [currentExam])
+  }, [exam])
 
   useEffect(() => {
     if (examCount) {
@@ -107,7 +107,7 @@ export default function SqlTraining() {
 
   return (
     <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
-      {currentQuestion && currentAnswer && currentExam ? (
+      {question && answer && exam ? (
         <>
           <button
             onClick={() => rollExam()}
@@ -117,10 +117,10 @@ export default function SqlTraining() {
           </button>
           <Card>
             <div className="flex flex-col gap-2">
-              <span className="text-secondary-300">{currentExam.exam_code}</span>
+              <span className="text-secondary-300">{exam.exam_code}</span>
               <h1 className="text-lg">
                 <span className="font-semibold">Napisz zapytanie&nbsp;</span>
-                {currentQuestion}
+                {question}
               </h1>
             </div>
             <div className="flex justify-between gap-2">
@@ -141,14 +141,14 @@ export default function SqlTraining() {
             )}
             <div className="flex flex-col gap-2">
               <Image
-                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/query_images/${currentExam.exam_code}.webp`}
-                alt={`Schemat bazy danych do arkusza ${currentExam.exam_code}`}
+                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/query_images/${exam.exam_code}.webp`}
+                alt={`Schemat bazy danych do arkusza ${exam.exam_code}`}
                 width={500}
                 height={200}
               />
             </div>
             <h2 className="font-semibold">Komentarz do schematu</h2>
-            <p>{currentExam.comment}</p>
+            <p>{exam.comment}</p>
           </Card>
         </>
       ) : (
