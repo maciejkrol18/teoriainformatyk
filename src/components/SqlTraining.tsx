@@ -59,6 +59,7 @@ export default function SqlTraining() {
       setCurrentAnswer(null)
       setIsAnswerCorrect(false)
       setIsAnswerSubmitted(false)
+      setCode("")
       setCurrentExam(exam)
     }
   }
