@@ -4,6 +4,7 @@ import Card from "../ui/Card"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { Table } from "@/types/table"
+import { supabaseUrl } from "@/lib/supabase"
 
 interface CollectionCardProps {
   table: Table
@@ -48,7 +49,7 @@ export default function CollectionCard({
       </div>
       {question.image && (
         <Image
-          src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/${table}_images/${question.id}.webp`}
+          src={`${supabaseUrl}/storage/v1/object/public/${table}_images/${question.id}.webp`}
           alt="Obrazek załączony do pytania"
           width={500}
           height={200}

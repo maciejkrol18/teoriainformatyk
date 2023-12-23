@@ -1,6 +1,6 @@
 "use client"
 
-import { supabase } from "@/lib/supabase"
+import { supabase, supabaseUrl } from "@/lib/supabase"
 import { useState, useEffect } from "react"
 import Card from "./ui/Card"
 import { Question } from "@/types/question"
@@ -150,7 +150,7 @@ export default function OneQuestion({ table }: OneQuestionProps) {
             </div>
             {question.image && (
               <Image
-                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
                 alt="Obrazek załączony do pytania"
                 width={500}
                 height={200}

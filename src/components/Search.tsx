@@ -1,5 +1,5 @@
 "use client"
-import { supabase } from "@/lib/supabase"
+import { supabase, supabaseUrl } from "@/lib/supabase"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { useState } from "react"
@@ -95,7 +95,7 @@ export default function Search() {
                   </div>
                   {question.image && (
                     <Image
-                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf02_images/${question.id}.webp`}
+                      src={`${supabaseUrl}/storage/v1/object/public/questions_inf02_images/${question.id}.webp`}
                       alt="Obrazek załączony do pytania"
                       width={500}
                       height={200}
@@ -145,7 +145,7 @@ export default function Search() {
                   </div>
                   {question.image && (
                     <Image
-                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf03_images/${question.id}.webp`}
+                      src={`${supabaseUrl}/storage/v1/object/public/questions_inf03_images/${question.id}.webp`}
                       alt="Obrazek załączony do pytania"
                       width={500}
                       height={200}

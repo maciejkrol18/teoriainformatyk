@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Card from "./ui/Card"
 import { QueryExam } from "@/types/query-question"
-import { supabase } from "@/lib/supabase"
+import { supabase, supabaseUrl } from "@/lib/supabase"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import Image from "next/image"
 import QueryInput from "./QueryInput"
@@ -160,7 +160,7 @@ export default function SqlTraining() {
             )}
             <div className="flex flex-col gap-2">
               <Image
-                src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/query_images/${exam.exam_code}.webp`}
+                src={`${supabaseUrl}/storage/v1/object/public/query_images/${exam.exam_code}.webp`}
                 alt={`Schemat bazy danych do arkusza ${exam.exam_code}`}
                 width={500}
                 height={200}
