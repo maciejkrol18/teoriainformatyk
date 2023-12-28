@@ -10,6 +10,7 @@ import CardSkeleton from "./skeletons/CardSkeleton"
 import CollectionControls from "./collection/CollectionControls"
 import SessionStats from "./SessionStats"
 import Image from "next/image"
+import AnswerBox from "./ui/AnswerBox"
 
 interface OneQuestionProps {
   table: Table
@@ -124,11 +125,10 @@ export default function OneQuestion({ table }: OneQuestionProps) {
               {answers.map((answer, idx) => {
                 const letters = "abcd"
                 return (
-                  <button
+                  <AnswerBox
                     onClick={() => setSelectedAnswer(answer)}
                     disabled={Boolean(selectedAnswer)}
                     className={cn(
-                      "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
                       {
                         "bg-positive-light":
                           selectedAnswer && answer === question.correct_answer,
@@ -141,10 +141,9 @@ export default function OneQuestion({ table }: OneQuestionProps) {
                       },
                     )}
                     key={idx}
-                  >
-                    <span className="uppercase font-semibold">{letters.at(idx)}.</span>
-                    <span className="text-left">{answer}</span>
-                  </button>
+                    marker={letters.at(idx) as string}
+                    content={answer}
+                  />
                 )
               })}
             </div>

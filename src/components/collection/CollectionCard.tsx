@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { Table } from "@/types/table"
 import { supabaseUrl } from "@/lib/supabase"
+import AnswerBox from "../ui/AnswerBox"
 
 interface CollectionCardProps {
   table: Table
@@ -35,15 +36,14 @@ export default function CollectionCard({
         {question.answers.map((answer, idx) => {
           const letters = "abcd"
           return (
-            <div
-              className={cn("flex gap-2 bg-secondary-300 p-2 drop-shadow-lg", {
+            <AnswerBox
+              className={cn({
                 "bg-positive-light": answer === question.correct_answer,
               })}
+              content={answer}
+              marker={letters.at(idx) as string}
               key={idx}
-            >
-              <span className="uppercase font-semibold">{letters.at(idx)}.</span>
-              <span className="text-left">{answer}</span>
-            </div>
+            />
           )
         })}
       </div>

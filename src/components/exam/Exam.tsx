@@ -11,6 +11,7 @@ import ExamSkeleton from "../skeletons/ExamSkeleton"
 import Image from "next/image"
 import ExamStopwatch from "../exam/ExamTimer"
 import { ExamScore } from "@/types/exam-score"
+import AnswerBox from "../ui/AnswerBox"
 
 interface ExamProps {
   table: Table
@@ -214,11 +215,10 @@ export default function Exam({ table }: ExamProps) {
                 {question.answers.map((answer, idx) => {
                   const letters = "abcd"
                   return (
-                    <button
+                    <AnswerBox
                       onClick={() => setAnswer(answer, question)}
                       disabled={gameState.isFinished}
                       className={cn(
-                        "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
                         {
                           "bg-notify":
                             (!gameState.isFinished &&
@@ -241,10 +241,9 @@ export default function Exam({ table }: ExamProps) {
                         },
                       )}
                       key={idx}
-                    >
-                      <span className="uppercase font-semibold">{letters.at(idx)}.</span>
-                      <span className="text-left">{answer}</span>
-                    </button>
+                      marker={letters.at(idx) as string}
+                      content={answer}
+                    />
                   )
                 })}
               </div>
