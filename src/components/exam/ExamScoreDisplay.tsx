@@ -22,15 +22,15 @@ export default function ExamScoreDisplay({
       className={cn(
         "text-center items-center",
         {
-          "!border-2 !border-danger-light": scorePercentage < 75,
+          "!border-2 !border-danger-light": scorePercentage < 50,
         },
         {
-          "!border-2 !border-positive-light": scorePercentage > 75,
+          "!border-2 !border-positive-light": scorePercentage > 50,
         },
       )}
     >
       <h1 className="text-2xl font-bold">
-        Wynik {scorePercentage > 75 ? "pozytywny" : "negatywny"}
+        Wynik {scorePercentage > 50 ? "pozytywny" : "negatywny"}
       </h1>
       <div className="flex gap-8">
         <div className="flex flex-col gap-2 items-center">

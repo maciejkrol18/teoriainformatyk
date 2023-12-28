@@ -11,7 +11,7 @@ export default function QueryInput({ state, setState }: QueryInputProps) {
       value={state}
       language="sql"
       placeholder="Wpisz kwerendę"
-      onChange={(e) => setState(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
       className="font-mono w-full rounded-lg"
       style={{
         backgroundColor: "#232323",
