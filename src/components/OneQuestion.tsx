@@ -140,7 +140,7 @@ export default function OneQuestion({ table }: OneQuestionProps) {
                           answer !== question.correct_answer,
                       },
                     )}
-                    id={idx}
+                    key={idx}
                     marker={letters.at(idx) as string}
                     content={answer}
                   />

@@ -240,7 +240,7 @@ export default function Exam({ table }: ExamProps) {
                             answer !== question.correct_answer,
                         },
                       )}
-                      id={idx}
+                      key={idx}
                       marker={letters.at(idx) as string}
                       content={answer}
                     />
