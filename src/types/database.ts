@@ -62,6 +62,7 @@ export interface Database {
           created_at: string
           exam_code: string
           id: number
+          image: boolean | null
           questions: string[]
         }
         Relationships: []

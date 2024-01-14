@@ -5,9 +5,9 @@ import Card from "./ui/Card"
 import { QueryExam } from "@/types/query-question"
 import { supabase, supabaseUrl } from "@/lib/supabase"
 import CardSkeleton from "./skeletons/CardSkeleton"
-import Image from "next/image"
 import QueryInput from "./QueryInput"
 import { Parser } from "node-sql-parser"
+import QuestionImage from "./ui/QuestionImage"
 
 const TABLE_NAME = "query_training" as const
 
@@ -25,7 +25,7 @@ export default function SqlTraining() {
   const getExamById = async (id: number) => {
     const { data, error } = await supabase
       .from(TABLE_NAME)
-      .select("exam_code, comment, questions, answers")
+      .select("exam_code, comment, questions, answers, image")
       .eq("id", id)
 
     if (error) {
@@ -98,14 +98,16 @@ export default function SqlTraining() {
 
   useEffect(() => {
     if (exam) {
-      const randomIndex = Math.round(Math.random() * 3)
+      const randomIndex = Math.round(Math.random() * (exam.questions.length - 1) + 0)
       const question = exam.questions[randomIndex]
       const answer = exam.answers[randomIndex]
       if (question && answer) {
         setQuestion(question)
         setAnswer(answer)
       } else {
-        throw new Error("question or answer was undefined")
+        throw new Error(
+          `Question or answer was undefined - rolled index of ${randomIndex}. Exam code ${exam.exam_code}`,
+        )
       }
     }
   }, [exam])
@@ -158,14 +160,13 @@ export default function SqlTraining() {
                 {isAnswerCorrect ? "Poprawna odpowiedź" : "Niepoprawna odpowiedź"}
               </p>
             )}
-            <div className="flex flex-col gap-2">
-              <Image
+            {exam.image && (
+              <QuestionImage
                 src={`${supabaseUrl}/storage/v1/object/public/query_images/${exam.exam_code}.webp`}
                 alt={`Schemat bazy danych do arkusza ${exam.exam_code}`}
-                width={500}
-                height={200}
+                loading="eager"
               />
-            </div>
+            )}
             <p>{exam.comment}</p>
           </Card>
         </>

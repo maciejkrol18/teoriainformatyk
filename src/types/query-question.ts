@@ -3,4 +3,5 @@ export type QueryExam = {
   comment: string
   questions: string[]
   answers: string[]
+  image: boolean | null
 }
