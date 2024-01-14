@@ -1,6 +1,6 @@
 "use client"
 
-import { supabase } from "@/lib/supabase"
+import { supabase, supabaseUrl } from "@/lib/supabase"
 import { useState, useEffect, useRef } from "react"
 import Card from "../ui/Card"
 import { ExamQuestion } from "@/types/exam-question"
@@ -8,9 +8,10 @@ import { Table } from "@/types/table"
 import { cn } from "@/lib/utils"
 import ExamScoreDisplay from "../exam/ExamScoreDisplay"
 import ExamSkeleton from "../skeletons/ExamSkeleton"
-import Image from "next/image"
 import ExamStopwatch from "../exam/ExamTimer"
 import { ExamScore } from "@/types/exam-score"
+import AnswerBox from "../ui/AnswerBox"
+import QuestionImage from "../ui/QuestionImage"
 
 interface ExamProps {
   table: Table
@@ -67,7 +68,7 @@ export default function Exam({ table }: ExamProps) {
         data.map((el) => {
           return {
             ...el,
-            answers: el.answers.sort((a, b) => 0.5 - Math.random()),
+            answers: el.answers.sort((a: string, b: string) => 0.5 - Math.random()),
             selected_answer: null,
             correct_selected: false,
           }
@@ -214,11 +215,10 @@ export default function Exam({ table }: ExamProps) {
                 {question.answers.map((answer, idx) => {
                   const letters = "abcd"
                   return (
-                    <button
+                    <AnswerBox
                       onClick={() => setAnswer(answer, question)}
                       disabled={gameState.isFinished}
                       className={cn(
-                        "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
                         {
                           "bg-notify":
                             (!gameState.isFinished &&
@@ -241,19 +241,17 @@ export default function Exam({ table }: ExamProps) {
                         },
                       )}
                       key={idx}
-                    >
-                      <span className="uppercase font-semibold">{letters.at(idx)}.</span>
-                      <span className="text-left">{answer}</span>
-                    </button>
+                      marker={letters.at(idx) as string}
+                      content={answer}
+                    />
                   )
                 })}
               </div>
               {question.image && (
-                <Image
-                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                <QuestionImage
                   alt="Obrazek załączony do pytania"
-                  width={500}
-                  height={200}
+                  src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                  loading="lazy"
                 />
               )}
             </Card>

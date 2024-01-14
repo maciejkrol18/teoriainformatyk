@@ -1,11 +1,12 @@
 "use client"
-import { supabase } from "@/lib/supabase"
+import { supabase, supabaseUrl } from "@/lib/supabase"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { useState } from "react"
 import Card from "./ui/Card"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import AnswerBox from "./ui/AnswerBox"
 
 export default function Search() {
   const [inf02Results, setInf02Results] = useState<Question[] | null>(null)
@@ -22,7 +23,8 @@ export default function Search() {
       })
 
     if (error) {
-      console.warn(error)
+      console.error(error)
+      throw new Error("Database failed to return data. Check console for more details.")
     }
 
     return data
@@ -76,26 +78,20 @@ export default function Search() {
                     {question.answers.map((answer, idx) => {
                       const letters = "abcd"
                       return (
-                        <div
-                          className={cn(
-                            "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
-                            {
-                              "bg-positive-light": answer === question.correct_answer,
-                            },
-                          )}
+                        <AnswerBox
+                          className={cn({
+                            "bg-positive-light": answer === question.correct_answer,
+                          })}
+                          content={answer}
+                          marker={letters.at(idx) as string}
                           key={idx}
-                        >
-                          <span className="uppercase font-semibold">
-                            {letters.at(idx)}.
-                          </span>
-                          <span className="text-left">{answer}</span>
-                        </div>
+                        />
                       )
                     })}
                   </div>
                   {question.image && (
                     <Image
-                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf02_images/${question.id}.webp`}
+                      src={`${supabaseUrl}/storage/v1/object/public/questions_inf02_images/${question.id}.webp`}
                       alt="Obrazek załączony do pytania"
                       width={500}
                       height={200}
@@ -126,26 +122,20 @@ export default function Search() {
                     {question.answers.map((answer, idx) => {
                       const letters = "abcd"
                       return (
-                        <div
-                          className={cn(
-                            "flex gap-2 bg-secondary-300 p-2 drop-shadow-lg",
-                            {
-                              "bg-positive-light": answer === question.correct_answer,
-                            },
-                          )}
+                        <AnswerBox
+                          className={cn({
+                            "bg-positive-light": answer === question.correct_answer,
+                          })}
+                          content={answer}
+                          marker={letters.at(idx) as string}
                           key={idx}
-                        >
-                          <span className="uppercase font-semibold">
-                            {letters.at(idx)}.
-                          </span>
-                          <span className="text-left">{answer}</span>
-                        </div>
+                        />
                       )
                     })}
                   </div>
                   {question.image && (
                     <Image
-                      src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/questions_inf03_images/${question.id}.webp`}
+                      src={`${supabaseUrl}/storage/v1/object/public/questions_inf03_images/${question.id}.webp`}
                       alt="Obrazek załączony do pytania"
                       width={500}
                       height={200}

@@ -1,5 +1,5 @@
 import Card from "@/components/ui/Card"
-import { Database, ScrollText, Zap } from "lucide-react"
+import { Database, ScrollText, Zap, Terminal } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {
@@ -62,23 +62,42 @@ export default function Home() {
           </Card>
         </section>
 
-        <Card className="max-w-[338px] md:max-w-none">
-          <div className="flex items-center gap-2">
-            <Database className="h-full aspect-square" />
-            <h3 className="text-2xl font-bold">Baza danych</h3>
-          </div>
-          <p className="leading-6">
-            Wyszukaj pytania z obu kwalifikacji w naszej bazie danych
-          </p>
-          <div className="flex flex-col gap-2">
-            <Link
-              href="/search"
-              className="bg-secondary-500 text-lg text-center px-4 py-2"
-            >
-              Przejdź do wyszukiwarki
-            </Link>
-          </div>
-        </Card>
+        <section className="flex flex-col gap-8 md:flex-row">
+          <Card className="max-w-[338px]">
+            <div className="flex items-center gap-2">
+              <Terminal className="h-full aspect-square" />
+              <h3 className="text-2xl font-bold">Kwerendy SQL</h3>
+            </div>
+            <p className="leading-6">
+              Przećwicz pisanie kwerend SQL na podstawie baz danych z dawnych arkuszy
+            </p>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/sql-training"
+                className="bg-secondary-500 text-lg text-center px-4 py-2"
+              >
+                Rozpocznij
+              </Link>
+            </div>
+          </Card>
+          <Card className="max-w-[338px]">
+            <div className="flex items-center gap-2">
+              <Database className="h-full aspect-square" />
+              <h3 className="text-2xl font-bold">Baza danych</h3>
+            </div>
+            <p className="leading-6">
+              Wyszukaj pytania z obu kwalifikacji wpisując ich treść w naszej bazie danych
+            </p>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/search"
+                className="bg-secondary-500 text-lg text-center px-4 py-2"
+              >
+                Przejdź do wyszukiwarki
+              </Link>
+            </div>
+          </Card>
+        </section>
       </main>
     </>
   )
