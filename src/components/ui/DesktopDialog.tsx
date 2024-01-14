@@ -30,7 +30,7 @@ export default function DesktopDialog({
         <Dialog.Content
           className={cn(
             "fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%]",
-            "bg-gradient-primary text-foreground border-secondary-300 border-[1px] p-8 rounded-md flex flex-col gap-4",
+            "bg-primary text-foreground border-secondary-300 border-[1px] p-8 rounded-md flex flex-col gap-4",
           )}
         >
           <Dialog.Title className="text-2xl font-semibold flex items-center justify-between">
