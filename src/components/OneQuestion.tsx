@@ -9,8 +9,8 @@ import { cn, getCollection } from "@/lib/utils"
 import CardSkeleton from "./skeletons/CardSkeleton"
 import CollectionControls from "./collection/CollectionControls"
 import SessionStats from "./SessionStats"
-import Image from "next/image"
 import AnswerBox from "./ui/AnswerBox"
+import QuestionImage from "./ui/QuestionImage"
 
 interface OneQuestionProps {
   table: Table
@@ -148,11 +148,10 @@ export default function OneQuestion({ table }: OneQuestionProps) {
               })}
             </div>
             {question.image && (
-              <Image
-                src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+              <QuestionImage
                 alt="Obrazek załączony do pytania"
-                width={500}
-                height={200}
+                src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                loading="eager"
               />
             )}
           </Card>

@@ -8,10 +8,10 @@ import { Table } from "@/types/table"
 import { cn } from "@/lib/utils"
 import ExamScoreDisplay from "../exam/ExamScoreDisplay"
 import ExamSkeleton from "../skeletons/ExamSkeleton"
-import Image from "next/image"
 import ExamStopwatch from "../exam/ExamTimer"
 import { ExamScore } from "@/types/exam-score"
 import AnswerBox from "../ui/AnswerBox"
+import QuestionImage from "../ui/QuestionImage"
 
 interface ExamProps {
   table: Table
@@ -248,11 +248,10 @@ export default function Exam({ table }: ExamProps) {
                 })}
               </div>
               {question.image && (
-                <Image
-                  src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                <QuestionImage
                   alt="Obrazek załączony do pytania"
-                  width={500}
-                  height={200}
+                  src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                  loading="lazy"
                 />
               )}
             </Card>

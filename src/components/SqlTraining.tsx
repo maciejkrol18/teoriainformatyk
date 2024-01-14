@@ -166,7 +166,6 @@ export default function SqlTraining() {
                 height={200}
               />
             </div>
-            <h2 className="font-semibold">Komentarz do schematu</h2>
             <p>{exam.comment}</p>
           </Card>
         </>
