@@ -5,7 +5,7 @@ interface AnswerBoxProps {
   disabled?: boolean
   marker: string | number
   content: string
-  key: string | number
+  id: string | number
   onClick?: () => void
 }
 
@@ -14,7 +14,7 @@ export default function AnswerBox({
   disabled,
   marker,
   content,
-  key,
+  id,
   onClick,
 }: AnswerBoxProps) {
   return (
@@ -22,7 +22,7 @@ export default function AnswerBox({
       onClick={onClick}
       disabled={disabled}
       className={cn("flex gap-2 bg-secondary-300 p-2 drop-shadow-lg", className)}
-      key={key}
+      key={id}
     >
       <span className="uppercase font-semibold">{marker}.</span>
       <span className="text-left">{content}</span>
