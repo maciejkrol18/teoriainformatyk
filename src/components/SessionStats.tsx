@@ -47,16 +47,16 @@ export default function SessionStats({
     <>
       <div className="md:hidden">
         <MobileDrawer
-          buttonIcon={<BarChart className="w-8 h-8" />}
-          drawerTitle="Statystyki sesji"
-          drawerContent={statsContent}
+          icon={<BarChart className="w-8 h-8" />}
+          title="Statystyki sesji"
+          content={statsContent}
         />
       </div>
       <div className="hidden md:block">
         <DesktopDialog
-          buttonIcon={<BarChart className="w-8 h-8" />}
-          dialogTitle="Statystyki sesji"
-          dialogContent={statsContent}
+          icon={<BarChart className="w-8 h-8" />}
+          title="Statystyki sesji"
+          content={statsContent}
         />
       </div>
     </>

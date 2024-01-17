@@ -3,16 +3,12 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { XCircle } from "lucide-react"
 
 interface DialogProps {
-  buttonIcon: React.ReactNode
-  dialogTitle: string
-  dialogContent: React.ReactNode
+  icon: React.ReactNode
+  title: string
+  content: React.ReactNode
 }
 
-export default function DesktopDialog({
-  buttonIcon,
-  dialogTitle,
-  dialogContent,
-}: DialogProps) {
+export default function DesktopDialog({ icon, title, content }: DialogProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -22,7 +18,7 @@ export default function DesktopDialog({
             "hover:text-foreground hover:border-foreground",
           )}
         >
-          {buttonIcon}
+          {icon}
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -34,14 +30,14 @@ export default function DesktopDialog({
           )}
         >
           <Dialog.Title className="text-2xl font-semibold flex items-center justify-between">
-            {dialogTitle}
+            {title}
             <Dialog.Close asChild>
               <button>
                 <XCircle />
               </button>
             </Dialog.Close>
           </Dialog.Title>
-          {dialogContent}
+          {content}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

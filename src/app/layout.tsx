@@ -7,6 +7,7 @@ import Header from "@/components/ui/Header"
 import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const calSans = localFont({
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <div
           className={cn(
-            "bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col font-inter",
+            "bg-black bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col font-inter",
             inter.variable,
             calSans.variable,
           )}
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </div>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

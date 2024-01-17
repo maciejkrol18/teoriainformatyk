@@ -20,6 +20,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@uiw/react-textarea-code-editor": "^3.0.2",
     "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.4",
     "autoprefixer": "10.4.16",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
