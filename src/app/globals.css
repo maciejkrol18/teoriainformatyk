@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "CalSans";
-  src: url(../assets/fonts/CalSans-SemiBold.woff2);
+  font-family: "InterDisplay";
+  font-weight: 600;
+  src: url(../assets/fonts/InterDisplay-SemiBold.woff2);
+}
+
+@layer base {
+  :root {
+    --text: 0 0% 17%;
+    --background: 120 4% 95%;
+    --primary: 259 71% 64%;
+    --secondary: 261 42% 27%;
+    --accent: 259 35% 82%;
+  }
+  .dark {
+    --text: 0 0% 83%;
+    --background: 120 4% 5%;
+    --primary: 259 71% 36%;
+    --secondary: 261 42% 73%;
+    --accent: 259 35% 18%;
+  }
 }

@@ -9,9 +9,10 @@ import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const calSans = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
-  variable: "--font-calsans",
+
+const interDisplay = localFont({
+  src: "../assets/fonts/InterDisplay-SemiBold.woff2",
+  variable: "--font-interdisplay",
 })
 
 export const metadata: Metadata = {
@@ -48,20 +49,18 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="pl">
+    <html lang="pl" className="dark">
       <body>
         <div
           className={cn(
-            "bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col font-inter",
+            "px-4 bg-background text-text min-h-screen flex flex-col font-sans",
             inter.variable,
-            calSans.variable,
+            interDisplay.variable,
           )}
         >
           <TailwindIndicator />
           <Header />
-          <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
-            {children}
-          </div>
+          <div className="container mx-auto flex flex-col grow gap-4">{children}</div>
         </div>
         <Analytics />
       </body>

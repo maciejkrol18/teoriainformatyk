@@ -39,18 +39,11 @@ module.exports = {
         'size-loading': "400% 400%"
       },
       colors: {
-        'foreground': '#D6D6D6',
-        'primary': '#1B1B1B',
-        'secondary-300': '#353535',
-        'secondary-400': '#2E2E2E',
-        'secondary-500': '#232323',
-        'positive-light': '#278F44',
-        'positive-dark': '#125725',
-        'danger-light': '#DB3939',
-        'danger-dark': '#541A1A',
-        'notify': '#1B6EBB',
-        'accent-purple': '#6F4EB0',
-        'accent-gold': '#FAC02C',
+        'text': 'hsl(var(--text))',
+        'background': 'hsl(var(--background))',
+        'primary': 'hsl(var(--primary))',
+        'secondary': 'hsl(var(--secondary))',
+        'accent': 'hsl(var(--accent))',
       },
       animation: {
         'loading': 'gradient-moving 1s ease infinite',
@@ -65,8 +58,8 @@ module.exports = {
         'card-inset': '0px 0px 10px 0px rgba(0, 0, 0, 0.25) inset',
       },
       fontFamily: {
-        "inter": ["var(--font-inter)"],
-        "calsans": ["var(--font-calsans)"]
+        "sans": ["var(--font-inter)"],
+        "display": ["var(--font-interdisplay)"],
       }
     },
   },

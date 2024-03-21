@@ -1,104 +1,43 @@
-import Card from "@/components/ui/Card"
-import { Database, ScrollText, Zap, Terminal } from "lucide-react"
-import Link from "next/link"
+import Section from "@/components/hero/Section"
 
 export default function Home() {
   return (
     <>
-      <h1 className="text-3xl lg:text-4xl text-center py-14 font-calsans leading-8 tracking-wide">
-        Najlepsza powtórka <br /> do teoretycznego <br />
-        <span className="text-transparent bg-clip-text bg-gradient-accent animate-moving-gradient">
+      <section id="hero" className="flex gap-4 min-h-[calc(100vh-72px)]">
+        <h1 className="font-display text-6xl">
+          Najlepsza powtórka
+          <br />
+          do teoretycznego
+          <br />
           egzaminu zawodowego
-        </span>
-      </h1>
-      <main className="flex flex-col max-w-6xl mx-auto gap-8 pb-8">
-        <section className="flex flex-col gap-8 md:flex-row">
-          <Card className="max-w-[338px]">
-            <div className="flex items-center gap-2">
-              <Zap className="h-full aspect-square" />
-              <h2 className="text-2xl font-bold">Jedno pytanie</h2>
-            </div>
-            <p className="leading-6">
-              Nieskończenie losuj i rozwiązuj jedno pytanie z danej kwalifikacji
-            </p>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/one-question/inf02"
-                className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
-              >
-                INF.02
-              </Link>
-              <Link
-                href="/one-question/inf03"
-                className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
-              >
-                INF.03
-              </Link>
-            </div>
-          </Card>
-
-          <Card className="max-w-[338px]">
-            <div className="flex items-center gap-2">
-              <ScrollText className="h-full aspect-square" />
-              <h3 className="text-2xl font-bold">Egzamin</h3>
-            </div>
-            <p className="leading-6">
-              Rozwiąż losowy egzamin składający się z 40 pytań. Masz na to 60 minut
-            </p>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/exam/inf02"
-                className="bg-inf02-link bg-cover bg-center rounded-md text-lg text-right px-3 py-4 font-bold"
-              >
-                INF.02
-              </Link>
-              <Link
-                href="/exam/inf03"
-                className="bg-inf03-link bg-cover bg-center rounded-md text-lg px-3 py-4 font-bold"
-              >
-                INF.03
-              </Link>
-            </div>
-          </Card>
-        </section>
-
-        <section className="flex flex-col gap-8 md:flex-row">
-          <Card className="max-w-[338px]">
-            <div className="flex items-center gap-2">
-              <Terminal className="h-full aspect-square" />
-              <h3 className="text-2xl font-bold">Kwerendy SQL</h3>
-            </div>
-            <p className="leading-6">
-              Przećwicz pisanie kwerend SQL na podstawie baz danych z dawnych arkuszy
-            </p>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/sql-training"
-                className="bg-secondary-500 text-lg text-center px-4 py-2"
-              >
-                Rozpocznij
-              </Link>
-            </div>
-          </Card>
-          <Card className="max-w-[338px]">
-            <div className="flex items-center gap-2">
-              <Database className="h-full aspect-square" />
-              <h3 className="text-2xl font-bold">Baza danych</h3>
-            </div>
-            <p className="leading-6">
-              Wyszukaj pytania z obu kwalifikacji wpisując ich treść w naszej bazie danych
-            </p>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/search"
-                className="bg-secondary-500 text-lg text-center px-4 py-2"
-              >
-                Przejdź do wyszukiwarki
-              </Link>
-            </div>
-          </Card>
-        </section>
-      </main>
+        </h1>
+        <div>{/* Place for spline.design animation */}</div>
+      </section>
+      <Section
+        title="INF.02/EE.08"
+        subtitle="Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych"
+        id="inf02"
+      ></Section>
+      <Section
+        title="INF.03/EE.09/E.14"
+        subtitle="Tworzenie i administrowanie stronami i aplikacjami internetowymi oraz bazami danych"
+        id="inf03"
+      ></Section>
+      <Section
+        title="Wyszukiwarka pytań"
+        subtitle="Za pomocą naszej wyszukiwarki możesz odnaleźć dane pytanie i wszystko co z nim związane wyszukując jego treść"
+        id="browser"
+      ></Section>
+      <Section
+        title="Zostań użytkownikiem już dziś"
+        subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
+        id="user"
+      ></Section>
+      <Section
+        title="Wesprzyj rozwój strony"
+        subtitle="Nasza strona jest w 100% darmowa a jej kod źródłowy jest dostępny dla wszystkich"
+        id="donate"
+      ></Section>
     </>
   )
 }
