@@ -3,7 +3,7 @@ import Section from "@/components/hero/Section"
 export default function Home() {
   return (
     <>
-      <section id="hero" className="flex gap-4 min-h-[calc(100vh-72px)]">
+      <section id="hero" className="flex gap-4 items-center min-h-[calc(100vh-72px)]">
         <h1 className="font-display text-6xl">
           Najlepsza powtórka
           <br />

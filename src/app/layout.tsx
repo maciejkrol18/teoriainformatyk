@@ -7,6 +7,7 @@ import Header from "@/components/ui/Header"
 import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { Analytics } from "@vercel/analytics/react"
+import Providers from "./providers"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
@@ -49,20 +50,22 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="pl" className="dark">
+    <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
-        <div
-          className={cn(
-            "px-4 bg-background text-text min-h-screen flex flex-col font-sans",
-            inter.variable,
-            interDisplay.variable,
-          )}
-        >
-          <TailwindIndicator />
-          <Header />
-          <div className="container mx-auto flex flex-col grow gap-4">{children}</div>
-        </div>
-        <Analytics />
+        <Providers>
+          <div
+            className={cn(
+              "px-4 bg-background text-text min-h-screen flex flex-col font-sans",
+              inter.variable,
+              interDisplay.variable,
+            )}
+          >
+            <TailwindIndicator />
+            <Header />
+            <div className="container mx-auto flex flex-col grow gap-4">{children}</div>
+          </div>
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )
