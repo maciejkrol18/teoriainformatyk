@@ -8,6 +8,7 @@ import React from "react"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { Analytics } from "@vercel/analytics/react"
 import Providers from "./providers"
+import Footer from "@/components/ui/Footer"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <div
             className={cn(
-              "px-4 bg-background text-text min-h-screen flex flex-col font-sans",
+              "bg-background text-text min-h-screen flex flex-col font-sans",
               inter.variable,
               interDisplay.variable,
             )}
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <TailwindIndicator />
             <Header />
             <div className="container mx-auto flex flex-col grow gap-4">{children}</div>
+            <Footer />
           </div>
           <Analytics />
         </Providers>

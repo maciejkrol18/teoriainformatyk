@@ -12,6 +12,8 @@
   :root {
     --text: 0 0% 17%;
     --background: 120 4% 95%;
+    --background-light: 0 0% 88%;
+    --background-bright: 0 50% 98%;
     --primary: 259 71% 64%;
     --secondary: 261 42% 27%;
     --accent: 259 35% 82%;
@@ -19,6 +21,8 @@
   .dark {
     --text: 0 0% 83%;
     --background: 120 4% 5%;
+    --background-light: 0 0% 7%;
+    --background-bright: 0 0% 8%;
     --primary: 259 71% 36%;
     --secondary: 261 42% 73%;
     --accent: 259 35% 18%;
