@@ -12,7 +12,7 @@ export default function Section({ title, subtitle, id, children }: SectionProps)
         <h2 className="font-display text-5xl">{title}</h2>
         <h3>{subtitle}</h3>
       </div>
-      {children}
+      <div className="pb-24">{children}</div>
     </section>
   )
 }
