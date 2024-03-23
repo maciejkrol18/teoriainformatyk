@@ -6,6 +6,9 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      padding: '1rem'
+    },
     extend: {
       backgroundImage: {
         'gradient-loading': `

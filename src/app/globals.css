@@ -12,8 +12,8 @@
   :root {
     --text: 0 0% 17%;
     --background: 120 4% 95%;
-    --background-light: 0 0% 88%;
-    --background-bright: 0 50% 98%;
+    --background-light: 0 0% 98%;
+    --background-bright: 0 0% 100%;
     --primary: 259 71% 64%;
     --secondary: 261 42% 27%;
     --accent: 259 35% 82%;

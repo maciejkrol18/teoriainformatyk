@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <header className="py-4">
-      <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-calsans tracking-wide">
           <BrandLogo size="small" />
         </Link>

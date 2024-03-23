@@ -1,11 +1,15 @@
 import GamemodeBlock from "@/components/hero/GamemodeBlock"
 import GamemodesWrapper from "@/components/hero/GamemodesWrapper"
 import Section from "@/components/hero/Section"
+import SplineViewer from "@/components/ui/SplineViewer"
 
 export default function Home() {
   return (
     <>
-      <section id="hero" className="flex gap-4 items-center min-h-[calc(100vh-72px)]">
+      <section
+        id="hero"
+        className="flex gap-4 items-center justify-between min-h-[calc(100vh-72px)]"
+      >
         <h1 className="font-display text-6xl">
           Najlepsza powtórka
           <br />
@@ -13,7 +17,7 @@ export default function Home() {
           <br />
           egzaminu zawodowego
         </h1>
-        <div>{/* Place for spline.design animation */}</div>
+        <SplineViewer url="https://prod.spline.design/BG0t78pRt-FK6v4x/scene.splinecode" />
       </section>
       <Section
         title="INF.02/EE.08"
