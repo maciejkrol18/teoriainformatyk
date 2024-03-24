@@ -1,23 +1,37 @@
 import GamemodeBlock from "@/components/hero/GamemodeBlock"
 import GamemodesWrapper from "@/components/hero/GamemodesWrapper"
 import Section from "@/components/hero/Section"
+import { Button } from "@/components/ui/Button"
 import SplineViewer from "@/components/ui/SplineViewer"
+import Link from "next/link"
 
 export default function Home() {
   return (
     <>
       <section
         id="hero"
-        className="flex gap-4 items-center justify-between min-h-[calc(100vh-72px)]"
+        className="flex flex-col md:flex-row gap-4 items-center justify-center min-h-[calc(100vh-72px)]"
       >
-        <h1 className="font-display text-6xl">
-          Najlepsza powtórka
-          <br />
-          do teoretycznego
-          <br />
-          egzaminu zawodowego
-        </h1>
-        <SplineViewer url="https://prod.spline.design/BG0t78pRt-FK6v4x/scene.splinecode" />
+        <div className="flex flex-col gap-8 md:flex-1">
+          <h1 className="font-display text-4xl text-left xl:text-6xl">
+            Najlepsza powtórka
+            <br />
+            do teoretycznego
+            <br />
+            egzaminu zawodowego
+          </h1>
+          <div className="flex flex-col gap-4 text-center md:flex-row">
+            <Button variant="primary" size="lg" asChild>
+              <Link href="/#inf02">Zacznij powtarzać</Link>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <Link href="/#browser">Więcej</Link>
+            </Button>
+          </div>
+        </div>
+        <div className="md:flex-1">
+          <SplineViewer url="https://prod.spline.design/BG0t78pRt-FK6v4x/scene.splinecode" />
+        </div>
       </section>
       <Section
         title="INF.02/EE.08"

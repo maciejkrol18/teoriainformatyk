@@ -15,8 +15,8 @@
     --background-light: 0 0% 98%;
     --background-bright: 0 0% 100%;
     --primary: 259 71% 64%;
-    --secondary: 261 42% 27%;
-    --accent: 259 35% 82%;
+    --secondary: 259 35% 82%;
+    --accent: 261 42% 27%;
   }
   .dark {
     --text: 0 0% 83%;
@@ -24,7 +24,7 @@
     --background-light: 0 0% 7%;
     --background-bright: 0 0% 8%;
     --primary: 259 71% 36%;
-    --secondary: 261 42% 73%;
-    --accent: 259 35% 18%;
+    --secondary: 259 35% 18%;
+    --accent: 261 42% 73%;
   }
 }
