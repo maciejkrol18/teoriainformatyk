@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background-light hover:bg-background-light/90",
+        default: "bg-background-bright hover:bg-background-bright/90",
         primary: "bg-primary hover:bg-primary/90",
         secondary: "bg-secondary hover:bg-secondary/90",
         outline: "border border-bg-background-light hover:bg-background-bright",
@@ -18,7 +18,6 @@ const buttonVariants = cva(
         default: "h-10 px-4",
         sm: "px-3",
         lg: "h-11 px-8",
-        icon: "h-10 w-10",
       },
     },
     defaultVariants: {

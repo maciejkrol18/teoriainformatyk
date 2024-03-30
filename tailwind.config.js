@@ -21,6 +21,7 @@ module.exports = {
       },
       colors: {
         'text': 'hsl(var(--text))',
+        'muted': 'hsl(var(--muted))',
         'background': 'hsl(var(--background))',
         'background-light': 'hsl(var(--background-light))',
         'background-bright': 'hsl(var(--background-bright))',
