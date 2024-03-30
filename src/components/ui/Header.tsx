@@ -1,20 +1,14 @@
 "use client"
 
 import { XCircleIcon, Menu } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import MobileNavigation from "./MobileNavigation"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 import ThemeSwitch from "./ThemeSwitch"
 import BrandLogo from "./BrandLogo"
 
 export default function Header() {
-  const path = usePathname()
-  const [mobileNavOpen, setMobileNavOpen] = useState(false)
-
-  useEffect(() => {
-    setMobileNavOpen(false)
-  }, [path])
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   return (
     <header className="py-4">
@@ -33,20 +27,20 @@ export default function Header() {
             Wyszukiwarka
           </Link>
         </nav>
-        <div className="flex gap-4">
+        <div className="hidden lg:flex gap-4">
           <ThemeSwitch />
           <p>|</p>
           <p>Zaloguj</p>
         </div>
-        <button className="lg:hidden" onClick={() => setMobileNavOpen((prev) => !prev)}>
-          {mobileNavOpen ? (
+        <button className="lg:hidden" onClick={() => setIsMobileNavOpen((prev) => !prev)}>
+          {isMobileNavOpen ? (
             <XCircleIcon className="h-full aspect-square" />
           ) : (
             <Menu className="h-full aspect-square" />
           )}
         </button>
       </div>
-      {mobileNavOpen && <MobileNavigation />}
+      {isMobileNavOpen && <MobileNavigation setIsOpen={setIsMobileNavOpen} />}
     </header>
   )
 }

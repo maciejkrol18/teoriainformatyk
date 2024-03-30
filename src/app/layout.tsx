@@ -54,6 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
         <Providers>
+          <TailwindIndicator />
           <div
             className={cn(
               "bg-background text-text min-h-screen flex flex-col font-sans",
@@ -61,10 +62,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               interDisplay.variable,
             )}
           >
-            <TailwindIndicator />
-            <Header />
-            <div className="container mx-auto flex flex-col grow gap-4">{children}</div>
-            <Footer />
+            {children}
           </div>
           <Analytics />
         </Providers>
