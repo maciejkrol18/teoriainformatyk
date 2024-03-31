@@ -8,6 +8,7 @@ import React from "react"
 import { login } from "@/app/(auth)/actions"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
+import { Button } from "../ui/Button"
 
 const schema = z.object({
   email: z
@@ -50,11 +51,9 @@ export default function LoginForm() {
         {errors.password?.message && (
           <p className="text-red-500">{errors.password?.message as React.ReactNode}</p>
         )}
-        <Input
-          type="submit"
-          value="Zaloguj się"
-          className="bg-primary hover:cursor-pointer"
-        />
+        <Button variant="primary" asChild>
+          <Input type="submit" value="Zaloguj się" />
+        </Button>
       </div>
     </form>
   )
