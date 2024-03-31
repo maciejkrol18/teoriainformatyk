@@ -53,7 +53,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
         <Providers>
-          <Toaster position="top-right" />
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "var(--background-bright)",
+                color: "var(--text)",
+              },
+            }}
+          />
           <TailwindIndicator />
           <div
             className={cn(

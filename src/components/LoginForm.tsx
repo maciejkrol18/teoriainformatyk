@@ -18,13 +18,6 @@ const schema = z.object({
 })
 
 export default function LoginForm() {
-  async function signOut() {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-    }
-  }
-
   const {
     register,
     handleSubmit,
@@ -42,7 +35,7 @@ export default function LoginForm() {
         }
         toast.success("Zalogowano")
       })}
-      className="w-full flex flex-col gap-4"
+      className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="email">Email</label>
@@ -63,7 +56,6 @@ export default function LoginForm() {
           className="bg-primary hover:cursor-pointer"
         />
       </div>
-      <button onClick={signOut}>wyloguj</button>
     </form>
   )
 }
