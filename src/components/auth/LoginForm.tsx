@@ -3,10 +3,11 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Input } from "./ui/Input"
+import { Input } from "../ui/Input"
 import React from "react"
-import { signup } from "@/app/(special)/login/actions"
+import { login } from "@/app/(auth)/actions"
 import { toast } from "sonner"
+import { createClient } from "@/lib/supabase/client"
 
 const schema = z.object({
   email: z
@@ -16,7 +17,7 @@ const schema = z.object({
   password: z.string().min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
 })
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
@@ -27,14 +28,14 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        const error = await signup(data)
-        if (error) {
-          toast.error("W trakcie rejestracji wystąpił błąd")
+        const error = await login(data)
+        if (error && error.status === 400) {
+          toast.error("Błędne dane logowania")
           return
         }
-        toast.success("Zarejestrowano")
+        toast.success("Zalogowano")
       })}
-      className="w-full flex flex-col gap-4"
+      className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="email">Email</label>
@@ -51,7 +52,7 @@ export default function RegisterForm() {
         )}
         <Input
           type="submit"
-          value="Stwórz konto"
+          value="Zaloguj się"
           className="bg-primary hover:cursor-pointer"
         />
       </div>

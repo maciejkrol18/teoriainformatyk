@@ -10,7 +10,7 @@ import HeaderAuth from "./HeaderAuth"
 import { createClient } from "@/lib/supabase/client"
 import { User } from "@supabase/supabase-js"
 import { usePathname } from "next/navigation"
-import { AuthContext } from "../AuthContext"
+import { AuthContext } from "../auth/AuthContext"
 
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
