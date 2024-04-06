@@ -17,6 +17,7 @@ const interDisplay = localFont({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://teoriainformatyk.vercel.app"),
   title: {
     default: "teoriainformatyk",
     template: "%s | teoriainformatyk",

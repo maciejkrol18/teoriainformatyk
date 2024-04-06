@@ -1,6 +1,16 @@
 import RegisterForm from "@/components/auth/RegisterForm"
+import { createClient } from "@/lib/supabase/server"
+import { redirect } from "next/navigation"
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const supabase = createClient()
+
+  const { data } = await supabase.auth.getUser()
+
+  if (data.user) {
+    redirect("/dashboard")
+  }
+
   return (
     <>
       <div className="text-center lg:text-left leading-10 lg:leading-[60px]">

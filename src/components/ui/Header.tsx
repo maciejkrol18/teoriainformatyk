@@ -1,20 +1,14 @@
-"use client"
-
-import { XCircleIcon, Menu } from "lucide-react"
-import { useContext, useEffect, useState } from "react"
 import MobileNavigation from "./MobileNavigation"
 import Link from "next/link"
 import ThemeSwitch from "./ThemeSwitch"
 import BrandLogo from "./BrandLogo"
 import HeaderAuth from "./HeaderAuth"
-import { createClient } from "@/lib/supabase/client"
-import { User } from "@supabase/supabase-js"
-import { usePathname } from "next/navigation"
-import { AuthContext } from "../auth/AuthContext"
+import { createClient } from "@/lib/supabase/server"
 
-export default function Header() {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
-  const user = useContext(AuthContext)
+export default async function Header() {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.getUser()
 
   return (
     <header className="py-4">
@@ -36,17 +30,10 @@ export default function Header() {
         <div className="hidden lg:flex lg:items-center gap-4">
           <ThemeSwitch />
           <p>|</p>
-          <HeaderAuth user={user} />
+          <HeaderAuth user={data.user} />
         </div>
-        <button className="lg:hidden" onClick={() => setIsMobileNavOpen((prev) => !prev)}>
-          {isMobileNavOpen ? (
-            <XCircleIcon className="h-full aspect-square" />
-          ) : (
-            <Menu className="h-full aspect-square" />
-          )}
-        </button>
+        <MobileNavigation user={data.user} />
       </div>
-      {isMobileNavOpen && <MobileNavigation setIsOpen={setIsMobileNavOpen} user={user} />}
     </header>
   )
 }
