@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
-import { signup } from "@/app/(auth)/actions"
+import { signUp } from "@/app/(auth)/actions"
 import { toast } from "sonner"
 
 const schema = z.object({
@@ -27,7 +27,7 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        const error = await signup(data)
+        const error = await signUp(data)
         if (error) {
           toast.error("W trakcie rejestracji wystąpił błąd")
           return

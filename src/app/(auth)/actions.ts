@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server"
 import { FieldValues } from "react-hook-form"
 import { AuthError, Provider } from "@supabase/supabase-js"
 
-export async function login(formData: FieldValues): Promise<AuthError | null> {
+export async function signIn(formData: FieldValues): Promise<AuthError | null> {
   const supabase = createClient()
 
   const data = {
@@ -25,7 +25,7 @@ export async function login(formData: FieldValues): Promise<AuthError | null> {
   redirect("/")
 }
 
-export async function signup(formData: FieldValues): Promise<AuthError | null> {
+export async function signUp(formData: FieldValues): Promise<AuthError | null> {
   const supabase = createClient()
 
   const data = {
@@ -40,7 +40,7 @@ export async function signup(formData: FieldValues): Promise<AuthError | null> {
   }
 
   revalidatePath("/", "layout")
-  redirect("/")
+  redirect("/confirm-signup")
 }
 
 export async function socialSignIn(provider: Provider) {

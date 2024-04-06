@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
-import { login } from "@/app/(auth)/actions"
+import { signIn } from "@/app/(auth)/actions"
 import { toast } from "sonner"
-import { createClient } from "@/lib/supabase/client"
 import { Button } from "../ui/Button"
 
 const schema = z.object({
@@ -29,7 +28,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        const error = await login(data)
+        const error = await signIn(data)
         if (error && error.status === 400) {
           toast.error("Błędne dane logowania")
           return
