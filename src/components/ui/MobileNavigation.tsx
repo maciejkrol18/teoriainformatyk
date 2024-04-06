@@ -1,14 +1,13 @@
 "use client"
 
-import { useLockBodyScroll } from "@uidotdev/usehooks"
 import Link from "next/link"
 import { Button } from "./Button"
 import { createClient } from "@/lib/supabase/client"
-import { toast } from "sonner"
-import { LayoutDashboard, LogOut, Menu } from "lucide-react"
+import { Menu, XCircle } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 import { User } from "@supabase/supabase-js"
+import ProfileBlock from "./ProfileBlock"
 
 interface MobileNavigationProps {
   user: User | null
@@ -59,47 +58,26 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
     }
   }
 
-  const signOut = async () => {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      console.error(error)
-      return
-    }
-    window.location.reload()
-  }
-
   useEffect(() => {
     if (wasProfileFetched.current) return
     fetchProfile()
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto"
+  }, [isOpen])
+
   return (
     <div className="lg:hidden">
-      <Menu onClick={toggleOpen} className="h-full aspect-square hover:cursor-pointer" />
+      <button onClick={toggleOpen} className="h-full aspect-square hover:cursor-pointer">
+        {isOpen ? <XCircle /> : <Menu />}
+      </button>
       {isOpen ? (
         <nav className="bg-background-light z-50 fixed left-0 right-0 bottom-0 top-[67px]">
           <div className="container mx-auto flex flex-col gap-6 py-4">
-            <div className="bg-background-bright flex flex-col gap-4 p-4">
+            <div className="bg-background-bright flex flex-col justify-center gap-4 p-4">
               {profile ? (
-                <>
-                  <div className="flex gap-4">
-                    <img
-                      className="w-8 h-8 bg-primary rounded-full"
-                      src={profile.avatar_url ? profile.avatar_url : ""}
-                    />
-                    <p className="text-xl font-semibold">{profile.display_name}</p>
-                    <p className="text-lg text-muted">{profile.email}</p>
-                  </div>
-                  <Button variant="outline" onClick={() => signOut()}>
-                    <LogOut /> Wyloguj
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/dashboard">
-                      <LayoutDashboard /> Panel użytkownika
-                    </Link>
-                  </Button>
-                </>
+                <ProfileBlock profile={profile} />
               ) : (
                 <Button variant="primary" asChild>
                   <Link href="/login">Zaloguj</Link>
