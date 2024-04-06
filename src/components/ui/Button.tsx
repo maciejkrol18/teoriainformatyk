@@ -4,11 +4,11 @@ import { Slot } from "@radix-ui/react-slot"
 import { forwardRef } from "react"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium",
+  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium",
   {
     variants: {
       variant: {
-        default: "bg-background-light hover:bg-background-light/90",
+        default: "bg-background-bright hover:bg-background-bright/90",
         primary: "bg-primary hover:bg-primary/90",
         secondary: "bg-secondary hover:bg-secondary/90",
         outline: "border border-bg-background-light hover:bg-background-bright",
@@ -18,7 +18,6 @@ const buttonVariants = cva(
         default: "h-10 px-4",
         sm: "px-3",
         lg: "h-11 px-8",
-        icon: "h-10 w-10",
       },
     },
     defaultVariants: {

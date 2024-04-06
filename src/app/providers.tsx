@@ -1,6 +1,7 @@
 "use client"
 
 import { ThemeProvider } from "next-themes"
+import { AuthContext } from "@/components/auth/AuthContext"
 
 interface ProvidersProps {
   children: React.ReactNode

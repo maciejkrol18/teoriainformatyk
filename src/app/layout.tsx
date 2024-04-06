@@ -3,12 +3,11 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import localFont from "next/font/local"
-import Header from "@/components/ui/Header"
 import React from "react"
-import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { Analytics } from "@vercel/analytics/react"
 import Providers from "./providers"
-import Footer from "@/components/ui/Footer"
+import { Toaster } from "sonner"
+import { TailwindIndicator } from "@/components/TailwindIndicator"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
@@ -18,6 +17,7 @@ const interDisplay = localFont({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://teoriainformatyk.vercel.app"),
   title: {
     default: "teoriainformatyk",
     template: "%s | teoriainformatyk",
@@ -54,6 +54,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
         <Providers>
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "var(--background-bright)",
+                color: "var(--text)",
+              },
+            }}
+          />
           <TailwindIndicator />
           <div
             className={cn(
