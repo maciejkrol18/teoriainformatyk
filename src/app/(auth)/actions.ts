@@ -42,18 +42,3 @@ export async function signUp(formData: FieldValues): Promise<AuthError | null> {
   revalidatePath("/", "layout")
   redirect("/confirm-signup")
 }
-
-export async function socialSignIn(provider: Provider) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider,
-    options: {
-      redirectTo: "/auth/callback",
-    },
-  })
-
-  if (data.url) {
-    redirect(`${data.url}`)
-  }
-}
