@@ -9,33 +9,62 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      exam_scores: {
+      easy_collections: {
         Row: {
-          correct: number | null
           created_at: string
-          exam_id: number | null
           id: number
-          incorrect: number | null
-          unanswered: number | null
-          user_id: string | null
+          question_id_array: number[]
+          user_id: string
         }
         Insert: {
-          correct?: number | null
           created_at?: string
-          exam_id?: number | null
           id?: number
-          incorrect?: number | null
-          unanswered?: number | null
-          user_id?: string | null
+          question_id_array: number[]
+          user_id: string
         }
         Update: {
-          correct?: number | null
           created_at?: string
-          exam_id?: number | null
           id?: number
-          incorrect?: number | null
-          unanswered?: number | null
-          user_id?: string | null
+          question_id_array?: number[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_easy_collections_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exam_scores: {
+        Row: {
+          correct: number
+          created_at: string
+          exam_id: number
+          id: number
+          incorrect: number
+          unanswered: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          created_at?: string
+          exam_id: number
+          id?: number
+          incorrect?: number
+          unanswered?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          created_at?: string
+          exam_id?: number
+          id?: number
+          incorrect?: number
+          unanswered?: number
+          user_id?: string
         }
         Relationships: [
           {
@@ -74,6 +103,74 @@ export type Database = {
           name?: string | null
         }
         Relationships: []
+      }
+      flashcards: {
+        Row: {
+          created_at: string
+          exam_id: number
+          id: number
+          question_id_array: number[]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          exam_id: number
+          id?: number
+          question_id_array: number[]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          exam_id?: number
+          id?: number
+          question_id_array?: number[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_flashcards_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_flashcards_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hard_collections: {
+        Row: {
+          created_at: string
+          id: number
+          question_id_array: number[]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          question_id_array: number[]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          question_id_array?: number[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_hard_collections_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       inf02: {
         Row: {
@@ -131,28 +228,28 @@ export type Database = {
       }
       one_question_scores: {
         Row: {
-          correct: number | null
+          correct: number
           created_at: string | null
-          exam_id: number | null
+          exam_id: number
           id: number
-          incorrect: number | null
-          user_id: string | null
+          incorrect: number
+          user_id: string
         }
         Insert: {
-          correct?: number | null
+          correct?: number
           created_at?: string | null
-          exam_id?: number | null
-          id: number
-          incorrect?: number | null
-          user_id?: string | null
+          exam_id: number
+          id?: number
+          incorrect?: number
+          user_id: string
         }
         Update: {
-          correct?: number | null
+          correct?: number
           created_at?: string | null
-          exam_id?: number | null
+          exam_id?: number
           id?: number
-          incorrect?: number | null
-          user_id?: string | null
+          incorrect?: number
+          user_id?: string
         }
         Relationships: [
           {
@@ -184,11 +281,11 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string
-          display_name?: string
-          email?: string
+          display_name: string
+          email: string
           id?: number
-          providers?: string[]
-          user_id?: string
+          providers: string[]
+          user_id: string
         }
         Update: {
           avatar_url?: string | null
@@ -203,7 +300,7 @@ export type Database = {
           {
             foreignKeyName: "public_profile_pictures_user_id_fkey"
             columns: ["user_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -453,7 +550,8 @@ export type Tables<
     : never
   : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
         PublicSchema["Views"])
-    ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
