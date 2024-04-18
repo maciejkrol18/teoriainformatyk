@@ -1,11 +1,8 @@
-"use client"
-
-import { createClient } from "@/lib/supabase/client"
-import { useEffect, useRef, useState } from "react"
+import { createClient } from "@/lib/supabase/server"
 import DashboardBlock from "./DashboardBlock"
 import Link from "next/link"
 import { Button } from "../ui/Button"
-import { cn } from "@/lib/utils"
+import ScoreBlock from "../ui/ScoreBlock"
 
 interface DashboardLatestExamsProps {
   userId: string
@@ -18,68 +15,29 @@ interface Score {
   incorrect: number
   unanswered: number
   created_at: string
+  exams: {
+    name: string
+  } | null
 }
 
-const ScoreBlock = ({ exam_id, correct, incorrect, unanswered, created_at }: Score) => {
-  const totalQuestions = correct + incorrect + unanswered
-  const score = Math.floor((correct / totalQuestions) * 100)
-  const date = new Date(created_at).toLocaleDateString()
-  const exam =
-    exam_id === 1
-      ? "INF.02/EE.08"
-      : exam_id === 2
-        ? "INF.03/EE.09/EE.14"
-        : "Nieznana kwalifikacja"
-  const isScorePositive = score > 50
-
-  return (
-    <div
-      className={cn(
-        "flex justify-between items-center bg-background-bright p-2 border",
-        isScorePositive ? "border-green-800" : "border-red-800",
-      )}
-    >
-      <div>
-        <p className="text-xl font-medium">{exam}</p>
-        <p className="text-muted">{date}</p>
-      </div>
-      <p className="text-2xl font-medium">{score}%</p>
-    </div>
-  )
-}
-
-export default function DashboardLatestExams({
+export default async function DashboardLatestExams({
   userId,
   className,
 }: DashboardLatestExamsProps) {
-  const [scores, setScores] = useState<Score[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const wereScoresFetched = useRef<boolean>(false)
+  const supabase = createClient()
 
-  const fetchExamScores = async () => {
-    const supabase = createClient()
+  const { data, error } = await supabase
+    .from("exam_scores")
+    .select("exam_id, correct, incorrect, unanswered, created_at, exams (name)")
+    .eq("user_id", userId)
+    .order("created_at")
+    .limit(4)
 
-    const { data, error } = await supabase
-      .from("exam_scores")
-      .select("exam_id, correct, incorrect, unanswered, created_at")
-      .eq("user_id", userId)
-      .order("created_at")
-      .limit(4)
+  let scores: Score[] = []
 
-    if (!data || error) {
-      setLoading(false)
-      setScores([])
-    } else {
-      setLoading(false)
-      setScores(data)
-      wereScoresFetched.current = true
-    }
+  if (data) {
+    scores = [...scores, ...data]
   }
-
-  useEffect(() => {
-    if (wereScoresFetched.current) return
-    fetchExamScores()
-  }, [])
 
   return (
     <DashboardBlock
@@ -91,13 +49,12 @@ export default function DashboardLatestExams({
         </Button>
       }
     >
-      {loading && <p>Ładowanie...</p>}
       {scores.length > 0 &&
         scores.map((score, index) => {
           return (
             <ScoreBlock
               key={index}
-              exam_id={score.exam_id}
+              examName={score.exams?.name}
               correct={score.correct}
               incorrect={score.incorrect}
               unanswered={score.unanswered}
@@ -105,9 +62,16 @@ export default function DashboardLatestExams({
             />
           )
         })}
-      {scores.length === 0 && !loading && (
+      {scores.length === 0 && (
         <div className="flex justify-center items-center grow">
           <p className="text-muted">Brak wyników</p>
+        </div>
+      )}
+      {error && (
+        <div className="flex justify-center items-center grow">
+          <p className="text-muted">
+            Wystąpił błąd podczas pobierania danych <br /> {error.message}
+          </p>
         </div>
       )}
     </DashboardBlock>

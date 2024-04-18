@@ -85,22 +85,25 @@ export type Database = {
       }
       exams: {
         Row: {
+          code: string
           created_at: string
-          description: string | null
+          description: string
           id: number
-          name: string | null
+          name: string
         }
         Insert: {
+          code?: string
           created_at?: string
-          description?: string | null
+          description?: string
           id?: number
-          name?: string | null
+          name?: string
         }
         Update: {
+          code?: string
           created_at?: string
-          description?: string | null
+          description?: string
           id?: number
-          name?: string | null
+          name?: string
         }
         Relationships: []
       }
