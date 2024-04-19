@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils"
 
 interface Score {
-  correct: number
-  incorrect: number
-  unanswered: number
-  created_at: string
+  correct: number[] | null
+  incorrect: number[] | null
+  unanswered: number[] | null
+  createdAt: string
   examName: string | undefined
 }
 
@@ -12,12 +12,16 @@ export default async function ScoreBlock({
   correct,
   incorrect,
   unanswered,
-  created_at,
+  createdAt,
   examName,
 }: Score) {
-  const totalQuestions = correct + incorrect + unanswered
-  const score = Math.floor((correct / totalQuestions) * 100)
-  const date = new Date(created_at).toLocaleDateString()
+  const totalCorrect = correct ? correct.length : 0
+  const totalIncorrect = incorrect ? incorrect.length : 0
+  const totalUnanswered = unanswered ? unanswered.length : 0
+  const totalQuestions = totalCorrect + totalIncorrect + totalUnanswered
+
+  const score = Math.floor((totalCorrect / totalQuestions) * 100)
+  const date = new Date(createdAt).toLocaleDateString()
   const exam = examName ? examName : "Nieznana kwalifikacja"
   const isScorePositive = score > 50
 

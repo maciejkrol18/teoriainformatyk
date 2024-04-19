@@ -10,10 +10,10 @@ interface DashboardLatestExamsProps {
 }
 
 interface Score {
-  exam_id: number
-  correct: number
-  incorrect: number
-  unanswered: number
+  exam_id: number | null
+  correct: number[] | null
+  incorrect: number[] | null
+  unanswered: number[] | null
   created_at: string
   exams: {
     name: string
@@ -58,7 +58,7 @@ export default async function DashboardLatestExams({
               correct={score.correct}
               incorrect={score.incorrect}
               unanswered={score.unanswered}
-              created_at={score.created_at}
+              createdAt={score.created_at}
             />
           )
         })}

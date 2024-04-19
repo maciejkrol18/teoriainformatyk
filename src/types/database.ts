@@ -40,31 +40,37 @@ export type Database = {
       }
       exam_scores: {
         Row: {
-          correct: number
+          correct: number[] | null
           created_at: string
-          exam_id: number
+          exam_id: number | null
           id: number
-          incorrect: number
-          unanswered: number
-          user_id: string
+          incorrect: number[] | null
+          time_finished: string
+          time_started: string
+          unanswered: number[] | null
+          user_id: string | null
         }
         Insert: {
-          correct?: number
+          correct?: number[] | null
           created_at?: string
-          exam_id: number
+          exam_id?: number | null
           id?: number
-          incorrect?: number
-          unanswered?: number
-          user_id: string
+          incorrect?: number[] | null
+          time_finished: string
+          time_started: string
+          unanswered?: number[] | null
+          user_id?: string | null
         }
         Update: {
-          correct?: number
+          correct?: number[] | null
           created_at?: string
-          exam_id?: number
+          exam_id?: number | null
           id?: number
-          incorrect?: number
-          unanswered?: number
-          user_id?: string
+          incorrect?: number[] | null
+          time_finished?: string
+          time_started?: string
+          unanswered?: number[] | null
+          user_id?: string | null
         }
         Relationships: [
           {
