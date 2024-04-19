@@ -18,9 +18,9 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col gap-8 py-8">
+    <div className="flex flex-col gap-8">
       <DashboardHeader userId={data.user.id} />
-      <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="flex flex-col gap-8 lg:flex-row">
         <DashboardStats userId={data.user.id} className="flex-1" />
         <DashboardLatestExams userId={data.user.id} className="flex-1" />
       </div>

@@ -1,10 +1,21 @@
 import { createClient } from "@/lib/supabase/server"
+import DashboardBlock from "./DashboardBlock"
+import Link from "next/link"
+import { KeyRound, RotateCcw, Trash2 } from "lucide-react"
+import { Button } from "../ui/Button"
 
 interface DashboardAccountProps {
   userId: string
 }
 
-const Divider = () => <div className="h-[2px] bg-background-bright" />
+const DataParagraph = ({ label, value }: { label: string; value: string }) => {
+  return (
+    <p>
+      <span className="text-lg font-medium">{label}</span>{" "}
+      <span className="text-muted">{value}</span>
+    </p>
+  )
+}
 
 export default async function DashboardAccount({ userId }: DashboardAccountProps) {
   const supabase = createClient()
@@ -21,39 +32,39 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
       : "Nieznana data dołączenia"
 
   return (
-    <div id="account" className="flex flex-col gap-4 p-4 rounded-lg bg-background-light">
-      <h2 className="text-2xl font-bold">Twoje konto</h2>
-      <Divider />
-      {data ? (
+    <DashboardBlock blockTitle="Twoje konto">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button asChild variant="outline">
+          <Link href="/dashboard/change-password">
+            <KeyRound /> Zmień hasło
+          </Link>
+        </Button>
+        <Button asChild variant="outline" disabled>
+          <Link href="/dashboard/reset-stats">
+            <RotateCcw /> Zresetuj statystyki
+          </Link>
+        </Button>
+        <Button asChild variant="outline" disabled>
+          <Link href="/dashboard/delete-account">
+            <Trash2 /> Usuń konto
+          </Link>
+        </Button>
+      </div>
+      {data && !error ? (
         <>
-          <p>
-            <span className="text-lg font-medium">Wyświetlana nazwa </span>
-            <span className="text-muted">{data.display_name}</span>
-          </p>
-          <p>
-            <span className="text-lg font-medium">Adres email </span>
-            <span className="text-muted">{data.email}</span>
-          </p>
-          <p>
-            <span className="text-lg font-medium">Data stworzenia konta </span>
-            <span className="text-muted">{dateJoined}</span>
-          </p>
-          <p>
-            <span className="text-lg font-medium">Metody uwierzytelnienia </span>
-            <span className="text-muted">
-              {data.providers.map((provider, idx) =>
-                idx + 1 === data.providers.length ? provider : `${provider}, `,
-              )}
-            </span>
-          </p>
-          <p>
-            <span className="text-lg font-medium">Identyfikator </span>
-            <span className="text-muted">{data.user_id}</span>
-          </p>
+          <DataParagraph label="Wyświetlana nazwa" value={data.display_name} />
+          <DataParagraph label="Adres email" value={data.email} />
+          <DataParagraph label="Data dołączenia" value={dateJoined} />
+          <DataParagraph label="Identyfikator" value={data.user_id} />
         </>
       ) : (
-        <p>Nie udało się załadować twoich danych</p>
+        <p className="text-muted">Nie udało się załadować twoich danych</p>
       )}
-    </div>
+      {error && (
+        <p className="text-muted">
+          Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
+        </p>
+      )}
+    </DashboardBlock>
   )
 }

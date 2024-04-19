@@ -13,7 +13,7 @@ interface DashboardStatsProps {
 
 export default function DashboardStats({ className, userId }: DashboardStatsProps) {
   return (
-    <Tabs defaultValue="inf02" className={cn("flex flex-col gap-4", className)}>
+    <Tabs defaultValue="inf02" className={cn("flex flex-col gap-8", className)}>
       <DashboardBlock
         blockTitle="Jedno pytanie"
         blockActions={
