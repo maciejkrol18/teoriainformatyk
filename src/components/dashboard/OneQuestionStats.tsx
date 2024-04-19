@@ -68,7 +68,7 @@ export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
             <p className="text-2xl font-semibold">{scorePercentage}%</p>
             <p>poprawnych odpowiedzi</p>
             <p className="text-muted">
-              ({stats.correct}/{stats.correct + stats.incorrect})
+              {stats.correct}/{stats.correct + stats.incorrect}
             </p>
           </div>
         </div>
