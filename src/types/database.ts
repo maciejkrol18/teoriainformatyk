@@ -284,7 +284,6 @@ export type Database = {
           display_name: string
           email: string
           id: number
-          providers: string[]
           user_id: string
         }
         Insert: {
@@ -293,7 +292,6 @@ export type Database = {
           display_name: string
           email: string
           id?: number
-          providers: string[]
           user_id: string
         }
         Update: {
@@ -302,7 +300,6 @@ export type Database = {
           display_name?: string
           email?: string
           id?: number
-          providers?: string[]
           user_id?: string
         }
         Relationships: [
