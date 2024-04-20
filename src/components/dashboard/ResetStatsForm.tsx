@@ -6,22 +6,21 @@ import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
 import { toast } from "sonner"
-import { changePassword } from "@/app/(default)/dashboard/actions"
+import { resetStats } from "@/app/(default)/dashboard/actions"
+
+const CONFIRMATION_PHRASE = "Zresetuj statystyki"
 
 const schema = z
   .object({
     currentPassword: z.string(),
-    newPassword: z
-      .string()
-      .min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
-    confirmedNewPassword: z.string(),
+    confirmationPhrase: z.string(),
   })
-  .refine((data) => data.newPassword === data.confirmedNewPassword, {
-    message: "Hasła nie są identyczne",
-    path: ["confirm"],
+  .refine((data) => data.confirmationPhrase === CONFIRMATION_PHRASE, {
+    message: "Nieprawidłowa fraza potwierdzająca",
+    path: ["confirmationPhrase"],
   })
 
-export default function ChangePasswordForm() {
+export default function ResetStatsForm() {
   const {
     register,
     handleSubmit,
@@ -33,7 +32,7 @@ export default function ChangePasswordForm() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        const error = await changePassword(data)
+        const error = await resetStats(data)
         if (error) {
           toast.error(`Wystąpił błąd: ${error.message}`)
           resetField("currentPassword")
@@ -43,7 +42,7 @@ export default function ChangePasswordForm() {
       className="w-full max-w-[500px] flex flex-col gap-4 bg-background-bright p-4 rounded-lg"
     >
       <div className="flex flex-col gap-2">
-        <label htmlFor="password">Aktualne hasło</label>
+        <label htmlFor="currentPassword">Twoje hasło</label>
         <Input id="currentPassword" type="password" {...register("currentPassword")} />
         {errors.newPassword?.message && (
           <p className="text-red-500">
@@ -52,28 +51,19 @@ export default function ChangePasswordForm() {
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="password">Nowe hasło</label>
-        <Input id="newPassword" type="password" {...register("newPassword")} />
-        {errors.newPassword?.message && (
-          <p className="text-red-500">{errors.newPassword?.message as React.ReactNode}</p>
-        )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="confirm">Potwierdź nowe hasło</label>
-        <Input
-          id="confirmedNewPassword"
-          type="password"
-          {...register("confirmedNewPassword")}
-        />
-        {errors.confirmedNewPassword?.message && (
+        <label htmlFor="confirmationPhrase">
+          Potwierdź reset (wpisz "{CONFIRMATION_PHRASE}")
+        </label>
+        <Input id="confirmationPhrase" type="text" {...register("confirmationPhrase")} />
+        {errors.confirmationPhrase?.message && (
           <p className="text-red-500">
-            {errors.confirmedNewPassword?.message as React.ReactNode}
+            {errors.confirmationPhrase?.message as React.ReactNode}
           </p>
         )}
       </div>
       <Input
         type="submit"
-        value="Zatwierdź zmiany"
+        value="Zatwierdź"
         className="bg-primary hover:cursor-pointer"
       />
     </form>

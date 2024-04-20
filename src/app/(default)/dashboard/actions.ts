@@ -31,3 +31,22 @@ export async function changePassword(
   revalidatePath("/login", "layout")
   redirect("/login")
 }
+
+export async function resetStats(formData: FieldValues): Promise<PostgrestError | null> {
+  const supabase = createClient()
+
+  const data = {
+    currentPassword: formData.currentPassword,
+  }
+
+  const { error } = await supabase.rpc("reset_user_stats", {
+    current_plain_password: data.currentPassword,
+  })
+
+  if (error) {
+    return error
+  }
+
+  revalidatePath("/dashboard", "layout")
+  redirect("/dashboard")
+}

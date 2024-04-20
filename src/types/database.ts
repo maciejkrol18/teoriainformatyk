@@ -548,6 +548,12 @@ export type Database = {
           image: boolean
         }[]
       }
+      reset_user_stats: {
+        Args: {
+          current_plain_password: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
