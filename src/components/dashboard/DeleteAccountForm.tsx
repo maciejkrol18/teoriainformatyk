@@ -52,7 +52,7 @@ export default function DeleteAccountForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="confirmationPhrase">
-          Potwierdź usunięcie (wpisz "{CONFIRMATION_PHRASE}")
+          Potwierdź usunięcie (wpisz &quot;{CONFIRMATION_PHRASE}&quot;)
         </label>
         <Input id="confirmationPhrase" type="text" {...register("confirmationPhrase")} />
         {errors.confirmationPhrase?.message && (

@@ -52,7 +52,7 @@ export default function ResetStatsForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="confirmationPhrase">
-          Potwierdź reset (wpisz "{CONFIRMATION_PHRASE}")
+          Potwierdź reset (wpisz &quot;{CONFIRMATION_PHRASE}&quot;)
         </label>
         <Input id="confirmationPhrase" type="text" {...register("confirmationPhrase")} />
         {errors.confirmationPhrase?.message && (
