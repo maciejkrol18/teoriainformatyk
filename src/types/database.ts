@@ -533,6 +533,12 @@ export type Database = {
         }
         Returns: Json
       }
+      delete_user_account: {
+        Args: {
+          current_plain_password: string
+        }
+        Returns: Json
+      }
       get_random_questions: {
         Args: {
           amount: number

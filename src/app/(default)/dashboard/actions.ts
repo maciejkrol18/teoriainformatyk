@@ -50,3 +50,26 @@ export async function resetStats(formData: FieldValues): Promise<PostgrestError 
   revalidatePath("/dashboard", "layout")
   redirect("/dashboard")
 }
+
+export async function deleteAccount(
+  formData: FieldValues,
+): Promise<PostgrestError | null> {
+  const supabase = createClient()
+
+  const data = {
+    currentPassword: formData.currentPassword,
+  }
+
+  const { error } = await supabase.rpc("delete_user_account", {
+    current_plain_password: data.currentPassword,
+  })
+
+  if (error) {
+    return error
+  }
+
+  await supabase.auth.signOut()
+
+  revalidatePath("/", "layout")
+  redirect("/")
+}
