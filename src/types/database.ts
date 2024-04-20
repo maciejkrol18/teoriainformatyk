@@ -526,9 +526,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      hello_world: {
-        Args: Record<PropertyKey, never>
-        Returns: string
+      change_user_password: {
+        Args: {
+          current_plain_password: string
+          new_plain_password: string
+        }
+        Returns: Json
+      }
+      get_random_questions: {
+        Args: {
+          amount: number
+          exam_id: number
+        }
+        Returns: {
+          answers: string[]
+          content: string
+          correct_answer: string
+          created_at: string | null
+          exam_id: number
+          id: number
+          image: boolean
+        }[]
       }
     }
     Enums: {
