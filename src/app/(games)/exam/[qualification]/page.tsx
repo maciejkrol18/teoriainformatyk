@@ -10,7 +10,7 @@ export default function ExamPage({ params }: { params: { qualification: string }
           smallTitle={params.qualification === "inf02" ? "INF.02" : "INF.03"}
           bigTitle="Egzamin"
         />
-        <Exam table={params.qualification} />
+        <Exam examId={1} />
       </>
     )
   } else {
