@@ -63,6 +63,7 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
                 question,
               )}`}
               href={`#${index + 1}`}
+              key={index}
             >
               {index + 1}
             </a>
