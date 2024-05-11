@@ -13,6 +13,12 @@ import {
   QuestionImage,
 } from "../ui/Question"
 import { VariantProps } from "class-variance-authority"
+import { toast } from "sonner"
+import { v4 } from "uuid"
+import ExamScoreDisplay from "./ExamScoreDisplay"
+import { ExamScore } from "@/types/exam-score"
+import { Button } from "../ui/Button"
+import ExamTimer from "./ExamTimer"
 
 interface ExamProps {
   examId: number
@@ -21,7 +27,9 @@ interface ExamProps {
 export default function Exam({ examId }: ExamProps) {
   const [questions, setQuestions] = useState<ExamQuestion[]>([])
   const [isExamFinished, setIsExamFinished] = useState<boolean>(false)
+  const [finalScore, setFinalScore] = useState<ExamScore | null>(null)
   const wereQuestionsFetched = useRef<boolean>(false)
+  const timeStarted = useRef<string>(new Date().toISOString())
 
   const getQuestions = async (id: number) => {
     const supabase = createClient()
@@ -38,7 +46,6 @@ export default function Exam({ examId }: ExamProps) {
         data.map((question) => {
           return {
             ...question,
-            // Although 'a' and 'b' variables are unused, they have to be typed to avoid compile errors
             answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
             selected_answer: null,
             correct_selected: false,
@@ -85,11 +92,73 @@ export default function Exam({ examId }: ExamProps) {
     }
   }
 
+  const saveScore = async () => {
+    const getUser = async () => {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.getUser()
+      if (error) {
+        throw new Error(error.message)
+      } else if (!data.user) {
+        return null
+      } else {
+        return data.user
+      }
+    }
+
+    const user = await getUser()
+
+    const amountCorrect = Number(
+      questions.filter((question) => question.correct_selected).length,
+    )
+    const amountIncorrect = Number(
+      questions.filter(
+        (question) => question.selected_answer && !question.correct_selected,
+      ).length,
+    )
+    const amountUnanswered = Number(
+      questions.filter((question) => !question.selected_answer).length,
+    )
+
+    const finalScore: ExamScore = {
+      score_id: v4(),
+      user_id: user ? user.id : "",
+      exam_id: examId,
+      percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
+      correct: amountCorrect,
+      incorrect: amountIncorrect,
+      unanswered: amountUnanswered,
+      time_started: timeStarted.current,
+      time_finished: new Date().toISOString(),
+    }
+
+    setFinalScore(finalScore)
+
+    if (user) {
+      const supabase = createClient()
+      const { data, error } = await supabase
+        .from("exam_scores")
+        .insert({
+          ...finalScore,
+          user_id: user.id,
+        })
+        .select()
+      if (error) {
+        toast.error(`Błąd zapisywania wyniku: ${error.message}`)
+        console.error(error)
+      } else {
+        toast.success("Wynik zapisany")
+      }
+    } else {
+      toast.info("Zaloguj się, aby zapisać swój wynik")
+    }
+  }
+
   const endGame = () => {
     if (isExamFinished) {
       window.location.reload()
     } else {
       setIsExamFinished(true)
+      saveScore()
     }
   }
 
@@ -100,12 +169,21 @@ export default function Exam({ examId }: ExamProps) {
 
   if (questions.length > 0) {
     return (
-      <div className="flex flex-col gap-8 max-w-xl mx-auto">
-        <button onClick={() => setIsExamFinished((prev) => !prev)}>End game</button>
+      <div className="flex flex-col gap-8 max-w-xl py-4 mx-auto">
+        {!isExamFinished && (
+          <ExamTimer
+            toCountdownMiliseconds={3600000}
+            intervalMiliseconds={100}
+            onEnd={endGame}
+          />
+        )}
+        {isExamFinished && finalScore && (
+          <ExamScoreDisplay score={finalScore} questions={questions} />
+        )}
         {questions.map((question, index) => {
-          const atlas = ["A", "B", "C", "D"]
+          const atlas = "ABCD"
           return (
-            <Question id={`question-${index + 1}`}>
+            <Question id={`${index + 1}`} key={index}>
               <QuestionMarker>{index + 1}</QuestionMarker>
               <QuestionContent>{question.content}</QuestionContent>
               <QuestionAnswersContainer>
@@ -115,7 +193,7 @@ export default function Exam({ examId }: ExamProps) {
                     key={index}
                     variant={getAnswerVariant(answer, question)}
                   >
-                    <span className="font-medium">{atlas[index]}</span>. {answer}
+                    <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
                   </QuestionAnswer>
                 ))}
               </QuestionAnswersContainer>
@@ -129,6 +207,9 @@ export default function Exam({ examId }: ExamProps) {
             </Question>
           )
         })}
+        <Button variant="primary" className="uppercase" onClick={() => endGame()}>
+          {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
+        </Button>
       </div>
     )
   } else {
