@@ -50,4 +50,12 @@ export const columns: ColumnDef<HistoryExamScore>[] = [
     accessorKey: "unanswered",
     header: "Bez odpowiedzi",
   },
+  {
+    accessorKey: "time_started",
+    header: "Rozpoczęto",
+  },
+  {
+    accessorKey: "time_finished",
+    header: "Zakończono",
+  },
 ]
