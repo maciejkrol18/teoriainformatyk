@@ -96,9 +96,7 @@ export default function Exam({ examId }: ExamProps) {
     const getUser = async () => {
       const supabase = createClient()
       const { data, error } = await supabase.auth.getUser()
-      if (error) {
-        throw new Error(error.message)
-      } else if (!data.user) {
+      if (error || !data.user) {
         return null
       } else {
         return data.user
@@ -135,7 +133,7 @@ export default function Exam({ examId }: ExamProps) {
 
     if (user) {
       const supabase = createClient()
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("exam_scores")
         .insert({
           ...finalScore,
