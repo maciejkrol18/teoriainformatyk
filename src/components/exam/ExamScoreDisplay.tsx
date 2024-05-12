@@ -62,7 +62,7 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
               className={`grid place-items-center w-10 h-10 border border-${getQuestionColor(
                 question,
               )}`}
-              href={`#${index + 1}`}
+              href={`question-${index + 1}`}
               key={index}
             >
               {index + 1}

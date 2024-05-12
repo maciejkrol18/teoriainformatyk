@@ -183,7 +183,7 @@ export default function Exam({ examId }: ExamProps) {
         {questions.map((question, index) => {
           const atlas = "ABCD"
           return (
-            <Question id={`${index + 1}`} key={index}>
+            <Question id={`question-${index + 1}`} key={index}>
               <QuestionMarker>{index + 1}</QuestionMarker>
               <QuestionContent>{question.content}</QuestionContent>
               <QuestionAnswersContainer>
