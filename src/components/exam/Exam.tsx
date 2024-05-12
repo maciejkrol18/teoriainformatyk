@@ -168,7 +168,7 @@ export default function Exam({ examId }: ExamProps) {
 
   if (questions.length > 0) {
     return (
-      <div className="flex flex-col gap-8 max-w-xl py-4 mx-auto">
+      <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
         {!isExamFinished && (
           <ExamTimer
             toCountdownMiliseconds={3600000}
@@ -207,7 +207,7 @@ export default function Exam({ examId }: ExamProps) {
             </Question>
           )
         })}
-        <Button variant="primary" className="uppercase" onClick={() => endGame()}>
+        <Button variant="primary" className="uppercase mb-4" onClick={() => endGame()}>
           {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
         </Button>
       </div>
