@@ -28,7 +28,7 @@ export default async function DashboardLatestExams({
     .from("exam_scores")
     .select("exam_id, percentage_score, created_at, exams (name)")
     .eq("user_id", userId)
-    .order("created_at")
+    .order("created_at", { ascending: false })
     .limit(4)
 
   let scores: Score[] = []

@@ -20,6 +20,7 @@ async function fetchPaginatedScores(user: string, pageOffset: number) {
     )
     .eq("user_id", user)
     .range(pageOffset, pageOffset + SCORES_PER_PAGE - 1)
+    .order("created_at", { ascending: false })
 
   if (error) {
     throw new Error(error.message)
