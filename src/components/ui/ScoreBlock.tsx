@@ -1,4 +1,7 @@
 import { cn } from "@/lib/utils"
+import dayjs from "dayjs"
+import pl from "dayjs/locale/pl"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 interface Score {
   percentageScore: number
@@ -6,12 +9,15 @@ interface Score {
   examName: string | undefined
 }
 
+dayjs.locale(pl)
+dayjs.extend(relativeTime)
+
 export default async function ScoreBlock({
   percentageScore,
   createdAt,
   examName,
 }: Score) {
-  const date = new Date(createdAt).toLocaleDateString()
+  const formattedDate = dayjs(createdAt).from(new Date())
   const exam = examName ? examName : "Nieznana kwalifikacja"
   const isScorePositive = percentageScore > 50
 
@@ -24,7 +30,7 @@ export default async function ScoreBlock({
     >
       <div>
         <p className="text-xl font-medium">{exam}</p>
-        <p className="text-muted">{date}</p>
+        <p className="text-muted">{formattedDate}</p>
       </div>
       <p className="text-2xl font-medium">{percentageScore}%</p>
     </div>
