@@ -6,6 +6,7 @@ import { ExamScore } from "@/types/exam-score"
 import dayjs from "dayjs"
 import duration from "dayjs/plugin/duration"
 import { Check, Clock, HelpCircle, XIcon } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 interface ExamScoreDisplayProps {
@@ -58,15 +59,15 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
       <div className="flex flex-wrap gap-4">
         {questions.map((question, index) => {
           return (
-            <a
+            <Link
               className={`grid place-items-center w-10 h-10 border border-${getQuestionColor(
                 question,
               )}`}
-              href={`question-${index + 1}`}
+              href={`#question-${index + 1}`}
               key={index}
             >
               {index + 1}
-            </a>
+            </Link>
           )
         })}
       </div>

@@ -190,6 +190,7 @@ export default function Exam({ examId }: ExamProps) {
                     onClick={() => setAnswer(answer, question)}
                     key={index}
                     variant={getAnswerVariant(answer, question)}
+                    disabled={isExamFinished}
                   >
                     <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
                   </QuestionAnswer>
