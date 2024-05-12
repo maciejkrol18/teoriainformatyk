@@ -19,6 +19,7 @@ import ExamScoreDisplay from "./ExamScoreDisplay"
 import { ExamScore } from "@/types/exam-score"
 import { Button } from "../ui/Button"
 import ExamTimer from "./ExamTimer"
+import ExamSkeleton from "../skeletons/ExamSkeleton"
 
 interface ExamProps {
   examId: number
@@ -212,6 +213,6 @@ export default function Exam({ examId }: ExamProps) {
       </div>
     )
   } else {
-    return <p>Loading...</p>
+    return <ExamSkeleton />
   }
 }
