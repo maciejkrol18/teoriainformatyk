@@ -5,7 +5,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { VariantProps, cva } from "class-variance-authority"
 
-const questionAnswerVariants = cva("py-2 px-4 rounded-md text-lg text-left", {
+const questionAnswerVariants = cva("py-2 px-4 rounded-md text-left", {
   variants: {
     variant: {
       default: "bg-background-bright",
@@ -35,7 +35,7 @@ const QuestionMarker = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     return (
       <div
         className={cn(
-          "flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit mx-auto aspect-square",
+          "flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit aspect-square",
           className,
         )}
         {...props}
@@ -51,7 +51,11 @@ const QuestionContent = forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
   return (
-    <p className={cn("text-center text-xl leading-8", className)} {...props} ref={ref} />
+    <p
+      className={cn("font-semibold text-xl leading-8", className)}
+      {...props}
+      ref={ref}
+    />
   )
 })
 QuestionContent.displayName = "QuestionContent"
@@ -83,7 +87,7 @@ const QuestionImage = ({ alt, src, loading }: QuestionImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <div
-      className={`w-full h-[200px] relative bg-background-bright ${
+      className={`h-[200px] relative bg-background-bright ${
         !imageLoaded && "bg-gradient-loading animate-loading bg-size-loading"
       }`}
     >
@@ -104,7 +108,7 @@ const Question = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>
     return (
       <div
         className={cn(
-          "flex flex-col gap-8 bg-background-light p-4 rounded-lg",
+          "flex flex-col gap-4 bg-background-light p-4 rounded-lg",
           className,
         )}
         ref={ref}
