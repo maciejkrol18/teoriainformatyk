@@ -156,6 +156,7 @@ export default function Exam({ examId }: ExamProps) {
     if (isExamFinished) {
       window.location.reload()
     } else {
+      document.documentElement.scrollTop = 0
       setIsExamFinished(true)
       saveScore()
     }
