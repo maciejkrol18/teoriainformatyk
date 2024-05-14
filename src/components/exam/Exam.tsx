@@ -156,9 +156,8 @@ export default function Exam({ examId }: ExamProps) {
     if (isExamFinished) {
       window.location.reload()
     } else {
-      document.documentElement.scrollTop = 0
-      setIsExamFinished(true)
       saveScore()
+      setIsExamFinished(true)
     }
   }
 
@@ -166,6 +165,10 @@ export default function Exam({ examId }: ExamProps) {
     if (wereQuestionsFetched.current) return
     getQuestions(examId)
   }, [])
+
+  useEffect(() => {
+    if (finalScore) document.documentElement.scrollTop = 0
+  }, [finalScore])
 
   if (questions.length > 0) {
     return (
