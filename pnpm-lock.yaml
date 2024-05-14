@@ -28,10 +28,10 @@ dependencies:
     version: 1.0.78
   '@supabase/ssr':
     specifier: ^0.1.0
-    version: 0.1.0(@supabase/supabase-js@2.42.0)
+    version: 0.1.0(@supabase/supabase-js@2.43.1)
   '@supabase/supabase-js':
-    specifier: ^2.42.0
-    version: 2.42.0
+    specifier: ^2.43.1
+    version: 2.43.1
   '@tanstack/react-table':
     specifier: ^8.16.0
     version: 8.16.0(react-dom@18.2.0)(react@18.2.0)
@@ -835,14 +835,14 @@ packages:
       semver-compare: 1.0.0
     dev: false
 
-  /@supabase/auth-js@2.63.0:
-    resolution: {integrity: sha512-yIgcHnlgv24GxHtVGUhwGqAFDyJkPIC/xjx7HostN08A8yCy8HIfl4JEkTKyBqD1v1L05jNEJOUke4Lf4O1+Qg==}
+  /@supabase/auth-js@2.64.2:
+    resolution: {integrity: sha512-s+lkHEdGiczDrzXJ1YWt2y3bxRi+qIUnXcgkpLSrId7yjBeaXBFygNjTaoZLG02KNcYwbuZ9qkEIqmj2hF7svw==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
     dev: false
 
-  /@supabase/functions-js@2.2.2:
-    resolution: {integrity: sha512-sJGq1nludmi7pY/fdtCpyY/pYonx7MfHdN408bqb736guWcVI1AChYVbI4kUM978EuOE4Ci6l7bUudfGg07QRw==}
+  /@supabase/functions-js@2.3.1:
+    resolution: {integrity: sha512-QyzNle/rVzlOi4BbVqxLSH828VdGY1RElqGFAj+XeVypj6+PVtMlD21G8SDnsPQDtlqqTtoGRgdMlQZih5hTuw==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
     dev: false
@@ -854,30 +854,30 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /@supabase/postgrest-js@1.15.0:
-    resolution: {integrity: sha512-U4bwBOrhsXWqDjZiYNbVqMBtRGgIIYE0kE5ZNSwsIbeBWfr/UxOMrnkIQUBGIZRhpYW/tw1WnTdRl1AGNyaxcw==}
+  /@supabase/postgrest-js@1.15.2:
+    resolution: {integrity: sha512-9/7pUmXExvGuEK1yZhVYXPZnLEkDTwxgMQHXLrN5BwPZZm4iUCL1YEyep/Z2lIZah8d8M433mVAUEGsihUj5KQ==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
     dev: false
 
-  /@supabase/realtime-js@2.9.3:
-    resolution: {integrity: sha512-lAp50s2n3FhGJFq+wTSXLNIDPw5Y0Wxrgt44eM5nLSA3jZNUUP3Oq2Ccd1CbZdVntPCWLZvJaU//pAd2NE+QnQ==}
+  /@supabase/realtime-js@2.9.5:
+    resolution: {integrity: sha512-TEHlGwNGGmKPdeMtca1lFTYCedrhTAv3nZVoSjrKQ+wkMmaERuCe57zkC5KSWFzLYkb5FVHW8Hrr+PX1DDwplQ==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.4
       '@types/ws': 8.5.10
-      ws: 8.16.0
+      ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
     dev: false
 
-  /@supabase/ssr@0.1.0(@supabase/supabase-js@2.42.0):
+  /@supabase/ssr@0.1.0(@supabase/supabase-js@2.43.1):
     resolution: {integrity: sha512-bIVrkqjAK5G3KjkIMKYKtAOlCgRRplEWjrlyRyXSOYtgDieiOhk2ZyNAPsEOa1By9OZVxuX5eAW1fitdnuxayw==}
     peerDependencies:
       '@supabase/supabase-js': ^2.33.1
     dependencies:
-      '@supabase/supabase-js': 2.42.0
+      '@supabase/supabase-js': 2.43.1
       cookie: 0.5.0
       ramda: 0.29.1
     dev: false
@@ -888,14 +888,14 @@ packages:
       '@supabase/node-fetch': 2.6.15
     dev: false
 
-  /@supabase/supabase-js@2.42.0:
-    resolution: {integrity: sha512-1PDqJiA4iG45w3AAu6xkccJ3wPqlGJUoz9CPhScRLLTStxhewYhz0mjryTpXz1kgtNHdUAsirALreezn8UZMjA==}
+  /@supabase/supabase-js@2.43.1:
+    resolution: {integrity: sha512-A+RV50mWNtyKo6M0u4G6AOqEifQD+MoOjZcpRkPMPpEAFgMsc2dt3kBlBlR/MgZizWQgUKhsvrwKk0efc8g6Ug==}
     dependencies:
-      '@supabase/auth-js': 2.63.0
-      '@supabase/functions-js': 2.2.2
+      '@supabase/auth-js': 2.64.2
+      '@supabase/functions-js': 2.3.1
       '@supabase/node-fetch': 2.6.15
-      '@supabase/postgrest-js': 1.15.0
-      '@supabase/realtime-js': 2.9.3
+      '@supabase/postgrest-js': 1.15.2
+      '@supabase/realtime-js': 2.9.5
       '@supabase/storage-js': 2.5.5
     transitivePeerDependencies:
       - bufferutil
@@ -4134,8 +4134,8 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
+  /ws@8.17.0:
+    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
