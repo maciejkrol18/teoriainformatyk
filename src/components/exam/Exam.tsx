@@ -104,8 +104,6 @@ export default function Exam({ examId }: ExamProps) {
       }
     }
 
-    const user = await getUser()
-
     const amountCorrect = Number(
       questions.filter((question) => question.correct_selected).length,
     )
@@ -120,7 +118,7 @@ export default function Exam({ examId }: ExamProps) {
 
     const finalScore: ExamScore = {
       score_id: v4(),
-      user_id: user ? user.id : "",
+      user_id: "",
       exam_id: examId,
       percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
       correct: amountCorrect,
@@ -132,15 +130,14 @@ export default function Exam({ examId }: ExamProps) {
 
     setFinalScore(finalScore)
 
+    const user = await getUser()
+
     if (user) {
       const supabase = createClient()
-      const { error } = await supabase
-        .from("exam_scores")
-        .insert({
-          ...finalScore,
-          user_id: user.id,
-        })
-        .select()
+      const { error } = await supabase.from("exam_scores").insert({
+        ...finalScore,
+        user_id: user.id,
+      })
       if (error) {
         toast.error(`Błąd zapisywania wyniku: ${error.message}`)
         console.error(error)
