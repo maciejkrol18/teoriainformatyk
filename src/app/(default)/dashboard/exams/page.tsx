@@ -84,9 +84,9 @@ export default async function ExamHistoryPage({
   const processedExamHistory = examHistory.map((score) => {
     return {
       ...score,
-      created_at: dayjs(score.created_at).format("D MMMM YYYY"),
-      time_started: new Date(score.time_started).toLocaleTimeString(),
-      time_finished: new Date(score.time_finished).toLocaleTimeString(),
+      created_at: dayjs(score.created_at).format("D MMMM YYYY, H[:]mm"),
+      time_started: dayjs(score.time_started).format("H[:]mm[:]ss"),
+      time_finished: dayjs(score.time_finished).format("H[:]mm[:]ss"),
     }
   })
 
