@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/Button"
 import { createClient } from "@/lib/supabase/server"
-import { Database } from "@/types/database"
-import { ExamScore } from "@/types/exam-score"
 import { ArrowUpLeft, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { DataTable } from "./DataTable"
 import { columns } from "./columns"
+import dayjs from "dayjs"
+import pl from "dayjs/locale/pl"
 
 const SCORES_PER_PAGE = 10
+
+dayjs.locale(pl)
 
 async function fetchPaginatedScores(user: string, pageOffset: number) {
   const supabase = createClient()
@@ -82,7 +84,7 @@ export default async function ExamHistoryPage({
   const processedExamHistory = examHistory.map((score) => {
     return {
       ...score,
-      created_at: new Date(score.created_at).toLocaleDateString(),
+      created_at: dayjs(score.created_at).format("D MMMM YYYY"),
       time_started: new Date(score.time_started).toLocaleTimeString(),
       time_finished: new Date(score.time_finished).toLocaleTimeString(),
     }

@@ -24,7 +24,7 @@ export default async function ScoreBlock({
   return (
     <div
       className={cn(
-        "flex justify-between items-center bg-background-bright p-2 border",
+        "flex justify-between items-center p-2 border",
         isScorePositive ? "border-green-800" : "border-red-800",
       )}
     >
