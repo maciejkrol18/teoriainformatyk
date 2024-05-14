@@ -35,6 +35,7 @@
     "eslint-config-next": "14.0.4",
     "lucide-react": "^0.294.0",
     "next": "^14.0.4",
+    "next-nprogress-bar": "^2.3.12",
     "next-themes": "^0.3.0",
     "node-sql-parser": "^4.17.0",
     "postcss": "8.4.32",
