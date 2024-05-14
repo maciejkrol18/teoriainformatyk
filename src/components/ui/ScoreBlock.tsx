@@ -1,42 +1,38 @@
 import { cn } from "@/lib/utils"
+import dayjs from "dayjs"
+import pl from "dayjs/locale/pl"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 interface Score {
-  correct: number[] | null
-  incorrect: number[] | null
-  unanswered: number[] | null
+  percentageScore: number
   createdAt: string
   examName: string | undefined
 }
 
+dayjs.locale(pl)
+dayjs.extend(relativeTime)
+
 export default async function ScoreBlock({
-  correct,
-  incorrect,
-  unanswered,
+  percentageScore,
   createdAt,
   examName,
 }: Score) {
-  const totalCorrect = correct ? correct.length : 0
-  const totalIncorrect = incorrect ? incorrect.length : 0
-  const totalUnanswered = unanswered ? unanswered.length : 0
-  const totalQuestions = totalCorrect + totalIncorrect + totalUnanswered
-
-  const score = Math.floor((totalCorrect / totalQuestions) * 100)
-  const date = new Date(createdAt).toLocaleDateString()
+  const formattedDate = dayjs(createdAt).from(new Date())
   const exam = examName ? examName : "Nieznana kwalifikacja"
-  const isScorePositive = score > 50
+  const isScorePositive = percentageScore > 50
 
   return (
     <div
       className={cn(
-        "flex justify-between items-center bg-background-bright p-2 border",
+        "flex justify-between items-center p-2 border",
         isScorePositive ? "border-green-800" : "border-red-800",
       )}
     >
       <div>
         <p className="text-xl font-medium">{exam}</p>
-        <p className="text-muted">{date}</p>
+        <p className="text-muted">{formattedDate}</p>
       </div>
-      <p className="text-2xl font-medium">{score}%</p>
+      <p className="text-2xl font-medium">{percentageScore}%</p>
     </div>
   )
 }

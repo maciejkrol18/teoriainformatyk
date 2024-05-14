@@ -11,9 +11,7 @@ interface DashboardLatestExamsProps {
 
 interface Score {
   exam_id: number | null
-  correct: number[] | null
-  incorrect: number[] | null
-  unanswered: number[] | null
+  percentage_score: number
   created_at: string
   exams: {
     name: string
@@ -28,9 +26,9 @@ export default async function DashboardLatestExams({
 
   const { data, error } = await supabase
     .from("exam_scores")
-    .select("exam_id, correct, incorrect, unanswered, created_at, exams (name)")
+    .select("exam_id, percentage_score, created_at, exams (name)")
     .eq("user_id", userId)
-    .order("created_at")
+    .order("created_at", { ascending: false })
     .limit(4)
 
   let scores: Score[] = []
@@ -55,9 +53,7 @@ export default async function DashboardLatestExams({
             <ScoreBlock
               key={index}
               examName={score.exams?.name}
-              correct={score.correct}
-              incorrect={score.incorrect}
-              unanswered={score.unanswered}
+              percentageScore={score.percentage_score}
               createdAt={score.created_at}
             />
           )

@@ -6,7 +6,6 @@ import Card from "./ui/Card"
 import { Question } from "@/types/question"
 import { Table } from "@/types/table"
 import { cn, getCollection } from "@/lib/utils"
-import CardSkeleton from "./skeletons/CardSkeleton"
 import CollectionControls from "./collection/CollectionControls"
 import SessionStats from "./SessionStats"
 import AnswerBox from "./ui/AnswerBox"
@@ -173,7 +172,7 @@ export default function OneQuestion({ table }: OneQuestionProps) {
           </div>
         </>
       ) : (
-        <CardSkeleton />
+        <p>Loading...</p>
       )}
     </main>
   )

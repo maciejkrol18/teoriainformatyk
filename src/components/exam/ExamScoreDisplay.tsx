@@ -1,55 +1,95 @@
+"use client"
+
 import { cn } from "@/lib/utils"
-import { CheckCircle2, XCircle, HelpCircle, BadgePercent } from "lucide-react"
-import Card from "../ui/Card"
+import { ExamQuestion } from "@/types/exam-question"
+import { ExamScore } from "@/types/exam-score"
+import dayjs from "dayjs"
+import duration from "dayjs/plugin/duration"
+import { Check, Clock, HelpCircle, XIcon } from "lucide-react"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
 interface ExamScoreDisplayProps {
-  scorePercentage: number
-  amountCorrect: number
-  amountIncorrect: number
-  amountUnanswered: number
-  questionCount: number
+  score: ExamScore
+  questions: ExamQuestion[]
 }
 
-export default function ExamScoreDisplay({
-  scorePercentage,
-  amountCorrect,
-  amountIncorrect,
-  amountUnanswered,
-  questionCount,
-}: ExamScoreDisplayProps) {
+export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayProps) {
+  dayjs.extend(duration)
+
+  const [finishTime, setFinishTime] = useState<string>("")
+
+  useEffect(() => {
+    const startDate = new Date(score.time_started)
+    const endDate = new Date(score.time_finished)
+    const finishTimeInSeconds = (endDate.getTime() - startDate.getTime()) / 1000
+    const duration = dayjs.duration(finishTimeInSeconds, "seconds")
+    const formattedTime = duration.format("mm:ss [(mm:ss)]")
+    setFinishTime(formattedTime)
+  }, [])
+
+  const getQuestionColor = (question: ExamQuestion): string => {
+    if (!question.selected_answer) {
+      return "blue-800"
+    }
+    if (question.correct_selected) {
+      return "green-800"
+    } else {
+      return "red-800"
+    }
+  }
+
   return (
-    <Card
+    <div
       className={cn(
-        "text-center items-center",
-        {
-          "!border-2 !border-danger-light": scorePercentage < 50,
-        },
-        {
-          "!border-2 !border-positive-light": scorePercentage > 50,
-        },
+        "flex flex-col gap-4 p-4 bg-background-light border",
+        score.percentage_score && score.percentage_score > 50
+          ? "border-green-800"
+          : "border-red-800",
       )}
     >
-      <h1 className="text-2xl font-bold">
-        Wynik {scorePercentage > 50 ? "pozytywny" : "negatywny"}
-      </h1>
-      <div className="flex gap-8">
-        <div className="flex flex-col gap-2 items-center">
-          <CheckCircle2 className="text-positive-light" />
-          {amountCorrect}
-        </div>
-        <div className="flex flex-col gap-2 items-center">
-          <XCircle className="text-danger-light" />
-          {amountIncorrect}
-        </div>
-        <div className="flex flex-col gap-2 items-center">
-          <HelpCircle className="text-notify" />
-          {amountUnanswered}
-        </div>
-        <div className="flex flex-col gap-2 items-center">
-          <BadgePercent className="text-accent-gold" />
-          {(amountCorrect / questionCount) * 100}%
-        </div>
+      <div className="flex justify-between font-bold text-2xl">
+        <p>
+          {score.percentage_score && score.percentage_score > 50
+            ? "Pozytywny"
+            : "Negatywny"}
+        </p>
+        <p>{score.percentage_score && score.percentage_score}%</p>
       </div>
-    </Card>
+      <div className="flex flex-wrap gap-4">
+        {questions.map((question, index) => {
+          return (
+            <Link
+              className={`grid place-items-center w-10 h-10 border border-${getQuestionColor(
+                question,
+              )}`}
+              href={`#question-${index + 1}`}
+              key={index}
+            >
+              {index + 1}
+            </Link>
+          )
+        })}
+      </div>
+      <p className="text-lg font-semibold">Szczegóły wyniku</p>
+      <div className="flex flex-col gap-4">
+        <p className="flex gap-2">
+          <Check /> <span className="font-bold">{score.correct}</span> poprawnych
+          odpowiedzi
+        </p>
+        <p className="flex gap-2">
+          <XIcon /> <span className="font-bold">{score.incorrect}</span> niepoprawnych
+          odpowiedzi
+        </p>
+        <p className="flex gap-2">
+          <HelpCircle /> <span className="font-bold">{score.unanswered}</span>{" "}
+          nieudzielonych odpowiedzi
+        </p>
+        <p className="flex gap-2">
+          <Clock /> Rozwiązano w{" "}
+          <span className="font-bold">{finishTime && finishTime}</span>
+        </p>
+      </div>
+    </div>
   )
 }

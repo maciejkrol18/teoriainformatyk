@@ -1,104 +1,70 @@
 "use client"
 
-import { supabase, supabaseUrl } from "@/lib/supabase"
-import { useState, useEffect, useRef } from "react"
-import Card from "../ui/Card"
+import { createClient } from "@/lib/supabase/client"
 import { ExamQuestion } from "@/types/exam-question"
-import { Table } from "@/types/table"
-import { cn } from "@/lib/utils"
-import ExamScoreDisplay from "../exam/ExamScoreDisplay"
-import ExamSkeleton from "../skeletons/ExamSkeleton"
-import ExamStopwatch from "../exam/ExamTimer"
+import { useEffect, useRef, useState } from "react"
+import {
+  Question,
+  QuestionAnswer,
+  QuestionAnswersContainer,
+  QuestionContent,
+  QuestionMarker,
+  questionAnswerVariants,
+  QuestionImage,
+} from "../ui/Question"
+import { VariantProps } from "class-variance-authority"
+import { toast } from "sonner"
+import { v4 } from "uuid"
+import ExamScoreDisplay from "./ExamScoreDisplay"
 import { ExamScore } from "@/types/exam-score"
-import AnswerBox from "../ui/AnswerBox"
-import QuestionImage from "../ui/QuestionImage"
+import { Button } from "../ui/Button"
+import ExamTimer from "./ExamTimer"
+import ExamSkeleton from "../skeletons/ExamSkeleton"
 
 interface ExamProps {
-  table: Table
+  examId: number
 }
 
-type GameState = {
-  isFinished: boolean
-  amountCorrect: number
-  amountIncorrect: number
-  amountUnanswered: number
-}
+export default function Exam({ examId }: ExamProps) {
+  const [questions, setQuestions] = useState<ExamQuestion[]>([])
+  const [isExamFinished, setIsExamFinished] = useState<boolean>(false)
+  const [finalScore, setFinalScore] = useState<ExamScore | null>(null)
+  const wereQuestionsFetched = useRef<boolean>(false)
+  const timeStarted = useRef<string>(new Date().toISOString())
 
-export default function Exam({ table }: ExamProps) {
-  const [questionCount, setQuestionCount] = useState<number | null>(null)
-  const [questionsArray, setQuestionsArray] = useState<ExamQuestion[]>([])
-  const gameLengthMiliseconds = useRef(3600000)
-  const [gameState, setGameState] = useState<GameState>({
-    isFinished: false,
-    amountCorrect: 0,
-    amountIncorrect: 0,
-    amountUnanswered: 0,
-  })
-  const [scorePercentage, setScorePercentage] = useState(0)
-  console.log("exam re-rendered")
-
-  const getQuestions = async (table: Table) => {
-    if (questionCount) {
-      const idArray: number[] = []
-      for (let i = 0; i < 40; i++) {
-        let randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        while (idArray.some((id) => id === randomId)) {
-          randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-        }
-        idArray.push(randomId)
-      }
-
-      const { data, error } = await supabase
-        .from(table)
-        .select("answers, content, correct_answer, id, image")
-        .filter("id", "in", `(${idArray.join(",")})`)
-
-      if (error) {
-        console.error(error)
-        throw new Error(
-          "Błąd bazy danych. Sprawdź konsolę przeglądarki po więcej szczegółów",
-        )
-      }
-
-      if (data[0] === undefined) {
-        throw new Error("Błąd w pobieraniu danych z bazy. Spróbuj ponownie")
-      }
-
-      setQuestionsArray(
-        data.map((el) => {
+  const getQuestions = async (id: number) => {
+    const supabase = createClient()
+    const { data, error } = await supabase.rpc("get_random_questions", {
+      amount: 40,
+      exam_id: id,
+    })
+    if (error) {
+      throw new Error(error.message)
+    } else if (!data) {
+      throw new Error("Błąd pobierania pytań z bazy. Spróbuj ponownie")
+    } else {
+      setQuestions(
+        data.map((question) => {
           return {
-            ...el,
-            answers: el.answers.sort((a: string, b: string) => 0.5 - Math.random()),
+            ...question,
+            answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
             selected_answer: null,
             correct_selected: false,
           }
         }),
       )
+      wereQuestionsFetched.current = true
     }
   }
 
   const setAnswer = (answer: string, question: ExamQuestion) => {
-    setQuestionsArray((prev) =>
+    setQuestions((prev) =>
       prev.map((el) => {
         if (el.id === question.id) {
-          if (answer === question.selected_answer) {
-            return {
-              ...el,
-              correct_selected: false,
-              selected_answer: null,
-            }
-          } else if (answer === question.correct_answer) {
-            return {
-              ...el,
-              correct_selected: true,
-              selected_answer: answer,
-            }
-          } else {
-            return {
-              ...el,
-              correct_selected: false,
-              selected_answer: answer,
-            }
+          return {
+            ...el,
+            correct_selected: answer === question.correct_answer,
+            selected_answer: answer === question.selected_answer ? null : answer,
           }
         } else {
           return el
@@ -107,176 +73,147 @@ export default function Exam({ table }: ExamProps) {
     )
   }
 
+  const getAnswerVariant = (
+    answer: string,
+    question: ExamQuestion,
+  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
+    if (isExamFinished) {
+      if (!question.selected_answer && answer === question.correct_answer) {
+        return "unanswered"
+      } else if (answer === question.correct_answer && question.selected_answer) {
+        return "correct"
+      } else if (
+        answer === question.selected_answer &&
+        answer !== question.correct_answer
+      ) {
+        return "incorrect"
+      }
+    } else {
+      return answer === question.selected_answer ? "selected" : "default"
+    }
+  }
+
+  const saveScore = async () => {
+    const getUser = async () => {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.getUser()
+      if (error || !data.user) {
+        return null
+      } else {
+        return data.user
+      }
+    }
+
+    const amountCorrect = Number(
+      questions.filter((question) => question.correct_selected).length,
+    )
+    const amountIncorrect = Number(
+      questions.filter(
+        (question) => question.selected_answer && !question.correct_selected,
+      ).length,
+    )
+    const amountUnanswered = Number(
+      questions.filter((question) => !question.selected_answer).length,
+    )
+
+    const finalScore: ExamScore = {
+      score_id: v4(),
+      user_id: "",
+      exam_id: examId,
+      percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
+      correct: amountCorrect,
+      incorrect: amountIncorrect,
+      unanswered: amountUnanswered,
+      time_started: timeStarted.current,
+      time_finished: new Date().toISOString(),
+    }
+
+    setFinalScore(finalScore)
+
+    const user = await getUser()
+
+    if (user) {
+      const supabase = createClient()
+      const { error } = await supabase.from("exam_scores").insert({
+        ...finalScore,
+        user_id: user.id,
+      })
+      if (error) {
+        toast.error(`Błąd zapisywania wyniku: ${error.message}`)
+        console.error(error)
+      } else {
+        toast.success("Wynik zapisany")
+      }
+    } else {
+      toast.info("Zaloguj się, aby zapisać swój wynik")
+    }
+  }
+
   const endGame = () => {
-    if (gameState.isFinished) {
+    if (isExamFinished) {
       window.location.reload()
     } else {
       saveScore()
-      setGameState((prev) => ({ ...prev, isFinished: true }))
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
-
-  const saveScore = () => {
-    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-      const localScores = localStorage.getItem("exam_scores")
-      const newScore = {
-        qualification: table === "inf02" ? "INF.02" : "INF.03",
-        date: new Date(),
-        amountCorrect: gameState.amountCorrect,
-        amountIncorrect: gameState.amountIncorrect,
-        amountUnanswered: gameState.amountUnanswered,
-        scorePercentage: scorePercentage,
-      }
-      if (localScores) {
-        const parsedScores = JSON.parse(localScores) as ExamScore[]
-        parsedScores.unshift(newScore)
-        if (parsedScores.length > 5) {
-          parsedScores.pop()
-        }
-        localStorage.setItem("exam_scores", JSON.stringify(parsedScores))
-      } else {
-        const scores: ExamScore[] = [newScore]
-        localStorage.setItem("exam_scores", JSON.stringify(scores))
-      }
+      setIsExamFinished(true)
     }
   }
 
-  const getQuestionCount = async (table: Table) => {
-    const { count, error } = await supabase.from(table).select("id", { count: "exact" })
-    if (error) return error
-    setQuestionCount(count)
-  }
-
   useEffect(() => {
-    setGameState((prev) => ({
-      ...prev,
-      amountCorrect: questionsArray.filter((question) => question.correct_selected)
-        .length,
-      amountIncorrect: questionsArray.filter(
-        (question) => question.selected_answer && !question.correct_selected,
-      ).length,
-      amountUnanswered: questionsArray.filter((question) => !question.selected_answer)
-        .length,
-    }))
-  }, [questionsArray])
-
-  useEffect(() => {
-    setScorePercentage((gameState.amountCorrect / questionsArray.length) * 100)
-  }, [gameState])
-
-  useEffect(() => {
-    if (questionCount) {
-      getQuestions(table)
-    }
-  }, [questionCount])
-
-  useEffect(() => {
-    getQuestionCount(table)
+    if (wereQuestionsFetched.current) return
+    getQuestions(examId)
   }, [])
 
-  return (
-    <>
-      {questionsArray.length > 0 ? (
-        <main className="flex flex-col gap-8 pb-8 md:w-full md:max-w-lg md:mx-auto">
-          {gameState.isFinished && (
-            <ExamScoreDisplay
-              scorePercentage={scorePercentage}
-              amountCorrect={gameState.amountCorrect}
-              amountIncorrect={gameState.amountIncorrect}
-              amountUnanswered={gameState.amountUnanswered}
-              questionCount={questionsArray.length}
-            />
-          )}
+  useEffect(() => {
+    if (finalScore) document.documentElement.scrollTop = 0
+  }, [finalScore])
 
-          {!gameState.isFinished && (
-            <ExamStopwatch
-              toCountdownMiliseconds={gameLengthMiliseconds.current}
-              intervalMiliseconds={100}
-              onEnd={endGame}
-            />
-          )}
-
-          {questionsArray.map((question, idx) => (
-            <Card key={question.id}>
-              <div className="flex flex-col gap-2">
-                <span className="text-secondary-300">
-                  Pytanie {idx + 1}. (ID #{question.id})
-                </span>
-                <p className="text-lg font-semibold">{question.content}</p>
-              </div>
-              {!question.selected_answer && gameState.isFinished && (
-                <p className="text-notify">Nie udzielono odpowiedzi!</p>
-              )}
-              <div className="flex flex-col gap-2">
-                {question.answers.map((answer, idx) => {
-                  const letters = "abcd"
-                  return (
-                    <AnswerBox
-                      onClick={() => setAnswer(answer, question)}
-                      disabled={gameState.isFinished}
-                      className={cn(
-                        {
-                          "bg-notify":
-                            (!gameState.isFinished &&
-                              answer === question.selected_answer) ||
-                            (gameState.isFinished &&
-                              !question.selected_answer &&
-                              answer === question.correct_answer),
-                        },
-                        {
-                          "bg-positive-light":
-                            gameState.isFinished &&
-                            answer === question.correct_answer &&
-                            question.selected_answer,
-                        },
-                        {
-                          "bg-danger-light":
-                            gameState.isFinished &&
-                            answer === question.selected_answer &&
-                            answer !== question.correct_answer,
-                        },
-                      )}
-                      key={idx}
-                      marker={letters.at(idx) as string}
-                      content={answer}
-                    />
-                  )
-                })}
-              </div>
+  if (questions.length > 0) {
+    return (
+      <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
+        {!isExamFinished && (
+          <ExamTimer
+            toCountdownMiliseconds={3600000}
+            intervalMiliseconds={100}
+            onEnd={endGame}
+          />
+        )}
+        {isExamFinished && finalScore && (
+          <ExamScoreDisplay score={finalScore} questions={questions} />
+        )}
+        {questions.map((question, index) => {
+          const atlas = "ABCD"
+          return (
+            <Question id={`question-${index + 1}`} key={index}>
+              <QuestionMarker>{index + 1}</QuestionMarker>
+              <QuestionContent>{question.content}</QuestionContent>
+              <QuestionAnswersContainer>
+                {question.answers.map((answer, index) => (
+                  <QuestionAnswer
+                    onClick={() => setAnswer(answer, question)}
+                    key={index}
+                    variant={getAnswerVariant(answer, question)}
+                    disabled={isExamFinished}
+                  >
+                    <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
+                  </QuestionAnswer>
+                ))}
+              </QuestionAnswersContainer>
               {question.image && (
                 <QuestionImage
-                  alt="Obrazek załączony do pytania"
-                  src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
+                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
                   loading="lazy"
+                  alt={`Zdjęcie do pytania #${index + 1}`}
                 />
               )}
-            </Card>
-          ))}
-
-          {!gameState.isFinished && (
-            <ExamStopwatch
-              toCountdownMiliseconds={gameLengthMiliseconds.current}
-              intervalMiliseconds={100}
-              onEnd={endGame}
-            />
-          )}
-
-          <button
-            onClick={() => endGame()}
-            className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
-          >
-            {gameState.isFinished ? "Spróbuj ponownie" : "Sprawdź odpowiedzi"}
-          </button>
-        </main>
-      ) : (
-        <main className="flex flex-col gap-8 pb-8 md:w-full md:max-w-lg md:mx-auto">
-          <ExamSkeleton />
-        </main>
-      )}
-    </>
-  )
+            </Question>
+          )
+        })}
+        <Button variant="primary" className="uppercase mb-4" onClick={() => endGame()}>
+          {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
+        </Button>
+      </div>
+    )
+  } else {
+    return <ExamSkeleton />
+  }
 }

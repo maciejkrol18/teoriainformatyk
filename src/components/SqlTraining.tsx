@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import Card from "./ui/Card"
 import { QueryExam } from "@/types/query-question"
 import { supabase, supabaseUrl } from "@/lib/supabase"
-import CardSkeleton from "./skeletons/CardSkeleton"
 import QueryInput from "./QueryInput"
 import { Parser } from "node-sql-parser"
 import QuestionImage from "./ui/QuestionImage"
@@ -171,7 +170,7 @@ export default function SqlTraining() {
           </Card>
         </>
       ) : (
-        <CardSkeleton />
+        <p>Loading...</p>
       )}
     </main>
   )

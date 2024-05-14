@@ -40,36 +40,42 @@ export type Database = {
       }
       exam_scores: {
         Row: {
-          correct: number[] | null
+          correct: number
           created_at: string
           exam_id: number | null
           id: number
-          incorrect: number[] | null
+          incorrect: number
+          percentage_score: number
+          score_id: string
           time_finished: string
           time_started: string
-          unanswered: number[] | null
+          unanswered: number
           user_id: string | null
         }
         Insert: {
-          correct?: number[] | null
+          correct?: number
           created_at?: string
           exam_id?: number | null
           id?: number
-          incorrect?: number[] | null
+          incorrect?: number
+          percentage_score?: number
+          score_id: string
           time_finished: string
           time_started: string
-          unanswered?: number[] | null
+          unanswered?: number
           user_id?: string | null
         }
         Update: {
-          correct?: number[] | null
+          correct?: number
           created_at?: string
           exam_id?: number | null
           id?: number
-          incorrect?: number[] | null
+          incorrect?: number
+          percentage_score?: number
+          score_id?: string
           time_finished?: string
           time_started?: string
-          unanswered?: number[] | null
+          unanswered?: number
           user_id?: string | null
         }
         Relationships: [
@@ -372,43 +378,13 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_test_exam_id_fkey"
+            foreignKeyName: "public_questions_base64_exam_id_fkey"
             columns: ["exam_id"]
             isOneToOne: false
             referencedRelation: "exams"
             referencedColumns: ["id"]
           },
         ]
-      }
-      questions_backup: {
-        Row: {
-          answers: string[] | null
-          category_id: number | null
-          content: string | null
-          correct_answer: string | null
-          created_at: string | null
-          id: number | null
-          image: boolean | null
-        }
-        Insert: {
-          answers?: string[] | null
-          category_id?: number | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number | null
-          image?: boolean | null
-        }
-        Update: {
-          answers?: string[] | null
-          category_id?: number | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number | null
-          image?: boolean | null
-        }
-        Relationships: []
       }
       questions_inf02: {
         Row: {
@@ -517,6 +493,44 @@ export type Database = {
           image?: string | null
         }
         Relationships: []
+      }
+      questions_misalinged_images: {
+        Row: {
+          answers: string[]
+          content: string
+          correct_answer: string
+          created_at: string | null
+          exam_id: number
+          id: number
+          image: boolean
+        }
+        Insert: {
+          answers: string[]
+          content: string
+          correct_answer: string
+          created_at?: string | null
+          exam_id: number
+          id?: number
+          image: boolean
+        }
+        Update: {
+          answers?: string[]
+          content?: string
+          correct_answer?: string
+          created_at?: string | null
+          exam_id?: number
+          id?: number
+          image?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_test_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
