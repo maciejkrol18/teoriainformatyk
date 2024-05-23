@@ -20,6 +20,7 @@ import { ExamScore } from "@/types/exam-score"
 import { Button } from "../ui/Button"
 import ExamTimer from "./ExamTimer"
 import ExamSkeleton from "../skeletons/ExamSkeleton"
+import GoToTopBtn from "./GoToTopBtn"
 
 interface ExamProps {
   examId: number
@@ -164,12 +165,18 @@ export default function Exam({ examId }: ExamProps) {
   }, [])
 
   useEffect(() => {
-    if (finalScore) document.documentElement.scrollTop = 0
+    if (finalScore) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
   }, [finalScore])
 
   if (questions.length > 0) {
     return (
       <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
+        <GoToTopBtn scrollThreshold={200} />
         {!isExamFinished && (
           <ExamTimer
             toCountdownMiliseconds={3600000}
