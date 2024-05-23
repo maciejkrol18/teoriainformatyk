@@ -1,71 +1,59 @@
 "use client"
 
-import { supabase, supabaseUrl } from "@/lib/supabase"
-import { useState, useEffect } from "react"
+import { supabaseUrl } from "@/lib/supabase"
+import { useState, useEffect, useRef } from "react"
 import Card from "./ui/Card"
-import { Question } from "@/types/question"
-import { Table } from "@/types/table"
-import { cn, getCollection } from "@/lib/utils"
-import CollectionControls from "./collection/CollectionControls"
+import { cn } from "@/lib/utils"
 import SessionStats from "./SessionStats"
 import AnswerBox from "./ui/AnswerBox"
 import QuestionImage from "./ui/QuestionImage"
+import { createClient } from "@/lib/supabase/client"
+import { Database } from "@/types/database"
+import { Button } from "./ui/Button"
+import {
+  Question,
+  QuestionAnswer,
+  QuestionAnswersContainer,
+  QuestionContent,
+  QuestionMarker,
+  questionAnswerVariants,
+} from "./ui/Question"
+import { VariantProps } from "class-variance-authority"
 
 interface OneQuestionProps {
-  table: Table
+  examId: number
 }
 
-export default function OneQuestion({ table }: OneQuestionProps) {
+type Question = Database["public"]["Tables"]["questions"]["Row"]
+
+export default function OneQuestion({ examId }: OneQuestionProps) {
   const [question, setQuestion] = useState<Question | null>(null)
-  const [answers, setAnswers] = useState<Question["answers"] | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-  const [questionCount, setQuestionCount] = useState<number | null>(null)
+
+  const wasEventListenerInitialized = useRef<boolean>(false)
 
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
   const [timesRolled, setTimesRolled] = useState(0)
   const [counter, setCounter] = useState(0)
 
-  const [hardCollection, setHardCollection] = useState<number[]>(() =>
-    getCollection(`${table}_hard`),
-  )
-  const [easyCollection, setEasyCollection] = useState<number[]>(() =>
-    getCollection(`${table}_easy`),
-  )
-
-  const getQuestionById = async (id: number) => {
-    const { data, error } = await supabase
-      .from(table)
-      .select("answers, content, correct_answer, id, image")
-      .eq("id", id)
-
-    if (error) {
-      console.error(error)
-      throw new Error("Database error, check browser console")
-    }
-
-    if (data[0] === undefined) {
-      throw new Error("An error occured while fetching data from the database")
-    }
-
-    return data[0]
-  }
-
   const getRandomQuestion = async () => {
-    if (questionCount) {
-      const randomId = Math.round(Math.random() * (questionCount - 1) + 1)
-      const question = await getQuestionById(randomId)
-      setQuestion(question)
-    }
-  }
-
-  const getQuestionCount = async (table: Table) => {
-    const { count, error } = await supabase.from(table).select("id", { count: "exact" })
+    const supabase = createClient()
+    const { data, error } = await supabase.rpc("get_random_questions", {
+      amount: 1,
+      exam_id: examId,
+    })
     if (error) {
-      console.error(error)
-      throw new Error("Database failed to return the amount of rows")
+      throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`)
+    } else if (!data[0]) {
+      throw new Error("Błąd pobierania pytania z bazy. Spróbuj ponownie.")
+    } else {
+      const questionWithShuffledAnswers = {
+        ...data[0],
+        answers: data[0].answers.sort((a: string, b: string) => 0.5 - Math.random()),
+      }
+      setQuestion(questionWithShuffledAnswers)
     }
-    setQuestionCount(count)
   }
 
   const rollQuestion = () => {
@@ -75,19 +63,27 @@ export default function OneQuestion({ table }: OneQuestionProps) {
     getRandomQuestion()
   }
 
+  const getAnswerVariant = (
+    answer: string,
+    question: Question,
+  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
+    if (selectedAnswer) {
+      if (!selectedAnswer && answer === question.correct_answer) {
+        return "unanswered"
+      } else if (answer === question.correct_answer && selectedAnswer) {
+        return "correct"
+      } else if (answer === selectedAnswer && answer !== question.correct_answer) {
+        return "incorrect"
+      }
+    } else {
+      return answer === selectedAnswer ? "selected" : "default"
+    }
+  }
+
   useEffect(() => {
-    getQuestionCount(table)
-
     const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
-
     return () => clearInterval(counterInterval)
   }, [])
-
-  useEffect(() => {
-    if (questionCount) {
-      rollQuestion()
-    }
-  }, [questionCount])
 
   useEffect(() => {
     if (question && selectedAnswer) {
@@ -100,80 +96,59 @@ export default function OneQuestion({ table }: OneQuestionProps) {
   }, [selectedAnswer])
 
   useEffect(() => {
-    if (question) {
-      setAnswers(question.answers.sort((a, b) => 0.5 - Math.random()))
+    getRandomQuestion()
+  }, [])
+
+  useEffect(() => {
+    if (wasEventListenerInitialized.current) return
+    const rollOnSpaceClick = (e: KeyboardEvent) => {
+      if (e.code === "Space") {
+        rollQuestion()
+      }
     }
-  }, [question])
+    window.addEventListener("keyup", (e) => rollOnSpaceClick(e))
+    wasEventListenerInitialized.current = true
+    return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
+  }, [])
 
   return (
-    <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
-      <button
+    <div className="flex flex-col grow gap-8 justify-center md:w-full md:max-w-xl md:mx-auto">
+      <Button
         onClick={() => rollQuestion()}
-        className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
+        variant="primary"
+        className="font-semibold uppercase"
       >
         {selectedAnswer ? "Następne" : "Losuj"}
-      </button>
-      {question && answers ? (
-        <>
-          <Card>
-            <div className="flex flex-col gap-2">
-              <span className="text-secondary-300">#{question.id}</span>
-              <h1 className="text-lg font-semibold">{question.content}</h1>
-            </div>
-            <div className="flex flex-col gap-2">
-              {answers.map((answer, idx) => {
-                const letters = "abcd"
-                return (
-                  <AnswerBox
-                    onClick={() => setSelectedAnswer(answer)}
-                    disabled={Boolean(selectedAnswer)}
-                    className={cn(
-                      {
-                        "bg-positive-light":
-                          selectedAnswer && answer === question.correct_answer,
-                      },
-                      {
-                        "bg-danger-light":
-                          selectedAnswer &&
-                          selectedAnswer === answer &&
-                          answer !== question.correct_answer,
-                      },
-                    )}
-                    key={idx}
-                    marker={letters.at(idx) as string}
-                    content={answer}
-                  />
-                )
-              })}
-            </div>
-            {question.image && (
-              <QuestionImage
-                alt="Obrazek załączony do pytania"
-                src={`${supabaseUrl}/storage/v1/object/public/questions_${table}_images/${question.id}.webp`}
-                loading="eager"
-              />
-            )}
-          </Card>
-          <div className="flex gap-4 items-center justify-center text-secondary-300">
-            <CollectionControls
-              hardCollection={hardCollection}
-              setHardCollection={setHardCollection}
-              easyCollection={easyCollection}
-              setEasyCollection={setEasyCollection}
-              id={question.id}
-              table={table}
+      </Button>
+      {question ? (
+        <Question>
+          <QuestionContent>{question.content}</QuestionContent>
+          <QuestionAnswersContainer>
+            {question.answers.map((answer, index) => {
+              const atlas = "ABCD"
+              return (
+                <QuestionAnswer
+                  onClick={() => setSelectedAnswer(answer)}
+                  variant={getAnswerVariant(answer, question)}
+                  disabled={Boolean(selectedAnswer)}
+                  key={index}
+                >
+                  <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
+                </QuestionAnswer>
+              )
+            })}
+          </QuestionAnswersContainer>
+          {question.image && (
+            <QuestionImage
+              src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+              loading="lazy"
+              alt={`Zdjęcie do pytania`}
             />
-            <SessionStats
-              counter={counter}
-              correctAnswers={correctAnswers}
-              incorrectAnswers={incorrectAnswers}
-              timesRolled={timesRolled}
-            />
-          </div>
-        </>
+          )}
+        </Question>
       ) : (
         <p>Loading...</p>
       )}
-    </main>
+    </div>
   )
 }
