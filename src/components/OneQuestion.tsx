@@ -29,8 +29,7 @@ type Question = Database["public"]["Tables"]["questions"]["Row"]
 export default function OneQuestion({ examId }: OneQuestionProps) {
   const [question, setQuestion] = useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-
-  const wasEventListenerInitialized = useRef<boolean>(false)
+  const rollButtonRef = useRef<HTMLButtonElement | null>(null)
 
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
@@ -100,14 +99,13 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [])
 
   useEffect(() => {
-    if (wasEventListenerInitialized.current) return
     const rollOnSpaceClick = (e: KeyboardEvent) => {
+      if (rollButtonRef.current) rollButtonRef.current.blur()
       if (e.code === "Space") {
         rollQuestion()
       }
     }
     window.addEventListener("keyup", (e) => rollOnSpaceClick(e))
-    wasEventListenerInitialized.current = true
     return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
   }, [])
 
@@ -117,6 +115,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
         onClick={() => rollQuestion()}
         variant="primary"
         className="font-semibold uppercase"
+        ref={rollButtonRef}
       >
         {selectedAnswer ? "Następne" : "Losuj"}
       </Button>
