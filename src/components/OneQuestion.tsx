@@ -6,7 +6,6 @@ import Card from "./ui/Card"
 import { cn } from "@/lib/utils"
 import SessionStats from "./SessionStats"
 import AnswerBox from "./ui/AnswerBox"
-import QuestionImage from "./ui/QuestionImage"
 import { createClient } from "@/lib/supabase/client"
 import { Database } from "@/types/database"
 import { Button } from "./ui/Button"
@@ -15,10 +14,13 @@ import {
   QuestionAnswer,
   QuestionAnswersContainer,
   QuestionContent,
-  QuestionMarker,
+  QuestionImage,
   questionAnswerVariants,
 } from "./ui/Question"
 import { VariantProps } from "class-variance-authority"
+import { Tabs, TabsContent, TabsTrigger, TabsList } from "./ui/Tabs"
+import { Dices, HelpCircle, Skull, Smile } from "lucide-react"
+import QuestionSkeleton from "./skeletons/QuestionSkeleton"
 
 interface OneQuestionProps {
   examId: number
@@ -110,44 +112,199 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [])
 
   return (
-    <div className="flex flex-col grow gap-8 justify-center md:w-full md:max-w-xl md:mx-auto">
-      <Button
-        onClick={() => rollQuestion()}
-        variant="primary"
-        className="font-semibold uppercase"
-        ref={rollButtonRef}
-      >
-        {selectedAnswer ? "Następne" : "Losuj"}
-      </Button>
-      {question ? (
-        <Question>
-          <QuestionContent>{question.content}</QuestionContent>
-          <QuestionAnswersContainer>
-            {question.answers.map((answer, index) => {
-              const atlas = "ABCD"
-              return (
-                <QuestionAnswer
-                  onClick={() => setSelectedAnswer(answer)}
-                  variant={getAnswerVariant(answer, question)}
-                  disabled={Boolean(selectedAnswer)}
-                  key={index}
-                >
-                  <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
-                </QuestionAnswer>
-              )
-            })}
-          </QuestionAnswersContainer>
-          {question.image && (
-            <QuestionImage
-              src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
-              loading="lazy"
-              alt={`Zdjęcie do pytania`}
-            />
+    // To remove - margin of 60px here
+    <div className="flex flex-col grow gap-8 justify-center md:w-full md:max-w-xl md:mx-auto pb-[60px]">
+      <Tabs defaultValue="classic">
+        <TabsList className="fixed top-14 left-6">
+          <TabsTrigger value="classic">1</TabsTrigger>
+          <TabsTrigger value="bottomBar">2</TabsTrigger>
+        </TabsList>
+        <TabsContent value="classic">
+          <Button
+            onClick={() => rollQuestion()}
+            variant="primary"
+            className="font-semibold uppercase w-full mb-4"
+            ref={rollButtonRef}
+          >
+            {selectedAnswer ? "Następne" : "Losuj"}
+          </Button>
+          {question ? (
+            <Question>
+              <QuestionContent>{question.content}</QuestionContent>
+              <QuestionAnswersContainer>
+                {question.answers.map((answer, index) => {
+                  const atlas = "ABCD"
+                  return (
+                    <QuestionAnswer
+                      onClick={() => setSelectedAnswer(answer)}
+                      variant={getAnswerVariant(answer, question)}
+                      disabled={Boolean(selectedAnswer)}
+                      key={index}
+                    >
+                      <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
+                    </QuestionAnswer>
+                  )
+                })}
+              </QuestionAnswersContainer>
+              {question.image && (
+                <QuestionImage
+                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+                  loading="lazy"
+                  alt={`Zdjęcie do pytania`}
+                />
+              )}
+            </Question>
+          ) : (
+            <QuestionSkeleton />
           )}
-        </Question>
-      ) : (
-        <p>Loading...</p>
-      )}
+          <div className="flex items-center justify-center gap-4 my-4">
+            <Button
+              onClick={() =>
+                alert(
+                  "To byłby przycisk od przełączania między trybem domyślnym i trudnym",
+                )
+              }
+              className="rounded-full w-14 h-14"
+            >
+              <div className="w-4 h-4 bg-primary rounded-full"></div>
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji łatwych pytań")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <Smile className="w-7 h-7" />
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji trudnych pytań")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <Skull className="w-7 h-7" />
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od wyświetlania wyjaśnienia pytania")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <HelpCircle className="w-7 h-7" />
+            </Button>
+          </div>
+        </TabsContent>
+        <TabsContent value="bottomBar">
+          <div className="fixed bottom-6 right-6 hidden lg:flex flex-col gap-4">
+            <Button
+              onClick={() =>
+                alert(
+                  "To byłby przycisk od przełączania między trybem domyślnym i trudnym",
+                )
+              }
+              className="rounded-full w-14 h-14"
+            >
+              <div className="w-4 h-4 bg-primary rounded-full"></div>
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji łatwych pytań")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <Smile className="w-7 h-7" />
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji trudnych pytań")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <Skull className="w-7 h-7" />
+            </Button>
+            <Button
+              onClick={() =>
+                alert("To byłby przycisk od wyświetlania wyjaśnienia pytania")
+              }
+              className="w-14 h-14 rounded-full"
+            >
+              <HelpCircle className="w-7 h-7" />
+            </Button>
+            <Button
+              onClick={() => rollQuestion()}
+              variant="primary"
+              className="font-semibold uppercase w-14 h-14 rounded-full"
+              ref={rollButtonRef}
+            >
+              <Dices className="w-7 h-7" />
+            </Button>
+          </div>
+          <div className="flex justify-between fixed bottom-0 left-0 w-full z-50 lg:hidden bg-[#0b0a0aed] px-4 py-2 backdrop-blur-xl">
+            <button
+              onClick={() =>
+                alert(
+                  "To byłby przycisk od przełączania między trybem domyślnym i trudnym",
+                )
+              }
+            >
+              <div className="w-4 h-4 bg-primary rounded-full"></div>
+            </button>
+            <button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji łatwych pytań")
+              }
+            >
+              <Smile />
+            </button>
+            <button
+              onClick={() =>
+                alert("To byłby przycisk od dodawania do kolekcji trudnych pytań")
+              }
+            >
+              <Skull />
+            </button>
+            <button
+              onClick={() =>
+                alert("To byłby przycisk od wyświetlania wyjaśnienia pytania")
+              }
+            >
+              <HelpCircle />
+            </button>
+            <button onClick={() => rollQuestion()} ref={rollButtonRef}>
+              <Dices />
+            </button>
+          </div>
+          {question ? (
+            <Question className="bg-transparent">
+              <QuestionContent>{question.content}</QuestionContent>
+              <QuestionAnswersContainer>
+                {question.answers.map((answer, index) => {
+                  const atlas = "ABCD"
+                  return (
+                    <QuestionAnswer
+                      onClick={() => setSelectedAnswer(answer)}
+                      variant={getAnswerVariant(answer, question)}
+                      disabled={Boolean(selectedAnswer)}
+                      key={index}
+                    >
+                      <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
+                    </QuestionAnswer>
+                  )
+                })}
+              </QuestionAnswersContainer>
+              {question.image && (
+                <QuestionImage
+                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+                  loading="lazy"
+                  alt={`Zdjęcie do pytania`}
+                />
+              )}
+            </Question>
+          ) : (
+            <QuestionSkeleton />
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
