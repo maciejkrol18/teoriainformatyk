@@ -565,6 +565,20 @@ export type Database = {
           image: boolean
         }[]
       }
+      one_question_increment_correct: {
+        Args: {
+          user_id: string
+          exam_id: number
+        }
+        Returns: Json
+      }
+      one_question_increment_incorrect: {
+        Args: {
+          user_id: string
+          exam_id: number
+        }
+        Returns: Json
+      }
       reset_user_stats: {
         Args: {
           current_plain_password: string

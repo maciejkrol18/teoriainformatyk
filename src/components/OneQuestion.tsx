@@ -18,9 +18,9 @@ import {
   questionAnswerVariants,
 } from "./ui/Question"
 import { VariantProps } from "class-variance-authority"
-import { Tabs, TabsContent, TabsTrigger, TabsList } from "./ui/Tabs"
 import { Dices, HelpCircle, Skull, Smile } from "lucide-react"
 import QuestionSkeleton from "./skeletons/QuestionSkeleton"
+import { toast } from "sonner"
 
 interface OneQuestionProps {
   examId: number
@@ -31,6 +31,7 @@ type Question = Database["public"]["Tables"]["questions"]["Row"]
 export default function OneQuestion({ examId }: OneQuestionProps) {
   const [question, setQuestion] = useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
   const wasEventListenerInitialized = useRef<boolean>(false)
 
@@ -82,27 +83,64 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
   }
 
-  useEffect(() => {
-    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
-    return () => clearInterval(counterInterval)
-  }, [])
+  const incrementCorrect = async () => {
+    setCorrectAnswers((prev) => prev + 1)
+    if (userId) {
+      const supabase = createClient()
+      const { error } = await supabase.rpc("one_question_increment_correct", {
+        user_id: userId,
+        exam_id: examId,
+      })
+      if (error) {
+        console.error(error)
+        toast.error("Błąd aktualizacji statystyk")
+      }
+    }
+  }
+
+  const incrementIncorrect = async () => {
+    setIncorrectAnswers((prev) => prev + 1)
+    if (userId) {
+      const supabase = createClient()
+      const { error } = await supabase.rpc("one_question_increment_incorrect", {
+        user_id: userId,
+        exam_id: examId,
+      })
+      if (error) {
+        console.error(error)
+        toast.error("Błąd aktualizacji statystyk")
+      }
+    }
+  }
 
   useEffect(() => {
     if (question && selectedAnswer) {
       if (selectedAnswer === question.correct_answer) {
-        setCorrectAnswers((prev) => prev + 1)
+        incrementCorrect()
       } else {
-        setIncorrectAnswers((prev) => prev + 1)
+        incrementIncorrect()
       }
     }
   }, [selectedAnswer])
 
   useEffect(() => {
-    getRandomQuestion()
-  }, [])
-
-  useEffect(() => {
     if (wasEventListenerInitialized.current) return
+
+    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
+
+    const supabase = createClient()
+    const getUser = async () => {
+      const { data, error } = await supabase.auth.getUser()
+      if (error || !data.user) {
+        setUserId(null)
+      } else {
+        setUserId(data.user.id)
+      }
+    }
+    getUser()
+
+    getRandomQuestion()
+
     const rollOnSpaceClick = (e: KeyboardEvent) => {
       if (rollButtonRef.current) rollButtonRef.current.blur()
       if (e.code === "Space") {
@@ -111,7 +149,11 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
     window.addEventListener("keyup", (e) => rollOnSpaceClick(e))
     wasEventListenerInitialized.current = true
-    return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
+
+    return () => {
+      clearInterval(counterInterval)
+      window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
+    }
   }, [])
 
   return (
