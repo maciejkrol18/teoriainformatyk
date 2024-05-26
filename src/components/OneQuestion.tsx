@@ -35,7 +35,6 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
   const [timesRolled, setTimesRolled] = useState(0)
-  const [counter, setCounter] = useState(0)
 
   const getRandomQuestion = async () => {
     const supabase = createClient()
@@ -121,8 +120,6 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [selectedAnswer])
 
   useEffect(() => {
-    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
-
     if (wasEventListenerInitialized.current) return
 
     const supabase = createClient()
@@ -147,10 +144,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     window.addEventListener("keyup", (e) => rollOnSpaceClick(e))
     wasEventListenerInitialized.current = true
 
-    return () => {
-      clearInterval(counterInterval)
-      window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
-    }
+    return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
   }, [])
 
   return (
