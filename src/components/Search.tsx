@@ -1,6 +1,6 @@
 "use client"
 import { supabase, supabaseUrl } from "@/lib/supabase"
-import { Question } from "@/types/question"
+import { LegacyQuestion } from "@/types/legacy-question"
 import { Table } from "@/types/table"
 import { useState } from "react"
 import Card from "./ui/Card"
@@ -9,8 +9,8 @@ import Image from "next/image"
 import AnswerBox from "./ui/AnswerBox"
 
 export default function Search() {
-  const [inf02Results, setInf02Results] = useState<Question[] | null>(null)
-  const [inf03Results, setInf03Results] = useState<Question[] | null>(null)
+  const [inf02Results, setInf02Results] = useState<LegacyQuestion[] | null>(null)
+  const [inf03Results, setInf03Results] = useState<LegacyQuestion[] | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearching, setIsSearching] = useState(false)
 
