@@ -1,11 +1,6 @@
 "use client"
 
-import { supabaseUrl } from "@/lib/supabase"
 import { useState, useEffect, useRef } from "react"
-import Card from "./ui/Card"
-import { cn } from "@/lib/utils"
-import SessionStats from "./SessionStats"
-import AnswerBox from "./ui/AnswerBox"
 import { createClient } from "@/lib/supabase/client"
 import { Database } from "@/types/database"
 import { Button } from "./ui/Button"
@@ -18,9 +13,10 @@ import {
   questionAnswerVariants,
 } from "./ui/Question"
 import { VariantProps } from "class-variance-authority"
-import { Dices, HelpCircle, Skull, Smile } from "lucide-react"
+import { BarChart, Dices, HelpCircle, Skull, Smile } from "lucide-react"
 import QuestionSkeleton from "./skeletons/QuestionSkeleton"
 import { toast } from "sonner"
+import SessionStats from "./SessionStats"
 
 interface OneQuestionProps {
   examId: number
@@ -32,6 +28,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   const [question, setQuestion] = useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
+  const [statsOpen, setStatsOpen] = useState<boolean>(false)
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
   const wasEventListenerInitialized = useRef<boolean>(false)
 
@@ -124,9 +121,9 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [selectedAnswer])
 
   useEffect(() => {
-    if (wasEventListenerInitialized.current) return
-
     const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000)
+
+    if (wasEventListenerInitialized.current) return
 
     const supabase = createClient()
     const getUser = async () => {
@@ -139,7 +136,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
     getUser()
 
-    getRandomQuestion()
+    rollQuestion()
 
     const rollOnSpaceClick = (e: KeyboardEvent) => {
       if (rollButtonRef.current) rollButtonRef.current.blur()
@@ -159,31 +156,20 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   return (
     <div className="flex flex-col grow gap-8 justify-center lg:justify-between py-[56px] md:w-full md:max-w-xl md:mx-auto">
       <div className="flex justify-between fixed bottom-0 left-0 w-full z-50 lg:hidden bg-[#0b0a0aed] px-4 py-4 backdrop-blur-xl">
-        <button
-          onClick={() =>
-            alert("To byłby przycisk od przełączania między trybem domyślnym i trudnym")
-          }
-        >
+        <button onClick={() => alert("TODO: Normal/hard mode toggle switch")}>
           <div className="w-4 h-4 bg-primary rounded-full"></div>
         </button>
-        <button
-          onClick={() =>
-            alert("To byłby przycisk od dodawania do kolekcji łatwych pytań")
-          }
-        >
+        <button onClick={() => alert("TODO: Add to easy collection button")}>
           <Smile />
         </button>
-        <button
-          onClick={() =>
-            alert("To byłby przycisk od dodawania do kolekcji trudnych pytań")
-          }
-        >
+        <button onClick={() => alert("TODO: Add to hard collection button")}>
           <Skull />
         </button>
-        <button
-          onClick={() => alert("To byłby przycisk od wyświetlania wyjaśnienia pytania")}
-        >
+        <button onClick={() => alert("TODO: Question explanations button")}>
           <HelpCircle />
+        </button>
+        <button onClick={() => setStatsOpen(true)}>
+          <BarChart />
         </button>
         <button onClick={() => rollQuestion()}>
           <Dices />
@@ -228,36 +214,40 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       )}
       <div className="hidden lg:flex items-center justify-center gap-4">
         <Button
-          onClick={() =>
-            alert("To byłby przycisk od przełączania między trybem domyślnym i trudnym")
-          }
+          onClick={() => alert("TODO: Hard/normal mode toggle switch")}
           className="rounded-full w-14 h-14"
         >
           <div className="w-4 h-4 bg-primary rounded-full"></div>
         </Button>
         <Button
-          onClick={() =>
-            alert("To byłby przycisk od dodawania do kolekcji łatwych pytań")
-          }
+          onClick={() => alert("TODO: Add to easy collection button")}
           className="w-14 h-14 rounded-full"
         >
           <Smile className="w-7 h-7" />
         </Button>
         <Button
-          onClick={() =>
-            alert("To byłby przycisk od dodawania do kolekcji trudnych pytań")
-          }
+          onClick={() => alert("TODO: Add to hard collection button")}
           className="w-14 h-14 rounded-full"
         >
           <Skull className="w-7 h-7" />
         </Button>
         <Button
-          onClick={() => alert("To byłby przycisk od wyświetlania wyjaśnienia pytania")}
+          onClick={() => alert("TODO: Question explanations button")}
           className="w-14 h-14 rounded-full"
         >
           <HelpCircle className="w-7 h-7" />
         </Button>
+        <Button className="w-14 h-14 rounded-full" onClick={() => setStatsOpen(true)}>
+          <BarChart className="w-7 h-7" />
+        </Button>
       </div>
+      <SessionStats
+        open={statsOpen}
+        onOpenChange={(open) => setStatsOpen(open)}
+        correctAnswers={correctAnswers}
+        incorrectAnswers={incorrectAnswers}
+        timesRolled={timesRolled}
+      />
     </div>
   )
 }
