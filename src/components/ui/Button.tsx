@@ -13,6 +13,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary hover:bg-secondary/90",
         outline: "border border-background-bright hover:bg-background-bright",
         link: "underline-offset-4 hover:underline",
+        bottomBar:
+          "rounded-full bg-transparent lg:bg-background-bright lg:hover:bg-background-bright/90 lg:w-14 lg:h-14",
       },
       size: {
         default: "h-10 px-4",
