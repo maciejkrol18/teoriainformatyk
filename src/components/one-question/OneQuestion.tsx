@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Database } from "@/types/database"
-import { Button } from "./ui/Button"
+import { Button } from "../ui/Button"
 import {
   Question,
   QuestionAnswer,
@@ -11,10 +11,10 @@ import {
   QuestionContent,
   QuestionImage,
   questionAnswerVariants,
-} from "./ui/Question"
+} from "../ui/Question"
 import { VariantProps } from "class-variance-authority"
 import { BarChart, Dices, HelpCircle, Skull, Smile } from "lucide-react"
-import QuestionSkeleton from "./skeletons/QuestionSkeleton"
+import QuestionSkeleton from "../skeletons/QuestionSkeleton"
 import { toast } from "sonner"
 import SessionStats from "./SessionStats"
 

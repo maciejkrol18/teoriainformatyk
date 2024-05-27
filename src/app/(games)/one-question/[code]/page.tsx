@@ -1,4 +1,4 @@
-import OneQuestion from "@/components/OneQuestion"
+import OneQuestion from "@/components/one-question/OneQuestion"
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 
