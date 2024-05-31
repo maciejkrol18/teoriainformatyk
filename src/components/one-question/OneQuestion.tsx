@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react"
 import { createClient } from "@/lib/supabase/client"
-import { Database } from "@/types/database"
 import { Button } from "../ui/Button"
 import {
   Question,
@@ -17,18 +16,20 @@ import QuestionSkeleton from "../skeletons/QuestionSkeleton"
 import { toast } from "sonner"
 import SessionStats from "./SessionStats"
 import OneQuestionBar from "./OneQuestionBar"
+import { Question as QuestionType } from "@/types/question"
 
 interface OneQuestionProps {
   examId: number
 }
 
-type Question = Database["public"]["Tables"]["questions"]["Row"]
-
 export default function OneQuestion({ examId }: OneQuestionProps) {
-  const [question, setQuestion] = useState<Question | null>(null)
+  const [question, setQuestion] = useState<QuestionType | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
   const [statsOpen, setStatsOpen] = useState<boolean>(false)
+  const [hardCollection, setHardCollection] = useState<number[]>([])
+  const [easyCollection, setEasyCollection] = useState<number[]>([])
+  const [hardMode, setHardMode] = useState<boolean>(false)
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
   const wasEventListenerInitialized = useRef<boolean>(false)
 
@@ -64,7 +65,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
 
   const getAnswerVariant = (
     answer: string,
-    question: Question,
+    question: QuestionType,
   ): VariantProps<typeof questionAnswerVariants>["variant"] => {
     if (selectedAnswer) {
       if (!selectedAnswer && answer === question.correct_answer) {
@@ -109,6 +110,22 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
   }
 
+  const getHardCollection = async (userId: string) => {
+    const supabase = createClient()
+    const { data, error } = await supabase
+      .from("hard_collections")
+      .select("question_id_array")
+      .eq("user_id", userId)
+      .single()
+
+    if (error) {
+      toast.error("Nie udało się załadować kolekcji łatwych pytań")
+      console.error(error)
+    } else {
+      setHardCollection(data.question_id_array)
+    }
+  }
+
   useEffect(() => {
     if (question && selectedAnswer) {
       if (selectedAnswer === question.correct_answer) {
@@ -128,6 +145,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       if (error || !data.user) {
         setUserId(null)
       } else {
+        getHardCollection(data.user.id)
         setUserId(data.user.id)
       }
     }
@@ -147,6 +165,8 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
   }, [])
 
+  console.log(question, hardMode)
+
   return (
     <div className="flex flex-col grow gap-8 justify-center lg:justify-between pb-[64px] lg:py-4 md:w-full md:max-w-xl md:mx-auto">
       <Button
@@ -157,6 +177,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       >
         {selectedAnswer ? "Następne" : "Losuj"} (Spacja)
       </Button>
+      <p>{JSON.stringify(easyCollection)}</p>
       {question ? (
         <Question className="bg-transparent">
           <QuestionContent>{question.content}</QuestionContent>
@@ -189,6 +210,10 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       <OneQuestionBar
         openStatsFn={() => setStatsOpen(true)}
         rollQuestionFn={rollQuestion}
+        hardModeFn={setHardMode}
+        hardMode={hardMode}
+        hardCollection={hardCollection}
+        currentQuestion={question}
       />
       <SessionStats
         open={statsOpen}

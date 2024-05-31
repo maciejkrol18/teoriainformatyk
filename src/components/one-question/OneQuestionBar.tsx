@@ -1,16 +1,35 @@
+"use client"
+
 import { cn } from "@/lib/utils"
-import { BarChart, Dices, HelpCircle, Skull, Smile } from "lucide-react"
+import { BarChart, Dices, HelpCircle, Skull } from "lucide-react"
 import { Button } from "../ui/Button"
+import { Question } from "@/types/question"
+import { SetStateAction } from "react"
+import { toast } from "sonner"
+import { createClient } from "@/lib/supabase/client"
 
 interface OneQuestionBarProps {
   openStatsFn: () => void
   rollQuestionFn: () => void
+  hardModeFn: React.Dispatch<SetStateAction<boolean>>
+  hardMode: boolean
+  hardCollection: number[]
+  currentQuestion: Question | null
 }
 
 export default function OneQuestionBar({
   openStatsFn,
   rollQuestionFn,
+  hardModeFn,
+  hardMode,
+  hardCollection,
+  currentQuestion,
 }: OneQuestionBarProps) {
+  const toggleHardMode = () => {
+    hardMode ? toast.info("Wyłączono tryb trudny") : toast.info("Tryb trudny włączony")
+    hardModeFn((prev) => !prev)
+  }
+
   return (
     <div
       className={cn(
@@ -18,23 +37,22 @@ export default function OneQuestionBar({
         "lg:gap-4 lg:justify-center lg:static lg:w-auto lg:z-auto lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-0",
       )}
     >
-      <Button
-        variant="bottomBar"
-        onClick={() => alert("TODO: Normal/hard mode toggle switch")}
-      >
-        <div className="w-4 h-4 bg-primary rounded-full"></div>
-      </Button>
-      <Button
-        variant="bottomBar"
-        onClick={() => alert("TODO: Add to easy collection button")}
-      >
-        <Smile />
+      <Button variant="bottomBar" onClick={toggleHardMode}>
+        <span className={`${hardMode ? "text-red-500" : "text-green-500"}`}>
+          {hardMode ? "H" : "N"}
+        </span>
       </Button>
       <Button
         variant="bottomBar"
         onClick={() => alert("TODO: Add to hard collection button")}
       >
-        <Skull />
+        {hardCollection &&
+        currentQuestion &&
+        hardCollection.includes(currentQuestion.id) ? (
+          <Skull className="text-red-500" />
+        ) : (
+          <Skull />
+        )}
       </Button>
       <Button
         variant="bottomBar"
