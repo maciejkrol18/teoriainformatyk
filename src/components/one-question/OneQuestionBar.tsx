@@ -6,7 +6,6 @@ import { Button } from "../ui/Button"
 import { Question } from "@/types/question"
 import { SetStateAction } from "react"
 import { toast } from "sonner"
-import { createClient } from "@/lib/supabase/client"
 
 interface OneQuestionBarProps {
   openStatsFn: () => void
@@ -15,6 +14,7 @@ interface OneQuestionBarProps {
   hardMode: boolean
   hardCollection: number[]
   currentQuestion: Question | null
+  userId: string | null
 }
 
 export default function OneQuestionBar({
@@ -24,8 +24,13 @@ export default function OneQuestionBar({
   hardMode,
   hardCollection,
   currentQuestion,
+  userId,
 }: OneQuestionBarProps) {
   const toggleHardMode = () => {
+    if (!userId) {
+      toast.error("Zaloguj się, aby korzystać z tej funkcji")
+      return
+    }
     hardMode ? toast.info("Wyłączono tryb trudny") : toast.info("Tryb trudny włączony")
     hardModeFn((prev) => !prev)
   }

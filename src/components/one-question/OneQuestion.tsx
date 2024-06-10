@@ -220,6 +220,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
         hardMode={hardMode}
         hardCollection={hardCollection}
         currentQuestion={question}
+        userId={userId}
       />
       <SessionStats
         open={statsOpen}
