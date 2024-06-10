@@ -37,7 +37,7 @@ export default function OneQuestionBar({
         "lg:gap-4 lg:justify-center lg:static lg:w-auto lg:z-auto lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-0",
       )}
     >
-      <Button variant="bottomBar" onClick={toggleHardMode}>
+      <Button variant="bottomBar" onClick={() => toggleHardMode()}>
         <span className={`${hardMode ? "text-red-500" : "text-green-500"}`}>
           {hardMode ? "H" : "N"}
         </span>

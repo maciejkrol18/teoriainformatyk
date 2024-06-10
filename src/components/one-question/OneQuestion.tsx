@@ -28,10 +28,8 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   const [userId, setUserId] = useState<string | null>(null)
   const [statsOpen, setStatsOpen] = useState<boolean>(false)
   const [hardCollection, setHardCollection] = useState<number[]>([])
-  const [easyCollection, setEasyCollection] = useState<number[]>([])
   const [hardMode, setHardMode] = useState<boolean>(false)
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
-  const wasEventListenerInitialized = useRef<boolean>(false)
 
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
@@ -42,11 +40,19 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     const { data, error } = await supabase.rpc("get_random_questions", {
       amount: 1,
       exam_id: examId,
+      range: hardMode ? hardCollection : undefined,
     })
     if (error) {
       throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`)
     } else if (!data[0]) {
-      throw new Error("Błąd pobierania pytania z bazy. Spróbuj ponownie.")
+      if (hardMode) {
+        toast.warning(
+          "Brak pasujących trudnych pytań w kolekcji. Powrót do trybu normalnego",
+        )
+        setHardMode(false)
+      } else {
+        throw new Error("Baza nie mogła znaleźć pasującego pytania. Spróbuj ponownie.")
+      }
     } else {
       const questionWithShuffledAnswers = {
         ...data[0],
@@ -119,10 +125,21 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       .single()
 
     if (error) {
-      toast.error("Nie udało się załadować kolekcji łatwych pytań")
+      toast.error("Nie udało się załadować kolekcji trudnych pytań")
       console.error(error)
     } else {
       setHardCollection(data.question_id_array)
+    }
+  }
+
+  const getUser = async () => {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data.user) {
+      setUserId(null)
+    } else {
+      getHardCollection(data.user.id)
+      setUserId(data.user.id)
     }
   }
 
@@ -137,35 +154,25 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [selectedAnswer])
 
   useEffect(() => {
-    if (wasEventListenerInitialized.current) return
-
-    const supabase = createClient()
-    const getUser = async () => {
-      const { data, error } = await supabase.auth.getUser()
-      if (error || !data.user) {
-        setUserId(null)
-      } else {
-        getHardCollection(data.user.id)
-        setUserId(data.user.id)
-      }
-    }
-    getUser()
-
-    rollQuestion()
-
     const rollOnSpaceClick = (e: KeyboardEvent) => {
-      if (rollButtonRef.current) rollButtonRef.current.blur()
       if (e.code === "Space") {
+        if (rollButtonRef.current) rollButtonRef.current.blur()
         rollQuestion()
       }
     }
-    window.addEventListener("keyup", (e) => rollOnSpaceClick(e))
-    wasEventListenerInitialized.current = true
 
-    return () => window.removeEventListener("keyup", (e) => rollOnSpaceClick(e))
+    window.addEventListener("keyup", rollOnSpaceClick)
+
+    return () => window.removeEventListener("keyup", rollOnSpaceClick)
+  }, [hardMode, hardCollection])
+
+  useEffect(() => {
+    rollQuestion()
+  }, [hardMode])
+
+  useEffect(() => {
+    getUser()
   }, [])
-
-  console.log(question, hardMode)
 
   return (
     <div className="flex flex-col grow gap-8 justify-center lg:justify-between pb-[64px] lg:py-4 md:w-full md:max-w-xl md:mx-auto">
@@ -177,7 +184,6 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       >
         {selectedAnswer ? "Następne" : "Losuj"} (Spacja)
       </Button>
-      <p>{JSON.stringify(easyCollection)}</p>
       {question ? (
         <Question className="bg-transparent">
           <QuestionContent>{question.content}</QuestionContent>

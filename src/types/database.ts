@@ -554,6 +554,7 @@ export type Database = {
         Args: {
           amount: number
           exam_id: number
+          range?: number[]
         }
         Returns: {
           answers: string[]
