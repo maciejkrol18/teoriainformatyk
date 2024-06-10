@@ -1,5 +1,5 @@
 "use client"
-import { Question } from "@/types/question"
+import { LegacyQuestion } from "@/types/legacy-question"
 import Card from "../ui/Card"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
@@ -9,8 +9,8 @@ import AnswerBox from "../ui/AnswerBox"
 
 interface CollectionCardProps {
   table: Table
-  question: Question
-  setCollection: React.Dispatch<React.SetStateAction<Question[] | undefined>>
+  question: LegacyQuestion
+  setCollection: React.Dispatch<React.SetStateAction<LegacyQuestion[] | undefined>>
 }
 
 export default function CollectionCard({

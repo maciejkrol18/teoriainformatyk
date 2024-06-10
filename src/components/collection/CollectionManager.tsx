@@ -1,7 +1,7 @@
 "use client"
 import { supabase } from "@/lib/supabase"
 import { getCollection } from "@/lib/utils"
-import { Question } from "@/types/question"
+import { LegacyQuestion } from "@/types/legacy-question"
 import { Table } from "@/types/table"
 import { useState, useEffect } from "react"
 import CollectionCard from "./CollectionCard"
@@ -19,7 +19,9 @@ export default function CollectionManager({
   storageKey,
   table,
 }: CollectionManagerProps) {
-  const [questionArray, setQuestionArray] = useState<Question[] | undefined>(undefined)
+  const [questionArray, setQuestionArray] = useState<LegacyQuestion[] | undefined>(
+    undefined,
+  )
 
   useEffect(() => {
     const getQuestions = async () => {

@@ -26,10 +26,10 @@ export default function DashboardStats({ className, userId }: DashboardStatsProp
         }
       >
         <TabsContent value="inf02">
-          <OneQuestionStats userId={userId} examId={0} />
+          <OneQuestionStats userId={userId} examId={1} />
         </TabsContent>
         <TabsContent value="inf03">
-          <OneQuestionStats userId={userId} examId={1} />
+          <OneQuestionStats userId={userId} examId={2} />
         </TabsContent>
       </DashboardBlock>
       <DashboardBlock
@@ -44,10 +44,10 @@ export default function DashboardStats({ className, userId }: DashboardStatsProp
         }
       >
         <TabsContent value="inf02">
-          <FlashcardsStats userId={userId} examId={0} />
+          <FlashcardsStats userId={userId} examId={1} />
         </TabsContent>
         <TabsContent value="inf03">
-          <FlashcardsStats userId={userId} examId={1} />
+          <FlashcardsStats userId={userId} examId={2} />
         </TabsContent>
       </DashboardBlock>
     </Tabs>

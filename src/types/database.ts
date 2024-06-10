@@ -554,6 +554,7 @@ export type Database = {
         Args: {
           amount: number
           exam_id: number
+          range?: number[]
         }
         Returns: {
           answers: string[]
@@ -564,6 +565,20 @@ export type Database = {
           id: number
           image: boolean
         }[]
+      }
+      one_question_increment_correct: {
+        Args: {
+          user_id: string
+          exam_id: number
+        }
+        Returns: Json
+      }
+      one_question_increment_incorrect: {
+        Args: {
+          user_id: string
+          exam_id: number
+        }
+        Returns: Json
       }
       reset_user_stats: {
         Args: {
