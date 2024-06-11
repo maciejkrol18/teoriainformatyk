@@ -9,35 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      easy_collections: {
-        Row: {
-          created_at: string
-          id: number
-          question_id_array: number[]
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          question_id_array: number[]
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          question_id_array?: number[]
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_easy_collections_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       exam_scores: {
         Row: {
           correct: number
