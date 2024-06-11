@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "./Button"
 import { LayoutDashboard, LogOut } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+import { signOut } from "@/actions"
 
 interface UserProfile {
   avatar_url: string | null
@@ -16,16 +16,6 @@ interface ProfileBlockProps {
 }
 
 export default function ProfileBlock({ profile }: ProfileBlockProps) {
-  const signOut = async () => {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      console.error(error)
-    } else {
-      window.location.reload()
-    }
-  }
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
