@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "./Button"
 import { User } from "@supabase/supabase-js"
 import { createClient } from "@/lib/supabase/server"
+import HeaderAuthDropdown from "./HeaderAuthDropdown"
 
 interface HeaderAuthProps {
   user: User | null
@@ -13,7 +14,7 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
 
     const { data, error } = await supabase
       .from("profiles")
-      .select("avatar_url")
+      .select("email, display_name, avatar_url")
       .eq("user_id", user.id)
       .single()
 
@@ -25,15 +26,11 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
       )
     } else {
       return (
-        <Link href="/dashboard">
-          <img
-            src={data.avatar_url ? data.avatar_url : ""}
-            alt="Profil"
-            width={32}
-            height={32}
-            className="rounded-full"
-          />
-        </Link>
+        <HeaderAuthDropdown
+          email={data.email}
+          display_name={data.display_name}
+          avatar_url={data.avatar_url}
+        />
       )
     }
   } else {
