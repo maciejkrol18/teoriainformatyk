@@ -6,7 +6,7 @@ import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
 import { toast } from "sonner"
-import { changePassword } from "@/app/(default)/dashboard/actions"
+import { changePassword } from "@/actions"
 
 const schema = z
   .object({

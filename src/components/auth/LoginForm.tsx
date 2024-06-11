@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
-import { signIn } from "@/app/(auth)/actions"
+import { signIn } from "@/actions"
 import { toast } from "sonner"
 import { Button } from "../ui/Button"
 

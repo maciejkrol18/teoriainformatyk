@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
-import { signUp } from "@/app/(auth)/actions"
+import { signUp } from "@/actions"
 import { toast } from "sonner"
 
 const schema = z.object({
