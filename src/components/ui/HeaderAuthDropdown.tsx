@@ -47,13 +47,17 @@ export default function HeaderAuthDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/dashboard" className="flex gap-2" onClick={() => setOpen(false)}>
+          <Link
+            href="/dashboard"
+            className="flex gap-2 w-full"
+            onClick={() => setOpen(false)}
+          >
             <LayoutDashboard /> Panel
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <button
-            className="flex gap-2"
+            className="flex gap-2 w-full"
             onClick={() => {
               setOpen(false)
               signOut()
