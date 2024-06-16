@@ -64,14 +64,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   })
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
       <SearchBar
         query={searchQuery}
         examId={examId}
         sortBy={sortBy}
         hasImage={hasImage}
       />
-      <div className="flex flex-col gap-4 max-w-xl mx-auto">
+      <div className="flex flex-col gap-4">
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((question) => {
             return <SearchResult question={question} key={question.id} />

@@ -12,7 +12,7 @@ export default function SearchResult({ question }: SearchResultProps) {
         <p className="text-muted">ID #{question.id}</p>
         <p className="text-lg font-semibold max-w-[500px]">{question.content}</p>
       </div>
-      <ScanEye width={48} height={48} />
+      <ScanEye width={32} height={32} />
     </div>
   )
 }
