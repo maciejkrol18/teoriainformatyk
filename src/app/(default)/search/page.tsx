@@ -31,7 +31,9 @@ async function fetchPaginatedQuestions({
   }
 
   if (query) {
-    dbQuery.textSearch("content", query)
+    dbQuery.textSearch("content", query, {
+      type: "websearch",
+    })
   }
 
   if (hasImage) {

@@ -16,11 +16,7 @@ export default function SearchPagination({ page, totalPages }: SearchPaginationP
 
   const updatePage = (page: string) => {
     const currentUrl = new URLSearchParams(Array.from(searchParams.entries()))
-    if (!page) {
-      currentUrl.delete("page")
-    } else {
-      currentUrl.set("page", page)
-    }
+    currentUrl.set("page", page)
     const search = currentUrl.toString()
     const searchQuery = search ? `?${search}` : ""
     router.push(`${pathname}${searchQuery}`, { scroll: false })
