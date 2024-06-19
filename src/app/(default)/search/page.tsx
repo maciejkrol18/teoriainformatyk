@@ -20,31 +20,25 @@ async function fetchPaginatedQuestions({
 
   const pageOffset = (parseInt(page) - 1) * parseInt(limit)
 
-  let countQuery = supabase.from("questions").select("*", { count: "exact", head: true })
-
   let dbQuery = supabase
     .from("questions")
-    .select("*")
+    .select("*", { count: "exact" })
     .range(pageOffset, pageOffset + parseInt(limit) - 1)
     .order(sortBy)
 
   if (examId) {
     dbQuery.eq("exam_id", examId)
-    countQuery.eq("exam_id", examId)
   }
 
   if (query) {
     dbQuery.textSearch("content", query)
-    countQuery.textSearch("content", query)
   }
 
   if (hasImage) {
     dbQuery.eq("image", hasImage)
-    countQuery.eq("image", hasImage)
   }
 
-  const { data, error } = await dbQuery
-  const { count } = await countQuery
+  const { data, count, error } = await dbQuery
 
   if (error) {
     console.log(error)
