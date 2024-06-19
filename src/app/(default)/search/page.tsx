@@ -1,4 +1,5 @@
 import SearchBar from "@/components/search/SearchBar"
+import SearchPagination from "@/components/search/SearchPagination"
 import SearchResult from "@/components/search/SearchResult"
 import { createClient } from "@/lib/supabase/server"
 import { SearchFilters } from "@/types/search-filters"
@@ -19,6 +20,8 @@ async function fetchPaginatedQuestions({
 
   const pageOffset = (parseInt(page) - 1) * parseInt(limit)
 
+  let countQuery = supabase.from("questions").select("*", { count: "exact", head: true })
+
   let dbQuery = supabase
     .from("questions")
     .select("*")
@@ -26,24 +29,31 @@ async function fetchPaginatedQuestions({
     .order(sortBy)
 
   if (examId) {
-    dbQuery = dbQuery.eq("exam_id", examId)
+    dbQuery.eq("exam_id", examId)
+    countQuery.eq("exam_id", examId)
   }
 
   if (query) {
     dbQuery.textSearch("content", query)
+    countQuery.textSearch("content", query)
   }
 
   if (hasImage) {
     dbQuery.eq("image", hasImage)
+    countQuery.eq("image", hasImage)
   }
 
   const { data, error } = await dbQuery
+  const { count } = await countQuery
 
   if (error) {
     console.log(error)
   }
 
-  return data
+  return {
+    results: data,
+    totalAmount: count,
+  }
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
@@ -54,7 +64,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const searchQuery = searchParams.query
   const hasImage = searchParams.hasImage
 
-  const searchResults = await fetchPaginatedQuestions({
+  const { results, totalAmount } = await fetchPaginatedQuestions({
     query: searchQuery,
     page: page,
     limit: limit,
@@ -62,6 +72,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     sortBy: sortBy,
     hasImage: hasImage,
   })
+
+  const totalPages = totalAmount ? Math.ceil(totalAmount / parseInt(limit)) : 1
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
@@ -72,15 +84,15 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         hasImage={hasImage}
       />
       <div className="flex flex-col gap-4">
-        {searchResults && searchResults.length > 0 ? (
-          searchResults.map((question) => {
+        {results && results.length > 0 ? (
+          results.map((question) => {
             return <SearchResult question={question} key={question.id} />
           })
         ) : (
-          <p>Brak wyników dla twojego wyszukiwania</p>
+          <p className="text-muted text-center">Brak wyników dla twojego wyszukiwania</p>
         )}
       </div>
-      {/* Pagination component */}
+      <SearchPagination page={parseInt(page)} totalPages={totalPages} />
     </div>
   )
 }

@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import SearchFiltersDropdown from "./SearchFiltersDropdown"
 import SearchInput from "./SearchInput"
 import { SearchFilters } from "@/types/search-filters"
@@ -27,9 +27,10 @@ export default function SearchBar({ query, examId, hasImage, sortBy }: SearchBar
     } else {
       currentUrl.set(filter, value)
     }
+    currentUrl.set("page", "1")
     const search = currentUrl.toString()
     const searchQuery = search ? `?${search}` : ""
-    router.push(`${pathname}${searchQuery}`)
+    router.push(`${pathname}${searchQuery}`, { scroll: false })
   }
 
   return (
