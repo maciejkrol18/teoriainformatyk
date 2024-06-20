@@ -35,13 +35,11 @@ export default function SearchBar({ query, examId, hasImage, sortBy }: SearchBar
 
   return (
     <div
-      className="flex justify-between p-4 rounded-full bg-background-light text-muted hover:cursor-text"
+      className="flex justify-between gap-2 p-4 rounded-full bg-background-light text-muted hover:cursor-text"
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex gap-2 grow items-center">
-        <Search />
-        <SearchInput query={query} inputRef={inputRef} updateFn={updateSearchFilter} />
-      </div>
+      <Search />
+      <SearchInput query={query} inputRef={inputRef} updateFn={updateSearchFilter} />
       <SearchFiltersDropdown
         updateFn={updateSearchFilter}
         examId={examId}

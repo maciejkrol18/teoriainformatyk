@@ -24,7 +24,7 @@ export default function SearchInput({ query, inputRef, updateFn }: SearchInputPr
       onChange={(e) => setText(e.target.value)}
       ref={inputRef}
       placeholder="Szukaj wg. treści pytania"
-      className="bg-transparent"
+      className="bg-transparent grow"
     />
   )
 }
