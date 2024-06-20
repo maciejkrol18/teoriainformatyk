@@ -4,6 +4,8 @@ import SearchResult from "@/components/search/SearchResult"
 import { createClient } from "@/lib/supabase/server"
 import { SearchFilters } from "@/types/search-filters"
 
+const RESULTS_PER_PAGE = 10
+
 interface SearchPageProps {
   searchParams: SearchFilters
 }
@@ -11,19 +13,18 @@ interface SearchPageProps {
 async function fetchPaginatedQuestions({
   query,
   page = "1",
-  limit = "10",
   examId,
   sortBy = "id",
   hasImage,
 }: SearchFilters) {
   const supabase = createClient()
 
-  const pageOffset = (parseInt(page) - 1) * parseInt(limit)
+  const pageOffset = (parseInt(page) - 1) * RESULTS_PER_PAGE
 
   let dbQuery = supabase
     .from("questions")
-    .select("*", { count: "exact" })
-    .range(pageOffset, pageOffset + parseInt(limit) - 1)
+    .select("id, content", { count: "exact" })
+    .range(pageOffset, pageOffset + RESULTS_PER_PAGE - 1)
     .order(sortBy)
 
   if (examId) {
@@ -53,8 +54,7 @@ async function fetchPaginatedQuestions({
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const page = searchParams.page ?? 1
-  const limit = searchParams.limit ?? 10
+  const page = searchParams.page
   const examId = searchParams.examId
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query
@@ -63,13 +63,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { results, totalAmount } = await fetchPaginatedQuestions({
     query: searchQuery,
     page: page,
-    limit: limit,
     examId: examId,
     sortBy: sortBy,
     hasImage: hasImage,
   })
 
-  const totalPages = totalAmount ? Math.ceil(totalAmount / parseInt(limit)) : 1
+  const totalPages = totalAmount ? Math.ceil(totalAmount / RESULTS_PER_PAGE) : 1
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">

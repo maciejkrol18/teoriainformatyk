@@ -2,7 +2,10 @@ import { Question } from "@/types/question"
 import { ScanEye } from "lucide-react"
 
 interface SearchResultProps {
-  question: Question
+  question: {
+    id: number
+    content: string
+  }
 }
 
 export default function SearchResult({ question }: SearchResultProps) {
