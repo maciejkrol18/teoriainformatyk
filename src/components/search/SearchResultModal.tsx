@@ -32,7 +32,9 @@ export default function SearchResultModal({ question }: { question: Question }) 
         </CredenzaHeader>
         <CredenzaBody>
           <div className="max-h-[500px] overflow-y-auto">
-            <QuestionDetails question={question} />
+            <div className="pr-2">
+              <QuestionDetails question={question} />
+            </div>
           </div>
         </CredenzaBody>
       </CredenzaContent>

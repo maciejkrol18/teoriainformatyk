@@ -1,10 +1,13 @@
 import { Question } from "@/types/question"
-import { Layers, Image, Type } from "lucide-react"
+import { Layers, Image, Type, Skull, LucideAlertTriangle } from "lucide-react"
 import { QuestionAnswer, QuestionAnswersContainer, QuestionImage } from "./Question"
+import { Button } from "./Button"
 
 interface QuestionDetailsProps {
   question: Question
 }
+
+const Divider = () => <div className="h-[2px] bg-background-bright" />
 
 export default function QuestionDetails({ question }: QuestionDetailsProps) {
   return (
@@ -16,6 +19,7 @@ export default function QuestionDetails({ question }: QuestionDetailsProps) {
         </p>
         <p>{question.content}</p>
       </div>
+      <Divider />
       <div className="flex flex-col gap-4">
         <p className="flex gap-2 font-semibold">
           <Layers />
@@ -32,6 +36,7 @@ export default function QuestionDetails({ question }: QuestionDetailsProps) {
           })}
         </QuestionAnswersContainer>
       </div>
+      <Divider />
       <div className="flex flex-col gap-4">
         <p className="flex gap-2 font-semibold">
           <Image />
@@ -46,6 +51,15 @@ export default function QuestionDetails({ question }: QuestionDetailsProps) {
         ) : (
           <p className="text-muted">To pytanie nie posiada załączonego obrazku</p>
         )}
+      </div>
+      <Divider />
+      <div className="flex flex-col gap-4">
+        <Button>
+          <Skull /> Dodaj do zbioru trudnych
+        </Button>
+        <Button>
+          <LucideAlertTriangle /> Zgłoś błąd
+        </Button>
       </div>
     </div>
   )

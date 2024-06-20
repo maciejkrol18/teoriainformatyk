@@ -55,7 +55,7 @@ dependencies:
     version: 9.0.8
   '@uiw/react-textarea-code-editor':
     specifier: ^3.0.2
-    version: 3.0.2(@babel/runtime@7.24.5)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.0.2(@babel/runtime@7.24.7)(react-dom@18.2.0)(react@18.2.0)
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
@@ -164,6 +164,13 @@ packages:
 
   /@babel/runtime@7.24.5:
     resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
+
+  /@babel/runtime@7.24.7:
+    resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -1258,14 +1265,14 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: false
 
-  /@uiw/react-textarea-code-editor@3.0.2(@babel/runtime@7.24.5)(react-dom@18.2.0)(react@18.2.0):
+  /@uiw/react-textarea-code-editor@3.0.2(@babel/runtime@7.24.7)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-x5IsB4y8uHx8wMlRJAbdLit+ksCw93btFhZYM1GKjKUJJiOGgq3Ze1az19rn1/TYJy02I/wzwU3fv65EHzsSrw==}
     peerDependencies:
       '@babel/runtime': '>=7.10.0'
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.7
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       rehype: 13.0.1
