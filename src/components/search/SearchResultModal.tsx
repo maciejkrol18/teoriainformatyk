@@ -12,6 +12,7 @@ import { Question } from "@/types/question"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/Button"
 import { useRouter } from "next/navigation"
+import QuestionDetails from "../ui/QuestionDetails"
 
 export default function SearchResultModal({ question }: { question: Question }) {
   const [open, setOpen] = useState<boolean>(true)
@@ -30,11 +31,10 @@ export default function SearchResultModal({ question }: { question: Question }) 
           <CredenzaTitle>Pytanie #{question.id}</CredenzaTitle>
         </CredenzaHeader>
         <CredenzaBody>
-          <p>{question.content}</p>
+          <div className="max-h-[500px] overflow-y-auto">
+            <QuestionDetails question={question} />
+          </div>
         </CredenzaBody>
-        <CredenzaClose asChild>
-          <Button>Zamknij</Button>
-        </CredenzaClose>
       </CredenzaContent>
     </Credenza>
   )
