@@ -1,5 +1,4 @@
-import { Question } from "@/types/question"
-import { ScanEye } from "lucide-react"
+import Link from "next/link"
 
 interface SearchResultProps {
   question: {
@@ -10,11 +9,15 @@ interface SearchResultProps {
 
 export default function SearchResult({ question }: SearchResultProps) {
   return (
-    <div className="flex justify-between gap-4 items-center bg-background-light p-4 rounded-md">
+    <Link
+      href={`/question/${question.id}`}
+      scroll={false}
+      className="flex justify-between gap-4 items-center bg-background-light p-4 rounded-md"
+    >
       <div className="flex flex-col gap-2">
         <p className="text-muted">ID #{question.id}</p>
         <p className="text-lg font-semibold">{question.content}</p>
       </div>
-    </div>
+    </Link>
   )
 }
