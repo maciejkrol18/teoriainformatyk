@@ -54,7 +54,7 @@ async function fetchPaginatedQuestions({
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const page = searchParams.page
+  const page = searchParams.page ?? 1
   const examId = searchParams.examId
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query
