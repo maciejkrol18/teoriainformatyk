@@ -54,7 +54,7 @@ async function fetchPaginatedQuestions({
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const page = searchParams.page ?? 1
+  const page = searchParams.page || "1"
   const examId = searchParams.examId
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query
@@ -72,12 +72,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
-      <SearchBar
-        query={searchQuery}
-        examId={examId}
-        sortBy={sortBy}
-        hasImage={hasImage}
-      />
+      <SearchBar examId={examId} sortBy={sortBy} hasImage={hasImage} />
       <div className="flex flex-col gap-4">
         {results && results.length > 0 ? (
           results.map((question) => {

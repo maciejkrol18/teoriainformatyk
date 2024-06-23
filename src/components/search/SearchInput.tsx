@@ -1,27 +1,32 @@
 "use client"
 
-import { SearchFilters } from "@/types/search-filters"
-import { useEffect, useState } from "react"
-import { useDebounce } from "use-debounce"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useDebouncedCallback } from "use-debounce"
 
 interface SearchInputProps {
-  query?: string
   inputRef: React.MutableRefObject<HTMLInputElement | null>
-  updateFn: (filter: keyof SearchFilters, value?: string) => void
 }
 
-export default function SearchInput({ query, inputRef, updateFn }: SearchInputProps) {
-  const [text, setText] = useState(query)
-  const [debouncedQuery] = useDebounce(text, 200)
+export default function SearchInput({ inputRef }: SearchInputProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
 
-  useEffect(() => {
-    updateFn("query", debouncedQuery)
-  }, [debouncedQuery])
+  const handleSearchQuery = useDebouncedCallback((term) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set("query", term)
+    } else {
+      params.delete("query")
+    }
+    replace(`${pathname}?${params.toString()}`)
+  }, 300)
+
   return (
     <input
       type="text"
-      value={text}
-      onChange={(e) => setText(e.target.value)}
+      onChange={(e) => handleSearchQuery(e.target.value)}
+      defaultValue={searchParams.get("query")?.toString()}
       ref={inputRef}
       placeholder="Szukaj wg. treści pytania"
       className="bg-transparent grow"

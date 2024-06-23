@@ -1,51 +1,26 @@
 "use client"
 
 import { Search } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useRef } from "react"
 import SearchFiltersDropdown from "./SearchFiltersDropdown"
 import SearchInput from "./SearchInput"
-import { SearchFilters } from "@/types/search-filters"
 
 interface SearchBarProps {
-  query?: string
   examId?: string
   sortBy?: string
   hasImage?: string
 }
 
-export default function SearchBar({ query, examId, hasImage, sortBy }: SearchBarProps) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+export default function SearchBar({ examId, hasImage, sortBy }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
-
-  const updateSearchFilter = (filter: keyof SearchFilters, value?: string) => {
-    const currentUrl = new URLSearchParams(Array.from(searchParams.entries()))
-    if (!value) {
-      currentUrl.delete(filter)
-    } else {
-      currentUrl.set(filter, value)
-    }
-    currentUrl.set("page", "1")
-    const search = currentUrl.toString()
-    const searchQuery = search ? `?${search}` : ""
-    router.push(`${pathname}${searchQuery}`, { scroll: false })
-  }
-
   return (
     <div
       className="flex justify-between gap-2 p-4 rounded-full bg-background-light text-muted hover:cursor-text"
       onClick={() => inputRef.current?.focus()}
     >
       <Search />
-      <SearchInput query={query} inputRef={inputRef} updateFn={updateSearchFilter} />
-      <SearchFiltersDropdown
-        updateFn={updateSearchFilter}
-        examId={examId}
-        sortBy={sortBy}
-        hasImage={hasImage}
-      />
+      <SearchInput inputRef={inputRef} />
+      <SearchFiltersDropdown />
     </div>
   )
 }
