@@ -24,7 +24,7 @@ export default function SearchFiltersDropdown() {
   const [examData, setExamData] = useState<ExamData[] | null>(null)
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace } = useRouter()
+  const router = useRouter()
 
   const handleFilterChange = (filter: keyof SearchFilters, value?: string) => {
     const params = new URLSearchParams(searchParams)
@@ -34,7 +34,7 @@ export default function SearchFiltersDropdown() {
       params.delete(filter)
     }
     params.set("page", "1")
-    replace(`${pathname}?${params.toString()}`)
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   const fetchExams = async () => {

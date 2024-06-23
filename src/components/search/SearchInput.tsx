@@ -10,7 +10,7 @@ interface SearchInputProps {
 export default function SearchInput({ inputRef }: SearchInputProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace } = useRouter()
+  const router = useRouter()
 
   const handleSearchQuery = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams)
@@ -19,7 +19,7 @@ export default function SearchInput({ inputRef }: SearchInputProps) {
     } else {
       params.delete("query")
     }
-    replace(`${pathname}?${params.toString()}`)
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }, 300)
 
   return (
