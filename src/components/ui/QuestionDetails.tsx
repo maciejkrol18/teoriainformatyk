@@ -1,7 +1,13 @@
 import { Question } from "@/types/question"
 import { Layers, Image, Type, Skull, LucideAlertTriangle } from "lucide-react"
-import { QuestionAnswer, QuestionAnswersContainer, QuestionImage } from "./Question"
+import {
+  QuestionAnswer,
+  QuestionAnswersContainer,
+  QuestionImage,
+  questionAnswerVariants,
+} from "./Question"
 import { Button } from "./Button"
+import { VariantProps } from "class-variance-authority"
 
 interface QuestionDetailsProps {
   question: Question
@@ -10,6 +16,12 @@ interface QuestionDetailsProps {
 const Divider = () => <div className="h-[2px] bg-background-bright" />
 
 export default function QuestionDetails({ question }: QuestionDetailsProps) {
+  const getAnswerVariant = (
+    answer: string,
+    question: Question,
+  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
+    return answer === question.correct_answer ? "correct" : "default"
+  }
   return (
     <div className="flex flex-col gap-8 py-4">
       <div className="flex flex-col gap-4">
@@ -29,7 +41,11 @@ export default function QuestionDetails({ question }: QuestionDetailsProps) {
           {question.answers.map((answer, index) => {
             const atlas = "ABCD"
             return (
-              <QuestionAnswer key={answer} className="cursor-default">
+              <QuestionAnswer
+                key={answer}
+                className="cursor-default"
+                variant={getAnswerVariant(answer, question)}
+              >
                 <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
               </QuestionAnswer>
             )
