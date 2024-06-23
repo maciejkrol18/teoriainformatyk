@@ -43,8 +43,6 @@ async function getTotalAmountOfScores(user: string) {
 
   if (error) {
     throw new Error(error.message)
-  } else if (!count) {
-    throw new Error("Nie udało się pobrać liczby wyników")
   } else {
     return count
   }
@@ -77,7 +75,7 @@ export default async function ExamHistoryPage({
   const examHistory = await fetchPaginatedScores(data.user.id, pageOffset)
   const totalScores = await getTotalAmountOfScores(data.user.id)
 
-  const totalPages = Math.ceil(totalScores / SCORES_PER_PAGE)
+  const totalPages = totalScores ? Math.ceil(totalScores / SCORES_PER_PAGE) : 1
   const canNextPage = pageNumber + 1 <= totalPages
   const canPrevPage = pageNumber - 1 >= 1
 
@@ -99,13 +97,6 @@ export default async function ExamHistoryPage({
       </Button>
       <h1 className="text-4xl font-display">Historia egzaminów</h1>
       <DataTable columns={columns} data={processedExamHistory} />
-      <p className="text-center text-muted">
-        Wyświetlam {pageOffset + 1}-
-        {pageOffset + SCORES_PER_PAGE > totalScores
-          ? totalScores
-          : pageOffset + SCORES_PER_PAGE}{" "}
-        z {totalScores} wyników
-      </p>
       <div className="flex gap-4 justify-center items-center">
         <Button asChild variant="outline">
           <Link href={!canPrevPage ? "#" : `?page=${pageNumber - 1}`}>
