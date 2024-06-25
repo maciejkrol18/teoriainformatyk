@@ -47,9 +47,10 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
+  modal: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           >
             {children}
           </div>
+          <div>{modal}</div>
           <Analytics />
         </Providers>
       </body>

@@ -6,6 +6,7 @@ import { Button } from "../ui/Button"
 import { Question } from "@/types/question"
 import { SetStateAction } from "react"
 import { toast } from "sonner"
+import Link from "next/link"
 
 interface OneQuestionBarProps {
   openStatsFn: () => void
@@ -59,12 +60,11 @@ export default function OneQuestionBar({
           <Skull />
         )}
       </Button>
-      <Button
-        variant="bottomBar"
-        onClick={() => alert("TODO: Question explanations button")}
-      >
-        <HelpCircle />
-      </Button>
+      <Link href={`/question/${currentQuestion?.id}`}>
+        <Button variant="bottomBar">
+          <HelpCircle />
+        </Button>
+      </Link>
       <Button variant="bottomBar" onClick={openStatsFn}>
         <BarChart />
       </Button>
