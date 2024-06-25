@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client"
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -22,6 +23,7 @@ interface ExamData {
 
 export default function SearchFiltersDropdown() {
   const [examData, setExamData] = useState<ExamData[] | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -49,8 +51,17 @@ export default function SearchFiltersDropdown() {
     }
   }
 
+  const fetchUserId = async () => {
+    const supabase = createClient()
+
+    const { data, error } = await supabase.auth.getSession()
+
+    setUserId(!data.session || error ? null : data.session.user.id)
+  }
+
   useEffect(() => {
     fetchExams()
+    fetchUserId()
   }, [])
 
   return (
@@ -96,6 +107,20 @@ export default function SearchFiltersDropdown() {
           <DropdownMenuRadioItem value={"true"}>Tak</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value={"false"}>Nie</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
+        {userId && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Użytkownik</DropdownMenuLabel>
+            <DropdownMenuCheckboxItem
+              checked={Boolean(searchParams.get("hardOnly"))}
+              onCheckedChange={(value) =>
+                handleFilterChange("hardOnly", value ? "true" : "")
+              }
+            >
+              Tylko zbiór trudnych
+            </DropdownMenuCheckboxItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

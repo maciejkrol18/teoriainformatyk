@@ -28,7 +28,7 @@ export default async function DashboardPage() {
         blockTitle="Zbiór trudnych pytań"
         blockActions={
           <Button variant="primary" size="sm" asChild>
-            <Link href="/search?hardCollection=true">Wyświetl swój zbiór</Link>
+            <Link href="/search?hardOnly=true">Wyświetl swój zbiór</Link>
           </Button>
         }
       >

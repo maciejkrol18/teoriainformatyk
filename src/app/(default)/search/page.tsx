@@ -10,12 +10,33 @@ interface SearchPageProps {
   searchParams: SearchFilters
 }
 
+async function getUserId() {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.getUser()
+
+  return !data || error ? null : data.user.id
+}
+
+async function getHardCollection(userId: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+    .from("hard_collections")
+    .select("question_id_array")
+    .eq("user_id", userId)
+    .single()
+
+  return !data || error ? null : data.question_id_array
+}
+
 async function fetchPaginatedQuestions({
   query,
   page = "1",
   examId,
   sortBy = "id",
   hasImage,
+  hardOnly,
 }: SearchFilters) {
   const supabase = createClient()
 
@@ -35,6 +56,14 @@ async function fetchPaginatedQuestions({
     dbQuery.textSearch("content", query, {
       type: "websearch",
     })
+  }
+
+  if (hardOnly) {
+    const userId = await getUserId()
+    const hardCollection = userId ? await getHardCollection(userId) : null
+    if (hardCollection) {
+      dbQuery.in("id", hardCollection)
+    }
   }
 
   if (hasImage) {
@@ -59,6 +88,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query
   const hasImage = searchParams.hasImage
+  const hardOnly = searchParams.hardOnly
 
   const { results, totalAmount } = await fetchPaginatedQuestions({
     query: searchQuery,
@@ -66,6 +96,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     examId: examId,
     sortBy: sortBy,
     hasImage: hasImage,
+    hardOnly: hardOnly,
   })
 
   const totalPages = totalAmount ? Math.ceil(totalAmount / RESULTS_PER_PAGE) : 1
