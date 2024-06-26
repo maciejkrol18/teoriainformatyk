@@ -219,6 +219,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
         hardModeFn={setHardMode}
         hardMode={hardMode}
         hardCollection={hardCollection}
+        setHardCollection={setHardCollection}
         currentQuestion={question}
         userId={userId}
       />

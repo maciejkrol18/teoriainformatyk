@@ -508,6 +508,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_to_hard_collection: {
+        Args: {
+          newid: number
+        }
+        Returns: Json
+      }
       change_user_password: {
         Args: {
           current_plain_password: string
@@ -548,6 +554,12 @@ export type Database = {
         Args: {
           user_id: string
           exam_id: number
+        }
+        Returns: Json
+      }
+      remove_from_hard_collection: {
+        Args: {
+          idtoremove: number
         }
         Returns: Json
       }

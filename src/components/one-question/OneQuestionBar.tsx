@@ -7,6 +7,7 @@ import { Question } from "@/types/question"
 import { SetStateAction } from "react"
 import { toast } from "sonner"
 import Link from "next/link"
+import { createClient } from "@/lib/supabase/client"
 
 interface OneQuestionBarProps {
   openStatsFn: () => void
@@ -14,6 +15,7 @@ interface OneQuestionBarProps {
   hardModeFn: React.Dispatch<SetStateAction<boolean>>
   hardMode: boolean
   hardCollection: number[]
+  setHardCollection: React.Dispatch<SetStateAction<number[]>>
   currentQuestion: Question | null
   userId: string | null
 }
@@ -24,6 +26,7 @@ export default function OneQuestionBar({
   hardModeFn,
   hardMode,
   hardCollection,
+  setHardCollection,
   currentQuestion,
   userId,
 }: OneQuestionBarProps) {
@@ -36,6 +39,33 @@ export default function OneQuestionBar({
     hardModeFn((prev) => !prev)
   }
 
+  const handleHardCollectionClick = async () => {
+    if (!userId) {
+      toast.error("Zaloguj się, aby korzystać z tej funkcji")
+      return
+    }
+    if (hardCollection && currentQuestion) {
+      const supabase = createClient()
+      if (hardCollection.includes(currentQuestion.id)) {
+        setHardCollection((prev) => prev.filter((id) => id !== currentQuestion.id))
+        const { data } = await supabase.rpc("remove_from_hard_collection", {
+          idtoremove: currentQuestion.id,
+        })
+        if (data) {
+          toast.success(`Usunięto ID ${currentQuestion.id} ze zbioru`)
+        }
+      } else {
+        setHardCollection((prev) => [currentQuestion.id, ...prev])
+        const { data } = await supabase.rpc("add_to_hard_collection", {
+          newid: currentQuestion.id,
+        })
+        if (data) {
+          toast.success(`Dodano ID ${currentQuestion.id} do zbioru`)
+        }
+      }
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -43,15 +73,12 @@ export default function OneQuestionBar({
         "lg:gap-4 lg:justify-center lg:static lg:w-auto lg:z-auto lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-0",
       )}
     >
-      <Button variant="bottomBar" onClick={() => toggleHardMode()}>
+      <Button variant="bottomBar" onClick={toggleHardMode}>
         <span className={`${hardMode ? "text-red-500" : "text-green-500"}`}>
           {hardMode ? "H" : "N"}
         </span>
       </Button>
-      <Button
-        variant="bottomBar"
-        onClick={() => alert("TODO: Add to hard collection button")}
-      >
+      <Button variant="bottomBar" onClick={handleHardCollectionClick}>
         {hardCollection &&
         currentQuestion &&
         hardCollection.includes(currentQuestion.id) ? (
