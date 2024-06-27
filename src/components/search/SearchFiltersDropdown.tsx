@@ -15,6 +15,7 @@ import { SlidersHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { SearchFilters } from "@/types/search-filters"
+import getSession from "@/lib/supabase/get-session"
 
 interface ExamData {
   id: number
@@ -52,11 +53,8 @@ export default function SearchFiltersDropdown() {
   }
 
   const fetchUserId = async () => {
-    const supabase = createClient()
-
-    const { data, error } = await supabase.auth.getSession()
-
-    setUserId(!data.session || error ? null : data.session.user.id)
+    const { session } = await getSession()
+    setUserId(!session ? null : session.user.id)
   }
 
   useEffect(() => {

@@ -39,6 +39,7 @@ export default function OneQuestionBar({
     hardModeFn((prev) => !prev)
   }
 
+  // TODO: Unify this logic with what's in QuestionDetails.tsx
   const handleHardCollectionClick = async () => {
     if (!userId) {
       toast.error("Zaloguj się, aby korzystać z tej funkcji")
@@ -87,7 +88,7 @@ export default function OneQuestionBar({
           <Skull />
         )}
       </Button>
-      <Link href={`/question/${currentQuestion?.id}`}>
+      <Link href={`/question/${currentQuestion?.id}?hideHardCollection=true`}>
         <Button variant="bottomBar">
           <HelpCircle />
         </Button>
