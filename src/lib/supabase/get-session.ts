@@ -1,6 +1,4 @@
-"use server"
-
-import { createClient } from "./server"
+import { createClient } from "./client"
 
 export default async function getSession() {
   const supabase = createClient()
