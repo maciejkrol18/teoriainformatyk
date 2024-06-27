@@ -1,6 +1,7 @@
 import SearchBar from "@/components/search/SearchBar"
 import SearchPagination from "@/components/search/SearchPagination"
 import SearchResult from "@/components/search/SearchResult"
+import { getHardCollection } from "@/lib/supabase/hard-collection"
 import { createClient } from "@/lib/supabase/server"
 import { SearchFilters } from "@/types/search-filters"
 
@@ -8,26 +9,6 @@ const RESULTS_PER_PAGE = 10
 
 interface SearchPageProps {
   searchParams: SearchFilters
-}
-
-async function getUserId() {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.auth.getUser()
-
-  return !data || error ? null : data.user.id
-}
-
-async function getHardCollection(userId: string) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase
-    .from("hard_collections")
-    .select("question_id_array")
-    .eq("user_id", userId)
-    .single()
-
-  return !data || error ? null : data.question_id_array
 }
 
 async function fetchPaginatedQuestions({
@@ -59,11 +40,8 @@ async function fetchPaginatedQuestions({
   }
 
   if (hardOnly) {
-    const userId = await getUserId()
-    const hardCollection = userId ? await getHardCollection(userId) : null
-    if (hardCollection) {
-      dbQuery.in("id", hardCollection)
-    }
+    const hardCollection = (await getHardCollection()) ?? []
+    dbQuery.in("id", hardCollection)
   }
 
   if (hasImage) {
