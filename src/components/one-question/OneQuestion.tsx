@@ -125,7 +125,9 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
       .single()
 
     if (error) {
-      toast.error("Nie udało się załadować kolekcji trudnych pytań")
+      error.code === "PGRST116"
+        ? setHardCollection([])
+        : toast.error("Nie udało się załadować kolekcji trudnych pytań")
       console.error(error)
     } else {
       setHardCollection(data.question_id_array)
