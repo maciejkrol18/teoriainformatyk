@@ -17,6 +17,7 @@ import {
 } from "@/lib/supabase/hard-collection"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import getUser from "@/lib/supabase/get-user"
 
 interface QuestionDetailsProps {
   question: Question
@@ -38,14 +39,24 @@ export default function QuestionDetails({
 
   const [hardCollection, setHardCollection] = useState<number[] | null>(null)
   const [isInCollection, setIsInCollection] = useState<boolean>(false)
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState<boolean>(false)
 
   const fetchData = async () => {
     const hardCollection = (await getHardCollection()) ?? []
     setHardCollection(hardCollection)
   }
 
+  const fetchUser = async () => {
+    const { user } = await getUser()
+    setIsUserAuthenticated(Boolean(user))
+  }
+
   // TODO: Unify this logic with what's in OneQuestionBar.tsx
   const handleHardCollectionClick = async () => {
+    if (!isUserAuthenticated) {
+      toast.error("Zaloguj się, aby korzystać z tej funkcji")
+      return
+    }
     if (hardCollection) {
       if (isInCollection) {
         setHardCollection((prev) => (prev ?? []).filter((id) => id !== question.id))
@@ -65,6 +76,7 @@ export default function QuestionDetails({
 
   useEffect(() => {
     fetchData()
+    fetchUser()
   }, [])
 
   useEffect(() => {
