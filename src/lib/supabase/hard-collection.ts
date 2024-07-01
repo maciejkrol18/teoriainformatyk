@@ -12,7 +12,11 @@ async function getHardCollection() {
       .select("question_id_array")
       .eq("user_id", user.id)
       .single()
-    return !data || error ? null : data.question_id_array
+    if (error) {
+      return error.code === "PGRST116" ? [] : null
+    } else {
+      return data.question_id_array ?? null
+    }
   } else {
     return null
   }
