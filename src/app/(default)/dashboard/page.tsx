@@ -33,10 +33,10 @@ export default async function DashboardPage() {
         }
       >
         <p className="text-muted">
-          Zapisuj najtrudniejsze dla ciebie pytania z poziomu trybu jednego pytania,
-          egzaminu oraz strony wyszukiwarki aby powtarzać je w specjalnym, trudnym trybie
-          jednego pytania. Aby zobaczyć listę pytań najczęściej uznawanych przez
-          wszystkich użytkowników serwisu za trudne, przejdź tutaj
+          Zapisuj najtrudniejsze dla ciebie pytania z poziomu trybu jednego pytania oraz
+          strony wyszukiwarki aby powtarzać je w specjalnym, trudnym trybie jednego
+          pytania. Aby zobaczyć listę pytań najczęściej uznawanych przez wszystkich
+          użytkowników serwisu za trudne, przejdź tutaj
         </p>
       </DashboardBlock>
       <DashboardAccount userId={data.user.id} />
