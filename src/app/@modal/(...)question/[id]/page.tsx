@@ -2,7 +2,13 @@ import SearchResultModal from "@/components/search/SearchResultModal"
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 
-export default async function QuestionModal({ params }: { params: { id: string } }) {
+export default async function QuestionModal({
+  params,
+  searchParams,
+}: {
+  params: { id: string }
+  searchParams: { hideHardCollection: string }
+}) {
   const supabase = createClient()
   const { data, error } = await supabase
     .from("questions")
@@ -12,5 +18,11 @@ export default async function QuestionModal({ params }: { params: { id: string }
   if (!data || error) {
     notFound()
   }
-  return <SearchResultModal question={data} />
+
+  return (
+    <SearchResultModal
+      question={data}
+      showHardCollectionButton={!Boolean(searchParams.hideHardCollection)}
+    />
+  )
 }

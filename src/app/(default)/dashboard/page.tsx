@@ -25,18 +25,18 @@ export default async function DashboardPage() {
         <DashboardLatestExams userId={data.user.id} className="flex-1" />
       </div>
       <DashboardBlock
-        blockTitle="Kolekcje pytań"
+        blockTitle="Zbiór trudnych pytań"
         blockActions={
           <Button variant="primary" size="sm" asChild>
-            <Link href="/dashboard/collections">Przejdź do menedżera kolekcji</Link>
+            <Link href="/search?hardOnly=true">Wyświetl swój zbiór</Link>
           </Button>
         }
       >
         <p className="text-muted">
-          Kolekcje pozwalają na personalizacje trybu jednego pytania. Pytania w trudnej
-          kolekcji pozwalają na włączenie trybu trudnego, w którym pojawiają się tylko i
-          wyłącznie pytania z tej kolekcji. Natomiast pytania w łatwej kolekcji zupełnie
-          nie pojawiają się w trybie jednego pytania
+          Zapisuj najtrudniejsze dla ciebie pytania z poziomu trybu jednego pytania oraz
+          strony wyszukiwarki aby powtarzać je w specjalnym, trudnym trybie jednego
+          pytania. Aby zobaczyć listę pytań najczęściej uznawanych przez wszystkich
+          użytkowników serwisu za trudne, przejdź tutaj
         </p>
       </DashboardBlock>
       <DashboardAccount userId={data.user.id} />

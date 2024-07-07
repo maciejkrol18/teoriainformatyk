@@ -1,6 +1,7 @@
 import SearchBar from "@/components/search/SearchBar"
 import SearchPagination from "@/components/search/SearchPagination"
 import SearchResult from "@/components/search/SearchResult"
+import { getHardCollection } from "@/lib/supabase/hard-collection"
 import { createClient } from "@/lib/supabase/server"
 import { SearchFilters } from "@/types/search-filters"
 
@@ -16,6 +17,7 @@ async function fetchPaginatedQuestions({
   examId,
   sortBy = "id",
   hasImage,
+  hardOnly,
 }: SearchFilters) {
   const supabase = createClient()
 
@@ -35,6 +37,11 @@ async function fetchPaginatedQuestions({
     dbQuery.textSearch("content", query, {
       type: "websearch",
     })
+  }
+
+  if (hardOnly) {
+    const hardCollection = (await getHardCollection()) ?? []
+    dbQuery.in("id", hardCollection)
   }
 
   if (hasImage) {
@@ -59,6 +66,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query
   const hasImage = searchParams.hasImage
+  const hardOnly = searchParams.hardOnly
 
   const { results, totalAmount } = await fetchPaginatedQuestions({
     query: searchQuery,
@@ -66,6 +74,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     examId: examId,
     sortBy: sortBy,
     hasImage: hasImage,
+    hardOnly: hardOnly,
   })
 
   const totalPages = totalAmount ? Math.ceil(totalAmount / RESULTS_PER_PAGE) : 1

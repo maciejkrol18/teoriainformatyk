@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client"
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -14,6 +15,7 @@ import { SlidersHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { SearchFilters } from "@/types/search-filters"
+import getUser from "@/lib/supabase/get-user"
 
 interface ExamData {
   id: number
@@ -22,6 +24,7 @@ interface ExamData {
 
 export default function SearchFiltersDropdown() {
   const [examData, setExamData] = useState<ExamData[] | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -49,8 +52,14 @@ export default function SearchFiltersDropdown() {
     }
   }
 
+  const fetchUserId = async () => {
+    const { user } = await getUser()
+    setUserId(!user ? null : user.id)
+  }
+
   useEffect(() => {
     fetchExams()
+    fetchUserId()
   }, [])
 
   return (
@@ -96,6 +105,20 @@ export default function SearchFiltersDropdown() {
           <DropdownMenuRadioItem value={"true"}>Tak</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value={"false"}>Nie</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
+        {userId && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Użytkownik</DropdownMenuLabel>
+            <DropdownMenuCheckboxItem
+              checked={Boolean(searchParams.get("hardOnly"))}
+              onCheckedChange={(value) =>
+                handleFilterChange("hardOnly", value ? "true" : "")
+              }
+            >
+              Tylko zbiór trudnych
+            </DropdownMenuCheckboxItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

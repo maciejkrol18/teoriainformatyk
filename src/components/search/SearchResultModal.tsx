@@ -14,7 +14,15 @@ import { Button } from "../ui/Button"
 import { useRouter } from "next/navigation"
 import QuestionDetails from "../ui/QuestionDetails"
 
-export default function SearchResultModal({ question }: { question: Question }) {
+interface SearchResultModalProps {
+  question: Question
+  showHardCollectionButton?: boolean
+}
+
+export default function SearchResultModal({
+  question,
+  showHardCollectionButton,
+}: SearchResultModalProps) {
   const [open, setOpen] = useState<boolean>(true)
   const router = useRouter()
 
@@ -33,7 +41,10 @@ export default function SearchResultModal({ question }: { question: Question }) 
         <CredenzaBody>
           <div className="max-h-[500px] overflow-y-auto">
             <div className="pr-2">
-              <QuestionDetails question={question} />
+              <QuestionDetails
+                question={question}
+                showHardCollectionButton={showHardCollectionButton}
+              />
             </div>
           </div>
         </CredenzaBody>

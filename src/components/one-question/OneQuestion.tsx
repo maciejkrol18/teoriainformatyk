@@ -17,6 +17,8 @@ import { toast } from "sonner"
 import SessionStats from "./SessionStats"
 import OneQuestionBar from "./OneQuestionBar"
 import { Question as QuestionType } from "@/types/question"
+import getUser from "@/lib/supabase/get-user"
+import { getHardCollection } from "@/lib/supabase/hard-collection"
 
 interface OneQuestionProps {
   examId: number
@@ -116,33 +118,6 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
   }
 
-  const getHardCollection = async (userId: string) => {
-    const supabase = createClient()
-    const { data, error } = await supabase
-      .from("hard_collections")
-      .select("question_id_array")
-      .eq("user_id", userId)
-      .single()
-
-    if (error) {
-      toast.error("Nie udało się załadować kolekcji trudnych pytań")
-      console.error(error)
-    } else {
-      setHardCollection(data.question_id_array)
-    }
-  }
-
-  const getUser = async () => {
-    const supabase = createClient()
-    const { data, error } = await supabase.auth.getUser()
-    if (error || !data.user) {
-      setUserId(null)
-    } else {
-      getHardCollection(data.user.id)
-      setUserId(data.user.id)
-    }
-  }
-
   useEffect(() => {
     if (question && selectedAnswer) {
       if (selectedAnswer === question.correct_answer) {
@@ -171,7 +146,13 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   }, [hardMode])
 
   useEffect(() => {
-    getUser()
+    const getUserData = async () => {
+      const { user } = await getUser()
+      const collection = await getHardCollection()
+      setUserId(user && user.id)
+      setHardCollection(collection ?? [])
+    }
+    getUserData()
   }, [])
 
   return (
@@ -219,6 +200,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
         hardModeFn={setHardMode}
         hardMode={hardMode}
         hardCollection={hardCollection}
+        setHardCollection={setHardCollection}
         currentQuestion={question}
         userId={userId}
       />
