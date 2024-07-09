@@ -4,12 +4,13 @@ import { createClient } from "@/lib/supabase/client"
 import { QueryChallenge } from "@/types/query-challenge"
 import { useEffect, useRef, useState } from "react"
 import { Button } from "./ui/Button"
-import { Dices, Send, Wand2 } from "lucide-react"
+import { Dices, ExternalLink, Send, Wand2 } from "lucide-react"
 import { Parser } from "node-sql-parser"
 import QueryInput from "./QueryInput"
 import { toast } from "sonner"
 import { QuestionImage } from "./ui/Question"
 import { supabaseUrl } from "@/lib/supabase"
+import Link from "next/link"
 
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
@@ -36,6 +37,7 @@ export default function SqlTraining() {
       setChallenge({
         exam_code: data.exam_code,
         image: data.image,
+        repo_link: data.repo_link,
         comment: data.comment,
         content: content,
         answer: answer,
@@ -94,7 +96,14 @@ export default function SqlTraining() {
         {challenge ? (
           <>
             <div className="flex flex-col gap-4 grow">
-              <p className="text-muted text-lg">{challenge.exam_code}</p>
+              <Link
+                href={challenge.repo_link}
+                target="_blank"
+                className="flex items-center gap-2 text-muted text-lg"
+              >
+                {challenge.exam_code}
+                <ExternalLink />
+              </Link>
               <p className="text-xl leading-relaxed">
                 <span className="font-bold">Napisz zapytanie</span> {challenge.content}
               </p>

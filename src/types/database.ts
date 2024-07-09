@@ -298,6 +298,7 @@ export type Database = {
           id: number
           image: boolean
           questions: string[]
+          repo_link: string
         }
         Insert: {
           answers: string[]
@@ -307,6 +308,7 @@ export type Database = {
           id?: number
           image?: boolean
           questions: string[]
+          repo_link: string
         }
         Update: {
           answers?: string[]
@@ -316,6 +318,7 @@ export type Database = {
           id?: number
           image?: boolean
           questions?: string[]
+          repo_link?: string
         }
         Relationships: []
       }
@@ -537,6 +540,7 @@ export type Database = {
           id: number
           image: boolean
           questions: string[]
+          repo_link: string
         }[]
       }
       get_random_questions: {
