@@ -11,6 +11,7 @@ import { toast } from "sonner"
 import { QuestionImage } from "./ui/Question"
 import { supabaseUrl } from "@/lib/supabase"
 import Link from "next/link"
+import Skeleton from "./ui/Skeleton"
 
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
@@ -89,13 +90,10 @@ export default function SqlTraining() {
       <div className="flex-1 bg-background-light p-8">
         <QueryInput state={userQuery} setState={setUserQuery} />
       </div>
-      <div
-        id="metadata-block"
-        className="flex-1 flex flex-col gap-8 p-8 rounded-md bg-background-light"
-      >
-        {challenge ? (
-          <>
-            <div className="flex flex-col gap-4 grow">
+      <div className="flex-1 flex flex-col gap-8 p-8 rounded-md bg-background-light">
+        <div className="flex flex-col gap-4 grow">
+          {challenge ? (
+            <>
               <Link
                 href={challenge.repo_link}
                 target="_blank"
@@ -117,11 +115,17 @@ export default function SqlTraining() {
                 </div>
               )}
               <p>{challenge.comment}</p>
-            </div>
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
+            </>
+          ) : (
+            <>
+              <Skeleton className="h-[28px]" />
+              <Skeleton className="h-[98px]" />
+              <Skeleton className="h-[200px]" />
+              <Skeleton className="h-[96px]" />
+            </>
+          )}
+        </div>
+
         <div className="flex justify-center gap-4">
           <Button
             className="rounded-full w-20 h-20"
