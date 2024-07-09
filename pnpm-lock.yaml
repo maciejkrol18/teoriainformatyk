@@ -90,8 +90,8 @@ dependencies:
     specifier: ^0.3.0
     version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
   node-sql-parser:
-    specifier: ^4.17.0
-    version: 4.17.0
+    specifier: ^5.2.0
+    version: 5.2.0
   postcss:
     specifier: 8.4.32
     version: 8.4.32
@@ -1151,6 +1151,10 @@ packages:
     resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
     dependencies:
       undici-types: 5.26.5
+    dev: false
+
+  /@types/pegjs@0.10.6:
+    resolution: {integrity: sha512-eLYXDbZWXh2uxf+w8sXS8d6KSoXTswfps6fvCUuVAGN8eRpfe7h9eSRydxiSJvo9Bf+GzifsDOr9TMQlmJdmkw==}
     dev: false
 
   /@types/phoenix@1.6.4:
@@ -3082,10 +3086,11 @@ packages:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: false
 
-  /node-sql-parser@4.17.0:
-    resolution: {integrity: sha512-3IhovpmUBpcETnoKK/KBdkz2mz53kVG5E1dnqz1QuYvtzdxYZW5xaGGEvW9u6Yyy2ivwR3eUZrn9inmEVef02w==}
+  /node-sql-parser@5.2.0:
+    resolution: {integrity: sha512-lO/9ox0fLl47ksqlwGrorXm8BD+5UbxvUhj6T1XiCXnvoVwWWn7gC2l396p9OXNii19dc4MkyTN3XeJGNUZ8jw==}
     engines: {node: '>=8'}
     dependencies:
+      '@types/pegjs': 0.10.6
       big-integer: 1.6.52
     dev: false
 
