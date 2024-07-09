@@ -87,7 +87,7 @@ const QuestionImage = ({ alt, src, loading }: QuestionImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <div
-      className={`h-[200px] relative bg-background-bright ${
+      className={`h-[200px] relative bg-background-bright w-full ${
         !imageLoaded && "bg-gradient-loading animate-loading bg-size-loading"
       }`}
     >

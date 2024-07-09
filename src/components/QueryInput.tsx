@@ -10,13 +10,15 @@ export default function QueryInput({ state, setState }: QueryInputProps) {
     <CodeEditor
       value={state}
       language="sql"
-      placeholder="Wpisz kwerendę"
+      placeholder="Tutaj wpisz swoją kwerendę"
       onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setState(e.target.value)}
-      className="font-mono w-full rounded-lg"
+      className="font-mono"
       style={{
-        backgroundColor: "#232323",
+        background: "hsl(var(--background-bright))",
         overflow: "auto",
         fontSize: "1.125rem",
+        height: "100%",
+        borderRadius: "0.375rem",
       }}
     />
   )
