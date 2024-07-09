@@ -1,177 +1,161 @@
 "use client"
 
+import { createClient } from "@/lib/supabase/client"
+import { QueryChallenge } from "@/types/query-challenge"
 import { useEffect, useRef, useState } from "react"
-import Card from "./ui/Card"
-import { QueryExam } from "@/types/query-question"
-import { supabase, supabaseUrl } from "@/lib/supabase"
-import QueryInput from "./QueryInput"
+import { Button } from "./ui/Button"
+import { Dices, ExternalLink, Send, Wand2 } from "lucide-react"
 import { Parser } from "node-sql-parser"
-import QuestionImage from "./ui/QuestionImage"
-
-const TABLE_NAME = "query_training" as const
+import QueryInput from "./QueryInput"
+import { toast } from "sonner"
+import { QuestionImage } from "./ui/Question"
+import { supabaseUrl } from "@/lib/supabase"
+import Link from "next/link"
+import Skeleton from "./ui/Skeleton"
 
 export default function SqlTraining() {
-  const [exam, setExam] = useState<QueryExam | null>(null)
-  const [question, setQuestion] = useState<string | null>(null)
-  const [answer, setAnswer] = useState<string | null>(null)
-  const [examCount, setExamCount] = useState<number | null>(0)
-
-  const [code, setCode] = useState("")
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
-  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false)
+  const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
+  const [userQuery, setUserQuery] = useState<string>("")
   const parser = useRef(new Parser())
 
-  const getExamById = async (id: number) => {
-    const { data, error } = await supabase
-      .from(TABLE_NAME)
-      .select("exam_code, comment, questions, answers, image")
-      .eq("id", id)
-
+  const fetchChallenge = async () => {
+    const supabase = createClient()
+    const { data, error } = await supabase.rpc("get_random_query_challenge").single()
     if (error) {
-      console.error(error)
-      throw new Error("Database error, check browser console")
+      throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`)
+    } else if (!data) {
+      throw new Error("Błąd pobierania pytania. Spróbuj ponownie później")
+    } else {
+      if (data.questions.length !== data.answers.length) {
+        throw new Error("Fetched arrays were not of the same length")
+      }
+      const rand = Math.ceil(Math.random() * (data.questions.length - 1 - 0) + 0)
+      const content = data.questions[rand]
+      const answer = data.answers[rand]
+      if (!content || !answer) {
+        throw new Error("Failed to fetch a random content and answer pair")
+      }
+      setChallenge({
+        exam_code: data.exam_code,
+        image: data.image,
+        repo_link: data.repo_link,
+        comment: data.comment,
+        content: content,
+        answer: answer,
+      })
     }
-
-    if (data[0] === undefined) {
-      throw new Error("An error occured while fetching data from the database")
-    }
-
-    return data[0]
   }
 
-  const getExamCount = async () => {
-    const { count, error } = await supabase
-      .from(TABLE_NAME)
-      .select("id", { count: "exact" })
-    if (error) {
-      console.error(error)
-      throw new Error("Database failed to return the amount of rows")
-    }
-    setExamCount(count)
+  const rollChallenge = () => {
+    setChallenge(null)
+    setUserQuery("")
+    fetchChallenge()
   }
 
-  const rollExam = async () => {
-    if (examCount) {
-      const randomId = Math.round(Math.random() * (examCount - 1) + 1)
-      const exam = await getExamById(randomId)
-      setQuestion(null)
-      setAnswer(null)
-      setIsAnswerCorrect(false)
-      setIsAnswerSubmitted(false)
-      setCode("")
-      setExam(exam)
-    }
+  const autoComplete = () => {
+    if (challenge) setUserQuery(challenge.answer)
   }
 
   const checkAnswer = () => {
-    if (answer) {
+    if (!userQuery) {
+      toast.error("Wpisz swoją odpowiedź w edytor po lewej stronie")
+      return
+    }
+    if (userQuery && challenge) {
       try {
-        setIsAnswerSubmitted(true)
-
         const parsedAnswer = parser.current.parse(
-          code.charAt(code.length - 1) === ";"
-            ? code.substring(0, code.indexOf(";"))
-            : code,
+          userQuery.charAt(userQuery.length - 1) === ";"
+            ? userQuery.substring(0, userQuery.indexOf(";"))
+            : userQuery,
         )
-        const parsedValidAnswer = parser.current.parse(answer)
 
-        setIsAnswerCorrect(
-          JSON.stringify(parsedAnswer) === JSON.stringify(parsedValidAnswer),
-        )
+        const parsedCorrectAnswer = parser.current.parse(challenge.answer)
+
+        const isCorrect =
+          JSON.stringify(parsedAnswer) === JSON.stringify(parsedCorrectAnswer)
+        isCorrect ? toast.success("Poprawna odpowiedź") : toast.error("Zła odpowiedź")
       } catch (error) {
-        setIsAnswerCorrect(false)
-        console.error(error)
+        toast.error("Zła odpowiedź")
+        console.warn("Parser Error:", error)
       }
     }
   }
 
-  const solve = () => {
-    if (answer) {
-      setCode(answer)
-    }
-  }
-
   useEffect(() => {
-    getExamCount()
+    rollChallenge()
   }, [])
 
-  useEffect(() => {
-    if (exam) {
-      const randomIndex = Math.round(Math.random() * (exam.questions.length - 1) + 0)
-      const question = exam.questions[randomIndex]
-      const answer = exam.answers[randomIndex]
-      if (question && answer) {
-        setQuestion(question)
-        setAnswer(answer)
-      } else {
-        throw new Error(
-          `Question or answer was undefined - rolled index of ${randomIndex}. Exam code ${exam.exam_code}`,
-        )
-      }
-    }
-  }, [exam])
-
-  useEffect(() => {
-    if (examCount) {
-      rollExam()
-    }
-  }, [examCount])
-
   return (
-    <main className="flex flex-col gap-6 pb-8 md:w-full md:max-w-lg md:mx-auto">
-      {question && answer && exam ? (
-        <>
-          <button
-            onClick={() => rollExam()}
-            className="bg-accent-purple text-xl font-bold shadow-card-inset rounded-lg px-4 py-2 uppercase"
-          >
-            Losuj
-          </button>
-          <Card>
-            <div className="flex flex-col gap-2">
-              <span className="text-secondary-300">{exam.exam_code}</span>
-              <h1 className="text-lg">
-                <span className="font-semibold">Napisz zapytanie&nbsp;</span>
-                {question}
-              </h1>
-            </div>
-            <div className="flex flex-col gap-2">
-              <QueryInput state={code} setState={setCode} />
-              <div className="flex justify-between gap-2 w-full">
-                <button
-                  onClick={() => checkAnswer()}
-                  className="bg-secondary-300 text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase grow"
-                >
-                  Sprawdź
-                </button>
-                <button
-                  onClick={() => solve()}
-                  className="bg-positive-dark text-lg shadow-card-inset rounded-lg px-4 py-2 w-max uppercase grow"
-                >
-                  Rozwiąż
-                </button>
-              </div>
-            </div>
-            {isAnswerSubmitted && (
-              <p
-                className={isAnswerCorrect ? "text-positive-light" : "text-danger-light"}
+    <div className="flex flex-col xl:flex-row py-4 gap-4 grow">
+      <div className="flex-1 bg-background-light p-8">
+        <QueryInput state={userQuery} setState={setUserQuery} />
+      </div>
+      <div className="flex-1 flex flex-col gap-8 p-8 rounded-md bg-background-light">
+        <div className="flex flex-col gap-4 grow">
+          {challenge ? (
+            <>
+              <Link
+                href={challenge.repo_link}
+                target="_blank"
+                className="flex items-center gap-2 text-muted text-lg"
               >
-                {isAnswerCorrect ? "Poprawna odpowiedź" : "Niepoprawna odpowiedź"}
+                {challenge.exam_code}
+                <ExternalLink />
+              </Link>
+              <p className="text-xl leading-relaxed">
+                <span className="font-bold">Napisz zapytanie</span> {challenge.content}
               </p>
-            )}
-            {exam.image && (
-              <QuestionImage
-                src={`${supabaseUrl}/storage/v1/object/public/query_images/${exam.exam_code}.webp`}
-                alt={`Schemat bazy danych do arkusza ${exam.exam_code}`}
-                loading="eager"
-              />
-            )}
-            <p>{exam.comment}</p>
-          </Card>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </main>
+              {challenge.image && (
+                <div className="flex">
+                  <QuestionImage
+                    src={`${supabaseUrl}/storage/v1/object/public/query_images/${challenge.exam_code}.webp`}
+                    alt="Załączony obrazek"
+                    loading="eager"
+                  />
+                </div>
+              )}
+              <p>{challenge.comment}</p>
+            </>
+          ) : (
+            <>
+              <Skeleton className="h-[28px]" />
+              <Skeleton className="h-[98px]" />
+              <Skeleton className="h-[200px]" />
+              <Skeleton className="h-[96px]" />
+            </>
+          )}
+        </div>
+
+        <div className="flex justify-center gap-4">
+          <Button
+            className="rounded-full w-20 h-20"
+            onClick={rollChallenge}
+            disabled={!Boolean(challenge)}
+            aria-label="Losuj"
+            title="Losuj"
+          >
+            <Dices />
+          </Button>
+          <Button
+            className="rounded-full w-20 h-20"
+            onClick={autoComplete}
+            disabled={!Boolean(challenge)}
+            aria-label="Autouzupełnij odpowiedź"
+            title="Autouzupełnij odpowiedź"
+          >
+            <Wand2 />
+          </Button>
+          <Button
+            className="rounded-full w-20 h-20"
+            onClick={checkAnswer}
+            disabled={!Boolean(challenge)}
+            aria-label="Sprawdź odpowiedź"
+            title="Sprawdź odpowiedź"
+          >
+            <Send />
+          </Button>
+        </div>
+      </div>
+    </div>
   )
 }

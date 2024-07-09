@@ -296,8 +296,9 @@ export type Database = {
           created_at: string
           exam_code: string
           id: number
-          image: boolean | null
+          image: boolean
           questions: string[]
+          repo_link: string
         }
         Insert: {
           answers: string[]
@@ -305,8 +306,9 @@ export type Database = {
           created_at?: string
           exam_code: string
           id?: number
-          image?: boolean | null
+          image?: boolean
           questions: string[]
+          repo_link: string
         }
         Update: {
           answers?: string[]
@@ -314,8 +316,9 @@ export type Database = {
           created_at?: string
           exam_code?: string
           id?: number
-          image?: boolean | null
+          image?: boolean
           questions?: string[]
+          repo_link?: string
         }
         Relationships: []
       }
@@ -526,6 +529,19 @@ export type Database = {
           current_plain_password: string
         }
         Returns: Json
+      }
+      get_random_query_challenge: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          answers: string[]
+          comment: string
+          created_at: string
+          exam_code: string
+          id: number
+          image: boolean
+          questions: string[]
+          repo_link: string
+        }[]
       }
       get_random_questions: {
         Args: {
