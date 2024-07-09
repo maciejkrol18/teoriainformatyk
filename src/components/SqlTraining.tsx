@@ -86,7 +86,7 @@ export default function SqlTraining() {
   }, [])
 
   return (
-    <div className="flex py-4 gap-4 grow">
+    <div className="flex flex-col xl:flex-row py-4 gap-4 grow">
       <div className="flex-1 bg-background-light p-8">
         <QueryInput state={userQuery} setState={setUserQuery} />
       </div>
