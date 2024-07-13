@@ -511,6 +511,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_to_done_flashcards: {
+        Args: {
+          exam_id: number
+          question_id: number
+        }
+        Returns: Json
+      }
       add_to_hard_collection: {
         Args: {
           newid: number
@@ -569,6 +576,12 @@ export type Database = {
       one_question_increment_incorrect: {
         Args: {
           user_id: string
+          exam_id: number
+        }
+        Returns: Json
+      }
+      remove_all_flashcards: {
+        Args: {
           exam_id: number
         }
         Returns: Json

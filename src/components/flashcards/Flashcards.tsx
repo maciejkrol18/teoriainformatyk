@@ -6,15 +6,19 @@ import { FlashcardView } from "@/types/flashcard-view"
 import ReviewView from "./ReviewView"
 import Card from "./Card"
 import Skeleton from "../ui/Skeleton"
+import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions"
+import { toast } from "sonner"
 
 interface FlashcardsProps {
   fetchedKnownQuestions: number[]
   questionIds: number[]
+  examId: number
 }
 
 export default function Flashcards({
   fetchedKnownQuestions,
   questionIds,
+  examId,
 }: FlashcardsProps) {
   const [questionPool, setQuestionPool] = useState<number[]>([])
   const [poolAmount, setPoolAmount] = useState<number>(0)
@@ -32,12 +36,21 @@ export default function Flashcards({
     setQuestionPool(pool)
   }
 
-  const startFromBeginning = () => {
+  const startFromBeginning = async () => {
     setAmountDone(1)
     setKnownQuestions([])
     setQuestionPool(questionIds)
     setPoolAmount(questionIds.length)
     setView("question")
+    const { error } = await deleteKnownQuestions(examId)
+    if (error) {
+      if (error) {
+        toast.error(`Błąd w resetowaniu znanych fiszek: ${error.message}`)
+        console.error(error)
+      }
+    } else {
+      toast.success("Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji")
+    }
   }
 
   const continueWithUnknown = () => {
@@ -72,6 +85,7 @@ export default function Flashcards({
             setAmountDone={setAmountDone}
             knownQuestions={knownQuestions}
             setKnownQuestions={setKnownQuestions}
+            examId={examId}
           />
         </>
       )

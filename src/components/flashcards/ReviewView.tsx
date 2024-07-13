@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { Button } from "../ui/Button"
 import Card from "./Card"
+import ProgressResetWarning from "./ProgressResetWarning"
 
 interface ReviewViewProps {
   handleStartFromBeginning: () => void
@@ -14,6 +16,7 @@ export default function ReviewView({
   amountKnown,
   totalQuestionsAmount,
 }: ReviewViewProps) {
+  const [open, setOpen] = useState<boolean>(false)
   const isComplete = amountKnown === totalQuestionsAmount
   return (
     <>
@@ -44,7 +47,7 @@ export default function ReviewView({
         )}
       </Card>
       <div className="flex flex-col md:flex-row gap-4">
-        <Button className="grow" onClick={handleStartFromBeginning}>
+        <Button className="grow" onClick={() => setOpen(true)}>
           Ćwiczę od początku
         </Button>
         {!isComplete && (
@@ -53,6 +56,11 @@ export default function ReviewView({
           </Button>
         )}
       </div>
+      <ProgressResetWarning
+        open={open}
+        setOpen={setOpen}
+        confirmFn={handleStartFromBeginning}
+      />
     </>
   )
 }

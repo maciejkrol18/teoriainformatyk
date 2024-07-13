@@ -7,6 +7,8 @@ import { Button } from "../ui/Button"
 import { FlashcardView } from "@/types/flashcard-view"
 import { QuestionImage } from "../ui/Question"
 import Skeleton from "../ui/Skeleton"
+import { addToKnownQuestions } from "@/app/(games)/flashcards/[code]/actions"
+import { toast } from "sonner"
 
 interface QuestionViewProps {
   currentQuestionId: number | null
@@ -16,6 +18,7 @@ interface QuestionViewProps {
   setAmountDone: React.Dispatch<SetStateAction<number>>
   knownQuestions: number[]
   setKnownQuestions: React.Dispatch<SetStateAction<number[]>>
+  examId: number
 }
 
 interface FlashcardQuestion {
@@ -32,6 +35,7 @@ export default function QuestionView({
   setAmountDone,
   knownQuestions,
   setKnownQuestions,
+  examId,
 }: QuestionViewProps) {
   const [question, setQuestion] = useState<FlashcardQuestion | null>(null)
   const [showAnswer, setShowAnswer] = useState<boolean>(false)
@@ -75,18 +79,16 @@ export default function QuestionView({
     setQuestionPool((prev) => prev.slice(1))
   }
 
-  const handleKnowQuestion = () => {
+  const handleKnowQuestion = async () => {
+    goToNextInPool()
     if (currentQuestionId) {
       setKnownQuestions((prev) => [currentQuestionId, ...prev])
+      const { error } = await addToKnownQuestions(examId, currentQuestionId)
+      if (error) {
+        toast.error(`Błąd w dodawaniu pytania do listy znanych fiszek: ${error.message}`)
+        console.error(error)
+      }
     }
-    goToNextInPool()
-  }
-
-  const handleDontKnowQuestion = () => {
-    if (currentQuestionId && knownQuestions.includes(currentQuestionId)) {
-      setKnownQuestions((prev) => prev.filter((num) => num !== currentQuestionId))
-    }
-    goToNextInPool()
   }
 
   return (
@@ -117,7 +119,7 @@ export default function QuestionView({
         )}
       </Card>
       <div className="flex flex-col md:flex-row gap-4">
-        <Button className="grow" onClick={handleDontKnowQuestion} disabled={!question}>
+        <Button className="grow" onClick={goToNextInPool} disabled={!question}>
           Nie umiem
         </Button>
         <Button className="grow" onClick={handleKnowQuestion} disabled={!question}>
