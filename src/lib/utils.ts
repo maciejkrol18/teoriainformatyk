@@ -30,3 +30,14 @@ export function getCollection(name: string) {
     return [] as number[]
   }
 }
+
+export function declension(amount: number, a: string, b: string, c: string) {
+  amount = Math.abs(amount)
+  if (amount === 1) {
+    return a
+  }
+  if (amount % 10 > 1 && amount % 10 < 5 && !(amount % 100 >= 10 && amount % 100 <= 21)) {
+    return b
+  }
+  return c || b
+}

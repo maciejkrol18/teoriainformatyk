@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button } from "../ui/Button"
 import Card from "./Card"
 import ProgressResetWarning from "./ProgressResetWarning"
+import { declension } from "@/lib/utils"
 
 interface ReviewViewProps {
   handleStartFromBeginning: () => void
@@ -28,7 +29,10 @@ export default function ReviewView({
           </>
         ) : (
           <>
-            <p className="text-2xl font-semibold">Znasz już {amountKnown} pytań!</p>
+            <p className="text-2xl font-semibold">
+              Znasz już {amountKnown}{" "}
+              {declension(amountKnown, "pytanie", "pytania", "pytań")}
+            </p>
             <p className="text-lg">
               Pozostało Ci jeszcze {totalQuestionsAmount - amountKnown} pytań
             </p>

@@ -27,7 +27,7 @@ export default function ProgressResetWarning({
           <CredenzaTitle>Potwierdź decyzję</CredenzaTitle>
         </CredenzaHeader>
         <CredenzaBody>
-          <p className="text-center">
+          <p className="text-center md:text-left">
             Rozpoczęcie ćwiczenia od początku spowoduje reset twojego progresu w fiszkach
             w obecnej kwalifikacji
           </p>
