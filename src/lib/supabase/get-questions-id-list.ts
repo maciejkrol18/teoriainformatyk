@@ -9,8 +9,6 @@ export default async function getQuestionIdsList(examId: number) {
     .from("questions")
     .select("id")
     .eq("exam_id", examId)
-    // TODO: This limit is temporary and intended for development
-    .limit(5)
 
   if (!data || data.length < 1 || error) {
     throw new Error("Failed to fetch questions from the database")

@@ -4,7 +4,7 @@ import getKnownQuestions from "@/lib/supabase/get-known-questions"
 import getQuestionIdsList from "@/lib/supabase/get-questions-id-list"
 import getUser from "@/lib/supabase/get-user"
 import { createClient } from "@/lib/supabase/server"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 
 export default async function FlashcardsPage({ params }: { params: { code: string } }) {
   const supabase = createClient()
@@ -20,13 +20,18 @@ export default async function FlashcardsPage({ params }: { params: { code: strin
   }
 
   const { user } = await getUser()
-  const knownQuestions = user ? await getKnownQuestions(user.id, data.id) : []
+
+  if (!user) {
+    redirect("/login")
+  }
+
+  const knownQuestions = await getKnownQuestions(user.id, data.id)
   const questionIds = await getQuestionIdsList(data.id)
 
   return (
     <>
       <PageTitle bigTitle="Fiszki" smallTitle={data.name} />
-      <div className="flex flex-col gap-4 w-[576px] mx-auto">
+      <div className="flex flex-col gap-4 w-full max-w-[576px] sm:mx-auto">
         <Flashcards fetchedKnownQuestions={knownQuestions} questionIds={questionIds} />
       </div>
     </>
