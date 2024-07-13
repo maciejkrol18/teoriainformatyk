@@ -62,10 +62,8 @@ export default function Flashcards({
   useEffect(() => {
     getQuestionPool()
     if (knownQuestions.length > 0) {
-      console.log("Initial - setting to review")
       setView("review")
     } else {
-      console.log("Initial - setting to question")
       setView("question")
     }
   }, [])
@@ -101,7 +99,6 @@ export default function Flashcards({
     default:
       return (
         <>
-          <p className="text-2xl text-red-600">SWITCH DEFAULT</p>
           <Skeleton className="w-[5ch] mx-auto h-6" />
           <Card>
             <div className="w-full flex flex-col gap-2">

@@ -33,7 +33,6 @@ export default function QuestionView({
   setQuestionPool,
   setView,
   setAmountDone,
-  knownQuestions,
   setKnownQuestions,
   examId,
 }: QuestionViewProps) {
@@ -45,10 +44,6 @@ export default function QuestionView({
       setShowAnswer(false)
       setQuestion(null)
       if (!currentQuestionId) {
-        console.log(
-          "fetchQuestion - current question falsy, setting to review",
-          currentQuestionId,
-        )
         setView("review")
         return
       }
@@ -108,7 +103,6 @@ export default function QuestionView({
         )}
         {!question && (
           <>
-            <p className="text-2xl text-red-600">QUESTION VIEW LOADING</p>
             <div className="w-full flex flex-col gap-2">
               <Skeleton className="h-6 grow" />
               <Skeleton className="h-6 grow" />
