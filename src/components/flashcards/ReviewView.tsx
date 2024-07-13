@@ -19,6 +19,7 @@ export default function ReviewView({
 }: ReviewViewProps) {
   const [open, setOpen] = useState<boolean>(false)
   const isComplete = amountKnown === totalQuestionsAmount
+  const leftToLearn = totalQuestionsAmount - amountKnown
   return (
     <>
       <Card>
@@ -34,7 +35,8 @@ export default function ReviewView({
               {declension(amountKnown, "pytanie", "pytania", "pytań")}
             </p>
             <p className="text-lg">
-              Pozostało Ci jeszcze {totalQuestionsAmount - amountKnown} pytań
+              {declension(leftToLearn, "Pozostało", "Pozostały", "Pozostało")} Ci jeszcze{" "}
+              {leftToLearn} {declension(leftToLearn, "pytanie", "pytania", "pytań")}
             </p>
             <div className="flex w-full items-center gap-2 px-4">
               <div className="bg-background-bright h-4 grow rounded-md">
