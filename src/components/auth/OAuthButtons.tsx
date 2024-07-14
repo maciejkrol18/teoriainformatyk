@@ -28,15 +28,23 @@ export default function OAuthButtons() {
     })
   }
 
+  console.log("[OAuth Buttons] Redirect URL -", `${getURL()}/auth/callback`)
+
   return (
-    <div className="flex flex-col gap-4">
-      <Button className="gap-4" onClick={() => signInWithProvider("google")}>
-        <Image src={GoogleLogo} alt="" width={24} height={24} />
-        Kontynuuj przez Google
+    <div className="flex justify-center gap-4">
+      <Button
+        className="w-16 h-16 rounded-full"
+        onClick={() => signInWithProvider("google")}
+        aria-label="Zaloguj się przez Google"
+      >
+        <Image src={GoogleLogo} alt="Google" width={32} height={32} />
       </Button>
-      <Button className="gap-4" onClick={() => signInWithProvider("discord")}>
-        <Image src={DiscordLogo} alt="" width={24} height={24} />
-        Kontynuuj przez Discord
+      <Button
+        className="w-16 h-16 rounded-full"
+        onClick={() => signInWithProvider("discord")}
+        aria-label="Zaloguj się przez Discord"
+      >
+        <Image src={DiscordLogo} alt="Discord" width={32} height={32} />
       </Button>
     </div>
   )

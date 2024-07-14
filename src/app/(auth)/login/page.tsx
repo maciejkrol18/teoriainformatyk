@@ -1,31 +1,25 @@
-import Link from "next/link"
-import LoginForm from "@/components/auth/LoginForm"
 import OAuthButtons from "@/components/auth/OAuthButtons"
+import AuthForms from "@/components/auth/AuthForms"
+import Link from "next/link"
 
 export default function LoginPage() {
   return (
-    <>
-      <div className="text-center lg:text-left leading-10 lg:leading-[60px]">
-        <h1 className="text-4xl lg:text-5xl font-display font-semibold">
-          Witamy ponownie
-        </h1>
-        <h2 className="text-lg lg:text-xl text-muted">Zaloguj się do swojego konta</h2>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-bold text-center">Witamy ponownie</h1>
+        <p className="text-center text-muted">Wprowadź swoje dane aby kontynuować</p>
+      </div>
+      <AuthForms />
+      <div className="flex items-center w-full gap-4">
+        <div className="h-[1px] bg-background-bright grow" />
+        <p className="text-muted">lub kontynuuj przez</p>
+        <div className="h-[1px] bg-background-bright grow" />
       </div>
       <OAuthButtons />
-      <div className="flex items-center w-full gap-2">
-        <div className="h-[1px] bg-background-bright grow" />
-        <p>lub</p>
-        <div className="h-[1px] bg-background-bright grow" />
-      </div>
-      <div className="flex flex-col gap-2">
-        <LoginForm />
-        <p className="text-center">
-          Nie posiadasz konta?{" "}
-          <Link href="/register" className="underline">
-            Zarejestruj się
-          </Link>
-        </p>
-      </div>
-    </>
+      <p className="text-sm text-muted text-center">
+        Kontynuując zgadzasz się na warunki{" "}
+        <Link href="/privacy">polityki prywatności</Link>
+      </p>
+    </div>
   )
 }

@@ -3,23 +3,13 @@ import Link from "next/link"
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col lg:flex-row grow">
-      <div className="p-4 flex flex-1">
-        <div className="flex flex-col grow max-w-[800px] mx-auto items-center justify-center lg:items-stretch lg:justify-between gap-8">
-          <Link href="/" className="flex justify-center lg:justify-normal">
-            <BrandLogo size="big" />
-          </Link>
-          {children}
-          <p className="text-muted text-center">
-            Kontynuując zgadzasz się na warunki
-            <br />
-            <Link href="/privacy" className="underline">
-              Polityki Prywatności
-            </Link>
-          </p>
-        </div>
+    <div className="flex flex-col p-4 justify-center items-center min-h-screen bg-gradient-to-r from-violet-500 to-fuchsia-500">
+      <div className="flex flex-col p-8 min-h-[512px] max-w-[512px] w-full rounded-md bg-background-light">
+        <Link href="/" className="flex w-full justify-center">
+          <BrandLogo size="big" />
+        </Link>
+        <div className="flex flex-col pt-4 grow">{children}</div>
       </div>
-      <div className="hidden lg:block flex-1 bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
     </div>
   )
 }
