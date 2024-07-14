@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react"
 import Providers from "./providers"
 import { Toaster } from "sonner"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
+import ToasterWrapper from "@/components/ui/ToasterWrapper"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
@@ -55,14 +56,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
         <Providers>
-          <Toaster
-            toastOptions={{
-              style: {
-                background: "var(--background-bright)",
-                color: "var(--text)",
-              },
-            }}
-          />
+          <ToasterWrapper />
           <TailwindIndicator />
           <div
             className={cn(
