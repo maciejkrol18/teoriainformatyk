@@ -531,6 +531,18 @@ export type Database = {
         }
         Returns: Json
       }
+      check_account_exists: {
+        Args: {
+          email_to_check: string
+        }
+        Returns: boolean
+      }
+      check_password_change_validity: {
+        Args: {
+          email_to_check: string
+        }
+        Returns: boolean
+      }
       delete_user_account: {
         Args: {
           current_plain_password: string

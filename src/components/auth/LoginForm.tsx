@@ -9,13 +9,14 @@ import { signIn } from "@/actions"
 import { toast } from "sonner"
 import { Button } from "../ui/Button"
 import { LoaderIcon } from "lucide-react"
+import Link from "next/link"
 
 const schema = z.object({
   email: z
     .string()
     .min(1, { message: "Email nie może być pusty" })
     .email("Nieprawidłowy adres email"),
-  password: z.string().min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
+  password: z.string(),
 })
 
 export default function LoginForm() {
@@ -31,8 +32,8 @@ export default function LoginForm() {
     <form
       onSubmit={handleSubmit(async (data) => {
         setLoading(true)
-        const error = await signIn(data)
-        if (error && error.status === 400) {
+        const { error } = await signIn(data)
+        if (error) {
           toast.error("Błędne dane logowania")
           setLoading(false)
         } else {
@@ -48,9 +49,9 @@ export default function LoginForm() {
       </p>
       <label htmlFor="password">Hasło</label>
       <Input id="password" type="password" {...register("password")} />
-      <p className="text-red-500 min-h-[24px]">
-        {errors.password?.message as React.ReactNode}
-      </p>
+      <Link href="/password-recovery" className="text-accent">
+        Nie pamiętam hasła
+      </Link>
       <Button type="submit" variant="primary" disabled={loading}>
         {loading && <LoaderIcon className="animate-spin" />}
         {loading ? "Logowanie..." : "Zaloguj się"}

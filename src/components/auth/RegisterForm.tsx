@@ -31,9 +31,9 @@ export default function RegisterForm() {
     <form
       onSubmit={handleSubmit(async (data) => {
         setLoading(true)
-        const error = await signUp(data)
+        const { error } = await signUp(data)
         if (error) {
-          toast.error("W trakcie rejestracji wystąpił błąd")
+          toast.error(`W trakcie rejestracji wystąpił błąd: ${error}`)
           setLoading(false)
         } else {
           toast.success("Zarejestrowano")

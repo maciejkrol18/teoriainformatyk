@@ -7,7 +7,9 @@ import { createClient } from "@/lib/supabase/server"
 import { FieldValues } from "react-hook-form"
 import { AuthError, PostgrestError } from "@supabase/supabase-js"
 
-export async function signIn(formData: FieldValues): Promise<AuthError | null> {
+export async function signIn(formData: FieldValues): Promise<{
+  error: string
+}> {
   const supabase = createClient()
 
   const data = {
@@ -18,14 +20,18 @@ export async function signIn(formData: FieldValues): Promise<AuthError | null> {
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    return error
+    return {
+      error: error.message,
+    }
   }
 
   revalidatePath("/", "layout")
   redirect("/")
 }
 
-export async function signUp(formData: FieldValues): Promise<AuthError | null> {
+export async function signUp(formData: FieldValues): Promise<{
+  error: string
+}> {
   const supabase = createClient()
 
   const data = {
@@ -36,10 +42,11 @@ export async function signUp(formData: FieldValues): Promise<AuthError | null> {
   const { error } = await supabase.auth.signUp(data)
 
   if (error) {
-    return error
+    return {
+      error: error.message,
+    }
   }
 
-  revalidatePath("/", "layout")
   redirect("/confirm-signup")
 }
 
@@ -50,9 +57,7 @@ export async function signOut() {
   redirect("/login")
 }
 
-export async function changePassword(
-  formData: FieldValues,
-): Promise<PostgrestError | null> {
+export async function changePassword(formData: FieldValues): Promise<string> {
   const supabase = createClient()
 
   const data = {
@@ -66,7 +71,26 @@ export async function changePassword(
   })
 
   if (error) {
-    return error
+    return error.message
+  }
+
+  await supabase.auth.signOut()
+
+  revalidatePath("/login", "layout")
+  redirect("/login")
+}
+
+export async function updatePassword(formData: FieldValues): Promise<string> {
+  const supabase = createClient()
+
+  const data = {
+    newPassword: formData.newPassword,
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: data.newPassword })
+
+  if (error) {
+    return error.message
   }
 
   await supabase.auth.signOut()
@@ -115,4 +139,37 @@ export async function deleteAccount(
 
   revalidatePath("/", "layout")
   redirect("/")
+}
+
+export async function startPasswordRecovery(
+  email: string,
+  redirectTo: string,
+  captchaToken: string,
+) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectTo,
+    captchaToken: captchaToken,
+  })
+
+  return {
+    data: data,
+    error: error?.message,
+  }
+}
+
+export async function checkIfAccountExists(email: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.rpc("check_account_exists", {
+    email_to_check: email,
+  })
+
+  console.log(data)
+  if (error) {
+    console.log(error)
+    return false
+  }
+  return Boolean(data)
 }
