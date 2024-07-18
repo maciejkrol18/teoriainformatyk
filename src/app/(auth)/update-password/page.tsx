@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import getUser from "@/lib/supabase/get-user"
 import { User } from "@supabase/supabase-js"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 /*
   This is the most hacky part of the app. 
@@ -17,9 +17,9 @@ import { useEffect, useState } from "react"
   accessing this route (redirectIfLoggedIn)
 
   When user clicks the recovery link, they get sent to this page with pkce token stuff in the url
-  When that gets resolved and removed from the url, the "SIGNED_IN" event is fired
+  When that gets resolved and removed from the url, the "INITIAL_SESSION" event is fired
 
-  In case the "SIGNED_IN" event doesn't fire, the component has a 6s timeout to redirect
+  In case the "INITIAL_SESSION" event doesn't fire, the component has a 5s timeout to redirect
   to the homepage if the user wasn't found and the loading state is still true. This occurs
   when the link expired, for example
 */
@@ -28,10 +28,10 @@ export default function UpdatePasswordPage() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<User | null>(null)
   const [isRequestValid, setIsRequestValid] = useState(false)
+  const redirectTimeout = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
 
   const fetchUser = async () => {
-    console.log("fetchUser", new Date().toLocaleTimeString())
     const { user } = await getUser()
     setUser(user)
   }
@@ -39,21 +39,17 @@ export default function UpdatePasswordPage() {
   const redirectIfLoggedIn = async () => {
     const { user } = await getUser()
     if (user) {
-      console.log("redirecting in redirectIfLoggedIn", new Date().toLocaleTimeString())
+      redirectTimeout.current && clearTimeout(redirectTimeout.current)
       router.replace("/")
-    } else {
-      console.log("user was not logged in", new Date().toLocaleTimeString())
     }
   }
 
   const checkIfRequestValid = async () => {
-    console.log("checkIfRequestValid", new Date().toLocaleTimeString())
-    if (user?.email) {
+    if (user && user.email) {
       const supabase = createClient()
       const { data } = await supabase.rpc("check_password_change_validity", {
         email_to_check: user.email,
       })
-      console.log("checkPasswordChangeValidity", data)
       setIsRequestValid(Boolean(data))
       setLoading(false)
     }
@@ -61,6 +57,7 @@ export default function UpdatePasswordPage() {
 
   useEffect(() => {
     redirectIfLoggedIn()
+
     const supabase = createClient()
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "INITIAL_SESSION") {
@@ -69,23 +66,24 @@ export default function UpdatePasswordPage() {
         data.subscription.unsubscribe()
       }
     })
-    setTimeout(() => {
-      if (!user && loading) {
-        console.log("redirecting in timeout", new Date().toLocaleTimeString())
-        router.replace("/")
-      }
-    }, 6000)
+
+    redirectTimeout.current = setTimeout(() => {
+      if (!user) router.replace("/")
+    }, 5000)
+
+    return () => {
+      redirectTimeout.current && clearTimeout(redirectTimeout.current)
+      data.subscription.unsubscribe()
+    }
   }, [])
 
   useEffect(() => {
-    console.log("user useEffect", new Date().toLocaleTimeString())
     if (user) {
       checkIfRequestValid()
     }
   }, [user])
 
   if (loading) {
-    console.log("loading", new Date().toLocaleTimeString())
     return (
       <div className="flex flex-col grow items-center justify-center gap-4">
         <p className="text-lg text-center">Sprawdzanie uwierzytelnienia...</p>
@@ -99,8 +97,10 @@ export default function UpdatePasswordPage() {
   }
 
   if (user && isRequestValid) {
+    redirectTimeout.current && clearTimeout(redirectTimeout.current)
     return <UpdatePasswordForm />
   } else if (user && !isRequestValid) {
+    redirectTimeout.current && clearTimeout(redirectTimeout.current)
     return (
       <div className="flex flex-col grow items-center justify-center gap-4">
         <p className="text-lg text-center">
@@ -110,6 +110,7 @@ export default function UpdatePasswordPage() {
       </div>
     )
   } else {
+    redirectTimeout.current && clearTimeout(redirectTimeout.current)
     router.replace("/")
     return null
   }
