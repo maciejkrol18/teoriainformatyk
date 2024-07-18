@@ -5,16 +5,23 @@ import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/server"
 import { FieldValues } from "react-hook-form"
-import { AuthError, PostgrestError } from "@supabase/supabase-js"
+import {
+  PostgrestError,
+  SignInWithPasswordCredentials,
+  SignUpWithPasswordCredentials,
+} from "@supabase/supabase-js"
 
 export async function signIn(formData: FieldValues): Promise<{
   error: string
 }> {
   const supabase = createClient()
 
-  const data = {
+  const data: SignInWithPasswordCredentials = {
     email: formData.email,
     password: formData.password,
+    options: {
+      captchaToken: formData.token,
+    },
   }
 
   const { error } = await supabase.auth.signInWithPassword(data)
@@ -34,9 +41,12 @@ export async function signUp(formData: FieldValues): Promise<{
 }> {
   const supabase = createClient()
 
-  const data = {
+  const data: SignUpWithPasswordCredentials = {
     email: formData.email,
     password: formData.password,
+    options: {
+      captchaToken: formData.token,
+    },
   }
 
   const { error } = await supabase.auth.signUp(data)
