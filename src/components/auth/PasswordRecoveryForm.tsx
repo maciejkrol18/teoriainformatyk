@@ -1,6 +1,6 @@
 "use client"
 
-import { useForm } from "react-hook-form"
+import { FieldValues, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
@@ -10,7 +10,7 @@ import { Button } from "../ui/Button"
 import { LoaderIcon } from "lucide-react"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { checkIfAccountExists, startPasswordRecovery } from "@/actions"
-import { createClient } from "@/lib/supabase/client"
+import { getURL } from "@/lib/utils"
 
 const schema = z
   .object({
@@ -18,6 +18,7 @@ const schema = z
       .string()
       .min(1, { message: "Email nie może być pusty" })
       .email("Nieprawidłowy adres email"),
+    token: z.string().min(1, { message: "Weryfikacja hCaptcha jest wymagana" }),
   })
   .refine(
     async (data) => {
@@ -35,52 +36,39 @@ const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string
 type PasswordRecoveryFormView = "form" | "info"
 
 export default function PasswordRecoveryForm() {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [token, setToken] = useState<string>("")
   const [view, setView] = useState<PasswordRecoveryFormView>("form")
   const captchaRef = useRef<HCaptcha | null>(null)
   const {
     register,
     handleSubmit,
-    getValues,
-    formState: { errors, isSubmitted, isSubmitting },
+    setValue,
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
   })
 
-  const onTokenSubmission = async () => {
-    setLoading(true)
-    const formValues = getValues()
+  const handleCaptchaChange = (token: string) => {
+    setValue("token", token, { shouldValidate: true })
+  }
+
+  const onSubmit = async (data: FieldValues) => {
     const { error } = await startPasswordRecovery(
-      formValues.email,
-      "http://localhost:3000/update-password",
-      token,
+      data.email,
+      `${getURL()}update-password`,
+      data.token,
     )
     if (error) {
-      toast.error(`Wystąpił błąd w trakcie przetwarzania twojego żądania: ${error}`)
+      toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
     }
-    setLoading(false)
     captchaRef.current?.resetCaptcha()
     setView("info")
   }
 
-  useEffect(() => {
-    if (token && isSubmitted) {
-      onTokenSubmission()
-    }
-  }, [token])
-
-  useEffect(() => {
-    setLoading(isSubmitting)
-  }, [isSubmitting])
-
   if (view === "form") {
     return (
       <form
-        onSubmit={handleSubmit(() => {
-          if (captchaRef.current) {
-            captchaRef.current.execute()
-          }
+        onSubmit={handleSubmit((data) => {
+          onSubmit(data)
         })}
         className="flex flex-col gap-2"
       >
@@ -92,27 +80,31 @@ export default function PasswordRecoveryForm() {
         <div className="flex justify-center items-center min-h-[78px] py-6">
           <HCaptcha
             sitekey={siteKey}
-            onVerify={(token) => setToken(token)}
+            onVerify={handleCaptchaChange}
             theme="dark"
             languageOverride="pl"
-            onChalExpired={() => toast.warning("Weryfikacja wygasła")}
+            onChalExpired={() => toast.warning("Weryfikacja Captcha wygasła")}
             onError={(error) =>
-              toast.error(`Wystąpił błąd w trakcie weryfikacji: ${error}`)
+              toast.error(`Wystąpił błąd w trakcie weryfikacji Captcha: ${error}`)
             }
             ref={captchaRef}
           />
         </div>
-        <Button type="submit" variant="primary" disabled={loading}>
-          {loading && <LoaderIcon className="animate-spin" />}
-          {loading ? "Przetwarzanie..." : "Dalej"}
+        <input type="hidden" {...register("token")} />
+        <p className="text-red-500 min-h-[48px]">
+          {errors.token?.message as React.ReactNode}
+        </p>
+        <Button type="submit" variant="primary" disabled={isSubmitting}>
+          {isSubmitting && <LoaderIcon className="animate-spin" />}
+          {isSubmitting ? "Przetwarzanie..." : "Dalej"}
         </Button>
       </form>
     )
   } else if (view === "info") {
     return (
       <p className="my-8 text-lg text-center">
-        Na podany przez ciebie adres email został wysłany link do resetowania hasła.
-        Kliknij w niego aby kontynuować.
+        Na podany przez ciebie adres email został wysłany link do resetowania hasła. W
+        treści wiadomości znajdują się dalsze instrukcje.
       </p>
     )
   }
