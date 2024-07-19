@@ -6,8 +6,8 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-center">Witamy ponownie</h1>
-        <p className="text-center text-muted">Wprowadź swoje dane aby kontynuować</p>
+        <h1 className="text-4xl font-bold">Witamy ponownie</h1>
+        <p className="text-muted">Wprowadź swoje dane aby kontynuować</p>
       </div>
       <AuthForms />
       <div className="flex items-center w-full gap-4">

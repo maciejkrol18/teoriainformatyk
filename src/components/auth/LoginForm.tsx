@@ -47,9 +47,9 @@ export default function LoginForm() {
       toast.error("Błędne dane logowania")
       setLoading(false)
     } else {
-      captchaRef.current?.resetCaptcha()
       toast.success("Zalogowano")
     }
+    captchaRef.current?.resetCaptcha()
   }
 
   return (

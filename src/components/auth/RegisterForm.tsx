@@ -59,6 +59,7 @@ export default function RegisterForm() {
     } else {
       toast.success("Zarejestrowano")
     }
+    captchaRef.current?.resetCaptcha()
   }
 
   return (

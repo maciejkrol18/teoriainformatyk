@@ -9,8 +9,12 @@ export default function AuthForms() {
     <>
       <Tabs defaultValue="login">
         <TabsList className="flex justify-center">
-          <TabsTrigger value="login">Logowanie</TabsTrigger>
-          <TabsTrigger value="register">Rejestracja</TabsTrigger>
+          <TabsTrigger value="login" className="w-full">
+            Logowanie
+          </TabsTrigger>
+          <TabsTrigger value="register" className="w-full">
+            Rejestracja
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="login">
           <LoginForm />

@@ -85,7 +85,7 @@ export default function UpdatePasswordPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col grow items-center justify-center gap-4">
+      <div className="flex flex-col grow gap-4">
         <p className="text-lg text-center">Sprawdzanie uwierzytelnienia...</p>
         <p className="text-sm text-muted text-center">
           Strona przetwarza twoje dane. W przypadku bycia zalogowanym przed przejściem na
