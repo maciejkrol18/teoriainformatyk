@@ -209,7 +209,6 @@ export async function checkIfAccountExists(email: string) {
     email_to_check: email,
   })
 
-  console.log(data)
   if (error) {
     console.log(error)
     return false

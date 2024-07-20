@@ -56,6 +56,10 @@ export default function PasswordRecoveryForm() {
       data.token,
       window ? window.location.origin : "http://localhost:3000",
     )
+    console.log(
+      "onSubmit resolved url",
+      window ? window.location.origin : "http://localhost:3000",
+    )
     if (error) {
       toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
     } else {
