@@ -10,10 +10,9 @@ import { socialSignIn } from "@/actions"
 import { toast } from "sonner"
 
 export default function OAuthButtons() {
-  console.log("[OAuthButtons]", `${window.location.origin}/auth/callback`)
-
   const signInWithProvider = async (provider: Provider) => {
-    const error = await socialSignIn(provider, window.location.origin)
+    const origin = window ? window.location.origin : "localhost:3000"
+    const error = await socialSignIn(provider, origin)
     if (error) {
       toast.error(error.error)
     }
