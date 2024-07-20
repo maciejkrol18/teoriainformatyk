@@ -11,7 +11,6 @@ import {
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
 } from "@supabase/supabase-js"
-import { getURL } from "./lib/utils"
 
 export async function signIn(formData: FieldValues): Promise<{
   error: string
@@ -38,7 +37,10 @@ export async function signIn(formData: FieldValues): Promise<{
   redirect("/")
 }
 
-export async function socialSignIn(provider: Provider): Promise<
+export async function socialSignIn(
+  provider: Provider,
+  origin: string,
+): Promise<
   | {
       error: string
     }
@@ -48,7 +50,7 @@ export async function socialSignIn(provider: Provider): Promise<
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
-      redirectTo: `${getURL()}auth/callback`,
+      redirectTo: `${origin}/auth/callback`,
     },
   })
   if (error) {
