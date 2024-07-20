@@ -4,13 +4,12 @@ import { FieldValues, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Input } from "../ui/Input"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { toast } from "sonner"
 import { Button } from "../ui/Button"
 import { LoaderIcon } from "lucide-react"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { checkIfAccountExists, startPasswordRecovery } from "@/actions"
-import { getURL } from "@/lib/utils"
 
 const schema = z
   .object({
@@ -52,16 +51,13 @@ export default function PasswordRecoveryForm() {
   }
 
   const onSubmit = async (data: FieldValues) => {
-    const { error } = await startPasswordRecovery(
-      data.email,
-      `${getURL()}update-password`,
-      data.token,
-    )
+    const { error } = await startPasswordRecovery(data.email)
     if (error) {
       toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
+    } else {
+      setView("info")
     }
     captchaRef.current?.resetCaptcha()
-    setView("info")
   }
 
   if (view === "form") {
@@ -102,7 +98,7 @@ export default function PasswordRecoveryForm() {
     )
   } else if (view === "info") {
     return (
-      <p className="my-8 text-lg text-center">
+      <p className="my-8">
         Na podany przez ciebie adres email został wysłany link do resetowania hasła. W
         treści wiadomości znajdują się dalsze instrukcje.
       </p>

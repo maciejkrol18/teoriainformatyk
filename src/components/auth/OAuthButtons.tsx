@@ -7,19 +7,18 @@ import Image from "next/image"
 import GoogleLogo from "../../public/google.svg"
 import DiscordLogo from "../../public/discord-mark.svg"
 import { getURL } from "@/lib/utils"
+import { socialSignIn } from "@/actions"
+import { toast } from "sonner"
 
 export default function OAuthButtons() {
-  const signInWithProvider = async (provider: Provider) => {
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: provider,
-      options: {
-        redirectTo: `${getURL()}auth/callback`,
-      },
-    })
-  }
-
   console.log("[OAuthButtons]", `${getURL()}auth/callback`)
+
+  const signInWithProvider = async (provider: Provider) => {
+    const error = await socialSignIn(provider)
+    if (error) {
+      toast.error(error.error)
+    }
+  }
 
   return (
     <div className="flex justify-center gap-4">

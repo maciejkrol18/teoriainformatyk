@@ -7,9 +7,11 @@ import { createClient } from "@/lib/supabase/server"
 import { FieldValues } from "react-hook-form"
 import {
   PostgrestError,
+  Provider,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
 } from "@supabase/supabase-js"
+import { getURL } from "./lib/utils"
 
 export async function signIn(formData: FieldValues): Promise<{
   error: string
@@ -36,6 +38,30 @@ export async function signIn(formData: FieldValues): Promise<{
   redirect("/")
 }
 
+export async function socialSignIn(provider: Provider): Promise<
+  | {
+      error: string
+    }
+  | undefined
+> {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: provider,
+    options: {
+      redirectTo: `${getURL()}auth/callback`,
+    },
+  })
+  if (error) {
+    console.log(error)
+    return {
+      error: error.message,
+    }
+  }
+  if (data.url) {
+    redirect(data.url)
+  }
+}
+
 export async function signUp(formData: FieldValues): Promise<{
   error: string
 }> {
@@ -57,6 +83,7 @@ export async function signUp(formData: FieldValues): Promise<{
     }
   }
 
+  revalidatePath("/", "layout")
   redirect("/confirm-signup")
 }
 
@@ -151,17 +178,18 @@ export async function deleteAccount(
   redirect("/")
 }
 
-export async function startPasswordRecovery(
-  email: string,
-  redirectTo: string,
-  captchaToken: string,
-) {
+export async function startPasswordRecovery(email: string) {
   const supabase = createClient()
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: redirectTo,
-    captchaToken: captchaToken,
-  })
+  // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  //   captchaToken: captchaToken,
+  // })
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email)
+
+  if (error) {
+    console.log("[startPasswordRecovery] Error:", error)
+  }
 
   return {
     data: data,

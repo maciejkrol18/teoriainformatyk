@@ -63,7 +63,11 @@ export default function UpdatePasswordPage() {
       if (event === "INITIAL_SESSION") {
         console.log("INITIAL_SESSION", new Date().toLocaleTimeString())
         fetchUser()
-        data.subscription.unsubscribe()
+        // data.subscription.unsubscribe()
+      } else if (event === "PASSWORD_RECOVERY") {
+        console.log("PASSWORD_RECOVERY", new Date().toLocaleTimeString())
+        fetchUser()
+        // data.subscription.unsubscribe()
       }
     })
 
