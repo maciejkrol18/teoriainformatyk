@@ -51,7 +51,13 @@ export default function PasswordRecoveryForm() {
   }
 
   const onSubmit = async (data: FieldValues) => {
-    const { error } = await startPasswordRecovery(data.email)
+    const { error } = await startPasswordRecovery(
+      data.email,
+      data.token,
+      window
+        ? `${window.location.origin}/update-password`
+        : "http://localhost:3000/update-password",
+    )
     if (error) {
       toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
     } else {

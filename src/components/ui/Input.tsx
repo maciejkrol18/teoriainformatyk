@@ -9,7 +9,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "bg-background-light flex h-10 w-full rounded-lg border border-background-bright focus:ring-1 ring-primary",
+          "bg-background-light pl-2 flex h-10 w-full rounded-lg border border-background-bright focus:ring-1 ring-primary",
           className,
         )}
         ref={ref}

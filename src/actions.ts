@@ -180,18 +180,17 @@ export async function deleteAccount(
   redirect("/")
 }
 
-export async function startPasswordRecovery(email: string) {
+export async function startPasswordRecovery(
+  email: string,
+  captchaToken: string,
+  redirectTo: string,
+) {
   const supabase = createClient()
 
-  // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-  //   captchaToken: captchaToken,
-  // })
-
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email)
-
-  if (error) {
-    console.log("[startPasswordRecovery] Error:", error)
-  }
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    captchaToken: captchaToken,
+    redirectTo: redirectTo,
+  })
 
   return {
     data: data,
