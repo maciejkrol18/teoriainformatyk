@@ -19,6 +19,8 @@ export default function OAuthButtons() {
     })
   }
 
+  console.log("[OAuthButtons]", `${getURL()}auth/callback`)
+
   return (
     <div className="flex justify-center gap-4">
       <Button

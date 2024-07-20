@@ -20,7 +20,7 @@
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^1.0.78",
     "@supabase/ssr": "^0.1.0",
-    "@supabase/supabase-js": "^2.43.1",
+    "@supabase/supabase-js": "^2.44.4",
     "@tanstack/react-table": "^8.16.0",
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/node": "20.10.4",
