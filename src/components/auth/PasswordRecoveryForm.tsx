@@ -54,9 +54,7 @@ export default function PasswordRecoveryForm() {
     const { error } = await startPasswordRecovery(
       data.email,
       data.token,
-      window
-        ? `${window.location.origin}/update-password`
-        : "http://localhost:3000/update-password",
+      window ? window.location.origin : "http://localhost:3000",
     )
     if (error) {
       toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
@@ -104,7 +102,7 @@ export default function PasswordRecoveryForm() {
     )
   } else if (view === "info") {
     return (
-      <p className="my-8">
+      <p>
         Na podany przez ciebie adres email został wysłany link do resetowania hasła. W
         treści wiadomości znajdują się dalsze instrukcje.
       </p>

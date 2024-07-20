@@ -52,7 +52,10 @@ export default function RegisterForm() {
 
   const onSubmit = async (data: FieldValues) => {
     setLoading(true)
-    const { error } = await signUp(data)
+    const { error } = await signUp(
+      data,
+      window ? `${window.location.origin}` : "http://localhost:3000",
+    )
     if (error) {
       toast.error(`W trakcie rejestracji wystąpił błąd: ${error}`)
       setLoading(false)

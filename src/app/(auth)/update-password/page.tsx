@@ -1,114 +1,54 @@
-"use client"
-
 import UpdatePasswordForm from "@/components/auth/UpdatePasswordForm"
-import { createClient } from "@/lib/supabase/client"
+import { createClient } from "@/lib/supabase/server"
 import getUser from "@/lib/supabase/get-user"
-import { User } from "@supabase/supabase-js"
-import { useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { redirect } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/Button"
 
 /*
   This is the most hacky part of the app. 
-  Supabase docs regarding password recovery are severely lacking
+  Supabase docs regarding password recovery are kind of lacking.
   For example, the auth listener NEVER sends a "PASSWORD_RECOVERY" event. 
-  So, we have to do all of these workarounds to get the password recovery flow working.
+  
+  When the user clicks the recovery link, they get sent to the confirmation route with pkce
+  token stuff. After that get successfully validated, the user gets authenticated, the session
+  cookie is set and the user is redirected to this page.
 
-  This component should redirect to the main page if the user was logged in prior to
-  accessing this route (redirectIfLoggedIn)
-
-  When user clicks the recovery link, they get sent to this page with pkce token stuff in the url
-  When that gets resolved and removed from the url, the "SIGNED_IN" event is fired
-
-  In case the "SIGNED_IN" event doesn't fire, the component has a 5s timeout to redirect
-  to the homepage if the user wasn't found and the loading state is still true. This occurs
-  when the link expired, for example
+  The page performs a check whether the user has a valid password recovery request by comparing
+  the 'recovery_sent_at' field in the auth.users table with the current time as of
+  calling the rpc function and since current time gets checked within the postgres function itself
+  it seems safe as if there's no way to spoof the current time.
 */
 
-export default function UpdatePasswordPage() {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<User | null>(null)
-  const [isRequestValid, setIsRequestValid] = useState(false)
-  const redirectTimeout = useRef<NodeJS.Timeout | null>(null)
-  const router = useRouter()
+export default async function UpdatePasswordPage() {
+  const supabase = createClient()
 
-  const fetchUser = async () => {
-    const { user } = await getUser()
-    setUser(user)
-  }
+  const { user } = await getUser()
 
-  const redirectIfLoggedIn = async () => {
-    const { user } = await getUser()
-    if (user) {
-      redirectTimeout.current && clearTimeout(redirectTimeout.current)
-      router.replace("/")
-    }
-  }
+  if (!user?.email) redirect("/")
 
-  const checkIfRequestValid = async () => {
-    if (user && user.email) {
-      const supabase = createClient()
-      const { data } = await supabase.rpc("check_password_change_validity", {
-        email_to_check: user.email,
-      })
-      setIsRequestValid(Boolean(data))
-      setLoading(false)
-    }
-  }
+  const { data } = await supabase.rpc("check_password_change_validity", {
+    email_to_check: user.email,
+  })
 
-  useEffect(() => {
-    redirectIfLoggedIn()
-
-    const supabase = createClient()
-    const { data } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN") {
-        fetchUser()
-        data.subscription.unsubscribe()
-      }
-    })
-
-    redirectTimeout.current = setTimeout(() => {
-      if (!user) router.replace("/")
-    }, 5000)
-
-    return () => {
-      redirectTimeout.current && clearTimeout(redirectTimeout.current)
-      data.subscription.unsubscribe()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (user) {
-      checkIfRequestValid()
-    }
-  }, [user])
-
-  if (loading) {
+  if (user && data) {
+    return <UpdatePasswordForm />
+  } else {
     return (
       <div className="flex flex-col gap-4">
-        <p className="text-4xl font-bold">Sprawdzanie uwierzytelnienia...</p>
-        <p className="text-muted">
-          Strona przetwarza twoje dane. W przypadku bycia zalogowanym przed przejściem na
-          tę stronę, nie aktywnego linku resetu hasła lub innego wewnętrzego błędu strony,
-          zostaniesz przekierowany na stronę główną
-        </p>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-4xl font-bold">Wystąpił błąd</h1>
+          <p className="text-muted">
+            Twoje konto nie posiada aktywnego żądania resetu hasła
+          </p>
+        </div>
+        <Button variant="primary">
+          <Link href="/password-recovery">Resetuj hasło</Link>
+        </Button>
+        <Button>
+          <Link href="/">Wróć na stronę główną</Link>
+        </Button>
       </div>
     )
-  }
-
-  if (user && isRequestValid) {
-    redirectTimeout.current && clearTimeout(redirectTimeout.current)
-    return <UpdatePasswordForm />
-  } else if (user && !isRequestValid) {
-    redirectTimeout.current && clearTimeout(redirectTimeout.current)
-    return (
-      <p>
-        {user.email} nie posiada aktywnego tokenu odzyskiwania hasła. Należy wykonać nową
-        prośbę o odzyskanie hasła
-      </p>
-    )
-  } else {
-    redirectTimeout.current && clearTimeout(redirectTimeout.current)
-    router.replace("/")
-    return null
   }
 }

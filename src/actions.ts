@@ -64,7 +64,10 @@ export async function socialSignIn(
   }
 }
 
-export async function signUp(formData: FieldValues): Promise<{
+export async function signUp(
+  formData: FieldValues,
+  redirectTo: string,
+): Promise<{
   error: string
 }> {
   const supabase = createClient()
@@ -74,6 +77,7 @@ export async function signUp(formData: FieldValues): Promise<{
     password: formData.password,
     options: {
       captchaToken: formData.token,
+      emailRedirectTo: redirectTo,
     },
   }
 
