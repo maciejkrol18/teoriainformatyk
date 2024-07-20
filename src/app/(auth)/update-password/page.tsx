@@ -17,9 +17,9 @@ import { useEffect, useRef, useState } from "react"
   accessing this route (redirectIfLoggedIn)
 
   When user clicks the recovery link, they get sent to this page with pkce token stuff in the url
-  When that gets resolved and removed from the url, the "INITIAL_SESSION" event is fired
+  When that gets resolved and removed from the url, the "SIGNED_IN" event is fired
 
-  In case the "INITIAL_SESSION" event doesn't fire, the component has a 5s timeout to redirect
+  In case the "SIGNED_IN" event doesn't fire, the component has a 5s timeout to redirect
   to the homepage if the user wasn't found and the loading state is still true. This occurs
   when the link expired, for example
 */
@@ -59,15 +59,10 @@ export default function UpdatePasswordPage() {
     redirectIfLoggedIn()
 
     const supabase = createClient()
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "INITIAL_SESSION") {
-        console.log("INITIAL_SESSION", new Date().toLocaleTimeString())
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") {
         fetchUser()
-        // data.subscription.unsubscribe()
-      } else if (event === "PASSWORD_RECOVERY") {
-        console.log("PASSWORD_RECOVERY", new Date().toLocaleTimeString())
-        fetchUser()
-        // data.subscription.unsubscribe()
+        data.subscription.unsubscribe()
       }
     })
 
@@ -89,9 +84,9 @@ export default function UpdatePasswordPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col grow gap-4">
-        <p className="text-lg text-center">Sprawdzanie uwierzytelnienia...</p>
-        <p className="text-sm text-muted text-center">
+      <div className="flex flex-col gap-4">
+        <p className="text-4xl font-bold">Sprawdzanie uwierzytelnienia...</p>
+        <p className="text-muted">
           Strona przetwarza twoje dane. W przypadku bycia zalogowanym przed przejściem na
           tę stronę, nie aktywnego linku resetu hasła lub innego wewnętrzego błędu strony,
           zostaniesz przekierowany na stronę główną
@@ -106,12 +101,10 @@ export default function UpdatePasswordPage() {
   } else if (user && !isRequestValid) {
     redirectTimeout.current && clearTimeout(redirectTimeout.current)
     return (
-      <div className="flex flex-col grow items-center justify-center gap-4">
-        <p className="text-lg text-center">
-          {user.email} nie posiada aktywnego tokenu odzyskiwania hasła. Należy wykonać
-          nową prośbę o odzyskanie hasła
-        </p>
-      </div>
+      <p>
+        {user.email} nie posiada aktywnego tokenu odzyskiwania hasła. Należy wykonać nową
+        prośbę o odzyskanie hasła
+      </p>
     )
   } else {
     redirectTimeout.current && clearTimeout(redirectTimeout.current)
