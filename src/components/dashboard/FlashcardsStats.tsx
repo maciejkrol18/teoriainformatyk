@@ -30,13 +30,12 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
       .single()
 
     if (error || !data.question_id_array) {
-      setLoading(false)
       setFinishedQuestions(null)
     } else {
-      setLoading(false)
       setFinishedQuestions(data.question_id_array.length)
     }
 
+    setLoading(false)
     wereStatsFetched.current = true
   }
 

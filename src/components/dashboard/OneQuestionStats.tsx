@@ -31,13 +31,12 @@ export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
       .single()
 
     if (error) {
-      setLoading(false)
       setStats(null)
     } else {
-      setLoading(false)
       setStats(data)
     }
 
+    setLoading(false)
     wereStatsFetched.current = true
   }
 

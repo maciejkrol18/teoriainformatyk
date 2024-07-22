@@ -1,27 +1,16 @@
-import { createClient } from '@/lib/supabase/server'
 import DashboardBlock from './DashboardBlock'
 import Link from 'next/link'
 import { Button } from '../ui/Button'
 import ScoreBlock from '../ui/ScoreBlock'
+import { LatestExamScoresEntry } from '@/types/latest-exams-entry'
+import { createClient } from '@/lib/supabase/server'
 
 interface DashboardLatestExamsProps {
   userId: string
   className?: string
 }
 
-interface Score {
-  exam_id: number | null
-  percentage_score: number
-  created_at: string
-  exams: {
-    name: string
-  } | null
-}
-
-export default async function DashboardLatestExams({
-  userId,
-  className,
-}: DashboardLatestExamsProps) {
+async function getLatestExams(userId: string) {
   const supabase = createClient()
 
   const { data, error } = await supabase
@@ -31,12 +20,23 @@ export default async function DashboardLatestExams({
     .order('created_at', { ascending: false })
     .limit(4)
 
-  let scores: Score[] = []
+  let scores: LatestExamScoresEntry[] = []
 
   if (data) {
     scores = [...scores, ...data]
   }
 
+  return {
+    scores: scores,
+    error: error?.message,
+  }
+}
+
+export default async function DashboardLatestExams({
+  className,
+  userId,
+}: DashboardLatestExamsProps) {
+  const { scores, error } = await getLatestExams(userId)
   return (
     <DashboardBlock
       blockTitle="Ostatnie egzaminy"
@@ -66,7 +66,7 @@ export default async function DashboardLatestExams({
       {error && (
         <div className="flex justify-center items-center grow">
           <p className="text-muted">
-            Wystąpił błąd podczas pobierania danych <br /> {error.message}
+            Wystąpił błąd podczas pobierania danych <br /> {error}
           </p>
         </div>
       )}

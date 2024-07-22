@@ -4,25 +4,24 @@ import DashboardHeader from '@/components/dashboard/DashboardHeader'
 import DashboardLatestExams from '@/components/dashboard/DashboardLatestExams'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import { Button } from '@/components/ui/Button'
+import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export default async function DashboardPage() {
-  const supabase = createClient()
+  const { user } = await getUser()
 
-  const { data, error } = await supabase.auth.getUser()
-
-  if (error || !data?.user) {
+  if (!user) {
     redirect('/login')
   }
 
   return (
     <div className="flex flex-col gap-8">
-      <DashboardHeader userId={data.user.id} />
+      <DashboardHeader userId={user.id} />
       <div className="flex flex-col gap-8 lg:flex-row">
-        <DashboardStats userId={data.user.id} className="flex-1" />
-        <DashboardLatestExams userId={data.user.id} className="flex-1" />
+        <DashboardStats userId={user.id} className="flex-1" />
+        <DashboardLatestExams userId={user.id} className="flex-1" />
       </div>
       <DashboardBlock
         blockTitle="Zbiór trudnych pytań"
@@ -39,7 +38,7 @@ export default async function DashboardPage() {
           użytkowników serwisu za trudne, przejdź tutaj
         </p>
       </DashboardBlock>
-      <DashboardAccount userId={data.user.id} />
+      <DashboardAccount userId={user.id} />
     </div>
   )
 }

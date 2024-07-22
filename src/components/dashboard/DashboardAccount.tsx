@@ -31,40 +31,37 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
       ? new Date(data.created_at).toLocaleDateString()
       : 'Nieznana data dołączenia'
 
-  return (
-    <DashboardBlock blockTitle="Twoje konto">
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Button asChild variant="outline">
-          <Link href="/dashboard/change-password">
-            <KeyRound /> Zmień hasło
-          </Link>
-        </Button>
-        <Button asChild variant="outline" disabled>
-          <Link href="/dashboard/reset-stats">
-            <RotateCcw /> Zresetuj statystyki
-          </Link>
-        </Button>
-        <Button asChild variant="outline" disabled>
-          <Link href="/dashboard/delete-account">
-            <Trash2 /> Usuń konto
-          </Link>
-        </Button>
-      </div>
-      {data && !error ? (
-        <>
-          <DataParagraph label="Wyświetlana nazwa" value={data.display_name} />
-          <DataParagraph label="Adres email" value={data.email} />
-          <DataParagraph label="Data dołączenia" value={dateJoined} />
-          <DataParagraph label="Identyfikator" value={data.user_id} />
-        </>
-      ) : (
-        <p className="text-muted">Nie udało się załadować twoich danych</p>
-      )}
-      {error && (
-        <p className="text-muted">
-          Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
-        </p>
-      )}
-    </DashboardBlock>
-  )
+  if (!error) {
+    return (
+      <DashboardBlock blockTitle="Twoje konto">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button asChild variant="outline">
+            <Link href="/dashboard/change-password">
+              <KeyRound /> Zmień hasło
+            </Link>
+          </Button>
+          <Button asChild variant="outline" disabled>
+            <Link href="/dashboard/reset-stats">
+              <RotateCcw /> Zresetuj statystyki
+            </Link>
+          </Button>
+          <Button asChild variant="outline" disabled>
+            <Link href="/dashboard/delete-account">
+              <Trash2 /> Usuń konto
+            </Link>
+          </Button>
+        </div>
+        <DataParagraph label="Wyświetlana nazwa" value={data.display_name} />
+        <DataParagraph label="Adres email" value={data.email} />
+        <DataParagraph label="Data dołączenia" value={dateJoined} />
+        <DataParagraph label="Identyfikator" value={data.user_id} />
+      </DashboardBlock>
+    )
+  } else {
+    return (
+      <p className="text-muted">
+        Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
+      </p>
+    )
+  }
 }
