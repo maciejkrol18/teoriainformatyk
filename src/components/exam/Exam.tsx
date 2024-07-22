@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { createClient } from "@/lib/supabase/client"
-import { ExamQuestion } from "@/types/exam-question"
-import { useEffect, useRef, useState } from "react"
+import { createClient } from '@/lib/supabase/client'
+import { ExamQuestion } from '@/types/exam-question'
+import { useEffect, useRef, useState } from 'react'
 import {
   Question,
   QuestionAnswer,
@@ -11,16 +11,16 @@ import {
   QuestionMarker,
   questionAnswerVariants,
   QuestionImage,
-} from "../ui/Question"
-import { VariantProps } from "class-variance-authority"
-import { toast } from "sonner"
-import { v4 } from "uuid"
-import ExamScoreDisplay from "./ExamScoreDisplay"
-import { ExamScore } from "@/types/exam-score"
-import { Button } from "../ui/Button"
-import ExamTimer from "./ExamTimer"
-import ExamSkeleton from "../skeletons/ExamSkeleton"
-import GoToTopBtn from "./GoToTopBtn"
+} from '../ui/Question'
+import { VariantProps } from 'class-variance-authority'
+import { toast } from 'sonner'
+import { v4 } from 'uuid'
+import ExamScoreDisplay from './ExamScoreDisplay'
+import { ExamScore } from '@/types/exam-score'
+import { Button } from '../ui/Button'
+import ExamTimer from './ExamTimer'
+import ExamSkeleton from '../skeletons/ExamSkeleton'
+import GoToTopBtn from './GoToTopBtn'
 
 interface ExamProps {
   examId: number
@@ -35,14 +35,14 @@ export default function Exam({ examId }: ExamProps) {
 
   const getQuestions = async (id: number) => {
     const supabase = createClient()
-    const { data, error } = await supabase.rpc("get_random_questions", {
+    const { data, error } = await supabase.rpc('get_random_questions', {
       amount: 40,
       exam_id: id,
     })
     if (error) {
       throw new Error(error.message)
     } else if (!data) {
-      throw new Error("Błąd pobierania pytań z bazy. Spróbuj ponownie")
+      throw new Error('Błąd pobierania pytań z bazy. Spróbuj ponownie')
     } else {
       setQuestions(
         data.map((question) => {
@@ -77,20 +77,20 @@ export default function Exam({ examId }: ExamProps) {
   const getAnswerVariant = (
     answer: string,
     question: ExamQuestion,
-  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
+  ): VariantProps<typeof questionAnswerVariants>['variant'] => {
     if (isExamFinished) {
       if (!question.selected_answer && answer === question.correct_answer) {
-        return "unanswered"
+        return 'unanswered'
       } else if (answer === question.correct_answer && question.selected_answer) {
-        return "correct"
+        return 'correct'
       } else if (
         answer === question.selected_answer &&
         answer !== question.correct_answer
       ) {
-        return "incorrect"
+        return 'incorrect'
       }
     } else {
-      return answer === question.selected_answer ? "selected" : "default"
+      return answer === question.selected_answer ? 'selected' : 'default'
     }
   }
 
@@ -119,7 +119,7 @@ export default function Exam({ examId }: ExamProps) {
 
     const finalScore: ExamScore = {
       score_id: v4(),
-      user_id: "",
+      user_id: '',
       exam_id: examId,
       percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
       correct: amountCorrect,
@@ -135,7 +135,7 @@ export default function Exam({ examId }: ExamProps) {
 
     if (user) {
       const supabase = createClient()
-      const { error } = await supabase.from("exam_scores").insert({
+      const { error } = await supabase.from('exam_scores').insert({
         ...finalScore,
         user_id: user.id,
       })
@@ -143,10 +143,10 @@ export default function Exam({ examId }: ExamProps) {
         toast.error(`Błąd zapisywania wyniku: ${error.message}`)
         console.error(error)
       } else {
-        toast.success("Wynik zapisany")
+        toast.success('Wynik zapisany')
       }
     } else {
-      toast.info("Zaloguj się, aby zapisać swój wynik")
+      toast.info('Zaloguj się, aby zapisać swój wynik')
     }
   }
 
@@ -168,7 +168,7 @@ export default function Exam({ examId }: ExamProps) {
     if (finalScore) {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       })
     }
   }, [finalScore])
@@ -188,7 +188,7 @@ export default function Exam({ examId }: ExamProps) {
           <ExamScoreDisplay score={finalScore} questions={questions} />
         )}
         {questions.map((question, index) => {
-          const atlas = "ABCD"
+          const atlas = 'ABCD'
           return (
             <Question id={`question-${index + 1}`} key={index}>
               <QuestionMarker>{index + 1}</QuestionMarker>
@@ -216,7 +216,7 @@ export default function Exam({ examId }: ExamProps) {
           )
         })}
         <Button variant="primary" className="uppercase mb-4" onClick={() => endGame()}>
-          {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
+          {isExamFinished ? 'Spróbuj ponownie' : 'Zakończ egzamin'}
         </Button>
       </div>
     )

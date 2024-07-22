@@ -1,48 +1,48 @@
-import { cn } from "@/lib/utils"
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import localFont from "next/font/local"
-import React from "react"
-import { Analytics } from "@vercel/analytics/react"
-import Providers from "./providers"
-import { Toaster } from "sonner"
-import { TailwindIndicator } from "./tailwind-indicator"
-import ToasterWrapper from "@/components/ui/ToasterWrapper"
+import { cn } from '@/lib/utils'
+import './globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
+import React from 'react'
+import { Analytics } from '@vercel/analytics/react'
+import Providers from './providers'
+import { Toaster } from 'sonner'
+import { TailwindIndicator } from './tailwind-indicator'
+import ToasterWrapper from '@/components/ui/ToasterWrapper'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 const interDisplay = localFont({
-  src: "../assets/fonts/InterDisplay-SemiBold.woff2",
-  variable: "--font-interdisplay",
+  src: '../assets/fonts/InterDisplay-SemiBold.woff2',
+  variable: '--font-interdisplay',
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://teoriainformatyk.vercel.app"),
+  metadataBase: new URL('https://teoriainformatyk.vercel.app'),
   title: {
-    default: "teoriainformatyk",
-    template: "%s | teoriainformatyk",
+    default: 'teoriainformatyk',
+    template: '%s | teoriainformatyk',
   },
-  description: "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
+  description: 'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
   keywords: [
-    "technik informatyk",
-    "egzamin zawodowy",
-    "inf02",
-    "inf03",
-    "egzamin informatyk",
+    'technik informatyk',
+    'egzamin zawodowy',
+    'inf02',
+    'inf03',
+    'egzamin informatyk',
   ],
   authors: [
     {
-      name: "Maciej Król",
-      url: "https://github.com/maciejkrol18",
+      name: 'Maciej Król',
+      url: 'https://github.com/maciejkrol18',
     },
   ],
   openGraph: {
-    type: "website",
-    locale: "pl_PL",
-    title: "teoriainformatyk",
+    type: 'website',
+    locale: 'pl_PL',
+    title: 'teoriainformatyk',
     description:
-      "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
+      'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
   },
 }
 
@@ -60,7 +60,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
           <TailwindIndicator />
           <div
             className={cn(
-              "bg-background text-text min-h-screen flex flex-col font-sans",
+              'bg-background text-text min-h-screen flex flex-col font-sans',
               inter.variable,
               interDisplay.variable,
             )}

@@ -1,7 +1,7 @@
-"use client"
-import Image from "next/image"
-import ErrorImage from "@/public/logo-error.svg"
-import Link from "next/link"
+'use client'
+import Image from 'next/image'
+import ErrorImage from '@/public/logo-error.svg'
+import Link from 'next/link'
 
 interface ErrorProps {
   error: Error

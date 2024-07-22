@@ -1,9 +1,9 @@
-import UpdatePasswordForm from "@/components/auth/UpdatePasswordForm"
-import { createClient } from "@/lib/supabase/server"
-import getUser from "@/lib/supabase/get-user"
-import { redirect } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/Button"
+import UpdatePasswordForm from '@/components/auth/UpdatePasswordForm'
+import { createClient } from '@/lib/supabase/server'
+import getUser from '@/lib/supabase/get-user'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
 
 /*
   This is the most hacky part of the app. 
@@ -25,9 +25,9 @@ export default async function UpdatePasswordPage() {
 
   const { user } = await getUser()
 
-  if (!user?.email) redirect("/")
+  if (!user?.email) redirect('/')
 
-  const { data } = await supabase.rpc("check_password_change_validity", {
+  const { data } = await supabase.rpc('check_password_change_validity', {
     email_to_check: user.email,
   })
 

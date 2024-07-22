@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./DropdownMenu"
-import Link from "next/link"
-import { LayoutDashboard, LogOut } from "lucide-react"
-import { signOut } from "@/app/(auth)/actions"
+} from './DropdownMenu'
+import Link from 'next/link'
+import { LayoutDashboard, LogOut } from 'lucide-react'
+import { signOut } from '@/app/(auth)/actions'
 
 interface HeaderAuthDropdownProps {
   email: string
@@ -31,7 +31,7 @@ export default function HeaderAuthDropdown({
       <DropdownMenuTrigger asChild>
         <button onClick={() => setOpen(true)}>
           <img
-            src={avatar_url ? avatar_url : ""}
+            src={avatar_url ? avatar_url : ''}
             alt="Profil"
             width={32}
             height={32}

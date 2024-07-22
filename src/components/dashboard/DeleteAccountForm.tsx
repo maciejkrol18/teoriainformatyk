@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "../ui/Input"
-import React from "react"
-import { toast } from "sonner"
-import { deleteAccount } from "@/app/(default)/dashboard/actions"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Input } from '../ui/Input'
+import React from 'react'
+import { toast } from 'sonner'
+import { deleteAccount } from '@/app/(default)/dashboard/actions'
 
-const CONFIRMATION_PHRASE = "Chcę usunąć swoje konto"
+const CONFIRMATION_PHRASE = 'Chcę usunąć swoje konto'
 
 const schema = z
   .object({
@@ -16,8 +16,8 @@ const schema = z
     confirmationPhrase: z.string(),
   })
   .refine((data) => data.confirmationPhrase === CONFIRMATION_PHRASE, {
-    message: "Nieprawidłowa fraza potwierdzająca",
-    path: ["confirmationPhrase"],
+    message: 'Nieprawidłowa fraza potwierdzająca',
+    path: ['confirmationPhrase'],
   })
 
 export default function DeleteAccountForm() {
@@ -35,7 +35,7 @@ export default function DeleteAccountForm() {
         const error = await deleteAccount(data)
         if (error) {
           toast.error(`Wystąpił błąd: ${error.message}`)
-          resetField("currentPassword")
+          resetField('currentPassword')
           return
         }
       })}
@@ -43,7 +43,7 @@ export default function DeleteAccountForm() {
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="currentPassword">Twoje hasło</label>
-        <Input id="currentPassword" type="password" {...register("currentPassword")} />
+        <Input id="currentPassword" type="password" {...register('currentPassword')} />
         {errors.newPassword?.message && (
           <p className="text-red-500">
             {errors.currentPassword?.message as React.ReactNode}
@@ -54,7 +54,7 @@ export default function DeleteAccountForm() {
         <label htmlFor="confirmationPhrase">
           Potwierdź usunięcie (wpisz &quot;{CONFIRMATION_PHRASE}&quot;)
         </label>
-        <Input id="confirmationPhrase" type="text" {...register("confirmationPhrase")} />
+        <Input id="confirmationPhrase" type="text" {...register('confirmationPhrase')} />
         {errors.confirmationPhrase?.message && (
           <p className="text-red-500">
             {errors.confirmationPhrase?.message as React.ReactNode}

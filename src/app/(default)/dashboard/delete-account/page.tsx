@@ -1,9 +1,9 @@
-import DeleteAccountForm from "@/components/dashboard/DeleteAccountForm"
-import { Button } from "@/components/ui/Button"
-import { createClient } from "@/lib/supabase/server"
-import { ArrowUpLeft } from "lucide-react"
-import Link from "next/link"
-import { redirect } from "next/navigation"
+import DeleteAccountForm from '@/components/dashboard/DeleteAccountForm'
+import { Button } from '@/components/ui/Button'
+import { createClient } from '@/lib/supabase/server'
+import { ArrowUpLeft } from 'lucide-react'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function DeleteAccountPage() {
   const supabase = createClient()
@@ -11,7 +11,7 @@ export default async function DeleteAccountPage() {
   const { data, error } = await supabase.auth.getUser()
 
   if (error || !data?.user) {
-    redirect("/login")
+    redirect('/login')
   }
 
   return (

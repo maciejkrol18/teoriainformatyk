@@ -1,15 +1,15 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
-import { createClient } from "@/lib/supabase/server"
-import { FieldValues } from "react-hook-form"
+import { createClient } from '@/lib/supabase/server'
+import { FieldValues } from 'react-hook-form'
 import {
   Provider,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
-} from "@supabase/supabase-js"
+} from '@supabase/supabase-js'
 
 export async function signIn(formData: FieldValues): Promise<{
   error: string
@@ -32,8 +32,8 @@ export async function signIn(formData: FieldValues): Promise<{
     }
   }
 
-  revalidatePath("/", "layout")
-  redirect("/")
+  revalidatePath('/', 'layout')
+  redirect('/')
 }
 
 export async function socialSignIn(
@@ -88,15 +88,15 @@ export async function signUp(
     }
   }
 
-  revalidatePath("/", "layout")
-  redirect("/confirm-signup")
+  revalidatePath('/', 'layout')
+  redirect('/confirm-signup')
 }
 
 export async function signOut() {
   const supabase = createClient()
   await supabase.auth.signOut()
-  revalidatePath("/login", "layout")
-  redirect("/login")
+  revalidatePath('/login', 'layout')
+  redirect('/login')
 }
 
 export async function startPasswordRecovery(
@@ -132,14 +132,14 @@ export async function updatePassword(formData: FieldValues): Promise<string> {
 
   await supabase.auth.signOut()
 
-  revalidatePath("/login", "layout")
-  redirect("/login")
+  revalidatePath('/login', 'layout')
+  redirect('/login')
 }
 
 export async function checkIfAccountExists(email: string) {
   const supabase = createClient()
 
-  const { data, error } = await supabase.rpc("check_account_exists", {
+  const { data, error } = await supabase.rpc('check_account_exists', {
     email_to_check: email,
   })
 

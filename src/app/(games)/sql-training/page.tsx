@@ -1,4 +1,4 @@
-import SqlTraining from "./SqlTraining"
+import SqlTraining from './SqlTraining'
 
 export default function Page() {
   return <SqlTraining />

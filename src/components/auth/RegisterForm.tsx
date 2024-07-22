@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import { FieldValues, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "../ui/Input"
-import { useRef, useState } from "react"
-import { checkIfAccountExists, signUp } from "@/app/(auth)/actions"
-import { toast } from "sonner"
-import { Button } from "../ui/Button"
-import { LoaderIcon } from "lucide-react"
-import HCaptcha from "@hcaptcha/react-hcaptcha"
+import { FieldValues, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Input } from '../ui/Input'
+import { useRef, useState } from 'react'
+import { checkIfAccountExists, signUp } from '@/app/(auth)/actions'
+import { toast } from 'sonner'
+import { Button } from '../ui/Button'
+import { LoaderIcon } from 'lucide-react'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 
 const schema = z
   .object({
     email: z
       .string()
-      .min(1, { message: "Email nie może być pusty" })
-      .email("Nieprawidłowy adres email"),
-    password: z.string().min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
-    token: z.string().min(1, { message: "Weryfikacja hCaptcha jest wymagana" }),
+      .min(1, { message: 'Email nie może być pusty' })
+      .email('Nieprawidłowy adres email'),
+    password: z.string().min(8, { message: 'Hasło musi się składać z minimum 8 znaków' }),
+    token: z.string().min(1, { message: 'Weryfikacja hCaptcha jest wymagana' }),
   })
   .refine(
     async (data) => {
@@ -26,8 +26,8 @@ const schema = z
       return !exists
     },
     {
-      message: "Konto z tym adresem email już istnieje",
-      path: ["email"],
+      message: 'Konto z tym adresem email już istnieje',
+      path: ['email'],
     },
   )
 
@@ -47,20 +47,20 @@ export default function RegisterForm() {
   })
 
   const handleCaptchaChange = (token: string) => {
-    setValue("token", token, { shouldValidate: true })
+    setValue('token', token, { shouldValidate: true })
   }
 
   const onSubmit = async (data: FieldValues) => {
     setLoading(true)
     const { error } = await signUp(
       data,
-      window ? `${window.location.origin}` : "http://localhost:3000",
+      window ? `${window.location.origin}` : 'http://localhost:3000',
     )
     if (error) {
       toast.error(`W trakcie rejestracji wystąpił błąd: ${error}`)
       setLoading(false)
     } else {
-      toast.success("Zarejestrowano")
+      toast.success('Zarejestrowano')
     }
     captchaRef.current?.resetCaptcha()
   }
@@ -71,12 +71,12 @@ export default function RegisterForm() {
       className="w-full flex flex-col gap-2"
     >
       <label htmlFor="email">Email</label>
-      <Input id="email" type="email" {...register("email")} />
+      <Input id="email" type="email" {...register('email')} />
       <p className="text-red-500 min-h-[24px]">
         {errors.email?.message as React.ReactNode}
       </p>
       <label htmlFor="password">Hasło</label>
-      <Input id="password" type="password" {...register("password")} />
+      <Input id="password" type="password" {...register('password')} />
       <p className="text-red-500 min-h-[24px]">
         {errors.password?.message as React.ReactNode}
       </p>
@@ -86,20 +86,20 @@ export default function RegisterForm() {
           onVerify={handleCaptchaChange}
           theme="dark"
           languageOverride="pl"
-          onChalExpired={() => toast.warning("Weryfikacja Captcha wygasła")}
+          onChalExpired={() => toast.warning('Weryfikacja Captcha wygasła')}
           onError={(error) =>
             toast.error(`Wystąpił błąd w trakcie weryfikacji Captcha: ${error}`)
           }
           ref={captchaRef}
         />
       </div>
-      <input type="hidden" {...register("token")} />
+      <input type="hidden" {...register('token')} />
       <p className="text-red-500 min-h-[48px]">
         {errors.token?.message as React.ReactNode}
       </p>
       <Button type="submit" variant="primary">
         {loading && <LoaderIcon className="animate-spin" />}
-        {loading ? "Tworzenie konta..." : "Stwórz konto"}
+        {loading ? 'Tworzenie konta...' : 'Stwórz konto'}
       </Button>
     </form>
   )

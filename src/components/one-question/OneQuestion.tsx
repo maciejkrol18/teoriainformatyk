@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useState, useEffect, useRef } from "react"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "../ui/Button"
+import { useState, useEffect, useRef } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { Button } from '../ui/Button'
 import {
   Question,
   QuestionAnswer,
@@ -10,15 +10,15 @@ import {
   QuestionContent,
   QuestionImage,
   questionAnswerVariants,
-} from "../ui/Question"
-import { VariantProps } from "class-variance-authority"
-import QuestionSkeleton from "../skeletons/QuestionSkeleton"
-import { toast } from "sonner"
-import SessionStats from "./SessionStats"
-import OneQuestionBar from "./OneQuestionBar"
-import { Question as QuestionType } from "@/types/question"
-import getUser from "@/lib/supabase/get-user"
-import { getHardCollection } from "@/lib/supabase/hard-collection"
+} from '../ui/Question'
+import { VariantProps } from 'class-variance-authority'
+import QuestionSkeleton from '../skeletons/QuestionSkeleton'
+import { toast } from 'sonner'
+import SessionStats from './SessionStats'
+import OneQuestionBar from './OneQuestionBar'
+import { Question as QuestionType } from '@/types/question'
+import getUser from '@/lib/supabase/get-user'
+import { getHardCollection } from '@/lib/supabase/hard-collection'
 
 interface OneQuestionProps {
   examId: number
@@ -39,7 +39,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
 
   const getRandomQuestion = async () => {
     const supabase = createClient()
-    const { data, error } = await supabase.rpc("get_random_questions", {
+    const { data, error } = await supabase.rpc('get_random_questions', {
       amount: 1,
       exam_id: examId,
       range: hardMode ? hardCollection : undefined,
@@ -49,11 +49,11 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     } else if (!data[0]) {
       if (hardMode) {
         toast.warning(
-          "Brak pasujących trudnych pytań w kolekcji. Powrót do trybu normalnego",
+          'Brak pasujących trudnych pytań w kolekcji. Powrót do trybu normalnego',
         )
         setHardMode(false)
       } else {
-        throw new Error("Baza nie mogła znaleźć pasującego pytania. Spróbuj ponownie.")
+        throw new Error('Baza nie mogła znaleźć pasującego pytania. Spróbuj ponownie.')
       }
     } else {
       const questionWithShuffledAnswers = {
@@ -74,17 +74,17 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   const getAnswerVariant = (
     answer: string,
     question: QuestionType,
-  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
+  ): VariantProps<typeof questionAnswerVariants>['variant'] => {
     if (selectedAnswer) {
       if (!selectedAnswer && answer === question.correct_answer) {
-        return "unanswered"
+        return 'unanswered'
       } else if (answer === question.correct_answer && selectedAnswer) {
-        return "correct"
+        return 'correct'
       } else if (answer === selectedAnswer && answer !== question.correct_answer) {
-        return "incorrect"
+        return 'incorrect'
       }
     } else {
-      return answer === selectedAnswer ? "selected" : "default"
+      return answer === selectedAnswer ? 'selected' : 'default'
     }
   }
 
@@ -92,13 +92,13 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     setCorrectAnswers((prev) => prev + 1)
     if (userId) {
       const supabase = createClient()
-      const { error } = await supabase.rpc("one_question_increment_correct", {
+      const { error } = await supabase.rpc('one_question_increment_correct', {
         user_id: userId,
         exam_id: examId,
       })
       if (error) {
         console.error(error)
-        toast.error("Błąd aktualizacji statystyk")
+        toast.error('Błąd aktualizacji statystyk')
       }
     }
   }
@@ -107,13 +107,13 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     setIncorrectAnswers((prev) => prev + 1)
     if (userId) {
       const supabase = createClient()
-      const { error } = await supabase.rpc("one_question_increment_incorrect", {
+      const { error } = await supabase.rpc('one_question_increment_incorrect', {
         user_id: userId,
         exam_id: examId,
       })
       if (error) {
         console.error(error)
-        toast.error("Błąd aktualizacji statystyk")
+        toast.error('Błąd aktualizacji statystyk')
       }
     }
   }
@@ -130,15 +130,15 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
 
   useEffect(() => {
     const rollOnSpaceClick = (e: KeyboardEvent) => {
-      if (e.code === "Space") {
+      if (e.code === 'Space') {
         if (rollButtonRef.current) rollButtonRef.current.blur()
         rollQuestion()
       }
     }
 
-    window.addEventListener("keyup", rollOnSpaceClick)
+    window.addEventListener('keyup', rollOnSpaceClick)
 
-    return () => window.removeEventListener("keyup", rollOnSpaceClick)
+    return () => window.removeEventListener('keyup', rollOnSpaceClick)
   }, [hardMode, hardCollection])
 
   useEffect(() => {
@@ -163,14 +163,14 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
         className="font-semibold uppercase w-full hidden lg:flex flex-col"
         ref={rollButtonRef}
       >
-        {selectedAnswer ? "Następne" : "Losuj"} (Spacja)
+        {selectedAnswer ? 'Następne' : 'Losuj'} (Spacja)
       </Button>
       {question ? (
         <Question className="bg-transparent">
           <QuestionContent>{question.content}</QuestionContent>
           <QuestionAnswersContainer>
             {question.answers.map((answer, index) => {
-              const atlas = "ABCD"
+              const atlas = 'ABCD'
               return (
                 <QuestionAnswer
                   onClick={() => setSelectedAnswer(answer)}

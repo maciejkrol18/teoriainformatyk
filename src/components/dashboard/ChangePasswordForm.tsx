@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "../ui/Input"
-import React from "react"
-import { toast } from "sonner"
-import { changePassword } from "@/app/(default)/dashboard/actions"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Input } from '../ui/Input'
+import React from 'react'
+import { toast } from 'sonner'
+import { changePassword } from '@/app/(default)/dashboard/actions'
 
 const schema = z
   .object({
     currentPassword: z.string(),
     newPassword: z
       .string()
-      .min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
+      .min(8, { message: 'Hasło musi się składać z minimum 8 znaków' }),
     confirmedNewPassword: z.string(),
   })
   .refine((data) => data.newPassword === data.confirmedNewPassword, {
-    message: "Hasła nie są identyczne",
-    path: ["confirm"],
+    message: 'Hasła nie są identyczne',
+    path: ['confirm'],
   })
 
 export default function ChangePasswordForm() {
@@ -36,7 +36,7 @@ export default function ChangePasswordForm() {
         const error = await changePassword(data)
         if (error) {
           toast.error(`Wystąpił błąd: ${error}`)
-          resetField("currentPassword")
+          resetField('currentPassword')
           return
         }
       })}
@@ -44,7 +44,7 @@ export default function ChangePasswordForm() {
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="password">Aktualne hasło</label>
-        <Input id="currentPassword" type="password" {...register("currentPassword")} />
+        <Input id="currentPassword" type="password" {...register('currentPassword')} />
         {errors.newPassword?.message && (
           <p className="text-red-500">
             {errors.currentPassword?.message as React.ReactNode}
@@ -53,7 +53,7 @@ export default function ChangePasswordForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="password">Nowe hasło</label>
-        <Input id="newPassword" type="password" {...register("newPassword")} />
+        <Input id="newPassword" type="password" {...register('newPassword')} />
         {errors.newPassword?.message && (
           <p className="text-red-500">{errors.newPassword?.message as React.ReactNode}</p>
         )}
@@ -63,7 +63,7 @@ export default function ChangePasswordForm() {
         <Input
           id="confirmedNewPassword"
           type="password"
-          {...register("confirmedNewPassword")}
+          {...register('confirmedNewPassword')}
         />
         {errors.confirmedNewPassword?.message && (
           <p className="text-red-500">

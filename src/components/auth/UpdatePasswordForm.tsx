@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "../ui/Input"
-import { Button } from "../ui/Button"
-import { LoaderIcon } from "lucide-react"
-import { updatePassword } from "@/app/(auth)/actions"
-import { toast } from "sonner"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Input } from '../ui/Input'
+import { Button } from '../ui/Button'
+import { LoaderIcon } from 'lucide-react'
+import { updatePassword } from '@/app/(auth)/actions'
+import { toast } from 'sonner'
 
 const schema = z
   .object({
     newPassword: z
       .string()
-      .min(8, { message: "Hasło musi się składać z minimum 8 znaków" }),
+      .min(8, { message: 'Hasło musi się składać z minimum 8 znaków' }),
     confirmPassword: z.string(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Hasła nie są identyczne",
-    path: ["confirmPassword"],
+    message: 'Hasła nie są identyczne',
+    path: ['confirmPassword'],
   })
 
 export default function UpdatePasswordForm() {
@@ -40,18 +40,18 @@ export default function UpdatePasswordForm() {
       className="flex flex-col grow justify-center gap-2"
     >
       <label htmlFor="newPassword">Nowe hasło</label>
-      <Input id="newPassword" type="password" {...register("newPassword")} />
+      <Input id="newPassword" type="password" {...register('newPassword')} />
       <p className="text-red-500 min-h-[24px]">
         {errors.newPassword?.message as React.ReactNode}
       </p>
       <label htmlFor="confirmPassword">Potwierdź nowe hasło</label>
-      <Input id="confirmPassword" type="password" {...register("confirmPassword")} />
+      <Input id="confirmPassword" type="password" {...register('confirmPassword')} />
       <p className="text-red-500 min-h-[24px]">
         {errors.confirmPassword?.message as React.ReactNode}
       </p>
       <Button type="submit" variant="primary" disabled={isSubmitting}>
         {isSubmitting && <LoaderIcon className="animate-spin" />}
-        {isSubmitting ? "Przetwarzanie..." : "Zmień hasło"}
+        {isSubmitting ? 'Przetwarzanie...' : 'Zmień hasło'}
       </Button>
       <p className="text-muted">
         Po pomyślnej zmianie hasła nastąpi przekierowanie na stronę logowania

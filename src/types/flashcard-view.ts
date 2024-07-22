@@ -1,1 +1,1 @@
-export type FlashcardView = "question" | "review"
+export type FlashcardView = 'question' | 'review'

@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { Tabs, TabsContent, TabsTrigger, TabsList } from "../ui/Tabs"
-import DashboardBlock from "./DashboardBlock"
-import OneQuestionStats from "./OneQuestionStats"
-import FlashcardsStats from "./FlashcardsStats"
-import { cn } from "@/lib/utils"
+import { Tabs, TabsContent, TabsTrigger, TabsList } from '../ui/Tabs'
+import DashboardBlock from './DashboardBlock'
+import OneQuestionStats from './OneQuestionStats'
+import FlashcardsStats from './FlashcardsStats'
+import { cn } from '@/lib/utils'
 
 interface DashboardStatsProps {
   className?: string
@@ -13,7 +13,7 @@ interface DashboardStatsProps {
 
 export default function DashboardStats({ className, userId }: DashboardStatsProps) {
   return (
-    <Tabs defaultValue="inf02" className={cn("flex flex-col gap-8", className)}>
+    <Tabs defaultValue="inf02" className={cn('flex flex-col gap-8', className)}>
       <DashboardBlock
         blockTitle="Jedno pytanie"
         blockActions={

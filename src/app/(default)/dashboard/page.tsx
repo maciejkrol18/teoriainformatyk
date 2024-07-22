@@ -1,12 +1,12 @@
-import DashboardAccount from "@/components/dashboard/DashboardAccount"
-import DashboardBlock from "@/components/dashboard/DashboardBlock"
-import DashboardHeader from "@/components/dashboard/DashboardHeader"
-import DashboardLatestExams from "@/components/dashboard/DashboardLatestExams"
-import DashboardStats from "@/components/dashboard/DashboardStats"
-import { Button } from "@/components/ui/Button"
-import { createClient } from "@/lib/supabase/server"
-import Link from "next/link"
-import { redirect } from "next/navigation"
+import DashboardAccount from '@/components/dashboard/DashboardAccount'
+import DashboardBlock from '@/components/dashboard/DashboardBlock'
+import DashboardHeader from '@/components/dashboard/DashboardHeader'
+import DashboardLatestExams from '@/components/dashboard/DashboardLatestExams'
+import DashboardStats from '@/components/dashboard/DashboardStats'
+import { Button } from '@/components/ui/Button'
+import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function DashboardPage() {
   const supabase = createClient()
@@ -14,7 +14,7 @@ export default async function DashboardPage() {
   const { data, error } = await supabase.auth.getUser()
 
   if (error || !data?.user) {
-    redirect("/login")
+    redirect('/login')
   }
 
   return (

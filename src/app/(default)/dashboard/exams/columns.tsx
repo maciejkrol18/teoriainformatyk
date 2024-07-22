@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from '@tanstack/react-table'
 
 interface HistoryExamScore {
   created_at: string
@@ -19,43 +19,43 @@ interface HistoryExamScore {
 
 export const columns: ColumnDef<HistoryExamScore>[] = [
   {
-    accessorKey: "created_at",
-    header: "Data",
+    accessorKey: 'created_at',
+    header: 'Data',
   },
   {
-    accessorFn: (row) => (row.exams ? row.exams.name : "Nieznana"),
-    header: "Kwalifikacja",
+    accessorFn: (row) => (row.exams ? row.exams.name : 'Nieznana'),
+    header: 'Kwalifikacja',
   },
   {
-    accessorKey: "percentage_score",
-    header: "Wynik",
+    accessorKey: 'percentage_score',
+    header: 'Wynik',
     cell: ({ row }) => {
-      const percentageScore = parseFloat(row.getValue("percentage_score"))
+      const percentageScore = parseFloat(row.getValue('percentage_score'))
       return (
-        <div className={`${percentageScore > 50 ? "text-green-500" : "text-red-500"}`}>
+        <div className={`${percentageScore > 50 ? 'text-green-500' : 'text-red-500'}`}>
           {percentageScore}%
         </div>
       )
     },
   },
   {
-    accessorKey: "correct",
-    header: "Poprawne",
+    accessorKey: 'correct',
+    header: 'Poprawne',
   },
   {
-    accessorKey: "incorrect",
-    header: "Niepoprawne",
+    accessorKey: 'incorrect',
+    header: 'Niepoprawne',
   },
   {
-    accessorKey: "unanswered",
-    header: "Bez odpowiedzi",
+    accessorKey: 'unanswered',
+    header: 'Bez odpowiedzi',
   },
   {
-    accessorKey: "time_started",
-    header: "Rozpoczęto",
+    accessorKey: 'time_started',
+    header: 'Rozpoczęto',
   },
   {
-    accessorKey: "time_finished",
-    header: "Zakończono",
+    accessorKey: 'time_finished',
+    header: 'Zakończono',
   },
 ]

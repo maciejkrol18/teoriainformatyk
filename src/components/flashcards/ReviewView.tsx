@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { Button } from "../ui/Button"
-import Card from "./Card"
-import ProgressResetWarning from "./ProgressResetWarning"
-import { declension } from "@/lib/utils"
+import { useState } from 'react'
+import { Button } from '../ui/Button'
+import Card from './Card'
+import ProgressResetWarning from './ProgressResetWarning'
+import { declension } from '@/lib/utils'
 
 interface ReviewViewProps {
   handleStartFromBeginning: () => void
@@ -31,12 +31,12 @@ export default function ReviewView({
         ) : (
           <>
             <p className="text-2xl font-semibold">
-              Znasz już {amountKnown}{" "}
-              {declension(amountKnown, "pytanie", "pytania", "pytań")}
+              Znasz już {amountKnown}{' '}
+              {declension(amountKnown, 'pytanie', 'pytania', 'pytań')}
             </p>
             <p className="text-lg">
-              {declension(leftToLearn, "Pozostało", "Pozostały", "Pozostało")} Ci jeszcze{" "}
-              {leftToLearn} {declension(leftToLearn, "pytanie", "pytania", "pytań")}
+              {declension(leftToLearn, 'Pozostało', 'Pozostały', 'Pozostało')} Ci jeszcze{' '}
+              {leftToLearn} {declension(leftToLearn, 'pytanie', 'pytania', 'pytań')}
             </p>
             <div className="flex w-full items-center gap-2 px-4">
               <div className="bg-background-bright h-4 grow rounded-md">

@@ -1,38 +1,38 @@
-"use client"
+'use client'
 
-import { createClient } from "@/lib/supabase/client"
-import { QueryChallenge } from "@/types/query-challenge"
-import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/Button"
-import { Dices, ExternalLink, Send, Wand2 } from "lucide-react"
-import { Parser } from "node-sql-parser"
-import QueryInput from "./QueryInput"
-import { toast } from "sonner"
-import { QuestionImage } from "@/components/ui/Question"
-import Link from "next/link"
-import Skeleton from "@/components/ui/Skeleton"
+import { createClient } from '@/lib/supabase/client'
+import { QueryChallenge } from '@/types/query-challenge'
+import { useEffect, useRef, useState } from 'react'
+import { Button } from '@/components/ui/Button'
+import { Dices, ExternalLink, Send, Wand2 } from 'lucide-react'
+import { Parser } from 'node-sql-parser'
+import QueryInput from './QueryInput'
+import { toast } from 'sonner'
+import { QuestionImage } from '@/components/ui/Question'
+import Link from 'next/link'
+import Skeleton from '@/components/ui/Skeleton'
 
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
-  const [userQuery, setUserQuery] = useState<string>("")
+  const [userQuery, setUserQuery] = useState<string>('')
   const parser = useRef(new Parser())
 
   const fetchChallenge = async () => {
     const supabase = createClient()
-    const { data, error } = await supabase.rpc("get_random_query_challenge").single()
+    const { data, error } = await supabase.rpc('get_random_query_challenge').single()
     if (error) {
       throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`)
     } else if (!data) {
-      throw new Error("Błąd pobierania pytania. Spróbuj ponownie później")
+      throw new Error('Błąd pobierania pytania. Spróbuj ponownie później')
     } else {
       if (data.questions.length !== data.answers.length) {
-        throw new Error("Fetched arrays were not of the same length")
+        throw new Error('Fetched arrays were not of the same length')
       }
       const rand = Math.ceil(Math.random() * (data.questions.length - 1 - 0) + 0)
       const content = data.questions[rand]
       const answer = data.answers[rand]
       if (!content || !answer) {
-        throw new Error("Failed to fetch a random content and answer pair")
+        throw new Error('Failed to fetch a random content and answer pair')
       }
       setChallenge({
         exam_code: data.exam_code,
@@ -47,7 +47,7 @@ export default function SqlTraining() {
 
   const rollChallenge = () => {
     setChallenge(null)
-    setUserQuery("")
+    setUserQuery('')
     fetchChallenge()
   }
 
@@ -57,14 +57,14 @@ export default function SqlTraining() {
 
   const checkAnswer = () => {
     if (!userQuery) {
-      toast.error("Wpisz swoją odpowiedź w edytor po lewej stronie")
+      toast.error('Wpisz swoją odpowiedź w edytor po lewej stronie')
       return
     }
     if (userQuery && challenge) {
       try {
         const parsedAnswer = parser.current.parse(
-          userQuery.charAt(userQuery.length - 1) === ";"
-            ? userQuery.substring(0, userQuery.indexOf(";"))
+          userQuery.charAt(userQuery.length - 1) === ';'
+            ? userQuery.substring(0, userQuery.indexOf(';'))
             : userQuery,
         )
 
@@ -72,10 +72,10 @@ export default function SqlTraining() {
 
         const isCorrect =
           JSON.stringify(parsedAnswer) === JSON.stringify(parsedCorrectAnswer)
-        isCorrect ? toast.success("Poprawna odpowiedź") : toast.error("Zła odpowiedź")
+        isCorrect ? toast.success('Poprawna odpowiedź') : toast.error('Zła odpowiedź')
       } catch (error) {
-        toast.error("Zła odpowiedź")
-        console.warn("Parser Error:", error)
+        toast.error('Zła odpowiedź')
+        console.warn('Parser Error:', error)
       }
     }
   }

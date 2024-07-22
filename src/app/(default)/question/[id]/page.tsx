@@ -1,6 +1,6 @@
-import QuestionDetails from "@/components/ui/QuestionDetails"
-import { createClient } from "@/lib/supabase/server"
-import { notFound } from "next/navigation"
+import QuestionDetails from '@/components/ui/QuestionDetails'
+import { createClient } from '@/lib/supabase/server'
+import { notFound } from 'next/navigation'
 
 export default async function QuestionPage({
   params,
@@ -12,9 +12,9 @@ export default async function QuestionPage({
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("questions")
-    .select("*")
-    .eq("id", params.id)
+    .from('questions')
+    .select('*')
+    .eq('id', params.id)
     .single()
 
   if (!data || error) {

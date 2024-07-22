@@ -1,9 +1,9 @@
-import ResetStatsForm from "@/components/dashboard/ResetStatsForm"
-import { Button } from "@/components/ui/Button"
-import { createClient } from "@/lib/supabase/server"
-import { ArrowUpLeft } from "lucide-react"
-import Link from "next/link"
-import { redirect } from "next/navigation"
+import ResetStatsForm from '@/components/dashboard/ResetStatsForm'
+import { Button } from '@/components/ui/Button'
+import { createClient } from '@/lib/supabase/server'
+import { ArrowUpLeft } from 'lucide-react'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function ResetStatsPage() {
   const supabase = createClient()
@@ -11,7 +11,7 @@ export default async function ResetStatsPage() {
   const { data, error } = await supabase.auth.getUser()
 
   if (error || !data?.user) {
-    redirect("/login")
+    redirect('/login')
   }
 
   return (

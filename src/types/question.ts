@@ -1,3 +1,3 @@
-import { Database } from "./database"
+import { Database } from './database'
 
-export type Question = Database["public"]["Tables"]["questions"]["Row"]
+export type Question = Database['public']['Tables']['questions']['Row']

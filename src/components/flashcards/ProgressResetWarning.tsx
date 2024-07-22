@@ -1,4 +1,4 @@
-import { Button } from "../ui/Button"
+import { Button } from '../ui/Button'
 import {
   Credenza,
   CredenzaBody,
@@ -7,7 +7,7 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from "../ui/Credenza"
+} from '../ui/Credenza'
 
 interface ProgressResetWarningProps {
   open: boolean

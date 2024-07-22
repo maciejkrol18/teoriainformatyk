@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { createClient } from "@/lib/supabase/client"
-import { useEffect, useRef, useState } from "react"
-import Donut from "../ui/Donut"
+import { createClient } from '@/lib/supabase/client'
+import { useEffect, useRef, useState } from 'react'
+import Donut from '../ui/Donut'
 
 interface OneQuestionStats {
   userId: string
@@ -24,10 +24,10 @@ export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
     const supabase = createClient()
 
     const { data, error } = await supabase
-      .from("one_question_scores")
-      .select("correct, incorrect")
-      .eq("user_id", userId)
-      .eq("exam_id", examId)
+      .from('one_question_scores')
+      .select('correct, incorrect')
+      .eq('user_id', userId)
+      .eq('exam_id', examId)
       .single()
 
     if (error) {

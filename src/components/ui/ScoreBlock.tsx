@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils"
-import dayjs from "dayjs"
-import pl from "dayjs/locale/pl"
-import relativeTime from "dayjs/plugin/relativeTime"
+import { cn } from '@/lib/utils'
+import dayjs from 'dayjs'
+import pl from 'dayjs/locale/pl'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 interface Score {
   percentageScore: number
@@ -18,14 +18,14 @@ export default async function ScoreBlock({
   examName,
 }: Score) {
   const formattedDate = dayjs(createdAt).from(new Date())
-  const exam = examName ? examName : "Nieznana kwalifikacja"
+  const exam = examName ? examName : 'Nieznana kwalifikacja'
   const isScorePositive = percentageScore > 50
 
   return (
     <div
       className={cn(
-        "flex justify-between items-center p-2 border",
-        isScorePositive ? "border-green-800" : "border-red-800",
+        'flex justify-between items-center p-2 border',
+        isScorePositive ? 'border-green-800' : 'border-red-800',
       )}
     >
       <div>

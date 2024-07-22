@@ -1,9 +1,9 @@
-import GamemodeBlock from "@/components/hero/GamemodeBlock"
-import GamemodesWrapper from "@/components/hero/GamemodesWrapper"
-import Section from "@/components/hero/Section"
-import { Button } from "@/components/ui/Button"
-import SplineViewer from "@/components/ui/SplineViewer"
-import Link from "next/link"
+import GamemodeBlock from '@/components/hero/GamemodeBlock'
+import GamemodesWrapper from '@/components/hero/GamemodesWrapper'
+import Section from '@/components/hero/Section'
+import { Button } from '@/components/ui/Button'
+import SplineViewer from '@/components/ui/SplineViewer'
+import Link from 'next/link'
 
 export default function Home() {
   return (

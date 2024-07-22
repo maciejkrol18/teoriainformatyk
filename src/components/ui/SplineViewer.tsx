@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import Spline from "@splinetool/react-spline"
+import Spline from '@splinetool/react-spline'
 
 interface SplineViewerProps {
   url: string

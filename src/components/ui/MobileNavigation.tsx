@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { Button } from "./Button"
-import { createClient } from "@/lib/supabase/client"
-import { Menu, XCircle } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { usePathname } from "next/navigation"
-import { User } from "@supabase/supabase-js"
-import ProfileBlock from "./ProfileBlock"
+import Link from 'next/link'
+import { Button } from './Button'
+import { createClient } from '@/lib/supabase/client'
+import { Menu, XCircle } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { User } from '@supabase/supabase-js'
+import ProfileBlock from './ProfileBlock'
 
 interface MobileNavigationProps {
   user: User | null
@@ -42,9 +42,9 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
     if (user) {
       const supabase = createClient()
       const { data, error } = await supabase
-        .from("profiles")
-        .select("avatar_url, display_name, email")
-        .eq("user_id", user.id)
+        .from('profiles')
+        .select('avatar_url, display_name, email')
+        .eq('user_id', user.id)
         .single()
 
       if (!data || error) {
@@ -64,7 +64,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "auto"
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
   }, [isOpen])
 
   return (
@@ -84,27 +84,27 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
                 </Button>
               )}
             </div>
-            <Link href="/" className="text-xl pb-2" onClick={() => closeOnCurrent("/")}>
+            <Link href="/" className="text-xl pb-2" onClick={() => closeOnCurrent('/')}>
               Strona główna
             </Link>
             <Link
               href="/#inf02"
               className="text-xl pb-2"
-              onClick={() => closeOnCurrent("/#inf02")}
+              onClick={() => closeOnCurrent('/#inf02')}
             >
               INF.02/EE.08
             </Link>
             <Link
               href="/#inf03"
               className="text-xl pb-2"
-              onClick={() => closeOnCurrent("/#inf03")}
+              onClick={() => closeOnCurrent('/#inf03')}
             >
               INF.03/EE.09/E.14
             </Link>
             <Link
               href="/search"
               className="text-xl pb-2"
-              onClick={() => closeOnCurrent("/search")}
+              onClick={() => closeOnCurrent('/search')}
             >
               Wyszukiwarka pytań
             </Link>

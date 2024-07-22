@@ -1,22 +1,22 @@
-"use client"
+'use client'
 
-import { forwardRef, useState } from "react"
-import Image from "next/image"
-import { cn } from "@/lib/utils"
-import { VariantProps, cva } from "class-variance-authority"
+import { forwardRef, useState } from 'react'
+import Image from 'next/image'
+import { cn } from '@/lib/utils'
+import { VariantProps, cva } from 'class-variance-authority'
 
-const questionAnswerVariants = cva("py-2 px-4 rounded-md text-left", {
+const questionAnswerVariants = cva('py-2 px-4 rounded-md text-left', {
   variants: {
     variant: {
-      default: "bg-background-bright",
-      selected: "bg-primary",
-      correct: "bg-green-800",
-      incorrect: "bg-red-800",
-      unanswered: "bg-blue-800",
+      default: 'bg-background-bright',
+      selected: 'bg-primary',
+      correct: 'bg-green-800',
+      incorrect: 'bg-red-800',
+      unanswered: 'bg-blue-800',
     },
   },
   defaultVariants: {
-    variant: "default",
+    variant: 'default',
   },
 })
 
@@ -27,7 +27,7 @@ interface QuestionAnswerProps
 interface QuestionImageProps {
   src: string
   alt: string
-  loading: "eager" | "lazy"
+  loading: 'eager' | 'lazy'
 }
 
 const QuestionMarker = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -35,7 +35,7 @@ const QuestionMarker = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     return (
       <div
         className={cn(
-          "flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit aspect-square",
+          'flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit aspect-square',
           className,
         )}
         {...props}
@@ -44,7 +44,7 @@ const QuestionMarker = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     )
   },
 )
-QuestionMarker.displayName = "QuestionMarker"
+QuestionMarker.displayName = 'QuestionMarker'
 
 const QuestionContent = forwardRef<
   HTMLParagraphElement,
@@ -52,21 +52,21 @@ const QuestionContent = forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <p
-      className={cn("font-semibold text-xl leading-8", className)}
+      className={cn('font-semibold text-xl leading-8', className)}
       {...props}
       ref={ref}
     />
   )
 })
-QuestionContent.displayName = "QuestionContent"
+QuestionContent.displayName = 'QuestionContent'
 
 const QuestionAnswersContainer = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  return <div className={cn("flex flex-col gap-4", className)} {...props} ref={ref} />
+  return <div className={cn('flex flex-col gap-4', className)} {...props} ref={ref} />
 })
-QuestionAnswersContainer.displayName = "QuestionAnswersContainer"
+QuestionAnswersContainer.displayName = 'QuestionAnswersContainer'
 
 const QuestionAnswer = forwardRef<HTMLButtonElement, QuestionAnswerProps>(
   ({ className, variant, children, ...props }, ref) => {
@@ -81,14 +81,14 @@ const QuestionAnswer = forwardRef<HTMLButtonElement, QuestionAnswerProps>(
     )
   },
 )
-QuestionAnswer.displayName = "QuestionAnswer"
+QuestionAnswer.displayName = 'QuestionAnswer'
 
 const QuestionImage = ({ alt, src, loading }: QuestionImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <div
       className={`h-[200px] relative bg-background-bright w-full ${
-        !imageLoaded && "bg-gradient-loading animate-loading bg-size-loading"
+        !imageLoaded && 'bg-gradient-loading animate-loading bg-size-loading'
       }`}
     >
       <Image
@@ -108,7 +108,7 @@ const Question = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>
     return (
       <div
         className={cn(
-          "flex flex-col gap-4 bg-background-light p-4 rounded-lg",
+          'flex flex-col gap-4 bg-background-light p-4 rounded-lg',
           className,
         )}
         ref={ref}
@@ -117,7 +117,7 @@ const Question = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>
     )
   },
 )
-Question.displayName = "Question"
+Question.displayName = 'Question'
 
 export {
   Question,

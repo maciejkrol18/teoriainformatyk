@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { createClient } from "@/lib/supabase/client"
-import { useEffect, useRef, useState } from "react"
-import Donut from "../ui/Donut"
+import { createClient } from '@/lib/supabase/client'
+import { useEffect, useRef, useState } from 'react'
+import Donut from '../ui/Donut'
 
 interface FlashcardsStats {
   userId: string
@@ -23,10 +23,10 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
     const supabase = createClient()
 
     const { data, error } = await supabase
-      .from("flashcards")
-      .select("question_id_array")
-      .eq("user_id", userId)
-      .eq("exam_id", examId)
+      .from('flashcards')
+      .select('question_id_array')
+      .eq('user_id', userId)
+      .eq('exam_id', examId)
       .single()
 
     if (error || !data.question_id_array) {
@@ -44,9 +44,9 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
     const supabase = createClient()
 
     const { count, error } = await supabase
-      .from("questions")
-      .select("id", { count: "exact", head: true })
-      .eq("exam_id", examId)
+      .from('questions')
+      .select('id', { count: 'exact', head: true })
+      .eq('exam_id', examId)
 
     if (error || !count) {
       setTotalQuestions(null)

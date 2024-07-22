@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { useEffect, useRef, useState } from "react"
-import QuestionView from "./QuestionView"
-import { FlashcardView } from "@/types/flashcard-view"
-import ReviewView from "./ReviewView"
-import Card from "./Card"
-import Skeleton from "../ui/Skeleton"
-import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions"
-import { toast } from "sonner"
+import { useEffect, useRef, useState } from 'react'
+import QuestionView from './QuestionView'
+import { FlashcardView } from '@/types/flashcard-view'
+import ReviewView from './ReviewView'
+import Card from './Card'
+import Skeleton from '../ui/Skeleton'
+import { deleteKnownQuestions } from '@/app/(games)/flashcards/[code]/actions'
+import { toast } from 'sonner'
 
 interface FlashcardsProps {
   fetchedKnownQuestions: number[]
@@ -41,7 +41,7 @@ export default function Flashcards({
     setKnownQuestions([])
     setQuestionPool(questionIds)
     setPoolAmount(questionIds.length)
-    setView("question")
+    setView('question')
     const { error } = await deleteKnownQuestions(examId)
     if (error) {
       if (error) {
@@ -49,27 +49,27 @@ export default function Flashcards({
         console.error(error)
       }
     } else {
-      toast.success("Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji")
+      toast.success('Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji')
     }
   }
 
   const continueWithUnknown = () => {
     setAmountDone(1)
     getQuestionPool()
-    setView("question")
+    setView('question')
   }
 
   useEffect(() => {
     getQuestionPool()
     if (knownQuestions.length > 0) {
-      setView("review")
+      setView('review')
     } else {
-      setView("question")
+      setView('question')
     }
   }, [])
 
   switch (view) {
-    case "question":
+    case 'question':
       return (
         <>
           <p className="text-center">
@@ -87,7 +87,7 @@ export default function Flashcards({
           />
         </>
       )
-    case "review":
+    case 'review':
       return (
         <ReviewView
           handleStartFromBeginning={startFromBeginning}

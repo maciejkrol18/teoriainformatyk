@@ -1,4 +1,4 @@
-import PasswordRecoveryForm from "@/components/auth/PasswordRecoveryForm"
+import PasswordRecoveryForm from '@/components/auth/PasswordRecoveryForm'
 
 export default function PasswordRecoveryPage() {
   return (

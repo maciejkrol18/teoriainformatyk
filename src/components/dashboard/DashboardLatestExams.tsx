@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server"
-import DashboardBlock from "./DashboardBlock"
-import Link from "next/link"
-import { Button } from "../ui/Button"
-import ScoreBlock from "../ui/ScoreBlock"
+import { createClient } from '@/lib/supabase/server'
+import DashboardBlock from './DashboardBlock'
+import Link from 'next/link'
+import { Button } from '../ui/Button'
+import ScoreBlock from '../ui/ScoreBlock'
 
 interface DashboardLatestExamsProps {
   userId: string
@@ -25,10 +25,10 @@ export default async function DashboardLatestExams({
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("exam_scores")
-    .select("exam_id, percentage_score, created_at, exams (name)")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false })
+    .from('exam_scores')
+    .select('exam_id, percentage_score, created_at, exams (name)')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
     .limit(4)
 
   let scores: Score[] = []

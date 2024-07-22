@@ -1,9 +1,9 @@
-import SearchBar from "@/components/search/SearchBar"
-import SearchPagination from "@/components/search/SearchPagination"
-import SearchResult from "@/components/search/SearchResult"
-import { getHardCollection } from "@/lib/supabase/hard-collection"
-import { createClient } from "@/lib/supabase/server"
-import { SearchFilters } from "@/types/search-filters"
+import SearchBar from '@/components/search/SearchBar'
+import SearchPagination from '@/components/search/SearchPagination'
+import SearchResult from '@/components/search/SearchResult'
+import { getHardCollection } from '@/lib/supabase/hard-collection'
+import { createClient } from '@/lib/supabase/server'
+import { SearchFilters } from '@/types/search-filters'
 
 const RESULTS_PER_PAGE = 10
 
@@ -13,9 +13,9 @@ interface SearchPageProps {
 
 async function fetchPaginatedQuestions({
   query,
-  page = "1",
+  page = '1',
   examId,
-  sortBy = "id",
+  sortBy = 'id',
   hasImage,
   hardOnly,
 }: SearchFilters) {
@@ -24,28 +24,28 @@ async function fetchPaginatedQuestions({
   const pageOffset = (parseInt(page) - 1) * RESULTS_PER_PAGE
 
   let dbQuery = supabase
-    .from("questions")
-    .select("id, content", { count: "exact" })
+    .from('questions')
+    .select('id, content', { count: 'exact' })
     .range(pageOffset, pageOffset + RESULTS_PER_PAGE - 1)
     .order(sortBy)
 
   if (examId) {
-    dbQuery.eq("exam_id", examId)
+    dbQuery.eq('exam_id', examId)
   }
 
   if (query) {
-    dbQuery.textSearch("content", query, {
-      type: "websearch",
+    dbQuery.textSearch('content', query, {
+      type: 'websearch',
     })
   }
 
   if (hardOnly) {
     const hardCollection = (await getHardCollection()) ?? []
-    dbQuery.in("id", hardCollection)
+    dbQuery.in('id', hardCollection)
   }
 
   if (hasImage) {
-    dbQuery.eq("image", hasImage)
+    dbQuery.eq('image', hasImage)
   }
 
   const { data, count, error } = await dbQuery
@@ -61,7 +61,7 @@ async function fetchPaginatedQuestions({
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const page = searchParams.page || "1"
+  const page = searchParams.page || '1'
   const examId = searchParams.examId
   const sortBy = searchParams.sortBy
   const searchQuery = searchParams.query

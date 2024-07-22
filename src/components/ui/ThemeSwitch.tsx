@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { Moon, Sun } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
@@ -14,17 +14,17 @@ export default function ThemeSwitch() {
 
   if (!mounted) return <span className="block h-6 w-6" />
 
-  if (resolvedTheme === "dark") {
+  if (resolvedTheme === 'dark') {
     return (
-      <button onClick={() => setTheme("light")}>
+      <button onClick={() => setTheme('light')}>
         <Sun />
       </button>
     )
   }
 
-  if (resolvedTheme === "light") {
+  if (resolvedTheme === 'light') {
     return (
-      <button onClick={() => setTheme("dark")}>
+      <button onClick={() => setTheme('dark')}>
         <Moon />
       </button>
     )

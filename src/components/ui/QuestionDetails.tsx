@@ -1,23 +1,23 @@
-"use client"
+'use client'
 
-import { Question } from "@/types/question"
-import { Layers, Image, Type, Skull, LucideAlertTriangle } from "lucide-react"
+import { Question } from '@/types/question'
+import { Layers, Image, Type, Skull, LucideAlertTriangle } from 'lucide-react'
 import {
   QuestionAnswer,
   QuestionAnswersContainer,
   QuestionImage,
   questionAnswerVariants,
-} from "./Question"
-import { Button } from "./Button"
-import { VariantProps } from "class-variance-authority"
+} from './Question'
+import { Button } from './Button'
+import { VariantProps } from 'class-variance-authority'
 import {
   addToHardCollection,
   getHardCollection,
   removeFromHardCollection,
-} from "@/lib/supabase/hard-collection"
-import { useEffect, useState } from "react"
-import { toast } from "sonner"
-import getUser from "@/lib/supabase/get-user"
+} from '@/lib/supabase/hard-collection'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import getUser from '@/lib/supabase/get-user'
 
 interface QuestionDetailsProps {
   question: Question
@@ -33,8 +33,8 @@ export default function QuestionDetails({
   const getAnswerVariant = (
     answer: string,
     question: Question,
-  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
-    return answer === question.correct_answer ? "correct" : "default"
+  ): VariantProps<typeof questionAnswerVariants>['variant'] => {
+    return answer === question.correct_answer ? 'correct' : 'default'
   }
 
   const [hardCollection, setHardCollection] = useState<number[] | null>(null)
@@ -54,7 +54,7 @@ export default function QuestionDetails({
   // TODO: Unify this logic with what's in OneQuestionBar.tsx
   const handleHardCollectionClick = async () => {
     if (!isUserAuthenticated) {
-      toast.error("Zaloguj się, aby korzystać z tej funkcji")
+      toast.error('Zaloguj się, aby korzystać z tej funkcji')
       return
     }
     if (hardCollection) {
@@ -102,7 +102,7 @@ export default function QuestionDetails({
         </p>
         <QuestionAnswersContainer>
           {question.answers.map((answer, index) => {
-            const atlas = "ABCD"
+            const atlas = 'ABCD'
             return (
               <QuestionAnswer
                 key={answer}
@@ -137,12 +137,12 @@ export default function QuestionDetails({
           <Button
             onClick={handleHardCollectionClick}
             disabled={!hardCollection}
-            className={`${!hardCollection && "text-muted"}`}
+            className={`${!hardCollection && 'text-muted'}`}
           >
-            <Skull />{" "}
+            <Skull />{' '}
             {hardCollection
-              ? `${isInCollection ? "Usuń ze" : "Dodaj do"} zbioru trudnych pytań`
-              : "Ładowanie stanu zbioru..."}
+              ? `${isInCollection ? 'Usuń ze' : 'Dodaj do'} zbioru trudnych pytań`
+              : 'Ładowanie stanu zbioru...'}
           </Button>
         )}
         <Button>

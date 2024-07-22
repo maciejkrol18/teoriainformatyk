@@ -1,5 +1,5 @@
-import Link from "next/link"
-import BrandLogo from "./BrandLogo"
+import Link from 'next/link'
+import BrandLogo from './BrandLogo'
 
 export default function Footer() {
   return (

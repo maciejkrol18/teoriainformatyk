@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { Search } from "lucide-react"
-import { useRef } from "react"
-import SearchFiltersDropdown from "./SearchFiltersDropdown"
-import SearchInput from "./SearchInput"
+import { Search } from 'lucide-react'
+import { useRef } from 'react'
+import SearchFiltersDropdown from './SearchFiltersDropdown'
+import SearchInput from './SearchInput'
 
 interface SearchBarProps {
   examId?: string

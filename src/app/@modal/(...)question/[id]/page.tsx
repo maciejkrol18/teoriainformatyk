@@ -1,6 +1,6 @@
-import SearchResultModal from "@/components/search/SearchResultModal"
-import { createClient } from "@/lib/supabase/server"
-import { notFound } from "next/navigation"
+import SearchResultModal from '@/components/search/SearchResultModal'
+import { createClient } from '@/lib/supabase/server'
+import { notFound } from 'next/navigation'
 
 export default async function QuestionModal({
   params,
@@ -11,9 +11,9 @@ export default async function QuestionModal({
 }) {
   const supabase = createClient()
   const { data, error } = await supabase
-    .from("questions")
-    .select("*")
-    .eq("id", params.id)
+    .from('questions')
+    .select('*')
+    .eq('id', params.id)
     .single()
   if (!data || error) {
     notFound()

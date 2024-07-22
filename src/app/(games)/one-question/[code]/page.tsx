@@ -1,14 +1,14 @@
-import OneQuestion from "@/components/one-question/OneQuestion"
-import { createClient } from "@/lib/supabase/server"
-import { notFound } from "next/navigation"
+import OneQuestion from '@/components/one-question/OneQuestion'
+import { createClient } from '@/lib/supabase/server'
+import { notFound } from 'next/navigation'
 
 export default async function OneQuestionPage({ params }: { params: { code: string } }) {
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("exams")
-    .select("id, name")
-    .eq("code", params.code)
+    .from('exams')
+    .select('id, name')
+    .eq('code', params.code)
     .single()
 
   if (error || !data) {

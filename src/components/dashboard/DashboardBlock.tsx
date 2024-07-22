@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 interface DashboardBlockProps {
   className?: string
@@ -17,7 +17,7 @@ export default function DashboardBlock({
 }: DashboardBlockProps) {
   return (
     <div
-      className={cn("flex flex-col gap-4 p-4 rounded-lg bg-background-light", className)}
+      className={cn('flex flex-col gap-4 p-4 rounded-lg bg-background-light', className)}
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:gap-0 sm:justify-between">
         <p className="font-semibold text-2xl">{blockTitle}</p>

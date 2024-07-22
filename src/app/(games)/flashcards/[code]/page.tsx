@@ -1,18 +1,18 @@
-import Flashcards from "@/components/flashcards/Flashcards"
-import PageTitle from "@/components/ui/PageTitle"
-import getKnownQuestions from "@/lib/supabase/get-known-questions"
-import getQuestionIdsList from "@/lib/supabase/get-questions-id-list"
-import getUser from "@/lib/supabase/get-user"
-import { createClient } from "@/lib/supabase/server"
-import { notFound, redirect } from "next/navigation"
+import Flashcards from '@/components/flashcards/Flashcards'
+import PageTitle from '@/components/ui/PageTitle'
+import getKnownQuestions from '@/lib/supabase/get-known-questions'
+import getQuestionIdsList from '@/lib/supabase/get-questions-id-list'
+import getUser from '@/lib/supabase/get-user'
+import { createClient } from '@/lib/supabase/server'
+import { notFound, redirect } from 'next/navigation'
 
 export default async function FlashcardsPage({ params }: { params: { code: string } }) {
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("exams")
-    .select("id, name")
-    .eq("code", params.code)
+    .from('exams')
+    .select('id, name')
+    .eq('code', params.code)
     .single()
 
   if (error || !data) {
@@ -22,7 +22,7 @@ export default async function FlashcardsPage({ params }: { params: { code: strin
   const { user } = await getUser()
 
   if (!user) {
-    redirect("/login")
+    redirect('/login')
   }
 
   const knownQuestions = await getKnownQuestions(user.id, data.id)

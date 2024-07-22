@@ -1,8 +1,8 @@
-import Link from "next/link"
-import { Button } from "./Button"
-import { User } from "@supabase/supabase-js"
-import { createClient } from "@/lib/supabase/server"
-import HeaderAuthDropdown from "./HeaderAuthDropdown"
+import Link from 'next/link'
+import { Button } from './Button'
+import { User } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/server'
+import HeaderAuthDropdown from './HeaderAuthDropdown'
 
 interface HeaderAuthProps {
   user: User | null
@@ -13,9 +13,9 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
     const supabase = createClient()
 
     const { data, error } = await supabase
-      .from("profiles")
-      .select("email, display_name, avatar_url")
-      .eq("user_id", user.id)
+      .from('profiles')
+      .select('email, display_name, avatar_url')
+      .eq('user_id', user.id)
       .single()
 
     if (!data || error) {

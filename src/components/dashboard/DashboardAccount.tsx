@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server"
-import DashboardBlock from "./DashboardBlock"
-import Link from "next/link"
-import { KeyRound, RotateCcw, Trash2 } from "lucide-react"
-import { Button } from "../ui/Button"
+import { createClient } from '@/lib/supabase/server'
+import DashboardBlock from './DashboardBlock'
+import Link from 'next/link'
+import { KeyRound, RotateCcw, Trash2 } from 'lucide-react'
+import { Button } from '../ui/Button'
 
 interface DashboardAccountProps {
   userId: string
@@ -11,7 +11,7 @@ interface DashboardAccountProps {
 const DataParagraph = ({ label, value }: { label: string; value: string }) => {
   return (
     <p>
-      <span className="text-lg font-medium">{label}</span>{" "}
+      <span className="text-lg font-medium">{label}</span>{' '}
       <span className="text-muted">{value}</span>
     </p>
   )
@@ -21,15 +21,15 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("user_id", userId)
+    .from('profiles')
+    .select('*')
+    .eq('user_id', userId)
     .single()
 
   const dateJoined =
     data && data.created_at
       ? new Date(data.created_at).toLocaleDateString()
-      : "Nieznana data dołączenia"
+      : 'Nieznana data dołączenia'
 
   return (
     <DashboardBlock blockTitle="Twoje konto">

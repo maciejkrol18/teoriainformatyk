@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import dayjs from "dayjs"
-import duration from "dayjs/plugin/duration"
-import { useEffect, useState } from "react"
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import { useEffect, useState } from 'react'
 import {
   Credenza,
   CredenzaBody,
@@ -11,8 +11,8 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from "../ui/Credenza"
-import { Button } from "../ui/Button"
+} from '../ui/Credenza'
+import { Button } from '../ui/Button'
 
 interface SessionStatsProps {
   open: boolean
@@ -55,13 +55,13 @@ export default function SessionStats({
         </CredenzaHeader>
         <CredenzaBody>
           <div className="flex flex-col gap-4 text-center text-lg lg:text-left">
-            <p>Upłynęło {dayjs.duration(counter, "seconds").format("HH:mm:ss")}</p>
+            <p>Upłynęło {dayjs.duration(counter, 'seconds').format('HH:mm:ss')}</p>
             <p>{correctAnswers} poprawnych odpowiedzi </p>
             <p>{incorrectAnswers} niepoprawnych odpowiedzi</p>
             <p>{timesRolled} wylosowanych pytań</p>
             <p>
               Wynik procentowy: {correctAnswers && scorePercentage}%&nbsp;
-              {scorePercentage > 50 ? "(pozytywny)" : "(negatywny)"}
+              {scorePercentage > 50 ? '(pozytywny)' : '(negatywny)'}
             </p>
           </div>
         </CredenzaBody>

@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/Tabs"
-import LoginForm from "./LoginForm"
-import RegisterForm from "./RegisterForm"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 export default function AuthForms() {
   return (

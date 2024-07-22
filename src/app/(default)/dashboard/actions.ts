@@ -1,11 +1,11 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
-import { createClient } from "@/lib/supabase/server"
-import { FieldValues } from "react-hook-form"
-import { PostgrestError } from "@supabase/supabase-js"
+import { createClient } from '@/lib/supabase/server'
+import { FieldValues } from 'react-hook-form'
+import { PostgrestError } from '@supabase/supabase-js'
 
 export async function changePassword(formData: FieldValues): Promise<string> {
   const supabase = createClient()
@@ -15,7 +15,7 @@ export async function changePassword(formData: FieldValues): Promise<string> {
     newPassword: formData.newPassword,
   }
 
-  const { error } = await supabase.rpc("change_user_password", {
+  const { error } = await supabase.rpc('change_user_password', {
     current_plain_password: data.currentPassword,
     new_plain_password: data.newPassword,
   })
@@ -26,8 +26,8 @@ export async function changePassword(formData: FieldValues): Promise<string> {
 
   await supabase.auth.signOut()
 
-  revalidatePath("/login", "layout")
-  redirect("/login")
+  revalidatePath('/login', 'layout')
+  redirect('/login')
 }
 
 export async function resetStats(formData: FieldValues): Promise<PostgrestError | null> {
@@ -37,7 +37,7 @@ export async function resetStats(formData: FieldValues): Promise<PostgrestError 
     currentPassword: formData.currentPassword,
   }
 
-  const { error } = await supabase.rpc("reset_user_stats", {
+  const { error } = await supabase.rpc('reset_user_stats', {
     current_plain_password: data.currentPassword,
   })
 
@@ -45,8 +45,8 @@ export async function resetStats(formData: FieldValues): Promise<PostgrestError 
     return error
   }
 
-  revalidatePath("/dashboard", "layout")
-  redirect("/dashboard")
+  revalidatePath('/dashboard', 'layout')
+  redirect('/dashboard')
 }
 
 export async function deleteAccount(
@@ -58,7 +58,7 @@ export async function deleteAccount(
     currentPassword: formData.currentPassword,
   }
 
-  const { error } = await supabase.rpc("delete_user_account", {
+  const { error } = await supabase.rpc('delete_user_account', {
     current_plain_password: data.currentPassword,
   })
 
@@ -68,6 +68,6 @@ export async function deleteAccount(
 
   await supabase.auth.signOut()
 
-  revalidatePath("/", "layout")
-  redirect("/")
+  revalidatePath('/', 'layout')
+  redirect('/')
 }

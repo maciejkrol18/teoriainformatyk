@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { createClient } from "@/lib/supabase/client"
-import { SetStateAction, useEffect, useState } from "react"
-import Card from "./Card"
-import { Button } from "../ui/Button"
-import { FlashcardView } from "@/types/flashcard-view"
-import { QuestionImage } from "../ui/Question"
-import Skeleton from "../ui/Skeleton"
-import { addToKnownQuestions } from "@/app/(games)/flashcards/[code]/actions"
-import { toast } from "sonner"
+import { createClient } from '@/lib/supabase/client'
+import { SetStateAction, useEffect, useState } from 'react'
+import Card from './Card'
+import { Button } from '../ui/Button'
+import { FlashcardView } from '@/types/flashcard-view'
+import { QuestionImage } from '../ui/Question'
+import Skeleton from '../ui/Skeleton'
+import { addToKnownQuestions } from '@/app/(games)/flashcards/[code]/actions'
+import { toast } from 'sonner'
 
 interface QuestionViewProps {
   currentQuestionId: number | null
@@ -44,20 +44,20 @@ export default function QuestionView({
       setShowAnswer(false)
       setQuestion(null)
       if (!currentQuestionId) {
-        setView("review")
+        setView('review')
         return
       }
 
       const supabase = createClient()
 
       const { data, error } = await supabase
-        .from("questions")
-        .select("content, correct_answer, image")
-        .eq("id", currentQuestionId)
+        .from('questions')
+        .select('content, correct_answer, image')
+        .eq('id', currentQuestionId)
         .single()
 
       if (!data || error) {
-        throw new Error("Failed to fetch the question")
+        throw new Error('Failed to fetch the question')
       } else {
         setQuestion(data)
       }
