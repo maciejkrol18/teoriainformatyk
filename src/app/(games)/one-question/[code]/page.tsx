@@ -1,4 +1,5 @@
 import OneQuestion from '@/components/one-question/OneQuestion'
+import PageTitle from '@/components/ui/PageTitle'
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 
@@ -17,10 +18,7 @@ export default async function OneQuestionPage({ params }: { params: { code: stri
 
   return (
     <>
-      <div className="flex flex-col gap-2 items-center pt-4">
-        <h1 className="text-4xl font-bold font-heading">Jedno pytanie</h1>
-        <h2 className="text-xl text-muted">{data.name}</h2>
-      </div>
+      <PageTitle title="Jedno pytanie" subtitle={data.name} />
       <OneQuestion examId={data.id} />
     </>
   )

@@ -1,6 +1,5 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
 import { ExamQuestion } from '@/types/exam-question'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -21,42 +20,18 @@ import { Button } from '../ui/Button'
 import ExamTimer from './ExamTimer'
 import ExamSkeleton from '../skeletons/ExamSkeleton'
 import GoToTopBtn from './GoToTopBtn'
+import { saveScore } from '@/app/(games)/exam/[code]/actions'
 
 interface ExamProps {
   examId: number
+  fetchedQuestions: ExamQuestion[]
 }
 
-export default function Exam({ examId }: ExamProps) {
-  const [questions, setQuestions] = useState<ExamQuestion[]>([])
+export default function Exam({ examId, fetchedQuestions }: ExamProps) {
+  const [questions, setQuestions] = useState<ExamQuestion[]>(fetchedQuestions)
   const [isExamFinished, setIsExamFinished] = useState<boolean>(false)
   const [finalScore, setFinalScore] = useState<ExamScore | null>(null)
-  const wereQuestionsFetched = useRef<boolean>(false)
   const timeStarted = useRef<string>(new Date().toISOString())
-
-  const getQuestions = async (id: number) => {
-    const supabase = createClient()
-    const { data, error } = await supabase.rpc('get_random_questions', {
-      amount: 40,
-      exam_id: id,
-    })
-    if (error) {
-      throw new Error(error.message)
-    } else if (!data) {
-      throw new Error('Błąd pobierania pytań z bazy. Spróbuj ponownie')
-    } else {
-      setQuestions(
-        data.map((question) => {
-          return {
-            ...question,
-            answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
-            selected_answer: null,
-            correct_selected: false,
-          }
-        }),
-      )
-      wereQuestionsFetched.current = true
-    }
-  }
 
   const setAnswer = (answer: string, question: ExamQuestion) => {
     setQuestions((prev) =>
@@ -94,17 +69,7 @@ export default function Exam({ examId }: ExamProps) {
     }
   }
 
-  const saveScore = async () => {
-    const getUser = async () => {
-      const supabase = createClient()
-      const { data, error } = await supabase.auth.getUser()
-      if (error || !data.user) {
-        return null
-      } else {
-        return data.user
-      }
-    }
-
+  const setScore = async () => {
     const amountCorrect = Number(
       questions.filter((question) => question.correct_selected).length,
     )
@@ -131,22 +96,13 @@ export default function Exam({ examId }: ExamProps) {
 
     setFinalScore(finalScore)
 
-    const user = await getUser()
+    const data = await saveScore(finalScore)
 
-    if (user) {
-      const supabase = createClient()
-      const { error } = await supabase.from('exam_scores').insert({
-        ...finalScore,
-        user_id: user.id,
-      })
-      if (error) {
-        toast.error(`Błąd zapisywania wyniku: ${error.message}`)
-        console.error(error)
-      } else {
-        toast.success('Wynik zapisany')
-      }
+    if (data.error) {
+      toast.error(data.message)
+      console.error(data.message)
     } else {
-      toast.info('Zaloguj się, aby zapisać swój wynik')
+      toast.info(data.message)
     }
   }
 
@@ -154,15 +110,10 @@ export default function Exam({ examId }: ExamProps) {
     if (isExamFinished) {
       window.location.reload()
     } else {
-      saveScore()
+      setScore()
       setIsExamFinished(true)
     }
   }
-
-  useEffect(() => {
-    if (wereQuestionsFetched.current) return
-    getQuestions(examId)
-  }, [])
 
   useEffect(() => {
     if (finalScore) {
@@ -207,7 +158,7 @@ export default function Exam({ examId }: ExamProps) {
               </QuestionAnswersContainer>
               {question.image && (
                 <QuestionImage
-                  src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+                  src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
                   loading="lazy"
                   alt={`Zdjęcie do pytania #${index + 1}`}
                 />

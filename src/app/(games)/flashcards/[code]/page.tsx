@@ -30,7 +30,7 @@ export default async function FlashcardsPage({ params }: { params: { code: strin
 
   return (
     <>
-      <PageTitle bigTitle="Fiszki" smallTitle={data.name} />
+      <PageTitle title="Fiszki" subtitle={data.name} />
       <div className="flex flex-col gap-4 w-full max-w-[576px] sm:mx-auto">
         <Flashcards
           fetchedKnownQuestions={knownQuestions}

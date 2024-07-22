@@ -1,28 +1,53 @@
 import Exam from '@/components/exam/Exam'
 import PageTitle from '@/components/ui/PageTitle'
 import { createClient } from '@/lib/supabase/server'
+import { ExamQuestion } from '@/types/exam-question'
 import { notFound } from 'next/navigation'
 
-export default async function ExamPage({ params }: { params: { code: string } }) {
+async function getQuestions(id: number): Promise<ExamQuestion[]> {
   const supabase = createClient()
+  const { data, error } = await supabase.rpc('get_random_questions', {
+    amount: 40,
+    exam_id: id,
+  })
+  if (error) {
+    throw new Error(`Wystąpił błąd: ${error.message}`)
+  } else if (!data) {
+    throw new Error('Błąd pobierania pytań z bazy. Spróbuj ponownie')
+  } else {
+    return data.map((question) => {
+      return {
+        ...question,
+        answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
+        selected_answer: null,
+        correct_selected: false,
+      }
+    })
+  }
+}
 
+async function getExamData(code: string) {
+  const supabase = createClient()
   const { data, error } = await supabase
     .from('exams')
     .select('id, name')
-    .eq('code', params.code)
+    .eq('code', code)
     .single()
-
   if (error || !data) {
     notFound()
+  } else {
+    return data
   }
+}
+
+export default async function ExamPage({ params }: { params: { code: string } }) {
+  const examData = await getExamData(params.code)
+  const fetchedQuestions = await getQuestions(examData.id)
 
   return (
     <>
-      <div className="flex flex-col gap-2 grow items-center pt-4">
-        <h1 className="text-4xl font-bold font-heading">Egzamin</h1>
-        <h2 className="text-xl text-muted">{data.name}</h2>
-      </div>
-      <Exam examId={data.id} />
+      <PageTitle bigTitle="Egzamin" smallTitle={examData.name} />
+      <Exam examId={examData.id} fetchedQuestions={fetchedQuestions} />
     </>
   )
 }
