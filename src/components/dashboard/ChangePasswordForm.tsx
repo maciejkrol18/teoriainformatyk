@@ -35,7 +35,7 @@ export default function ChangePasswordForm() {
       onSubmit={handleSubmit(async (data) => {
         const error = await changePassword(data)
         if (error) {
-          toast.error(`Wystąpił błąd: ${error.message}`)
+          toast.error(`Wystąpił błąd: ${error}`)
           resetField("currentPassword")
           return
         }

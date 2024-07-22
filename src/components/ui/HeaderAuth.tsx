@@ -34,7 +34,6 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
       )
     }
   } else {
-    console.log("\n User was falsy. Rendering 'Login' button \n")
     return (
       <Button variant="primary" asChild>
         <Link href="/login">Zaloguj</Link>

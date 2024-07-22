@@ -1,28 +1,18 @@
 import { Button } from "@/components/ui/Button"
-import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
-import { redirect } from "next/navigation"
 
 export default async function ConfirmSignupPage() {
-  const supabase = createClient()
-
-  const { data } = await supabase.auth.getUser()
-
-  if (data.user) {
-    redirect("/dashboard")
-  }
-
   return (
     <>
-      <div className="flex flex-col gap-4 text-center lg:text-left leading-10 lg:leading-[60px]">
-        <h1 className="text-4xl lg:text-5xl font-display font-semibold">
-          Potwierdź rejestrację
-        </h1>
-        <h2 className="text-lg lg:text-xl text-muted">
+      <div className="flex flex-col gap-4 justify-center grow">
+        <h1 className="text-4xl font-bold">Potwierdź rejestrację</h1>
+        <p className="text-muted">
           Na podany adres email została wysłana wiadomość z linkiem do potwierdzenia
-          swojej rejestracji. Pamiętaj o sprawdzeniu folderu spam, jeśli nie widzisz
-          wiadomości w swojej skrzynce odbiorczej. Możesz zamknąć te kartę przeglądarki.
-        </h2>
+          swojej rejestracji. Potwierdzenie rejestracji jest wymagane aby zalogowanie się
+          na nowo utworzone konto było możliwe. Pamiętaj o sprawdzeniu folderu spam, jeśli
+          nie widzisz wiadomości w swojej skrzynce odbiorczej. Możesz zamknąć te kartę
+          przeglądarki.
+        </p>
         <Button variant="primary" asChild>
           <Link href="/">Przejdź na stronę główną</Link>
         </Button>
