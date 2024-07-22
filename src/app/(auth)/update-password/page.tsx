@@ -32,7 +32,15 @@ export default async function UpdatePasswordPage() {
   })
 
   if (user && data) {
-    return <UpdatePasswordForm />
+    return (
+      <div className="flex flex-col gap-4">
+        <h1 className="text-4xl font-bold">Zaktualizuj hasło</h1>
+        <p className="text-muted">
+          Aktualizujesz hasło dla konta z adresem email "{user.email}"
+        </p>
+        <UpdatePasswordForm />
+      </div>
+    )
   } else {
     return (
       <div className="flex flex-col gap-4">

@@ -8,8 +8,10 @@ export default async function ConfirmSignupPage() {
         <h1 className="text-4xl font-bold">Potwierdź rejestrację</h1>
         <p className="text-muted">
           Na podany adres email została wysłana wiadomość z linkiem do potwierdzenia
-          swojej rejestracji. Pamiętaj o sprawdzeniu folderu spam, jeśli nie widzisz
-          wiadomości w swojej skrzynce odbiorczej. Możesz zamknąć te kartę przeglądarki.
+          swojej rejestracji. Potwierdzenie rejestracji jest wymagane aby zalogowanie się
+          na nowo utworzone konto było możliwe. Pamiętaj o sprawdzeniu folderu spam, jeśli
+          nie widzisz wiadomości w swojej skrzynce odbiorczej. Możesz zamknąć te kartę
+          przeglądarki.
         </p>
         <Button variant="primary" asChild>
           <Link href="/">Przejdź na stronę główną</Link>

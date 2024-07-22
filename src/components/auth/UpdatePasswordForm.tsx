@@ -53,7 +53,7 @@ export default function UpdatePasswordForm() {
         {isSubmitting && <LoaderIcon className="animate-spin" />}
         {isSubmitting ? "Przetwarzanie..." : "Zmień hasło"}
       </Button>
-      <p className="text-muted text-center">
+      <p className="text-muted">
         Po pomyślnej zmianie hasła nastąpi przekierowanie na stronę logowania
       </p>
     </form>

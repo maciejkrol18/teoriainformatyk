@@ -56,10 +56,6 @@ export default function PasswordRecoveryForm() {
       data.token,
       window ? window.location.origin : "http://localhost:3000",
     )
-    console.log(
-      "onSubmit resolved url",
-      window ? window.location.origin : "http://localhost:3000",
-    )
     if (error) {
       toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
     } else {
@@ -74,7 +70,7 @@ export default function PasswordRecoveryForm() {
         onSubmit={handleSubmit((data) => {
           onSubmit(data)
         })}
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-4"
       >
         <label htmlFor="email">Email</label>
         <Input id="email" type="email" {...register("email")} />
