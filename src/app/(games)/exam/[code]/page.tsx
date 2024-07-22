@@ -46,7 +46,7 @@ export default async function ExamPage({ params }: { params: { code: string } })
 
   return (
     <>
-      <PageTitle bigTitle="Egzamin" smallTitle={examData.name} />
+      <PageTitle title="Egzamin" subtitle={examData.name} />
       <Exam examId={examData.id} fetchedQuestions={fetchedQuestions} />
     </>
   )
