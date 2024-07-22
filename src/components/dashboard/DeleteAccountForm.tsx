@@ -6,7 +6,7 @@ import * as z from "zod"
 import { Input } from "../ui/Input"
 import React from "react"
 import { toast } from "sonner"
-import { deleteAccount } from "@/actions"
+import { deleteAccount } from "@/app/(default)/dashboard/actions"
 
 const CONFIRMATION_PHRASE = "Chcę usunąć swoje konto"
 

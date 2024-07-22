@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "./Button"
 import { LayoutDashboard, LogOut } from "lucide-react"
-import { signOut } from "@/actions"
+import { signOut } from "@/app/(auth)/actions"
 
 interface UserProfile {
   avatar_url: string | null

@@ -6,7 +6,7 @@ import * as z from "zod"
 import { Input } from "../ui/Input"
 import { Button } from "../ui/Button"
 import { LoaderIcon } from "lucide-react"
-import { updatePassword } from "@/actions"
+import { updatePassword } from "@/app/(auth)/actions"
 import { toast } from "sonner"
 
 const schema = z

@@ -6,7 +6,6 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { FieldValues } from "react-hook-form"
 import {
-  PostgrestError,
   Provider,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
@@ -100,27 +99,22 @@ export async function signOut() {
   redirect("/login")
 }
 
-export async function changePassword(formData: FieldValues): Promise<string> {
+export async function startPasswordRecovery(
+  email: string,
+  captchaToken: string,
+  redirectTo: string,
+) {
   const supabase = createClient()
 
-  const data = {
-    currentPassword: formData.currentPassword,
-    newPassword: formData.newPassword,
-  }
-
-  const { error } = await supabase.rpc("change_user_password", {
-    current_plain_password: data.currentPassword,
-    new_plain_password: data.newPassword,
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    captchaToken: captchaToken,
+    redirectTo: redirectTo,
   })
 
-  if (error) {
-    return error.message
+  return {
+    data: data,
+    error: error?.message,
   }
-
-  await supabase.auth.signOut()
-
-  revalidatePath("/login", "layout")
-  redirect("/login")
 }
 
 export async function updatePassword(formData: FieldValues): Promise<string> {
@@ -140,66 +134,6 @@ export async function updatePassword(formData: FieldValues): Promise<string> {
 
   revalidatePath("/login", "layout")
   redirect("/login")
-}
-
-export async function resetStats(formData: FieldValues): Promise<PostgrestError | null> {
-  const supabase = createClient()
-
-  const data = {
-    currentPassword: formData.currentPassword,
-  }
-
-  const { error } = await supabase.rpc("reset_user_stats", {
-    current_plain_password: data.currentPassword,
-  })
-
-  if (error) {
-    return error
-  }
-
-  revalidatePath("/dashboard", "layout")
-  redirect("/dashboard")
-}
-
-export async function deleteAccount(
-  formData: FieldValues,
-): Promise<PostgrestError | null> {
-  const supabase = createClient()
-
-  const data = {
-    currentPassword: formData.currentPassword,
-  }
-
-  const { error } = await supabase.rpc("delete_user_account", {
-    current_plain_password: data.currentPassword,
-  })
-
-  if (error) {
-    return error
-  }
-
-  await supabase.auth.signOut()
-
-  revalidatePath("/", "layout")
-  redirect("/")
-}
-
-export async function startPasswordRecovery(
-  email: string,
-  captchaToken: string,
-  redirectTo: string,
-) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    captchaToken: captchaToken,
-    redirectTo: redirectTo,
-  })
-
-  return {
-    data: data,
-    error: error?.message,
-  }
 }
 
 export async function checkIfAccountExists(email: string) {

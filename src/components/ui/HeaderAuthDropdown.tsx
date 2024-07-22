@@ -11,7 +11,7 @@ import {
 } from "./DropdownMenu"
 import Link from "next/link"
 import { LayoutDashboard, LogOut } from "lucide-react"
-import { signOut } from "@/actions"
+import { signOut } from "@/app/(auth)/actions"
 
 interface HeaderAuthDropdownProps {
   email: string
