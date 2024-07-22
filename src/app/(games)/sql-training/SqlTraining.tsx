@@ -3,15 +3,14 @@
 import { createClient } from "@/lib/supabase/client"
 import { QueryChallenge } from "@/types/query-challenge"
 import { useEffect, useRef, useState } from "react"
-import { Button } from "./ui/Button"
+import { Button } from "@/components/ui/Button"
 import { Dices, ExternalLink, Send, Wand2 } from "lucide-react"
 import { Parser } from "node-sql-parser"
 import QueryInput from "./QueryInput"
 import { toast } from "sonner"
-import { QuestionImage } from "./ui/Question"
-import { supabaseUrl } from "@/lib/supabase"
+import { QuestionImage } from "@/components/ui/Question"
 import Link from "next/link"
-import Skeleton from "./ui/Skeleton"
+import Skeleton from "@/components/ui/Skeleton"
 
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
@@ -108,7 +107,7 @@ export default function SqlTraining() {
               {challenge.image && (
                 <div className="flex">
                   <QuestionImage
-                    src={`${supabaseUrl}/storage/v1/object/public/query_images/${challenge.exam_code}.webp`}
+                    src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/query_images/${challenge.exam_code}.webp`}
                     alt="Załączony obrazek"
                     loading="eager"
                   />

@@ -7,7 +7,7 @@ import React from "react"
 import { Analytics } from "@vercel/analytics/react"
 import Providers from "./providers"
 import { Toaster } from "sonner"
-import { TailwindIndicator } from "@/components/TailwindIndicator"
+import { TailwindIndicator } from "./tailwind-indicator"
 import ToasterWrapper from "@/components/ui/ToasterWrapper"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
