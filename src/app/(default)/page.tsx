@@ -111,7 +111,7 @@ export default function Home() {
         subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
         id="user"
       >
-        <div className="grid gap-24 max-w-xl mx-auto grid-cols-2">
+        <div className="grid gap-24 max-w-xl mx-auto grid-cols-1 sm:grid-cols-2">
           <HeroCard
             icon={<SkullIcon />}
             title="Zbiór trudnych pytań"
