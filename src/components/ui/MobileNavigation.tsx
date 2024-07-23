@@ -75,7 +75,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
       {isOpen ? (
         <nav className="bg-background-light z-50 fixed left-0 right-0 bottom-0 top-[67px]">
           <div className="container mx-auto flex flex-col gap-6 py-4">
-            <div className="bg-background-bright flex flex-col justify-center gap-4 p-4">
+            <div className="border border-background-bright bg-background-bright/30 flex flex-col justify-center gap-4 p-4">
               {profile ? (
                 <ProfileBlock profile={profile} />
               ) : (

@@ -33,12 +33,16 @@ export default function ProfileBlock({ profile }: ProfileBlockProps) {
           </p>
         </div>
       </div>
-      <Button variant="outline" asChild>
+      <Button variant="outline" className="justify-start p-0 border-none" asChild>
         <Link href="/dashboard">
           <LayoutDashboard /> Panel użytkownika
         </Link>
       </Button>
-      <Button variant="outline" onClick={() => signOut()}>
+      <Button
+        variant="outline"
+        className="justify-start p-0 border-none"
+        onClick={() => signOut()}
+      >
         <LogOut /> Wyloguj
       </Button>
     </div>
