@@ -4,6 +4,13 @@ import Section from '@/components/hero/Section'
 import { Button } from '@/components/ui/Button'
 import SplineViewer from '@/components/ui/SplineViewer'
 import Link from 'next/link'
+import OneQuestionIcon from '@/public/one-question-icon.svg'
+import ExamIcon from '@/public/exam-icon.svg'
+import FlashcardsIcon from '@/public/flashcards-icon.svg'
+import SqlTrainingIcon from '@/public/sql-training-icon.svg'
+import HeroSearchBar from '@/components/hero/HeroSearchBar'
+import HeroCard from '@/components/hero/HeroCard'
+import { BarChart3, GalleryHorizontalEnd, History, SkullIcon } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -40,22 +47,22 @@ export default function Home() {
       >
         <GamemodesWrapper>
           <GamemodeBlock
-            squareClass="bg-yellow-500"
             title="Jedno pytanie"
             subtitle="Nieskończenie losuj i rozwiązuj jedno pytanie z kwalifikacji INF.02"
             href="/one-question/inf02"
+            imageSrc={OneQuestionIcon}
           />
           <GamemodeBlock
-            squareClass="bg-primary"
             title="Egzamin"
             subtitle="Rozwiąż losowy egzamin składający się z 40 pytań. Masz na to 60 minut"
             href="/exam/inf02"
+            imageSrc={ExamIcon}
           />
           <GamemodeBlock
-            squareClass="bg-secondary"
             title="Fiszki"
             subtitle="Powtarzaj wszystkie dostepne pytania w bazie danych kwalifikacji INF.02"
             href="/flashcards/inf02"
+            imageSrc={FlashcardsIcon}
           />
         </GamemodesWrapper>
       </Section>
@@ -66,41 +73,67 @@ export default function Home() {
       >
         <GamemodesWrapper>
           <GamemodeBlock
-            squareClass="bg-yellow-500"
             title="Jedno pytanie"
             subtitle="Nieskończenie losuj i rozwiązuj jedno pytanie z kwalifikacji INF.03"
             href="/one-question/inf03"
+            imageSrc={OneQuestionIcon}
           />
           <GamemodeBlock
-            squareClass="bg-primary"
             title="Egzamin"
             subtitle="Rozwiąż losowy egzamin składający się z 40 pytań. Masz na to 60 minut"
             href="/exam/inf03"
+            imageSrc={ExamIcon}
           />
           <GamemodeBlock
-            squareClass="bg-secondary"
             title="Fiszki"
             subtitle="Powtarzaj wszystkie dostepne pytania w bazie danych kwalifikacji INF.03"
             href="/flashcards/inf03"
+            imageSrc={FlashcardsIcon}
           />
           <GamemodeBlock
-            squareClass="bg-accent"
             title="Kwerendy SQL"
             subtitle="Przećwicz pisanie kwerend SQL na podstawie baz danych z dawnych arkuszy"
             href="/sql-training"
+            imageSrc={SqlTrainingIcon}
           />
         </GamemodesWrapper>
       </Section>
       <Section
         title="Wyszukiwarka pytań"
-        subtitle="Za pomocą naszej wyszukiwarki możesz odnaleźć dane pytanie i wszystko co z nim związane wyszukując jego treść"
+        subtitle="Za pomocą naszej wyszukiwarki możesz odnaleźć dane pytanie i wszystko co z nim związane wyszukując jego treść. Sortuj swoje wyszukiwanie oraz filtruj je według kwalifikacj i załączonego obrazka "
         id="browser"
-      ></Section>
+      >
+        <HeroSearchBar />
+        <p className="mt-2 text-sm text-muted text-center">Wciśnij Enter aby wyszukać</p>
+      </Section>
       <Section
         title="Zostań użytkownikiem już dziś"
         subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
         id="user"
-      ></Section>
+      >
+        <div className="grid gap-24 max-w-xl mx-auto grid-cols-2">
+          <HeroCard
+            icon={<SkullIcon />}
+            title="Zbiór trudnych pytań"
+            description="Twoja osobista kolekcja pytań, do której możesz zapisywać pytania które są dla ciebie najcięższę do zapamiętania. Zbiór ten pozwala na włączenie specjalnego trybu jednego pytania, w którym pojawiają się jedynie pytania z puli zbioru. Ponadto, zalogowani użytkownicy mogą zobaczyć listę pytań najczęściej dodawanych do zbiorów wszystkich użytkowników"
+          />
+          <HeroCard
+            icon={<GalleryHorizontalEnd />}
+            title="Fiszki"
+            description="Powtarzaj wszystkie dostępne pytania w dostępnych kwalifikacjach. Przerób każde z pytań jedno po drugim zapisując swój progres"
+          />
+          <HeroCard
+            icon={<BarChart3 />}
+            title="Statystyki"
+            description="Sprawdź ilość poprawnych i niepoprawnych odpowiedzi w trybie jednego pytania oraz ilości przerobionych pytań w trybie fiszek z obu kwalifikacji"
+          />
+          <HeroCard
+            icon={<History />}
+            title="Historia egzaminów"
+            description="Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio wykonanych egzaminów, a na oddzielnej podstronie znajdziesz tabelę ze szczegółową historią z informacjami takimi jak data wykonania egzaminu, kwalifikacja, wynik procentowy, ilości odpowiedzi oraz ile czasu zajęło ci by rozwiązać egzamin"
+          />
+        </div>
+      </Section>
       <Section
         title="Wesprzyj rozwój strony"
         subtitle="Nasza strona jest w 100% darmowa a jej kod źródłowy jest dostępny dla wszystkich"
