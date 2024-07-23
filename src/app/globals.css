@@ -30,3 +30,8 @@
     --accent: 261 42% 73%;
   }
 }
+
+canvas {
+  margin: 0 auto;
+  cursor: grab;
+}

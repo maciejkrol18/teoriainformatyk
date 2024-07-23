@@ -7,5 +7,5 @@ interface SplineViewerProps {
 }
 
 export default function SplineViewer({ url }: SplineViewerProps) {
-  return <Spline scene={url} className="pointer-events-none" />
+  return <Spline scene={url} />
 }

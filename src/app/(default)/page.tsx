@@ -37,7 +37,7 @@ export default function Home() {
           </div>
         </div>
         <div className="md:flex-1">
-          <SplineViewer url="https://prod.spline.design/BG0t78pRt-FK6v4x/scene.splinecode" />
+          <SplineViewer url="https://prod.spline.design/YFClLEYnfyqizPjI/scene.splinecode" />
         </div>
       </section>
       <Section
