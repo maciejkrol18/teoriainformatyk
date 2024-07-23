@@ -8,10 +8,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-background-bright hover:bg-background-bright/90',
-        primary: 'bg-primary hover:bg-primary/90',
-        secondary: 'bg-secondary hover:bg-secondary/90',
-        outline: 'border border-background-bright hover:bg-background-bright',
+        default:
+          'border border-background-bright bg-gradient-to-b from-background-bright/90 to-background-bright/50 hover:to-background-bright/70',
+        primary:
+          'border border-primary bg-gradient-to-b from-primary/90 to-primary/50 hover:to-primary/70',
+        secondary:
+          'border border-secondary bg-gradient-to-b from-secondary/90 to-secondary/50',
+        outline:
+          'border border-background-bright hover:bg-gradient-to-b hover:from-background-bright/90 hover:to-background-bright/50',
         link: 'underline-offset-4 hover:underline',
         bottomBar:
           'rounded-full bg-transparent lg:bg-background-bright lg:hover:bg-background-bright/90 lg:w-14 lg:h-14',
