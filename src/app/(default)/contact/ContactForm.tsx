@@ -16,6 +16,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
 import { saveContact } from './actions'
+import { Loader } from 'lucide-react'
 
 interface ContactFormProps {
   email?: string
@@ -37,7 +38,7 @@ export default function ContactForm({ email, contactType, content }: ContactForm
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
     reset,
   } = useForm<z.infer<typeof schema>>({
@@ -103,8 +104,9 @@ export default function ContactForm({ email, contactType, content }: ContactForm
       <Controller
         control={control}
         name="contactType"
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
           <Select
+            value={value}
             onValueChange={(value) => onChange(value)}
             defaultValue={contactType || undefined}
           >
@@ -147,11 +149,13 @@ export default function ContactForm({ email, contactType, content }: ContactForm
           ref={captchaRef}
         />
       </div>
-      <p className="text-red-500 min-h-[24px]">
+      <input type="hidden" {...register('token')} />
+      <p className="text-red-500 min-h-[48px]">
         {errors.token?.message as React.ReactNode}
       </p>
       <Button type="submit" variant="primary">
-        Wyślij wiadomość
+        {isSubmitting && <Loader className="animate-spin" />}
+        {isSubmitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
       </Button>
     </form>
   )
