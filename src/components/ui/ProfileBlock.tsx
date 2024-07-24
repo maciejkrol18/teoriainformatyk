@@ -6,7 +6,7 @@ import { LayoutDashboard, LogOut } from 'lucide-react'
 import { signOut } from '@/app/(auth)/actions'
 
 interface UserProfile {
-  avatar_url: string | null
+  avatar_url: string
   display_name: string
   email: string
 }
@@ -20,7 +20,7 @@ export default function ProfileBlock({ profile }: ProfileBlockProps) {
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
         <img
-          src={profile.avatar_url ? profile.avatar_url : ''}
+          src={profile.avatar_url}
           alt={profile.display_name}
           className="w-12 h-12 rounded-full bg-primary"
         />

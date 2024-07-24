@@ -16,7 +16,7 @@ import { signOut } from '@/app/(auth)/actions'
 interface HeaderAuthDropdownProps {
   email: string
   display_name: string
-  avatar_url: string | null
+  avatar_url: string
 }
 
 export default function HeaderAuthDropdown({
@@ -31,7 +31,7 @@ export default function HeaderAuthDropdown({
       <DropdownMenuTrigger asChild>
         <button onClick={() => setOpen(true)}>
           <img
-            src={avatar_url ? avatar_url : ''}
+            src={avatar_url}
             alt="Profil"
             width={32}
             height={32}

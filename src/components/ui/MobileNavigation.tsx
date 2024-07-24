@@ -14,7 +14,7 @@ interface MobileNavigationProps {
 }
 
 interface UserProfile {
-  avatar_url: string | null
+  avatar_url: string
   display_name: string
   email: string
 }
