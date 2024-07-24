@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '../ui/Input'
@@ -32,7 +32,7 @@ export default function LoginForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
 
@@ -40,21 +40,19 @@ export default function LoginForm() {
     setValue('token', token, { shouldValidate: true })
   }
 
-  const onSubmit = async (data: FieldValues) => {
-    setLoading(true)
-    const { error } = await signIn(data)
-    if (error) {
-      toast.error('Błędne dane logowania')
-      setLoading(false)
-    } else {
-      toast.success('Zalogowano')
-    }
-    captchaRef.current?.resetCaptcha()
-  }
-
   return (
     <form
-      onSubmit={handleSubmit(async (data) => onSubmit(data))}
+      onSubmit={handleSubmit(async (data) => {
+        setLoading(true)
+        const { error } = await signIn(data)
+        if (error) {
+          toast.error('Błędne dane logowania')
+          setLoading(false)
+        } else {
+          toast.success('Zalogowano')
+        }
+        captchaRef.current?.resetCaptcha()
+      })}
       className="flex flex-col gap-2"
     >
       <label htmlFor="email">Email</label>

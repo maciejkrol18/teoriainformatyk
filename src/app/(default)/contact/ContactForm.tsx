@@ -50,27 +50,25 @@ export default function ContactForm({ email, contactType, content }: ContactForm
     setValue('token', token, { shouldValidate: true })
   }
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
-    const { success, error } = await saveContact(
-      data.email,
-      data.contactType,
-      data.content,
-      data.token,
-    )
-    if (success) {
-      toast.success('Wiadomość została wysłana. Dziękujemy!')
-    }
-    if (error) {
-      toast.error(`Wystąpił błąd w trakcie wysyłania wiadomości: ${error}`)
-    }
-    captchaRef.current?.resetCaptcha()
-    reset()
-  }
-
   return (
     <form
       className="flex flex-col gap-4 max-w-xl"
-      onSubmit={handleSubmit(async (data) => onSubmit(data))}
+      onSubmit={handleSubmit(async (data) => {
+        const { success, error } = await saveContact(
+          data.email,
+          data.contactType,
+          data.content,
+          data.token,
+        )
+        if (success) {
+          toast.success('Wiadomość została wysłana. Dziękujemy!')
+        }
+        if (error) {
+          toast.error(`Wystąpił błąd w trakcie wysyłania wiadomości: ${error}`)
+        }
+        captchaRef.current?.resetCaptcha()
+        reset()
+      })}
     >
       <div>
         <label htmlFor="email">Twój adres email</label>

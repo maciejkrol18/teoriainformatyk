@@ -27,7 +27,7 @@ export default function ChangePasswordForm() {
     handleSubmit,
     formState: { errors },
     resetField,
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
   return (

@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '../ui/Input'
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
 
@@ -50,24 +50,22 @@ export default function RegisterForm() {
     setValue('token', token, { shouldValidate: true })
   }
 
-  const onSubmit = async (data: FieldValues) => {
-    setLoading(true)
-    const { error } = await signUp(
-      data,
-      window ? `${window.location.origin}` : 'http://localhost:3000',
-    )
-    if (error) {
-      toast.error(`W trakcie rejestracji wystąpił błąd: ${error}`)
-      setLoading(false)
-    } else {
-      toast.success('Zarejestrowano')
-    }
-    captchaRef.current?.resetCaptcha()
-  }
-
   return (
     <form
-      onSubmit={handleSubmit(async (data) => onSubmit(data))}
+      onSubmit={handleSubmit(async (data) => {
+        setLoading(true)
+        const { error } = await signUp(
+          data,
+          window ? `${window.location.origin}` : 'http://localhost:3000',
+        )
+        if (error) {
+          toast.error(`W trakcie rejestracji wystąpił błąd: ${error}`)
+          setLoading(false)
+        } else {
+          toast.success('Zarejestrowano')
+        }
+        captchaRef.current?.resetCaptcha()
+      })}
       className="w-full flex flex-col gap-2"
     >
       <label htmlFor="email">Email</label>

@@ -12,7 +12,7 @@ const CONFIRMATION_PHRASE = 'Chcę usunąć swoje konto'
 
 const schema = z
   .object({
-    currentPassword: z.string(),
+    currentPassword: z.string().min(1, { message: 'Hasło nie może być puste' }),
     confirmationPhrase: z.string(),
   })
   .refine((data) => data.confirmationPhrase === CONFIRMATION_PHRASE, {
@@ -26,7 +26,7 @@ export default function DeleteAccountForm() {
     handleSubmit,
     formState: { errors },
     resetField,
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
   return (
@@ -44,7 +44,7 @@ export default function DeleteAccountForm() {
       <div className="flex flex-col gap-2">
         <label htmlFor="currentPassword">Twoje hasło</label>
         <Input id="currentPassword" type="password" {...register('currentPassword')} />
-        {errors.newPassword?.message && (
+        {errors.currentPassword?.message && (
           <p className="text-red-500">
             {errors.currentPassword?.message as React.ReactNode}
           </p>

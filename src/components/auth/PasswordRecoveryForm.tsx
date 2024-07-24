@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '../ui/Input'
@@ -42,7 +42,7 @@ export default function PasswordRecoveryForm() {
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
 
@@ -50,25 +50,21 @@ export default function PasswordRecoveryForm() {
     setValue('token', token, { shouldValidate: true })
   }
 
-  const onSubmit = async (data: FieldValues) => {
-    const { error } = await startPasswordRecovery(
-      data.email,
-      data.token,
-      window ? window.location.origin : 'http://localhost:3000',
-    )
-    if (error) {
-      toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
-    } else {
-      setView('info')
-    }
-    captchaRef.current?.resetCaptcha()
-  }
-
   if (view === 'form') {
     return (
       <form
-        onSubmit={handleSubmit((data) => {
-          onSubmit(data)
+        onSubmit={handleSubmit(async (data) => {
+          const { error } = await startPasswordRecovery(
+            data.email,
+            data.token,
+            window ? window.location.origin : 'http://localhost:3000',
+          )
+          if (error) {
+            toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`)
+          } else {
+            setView('info')
+          }
+          captchaRef.current?.resetCaptcha()
         })}
         className="flex flex-col gap-4"
       >
