@@ -96,7 +96,7 @@ export default function QuestionView({
         )}
         {question && currentQuestionId && !showAnswer && (
           <QuestionImage
-            src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${currentQuestionId}.webp`}
+            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${currentQuestionId}.webp`}
             alt="Zdjęcie załączone do pytania"
             loading="lazy"
           />

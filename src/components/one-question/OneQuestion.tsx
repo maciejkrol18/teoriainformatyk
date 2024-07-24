@@ -185,7 +185,7 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
           </QuestionAnswersContainer>
           {question.image && (
             <QuestionImage
-              src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
               loading="lazy"
               alt={`Zdjęcie do pytania`}
             />
