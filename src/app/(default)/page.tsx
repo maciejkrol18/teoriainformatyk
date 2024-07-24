@@ -10,7 +10,7 @@ import FlashcardsIcon from '@/public/flashcards-icon.svg'
 import SqlTrainingIcon from '@/public/sql-training-icon.svg'
 import HeroSearchBar from '@/components/hero/HeroSearchBar'
 import HeroCard from '@/components/hero/HeroCard'
-import { BarChart3, GalleryHorizontalEnd, History, SkullIcon } from 'lucide-react'
+import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -131,6 +131,12 @@ export default function Home() {
             icon={<History />}
             title="Historia egzaminów"
             description="Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio wykonanych egzaminów, a na oddzielnej podstronie znajdziesz tabelę ze szczegółową historią z informacjami takimi jak data wykonania egzaminu, kwalifikacja, wynik procentowy, ilości odpowiedzi oraz ile czasu zajęło ci by rozwiązać egzamin"
+          />
+          <HeroCard
+            className="sm:col-span-2"
+            icon={<Users />}
+            title="Najtrudniejsze pytania"
+            description="Będąc użytkownikiem zyskujesz dostęp do podstrony z najtrudniejszymi pytaniami, która zawiera listę pytań najczęściej dodawanych do zbiorów trudnych pytań wśród wszystkich pozostałych użytkowników serwisu"
           />
         </div>
       </Section>
