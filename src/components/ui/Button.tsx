@@ -17,6 +17,7 @@ const buttonVariants = cva(
         outline:
           'border border-background-bright hover:bg-gradient-to-b hover:from-background-bright/90 hover:to-background-bright/50',
         link: 'underline-offset-4 hover:underline',
+        ghost: 'hover:bg-background-light',
         bottomBar:
           'rounded-full bg-transparent lg:bg-background-bright lg:hover:bg-background-bright/90 lg:w-14 lg:h-14',
       },

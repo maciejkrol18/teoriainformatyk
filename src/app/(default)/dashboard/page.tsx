@@ -35,7 +35,10 @@ export default async function DashboardPage() {
           Zapisuj najtrudniejsze dla ciebie pytania z poziomu trybu jednego pytania oraz
           strony wyszukiwarki aby powtarzać je w specjalnym, trudnym trybie jednego
           pytania. Aby zobaczyć listę pytań najczęściej uznawanych przez wszystkich
-          użytkowników serwisu za trudne, przejdź tutaj
+          użytkowników serwisu za trudne, przejdź{' '}
+          <Link href="/hardest" className="underline text-accent">
+            tutaj
+          </Link>
         </p>
       </DashboardBlock>
       <DashboardAccount userId={user.id} />
