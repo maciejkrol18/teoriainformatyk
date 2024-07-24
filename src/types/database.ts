@@ -182,6 +182,35 @@ export type Database = {
           },
         ]
       }
+      hardest_questions: {
+        Row: {
+          count: number
+          created_at: string
+          id: number
+          question_id: number
+        }
+        Insert: {
+          count: number
+          created_at?: string
+          id?: number
+          question_id: number
+        }
+        Update: {
+          count?: number
+          created_at?: string
+          id?: number
+          question_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hardest_questions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inf02: {
         Row: {
           answers: string[] | null
@@ -633,6 +662,10 @@ export type Database = {
           current_plain_password: string
         }
         Returns: Json
+      }
+      update_hardest_questions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
     }
     Enums: {
