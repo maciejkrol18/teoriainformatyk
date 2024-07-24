@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import DashboardBlock from './DashboardBlock'
 import Link from 'next/link'
-import { KeyRound, RotateCcw, Trash2 } from 'lucide-react'
+import { KeyRound, LifeBuoy, RotateCcw, Trash2 } from 'lucide-react'
 import { Button } from '../ui/Button'
 
 interface DashboardAccountProps {
@@ -40,14 +40,19 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
               <KeyRound /> Zmień hasło
             </Link>
           </Button>
-          <Button asChild variant="outline" disabled>
+          <Button asChild variant="outline">
             <Link href="/dashboard/reset-stats">
               <RotateCcw /> Zresetuj statystyki
             </Link>
           </Button>
-          <Button asChild variant="outline" disabled>
+          <Button asChild variant="outline">
             <Link href="/dashboard/delete-account">
               <Trash2 /> Usuń konto
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/contact?type=help">
+              <LifeBuoy /> Pomoc
             </Link>
           </Button>
         </div>

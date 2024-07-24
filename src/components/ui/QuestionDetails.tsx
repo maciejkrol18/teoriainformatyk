@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import getUser from '@/lib/supabase/get-user'
+import Link from 'next/link'
 
 interface QuestionDetailsProps {
   question: Question
@@ -123,7 +124,7 @@ export default function QuestionDetails({
         </p>
         {question.image ? (
           <QuestionImage
-            src={`https://mwutwmvvmskygvtjowaa.supabase.co/storage/v1/object/public/question_images/${question.id}.webp`}
+            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
             loading="lazy"
             alt={`Zdjęcie do pytania o ID ${question.id}`}
           />
@@ -145,8 +146,12 @@ export default function QuestionDetails({
               : 'Ładowanie stanu zbioru...'}
           </Button>
         )}
-        <Button>
-          <LucideAlertTriangle /> Zgłoś błąd
+        <Button asChild>
+          <Link
+            href={`/contact?type=report&content=Zgłoszenie błędu w pytaniu o ID ${question.id}:`}
+          >
+            <LucideAlertTriangle /> Zgłoś błąd
+          </Link>
         </Button>
       </div>
     </div>
