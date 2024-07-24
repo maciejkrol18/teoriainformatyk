@@ -13,17 +13,17 @@ export default async function Header() {
   return (
     <header className="py-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-calsans tracking-wide">
+        <Link href="/">
           <BrandLogo size="small" />
         </Link>
-        <nav className="hidden lg:flex gap-8">
-          <Link href="/#inf03" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+        <nav className="hidden lg:flex gap-8 py-2">
+          <Link href="/#inf03" className="rounded-md hover:bg-secondary-300">
             INF.03/EE.09/EE.14
           </Link>
-          <Link href="/#inf02" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <Link href="/#inf02" className="rounded-md hover:bg-secondary-300">
             INF.02/EE.08
           </Link>
-          <Link href="/search" className="py-2 px-4 rounded-md hover:bg-secondary-300">
+          <Link href="/search" className="rounded-md hover:bg-secondary-300">
             Wyszukiwarka
           </Link>
         </nav>
