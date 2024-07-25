@@ -47,7 +47,7 @@ export default function ExamHistoryTable({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4 justify-between flex-col xl:flex-row">
         <div className="flex gap-4 items-center">
           <p>
             Wybrano {table.getSelectedRowModel().rows.length} z {data.length}{' '}
@@ -81,8 +81,8 @@ export default function ExamHistoryTable({
               <ChevronsRight />
             </Link>
           </Button>
-          <ExamFiltersDropdown />
         </div>
+        <ExamFiltersDropdown />
       </div>
       <DataTable table={table} columns={columns} />
     </div>
