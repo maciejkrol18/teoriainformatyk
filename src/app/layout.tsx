@@ -21,7 +21,9 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL!),
+  metadataBase: new URL(
+    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
+  ),
   title: {
     default: 'teoriainformatyk',
     template: '%s | teoriainformatyk',
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
     title: 'teoriainformatyk',
     description:
       'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
-    url: process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
+    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
     siteName: 'teoriainformatyk',
     type: 'website',
     locale: 'pl_PL',
