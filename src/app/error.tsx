@@ -1,6 +1,4 @@
 'use client'
-import Image from 'next/image'
-import ErrorImage from '@/public/logo-error.svg'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import BrandLogo from '@/components/ui/BrandLogo'
