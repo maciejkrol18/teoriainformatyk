@@ -1,8 +1,3 @@
-export type ExamScore = {
-  qualification: string
-  date: Date
-  amountCorrect: number
-  amountIncorrect: number
-  amountUnanswered: number
-  scorePercentage: number
-}
+import { Database } from './database'
+
+export type ExamScore = Database['public']['Tables']['exam_scores']['Insert']

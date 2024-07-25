@@ -1,0 +1,25 @@
+import OAuthButtons from '@/components/auth/OAuthButtons'
+import AuthForms from '@/components/auth/AuthForms'
+import Link from 'next/link'
+
+export default function LoginPage() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-bold">Witamy ponownie</h1>
+        <p className="text-muted">Wprowadź swoje dane aby kontynuować</p>
+      </div>
+      <AuthForms />
+      <div className="flex items-center w-full gap-4">
+        <div className="h-[1px] bg-background-bright grow" />
+        <p className="text-muted">lub kontynuuj przez</p>
+        <div className="h-[1px] bg-background-bright grow" />
+      </div>
+      <OAuthButtons />
+      <p className="text-sm text-muted text-center">
+        Kontynuując zgadzasz się na warunki{' '}
+        <Link href="/privacy">polityki prywatności</Link>
+      </p>
+    </div>
+  )
+}

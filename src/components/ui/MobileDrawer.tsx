@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils"
-import { Drawer } from "vaul"
+import { cn } from '@/lib/utils'
+import { Drawer } from 'vaul'
 
 interface DrawerProps {
   icon: React.ReactNode
@@ -13,8 +13,8 @@ export default function MobileDrawer({ icon, title, content }: DrawerProps) {
       <Drawer.Trigger asChild>
         <button
           className={cn(
-            "border-2 border-secondary-300 rounded-full p-2",
-            "hover:text-foreground hover:border-foreground",
+            'border-2 border-secondary-300 rounded-full p-2',
+            'hover:text-foreground hover:border-foreground',
           )}
         >
           {icon}

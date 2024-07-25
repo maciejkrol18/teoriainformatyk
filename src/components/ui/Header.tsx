@@ -1,47 +1,43 @@
-"use client"
+import MobileNavigation from './MobileNavigation'
+import Link from 'next/link'
+import ThemeSwitch from './ThemeSwitch'
+import BrandLogo from './BrandLogo'
+import HeaderAuth from './HeaderAuth'
+import { createClient } from '@/lib/supabase/server'
+import { Button } from './Button'
 
-import { XCircleIcon, Menu } from "lucide-react"
-import { useState, useEffect } from "react"
-import MobileNavigation from "./MobileNavigation"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
+export default async function Header() {
+  const supabase = createClient()
 
-export default function Header() {
-  const path = usePathname()
-  const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  useEffect(() => {
-    setMobileNavOpen(false)
-  }, [path])
+  const { data, error } = await supabase.auth.getUser()
+
   return (
     <header className="py-4">
-      <div className="px-4 md:px-0 container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-calsans tracking-wide">
-          teoriainformatyk
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/">
+          <BrandLogo size="small" />
         </Link>
-        <nav className="hidden lg:flex gap-8">
-          <Link href="/dashboard" className="py-2 px-4 rounded-md hover:bg-secondary-300">
-            Panel użytkownika
-          </Link>
-          <Link href="/search" className="py-2 px-4 rounded-md hover:bg-secondary-300">
-            Wyszukiwarka pytań
-          </Link>
-          <a
-            href="https://github.com/maciejkrol18/teoriainformatyk"
-            target="_blank"
-            className="py-2 px-4 rounded-md hover:bg-secondary-300"
-          >
-            Github
-          </a>
+        <nav className="hidden lg:flex gap-8 py-2">
+          <Button variant="ghost" size="sm" className="text-sm" asChild>
+            <Link href="/#inf03">INF.03/EE.09/EE.14</Link>
+          </Button>
+          <Button variant="ghost" size="sm" className="text-sm" asChild>
+            <Link href="/#inf02">INF.02/EE.08</Link>
+          </Button>
+          <Button variant="ghost" size="sm" className="text-sm" asChild>
+            <Link href="/search">Wyszukiwarka</Link>
+          </Button>
+          <Button variant="ghost" size="sm" className="text-sm" asChild>
+            <Link href="/hardest">Najtrudniejsze pytania</Link>
+          </Button>
         </nav>
-        <button className="lg:hidden" onClick={() => setMobileNavOpen((prev) => !prev)}>
-          {mobileNavOpen ? (
-            <XCircleIcon className="h-full aspect-square" />
-          ) : (
-            <Menu className="h-full aspect-square" />
-          )}
-        </button>
+        <div className="hidden lg:flex lg:items-center gap-4">
+          <ThemeSwitch />
+          <p>|</p>
+          <HeaderAuth user={data.user} />
+        </div>
+        <MobileNavigation user={data.user} />
       </div>
-      {mobileNavOpen && <MobileNavigation />}
     </header>
   )
 }

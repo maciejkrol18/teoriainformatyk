@@ -1,7 +1,7 @@
-"use client"
-import Image from "next/image"
-import ErrorImage from "@/public/logo-error.svg"
-import Link from "next/link"
+'use client'
+import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
+import BrandLogo from '@/components/ui/BrandLogo'
 
 interface ErrorProps {
   error: Error
@@ -11,20 +11,20 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   return (
     <>
-      <div className="flex flex-col gap-4 justify-center items-center grow">
-        <Image src={ErrorImage} alt="Error" width={256} height={256} />
-        <h1 className="text-2xl font-bold">Wystąpił błąd</h1>
-        <p className="text-center">{error.message}</p>
-        <div className="flex flex-col gap-2 text-center">
-          <button
-            className="py-2 px-4 bg-accent-purple font-semibold rounded-md"
-            onClick={reset}
-          >
+      <div className="flex flex-col gap-8 justify-center items-center grow">
+        <BrandLogo size="big" />
+        <h1 className="text-3xl font-bold">Serwer napotkał błąd</h1>
+        <p className="text-center text-lg">
+          <span className="font-semibold">Błąd: </span>
+          {error.message}
+        </p>
+        <div className="flex flex-col gap-4 text-center">
+          <Button variant="primary" onClick={reset}>
             Spróbuj ponownie
-          </button>
-          <Link className="py-2 px-4 bg-accent-purple font-semibold rounded-md" href="/">
-            Powrót na stronę główną
-          </Link>
+          </Button>
+          <Button>
+            <Link href="/">Powrót na stronę główną</Link>
+          </Button>
         </div>
       </div>
     </>

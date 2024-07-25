@@ -1,9 +1,9 @@
-import { BarChart } from "lucide-react"
-import dayjs from "dayjs"
-import duration from "dayjs/plugin/duration"
-import MobileDrawer from "./ui/MobileDrawer"
-import DesktopDialog from "./ui/DesktopDialog"
-import { useEffect, useState } from "react"
+import { BarChart } from 'lucide-react'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import MobileDrawer from './ui/MobileDrawer'
+import DesktopDialog from './ui/DesktopDialog'
+import { useEffect, useState } from 'react'
 
 interface SessionStatsProps {
   counter: number
@@ -32,13 +32,13 @@ export default function SessionStats({
 
   const statsContent = (
     <div className="flex flex-col gap-4">
-      <p>Upłynęło {dayjs.duration(counter, "seconds").format("HH:mm:ss")}</p>
+      <p>Upłynęło {dayjs.duration(counter, 'seconds').format('HH:mm:ss')}</p>
       <p>{correctAnswers} poprawnych odpowiedzi </p>
       <p>{incorrectAnswers} niepoprawnych odpowiedzi</p>
       <p>{timesRolled} wylosowanych pytań</p>
       <p>
         Wynik procentowy: {correctAnswers && scorePercentage}%&nbsp;
-        {scorePercentage > 50 ? "(pozytywny)" : "(negatywny)"}
+        {scorePercentage > 50 ? '(pozytywny)' : '(negatywny)'}
       </p>
     </div>
   )

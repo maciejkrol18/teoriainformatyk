@@ -1,71 +1,83 @@
-import { cn } from "@/lib/utils"
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import localFont from "next/font/local"
-import Header from "@/components/ui/Header"
-import React from "react"
-import { TailwindIndicator } from "@/components/TailwindIndicator"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { cn } from '@/lib/utils'
+import './globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
+import React from 'react'
+import { Analytics } from '@vercel/analytics/react'
+import Providers from './providers'
+import { TailwindIndicator } from './tailwind-indicator'
+import ToasterWrapper from '@/components/ui/ToasterWrapper'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const calSans = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
-  variable: "--font-calsans",
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+
+const interDisplay = localFont({
+  src: '../assets/fonts/InterDisplay-SemiBold.woff2',
+  variable: '--font-interdisplay',
 })
 
+export const viewport = {
+  themeColor: '#883dbd',
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
+  ),
   title: {
-    default: "teoriainformatyk",
-    template: "%s | teoriainformatyk",
+    default: 'teoriainformatyk',
+    template: '%s | teoriainformatyk',
   },
-  description: "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
+  description: 'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
   keywords: [
-    "technik informatyk",
-    "egzamin zawodowy",
-    "inf02",
-    "inf03",
-    "egzamin informatyk",
+    'technik informatyk',
+    'egzamin zawodowy',
+    'inf02',
+    'inf03',
+    'egzamin informatyk',
   ],
   authors: [
     {
-      name: "Maciej Król",
-      url: "https://github.com/maciejkrol18",
+      name: 'Maciej Król',
+      url: 'https://github.com/maciejkrol18',
     },
   ],
   openGraph: {
-    type: "website",
-    locale: "pl_PL",
-    title: "teoriainformatyk",
+    title: 'teoriainformatyk',
     description:
-      "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
+      'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
+    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
+    siteName: 'teoriainformatyk',
+    type: 'website',
+    locale: 'pl_PL',
+    images: './opengraph-image.png',
   },
 }
 
 interface RootLayoutProps {
   children: React.ReactNode
+  modal: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
-    <html lang="pl">
+    <html lang="pl" className="dark" suppressHydrationWarning>
       <body>
-        <div
-          className={cn(
-            "bg-black bg-gradient-primary bg-fixed text-foreground min-h-screen flex flex-col font-inter",
-            inter.variable,
-            calSans.variable,
-          )}
-        >
+        <Providers>
+          <ToasterWrapper />
           <TailwindIndicator />
-          <Header />
-          <div className="px-4 md:px-0 container mx-auto flex flex-col grow gap-4">
+          <div
+            className={cn(
+              'bg-background text-text min-h-screen flex flex-col font-sans',
+              inter.variable,
+              interDisplay.variable,
+            )}
+          >
             {children}
           </div>
-        </div>
-        <Analytics />
-        <SpeedInsights />
+          <div>{modal}</div>
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )
