@@ -6,7 +6,6 @@ import localFont from 'next/font/local'
 import React from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import Providers from './providers'
-import { Toaster } from 'sonner'
 import { TailwindIndicator } from './tailwind-indicator'
 import ToasterWrapper from '@/components/ui/ToasterWrapper'
 
@@ -17,8 +16,12 @@ const interDisplay = localFont({
   variable: '--font-interdisplay',
 })
 
+export const viewport = {
+  themeColor: '#883dbd',
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://teoriainformatyk.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL!),
   title: {
     default: 'teoriainformatyk',
     template: '%s | teoriainformatyk',
@@ -38,11 +41,14 @@ export const metadata: Metadata = {
     },
   ],
   openGraph: {
-    type: 'website',
-    locale: 'pl_PL',
     title: 'teoriainformatyk',
     description:
       'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
+    url: process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
+    siteName: 'teoriainformatyk',
+    type: 'website',
+    locale: 'pl_PL',
+    images: './opengraph-image.png',
   },
 }
 
