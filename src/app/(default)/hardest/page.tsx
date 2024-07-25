@@ -1,15 +1,14 @@
-import { DataTable } from '@/components/ui/DataTable'
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { columns } from './columns'
 import dayjs from 'dayjs'
 import pl from 'dayjs/locale/pl'
 import { cache } from 'react'
+import HardestQuestionsTable from './table'
 
 dayjs.locale(pl)
 
-export const revalidate = 86400
+export const revalidate = 36000
 
 const fetchHardestQuestions = cache(async () => {
   const supabase = createClient()
@@ -53,7 +52,7 @@ export default async function HardestQuestionsPage() {
           Data ostatniej aktualizacji: {getLastUpdateDate()}
         </p>
       </div>
-      <DataTable columns={columns} data={data} />
+      <HardestQuestionsTable data={data} />
     </div>
   )
 }

@@ -1,12 +1,13 @@
 import { Button } from '@/components/ui/Button'
 import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowUpLeft } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { DataTable } from '@/components/ui/DataTable'
-import { columns } from './columns'
 import dayjs from 'dayjs'
 import pl from 'dayjs/locale/pl'
+import { declension } from '@/lib/utils'
+import ExamHistoryTable from './table'
+import getUser from '@/lib/supabase/get-user'
 
 const SCORES_PER_PAGE = 10
 
@@ -15,10 +16,11 @@ dayjs.locale(pl)
 async function fetchPaginatedScores(user: string, pageOffset: number) {
   const supabase = createClient()
 
-  const { data, error } = await supabase
+  const { data, count, error } = await supabase
     .from('exam_scores')
     .select(
-      'created_at, exam_id, user_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)',
+      'created_at, exam_id, user_id, score_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)',
+      { count: 'exact' },
     )
     .eq('user_id', user)
     .range(pageOffset, pageOffset + SCORES_PER_PAGE - 1)
@@ -29,22 +31,10 @@ async function fetchPaginatedScores(user: string, pageOffset: number) {
   } else if (!data) {
     throw new Error('Nie udało się pobrać wyników egzaminów')
   } else {
-    return data
-  }
-}
-
-async function getTotalAmountOfScores(user: string) {
-  const supabase = createClient()
-
-  const { count, error } = await supabase
-    .from('exam_scores')
-    .select('id', { count: 'exact', head: true })
-    .eq('user_id', user)
-
-  if (error) {
-    throw new Error(error.message)
-  } else {
-    return count
+    return {
+      data: data,
+      count: count,
+    }
   }
 }
 
@@ -55,11 +45,9 @@ export default async function ExamHistoryPage({
     page: string
   }
 }) {
-  const supabase = createClient()
+  const { user } = await getUser()
 
-  const { data, error } = await supabase.auth.getUser()
-
-  if (error || !data?.user) {
+  if (!user) {
     redirect('/login')
   }
 
@@ -72,19 +60,18 @@ export default async function ExamHistoryPage({
   }
   const pageOffset = (pageNumber - 1) * SCORES_PER_PAGE
 
-  const examHistory = await fetchPaginatedScores(data.user.id, pageOffset)
-  const totalScores = await getTotalAmountOfScores(data.user.id)
+  const { data, count } = await fetchPaginatedScores(user.id, pageOffset)
 
-  const totalPages = totalScores ? Math.ceil(totalScores / SCORES_PER_PAGE) : 1
+  const totalPages = count ? Math.ceil(count / SCORES_PER_PAGE) : 1
   const canNextPage = pageNumber + 1 <= totalPages
   const canPrevPage = pageNumber - 1 >= 1
 
-  const processedExamHistory = examHistory.map((score) => {
+  const processedExamHistory = data.map((score) => {
+    const timeTook = dayjs(score.time_finished).diff(score.time_started, 'minute')
     return {
       ...score,
       created_at: dayjs(score.created_at).format('D MMMM YYYY, H[:]mm'),
-      time_started: dayjs(score.time_started).format('H[:]mm[:]ss'),
-      time_finished: dayjs(score.time_finished).format('H[:]mm[:]ss'),
+      time_took: `${timeTook} ${declension(timeTook, 'minuta', 'minuty', 'minut')}`,
     }
   })
 
@@ -96,22 +83,13 @@ export default async function ExamHistoryPage({
         </Link>
       </Button>
       <h1 className="text-4xl font-display">Historia egzaminów</h1>
-      <DataTable columns={columns} data={processedExamHistory} />
-      <div className="flex gap-4 justify-center items-center">
-        <Button asChild variant="outline">
-          <Link href={!canPrevPage ? '#' : `?page=${pageNumber - 1}`}>
-            <ChevronLeft />
-          </Link>
-        </Button>
-        <p className="text-center">
-          Strona {pageNumber} z {totalPages}
-        </p>
-        <Button asChild variant="outline">
-          <Link href={!canNextPage ? '#' : `?page=${pageNumber + 1}`}>
-            <ChevronRight />
-          </Link>
-        </Button>
-      </div>
+      <ExamHistoryTable
+        data={processedExamHistory}
+        canNextPage={canNextPage}
+        canPrevPage={canPrevPage}
+        pageNumber={pageNumber}
+        totalPages={totalPages}
+      />
     </div>
   )
 }

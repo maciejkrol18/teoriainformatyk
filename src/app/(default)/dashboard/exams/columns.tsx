@@ -1,23 +1,33 @@
 'use client'
 
+import { Checkbox } from '@/components/ui/Checkbox'
 import { ColumnDef } from '@tanstack/react-table'
 
-interface HistoryExamScore {
-  created_at: string
-  exam_id: number | null
-  user_id: string | null
-  percentage_score: number
-  correct: number
-  incorrect: number
-  unanswered: number
-  time_finished: string
-  time_started: string
-  exams: {
-    name: string
-  } | null
-}
-
-export const columns: ColumnDef<HistoryExamScore>[] = [
+export const columns: ColumnDef<ExamHistoryEntry>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <div className="flex items-center justify-center h-8 w-8">
+        <Checkbox
+          checked={
+            table.getIsAllRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Wybierz wszystkie"
+        />
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center h-8 w-8">
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Wybierz wiersz"
+        />
+      </div>
+    ),
+  },
   {
     accessorKey: 'created_at',
     header: 'Data',
@@ -51,11 +61,7 @@ export const columns: ColumnDef<HistoryExamScore>[] = [
     header: 'Bez odpowiedzi',
   },
   {
-    accessorKey: 'time_started',
-    header: 'Rozpoczęto',
-  },
-  {
-    accessorKey: 'time_finished',
-    header: 'Zakończono',
+    accessorKey: 'time_took',
+    header: 'Rozwiązano w',
   },
 ]
