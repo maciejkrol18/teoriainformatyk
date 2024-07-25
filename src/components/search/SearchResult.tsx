@@ -12,7 +12,7 @@ export default function SearchResult({ question }: SearchResultProps) {
     <Link
       href={`/question/${question.id}`}
       scroll={false}
-      className="flex justify-between gap-4 items-center bg-background-light p-4 rounded-md"
+      className="flex justify-between gap-4 items-center bg-background-light p-4 rounded-md hover:ring-2 hover:ring-background-bright transition-shadow"
     >
       <div className="flex flex-col gap-2">
         <p className="text-muted">ID #{question.id}</p>
