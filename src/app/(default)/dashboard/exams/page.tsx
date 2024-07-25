@@ -9,22 +9,49 @@ import { declension } from '@/lib/utils'
 import ExamHistoryTable from './table'
 import getUser from '@/lib/supabase/get-user'
 
-const SCORES_PER_PAGE = 10
+const RESULTS_PER_PAGE = 10
 
 dayjs.locale(pl)
 
-async function fetchPaginatedScores(user: string, pageOffset: number) {
+interface ExamHistoryPageProps {
+  searchParams: ExamHistoryFilters
+}
+
+async function fetchPaginatedScores({
+  user,
+  page = '1',
+  examId,
+  sortBy = 'created_at',
+  scoreLessThan,
+  scoreMoreThan,
+}: ExamHistoryFilters) {
   const supabase = createClient()
 
-  const { data, count, error } = await supabase
+  const pageOffset = (parseInt(page) - 1) * RESULTS_PER_PAGE
+
+  let dbQuery = supabase
     .from('exam_scores')
     .select(
       'created_at, exam_id, user_id, score_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)',
       { count: 'exact' },
     )
     .eq('user_id', user)
-    .range(pageOffset, pageOffset + SCORES_PER_PAGE - 1)
-    .order('created_at', { ascending: false })
+    .range(pageOffset, pageOffset + RESULTS_PER_PAGE - 1)
+    .order(sortBy, { ascending: false })
+
+  if (examId) {
+    dbQuery.eq('exam_id', examId)
+  }
+
+  if (scoreLessThan) {
+    dbQuery.lt('percentage_score', scoreLessThan)
+  }
+
+  if (scoreMoreThan) {
+    dbQuery.gt('percentage_score', scoreMoreThan)
+  }
+
+  const { data, count, error } = await dbQuery
 
   if (error) {
     throw new Error(error.message)
@@ -38,33 +65,31 @@ async function fetchPaginatedScores(user: string, pageOffset: number) {
   }
 }
 
-export default async function ExamHistoryPage({
-  searchParams: { page = '1' },
-}: {
-  searchParams: {
-    page: string
-  }
-}) {
+export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageProps) {
   const { user } = await getUser()
 
   if (!user) {
     redirect('/login')
   }
 
-  let pageNumber: number
+  const page = searchParams.page || '1'
+  const examId = searchParams.examId
+  const sortBy = searchParams.sortBy
+  const scoreLessThan = searchParams.scoreLessThan
+  const scoreMoreThan = searchParams.scoreMoreThan
 
-  try {
-    pageNumber = parseInt(page) || 1
-  } catch {
-    pageNumber = 1
-  }
-  const pageOffset = (pageNumber - 1) * SCORES_PER_PAGE
+  const { data, count } = await fetchPaginatedScores({
+    user: user.id,
+    page: page,
+    examId: examId,
+    sortBy: sortBy,
+    scoreLessThan: scoreLessThan,
+    scoreMoreThan: scoreMoreThan,
+  })
 
-  const { data, count } = await fetchPaginatedScores(user.id, pageOffset)
-
-  const totalPages = count ? Math.ceil(count / SCORES_PER_PAGE) : 1
-  const canNextPage = pageNumber + 1 <= totalPages
-  const canPrevPage = pageNumber - 1 >= 1
+  const totalPages = count ? Math.ceil(count / RESULTS_PER_PAGE) : 1
+  const canNextPage = parseInt(page) + 1 <= totalPages
+  const canPrevPage = parseInt(page) - 1 >= 1
 
   const processedExamHistory = data.map((score) => {
     const timeTook = dayjs(score.time_finished).diff(score.time_started, 'minute')
@@ -87,7 +112,7 @@ export default async function ExamHistoryPage({
         data={processedExamHistory}
         canNextPage={canNextPage}
         canPrevPage={canPrevPage}
-        pageNumber={pageNumber}
+        pageNumber={parseInt(page)}
         totalPages={totalPages}
       />
     </div>

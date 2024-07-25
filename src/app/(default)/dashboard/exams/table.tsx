@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { deleteExamScores } from './actions'
 import { toast } from 'sonner'
 import { columns } from './columns'
+import ExamFiltersDropdown from './exams-filters-dropdown'
 
 interface ExamHistoryTable {
   data: ExamHistoryEntry[]
@@ -46,7 +47,6 @@ export default function ExamHistoryTable({
 
   return (
     <div className="flex flex-col gap-4">
-      <DataTable table={table} columns={columns} />
       <div className="flex items-center justify-between">
         <div className="flex gap-4 items-center">
           <p>
@@ -58,12 +58,12 @@ export default function ExamHistoryTable({
           </Button>
         </div>
         <div className="flex gap-4 justify-center items-center">
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href="?page=1" scroll={false}>
               <ChevronsLeft />
             </Link>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href={!canPrevPage ? '#' : `?page=${pageNumber - 1}`} scroll={false}>
               <ChevronLeft />
             </Link>
@@ -71,18 +71,20 @@ export default function ExamHistoryTable({
           <p className="text-center">
             Strona {pageNumber} z {totalPages}
           </p>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href={!canNextPage ? '#' : `?page=${pageNumber + 1}`} scroll={false}>
               <ChevronRight />
             </Link>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href={`?page=${totalPages}`} scroll={false}>
               <ChevronsRight />
             </Link>
           </Button>
+          <ExamFiltersDropdown />
         </div>
       </div>
+      <DataTable table={table} columns={columns} />
     </div>
   )
 }
