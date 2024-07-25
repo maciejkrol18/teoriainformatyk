@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
         <p>
           Korzystamy z narzędzi analitycznych szanujących prywatność:{' '}
           <Link
-            href="https://vercel.com/legal/privacy-policy"
+            href="https://vercel.com/docs/analytics/privacy-policy"
             className="text-accent underline"
           >
             Vercel Analytics
