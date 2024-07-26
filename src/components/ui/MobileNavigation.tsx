@@ -29,7 +29,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (isOpen) toggleOpen()
+    if (isOpen) setIsOpen(false)
   }, [pathname])
 
   const closeOnCurrent = (href: string) => {
@@ -79,7 +79,15 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
               {profile ? (
                 <ProfileBlock profile={profile} />
               ) : (
-                <Button variant="primary" asChild>
+                <Button
+                  variant="primary"
+                  asChild
+                  /* 
+                    MobileNavigation is not present in the auth layout
+                    so we need to set the overflow to auto manually
+                  */
+                  onClick={() => (document.body.style.overflow = 'auto')}
+                >
                   <Link href="/login">Zaloguj</Link>
                 </Button>
               )}
