@@ -2,10 +2,9 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { QueryChallenge } from '@/types/query-challenge'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Dices, ExternalLink, Send, Wand2 } from 'lucide-react'
-import { Parser } from 'node-sql-parser'
+import { Dices, ExternalLink, LoaderIcon, Send, Wand2 } from 'lucide-react'
 import QueryInput from './QueryInput'
 import { toast } from 'sonner'
 import { QuestionImage } from '@/components/ui/Question'
@@ -15,7 +14,7 @@ import Skeleton from '@/components/ui/Skeleton'
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null)
   const [userQuery, setUserQuery] = useState<string>('')
-  const parser = useRef(new Parser())
+  const [isValidating, setIsValidating] = useState(false)
 
   const fetchChallenge = async () => {
     const supabase = createClient()
@@ -55,28 +54,34 @@ export default function SqlTraining() {
     if (challenge) setUserQuery(challenge.answer)
   }
 
-  const checkAnswer = () => {
+  const checkAnswer = async () => {
     if (!userQuery) {
       toast.error('Wpisz swoją odpowiedź w edytor po lewej stronie')
       return
     }
     if (userQuery && challenge) {
-      try {
-        const parsedAnswer = parser.current.parse(
-          userQuery.charAt(userQuery.length - 1) === ';'
-            ? userQuery.substring(0, userQuery.indexOf(';'))
-            : userQuery,
-        )
-
-        const parsedCorrectAnswer = parser.current.parse(challenge.answer)
-
-        const isCorrect =
-          JSON.stringify(parsedAnswer) === JSON.stringify(parsedCorrectAnswer)
-        isCorrect ? toast.success('Poprawna odpowiedź') : toast.error('Zła odpowiedź')
-      } catch (error) {
-        toast.error('Zła odpowiedź')
-        console.warn('Parser Error:', error)
+      setIsValidating(true)
+      const res = await fetch('/api/sql-training', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userAnswer: userQuery,
+          correctAnswer: challenge.answer,
+        }),
+      })
+      const status = res.status
+      if (status === 200) {
+        const isCorrect = await res.json()
+        isCorrect
+          ? toast.success('Odpowiedź poprawna')
+          : toast.error('Niepoprawna odpowiedź')
+      } else {
+        const error = await res.text()
+        toast.error(error)
       }
+      setIsValidating(false)
     }
   }
 
@@ -86,7 +91,12 @@ export default function SqlTraining() {
 
   return (
     <div className="flex flex-col xl:flex-row py-4 gap-4 grow">
-      <div className="flex-1 bg-background-light p-8">
+      <div className="flex-1 bg-background-light relative">
+        {isValidating && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background-light/50">
+            <LoaderIcon className="animate-spin" />
+          </div>
+        )}
         <QueryInput state={userQuery} setState={setUserQuery} />
       </div>
       <div className="flex-1 flex flex-col gap-8 p-8 rounded-md bg-background-light">

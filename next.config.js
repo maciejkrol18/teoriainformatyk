@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: ".env.local",
+})
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -8,7 +12,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'mwutwmvvmskygvtjowaa.supabase.co',
+        hostname: process.env.NEXT_PUBLIC_SUPABASE_URL.replace("https://", ""),
         port: '',
         pathname: '/storage/v1/object/public/**',
       },
