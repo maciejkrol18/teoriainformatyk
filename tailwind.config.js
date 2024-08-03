@@ -14,10 +14,10 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'gradient-loading': `
-          linear-gradient(270deg, #262626, #595b5a)
+        'hero-blob': `
+          linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 20%, hsl(var(--background)) 60%), 
+          url('../public/hero-blob.svg')
         `,
-        'gradient-accent': `linear-gradient(270deg, #6f4eb0, #fac02c)`,
       },
       backgroundSize: {
         'size-loading': "400% 400%"

@@ -2,7 +2,6 @@ import GamemodeBlock from '@/components/hero/GamemodeBlock'
 import GamemodesWrapper from '@/components/hero/GamemodesWrapper'
 import Section from '@/components/hero/Section'
 import { Button } from '@/components/ui/Button'
-import SplineViewer from '@/components/ui/SplineViewer'
 import Link from 'next/link'
 import OneQuestionIcon from '@/public/one-question-icon.svg'
 import ExamIcon from '@/public/exam-icon.svg'
@@ -11,16 +10,12 @@ import SqlTrainingIcon from '@/public/sql-training-icon.svg'
 import HeroSearchBar from '@/components/hero/HeroSearchBar'
 import HeroCard from '@/components/hero/HeroCard'
 import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from 'lucide-react'
-
 export default function Home() {
   return (
     <>
-      <section
-        id="hero"
-        className="flex flex-col md:flex-row gap-4 items-center justify-center min-h-[calc(100vh-72px)]"
-      >
-        <div className="flex flex-col gap-8 md:flex-1">
-          <h1 className="font-display text-4xl text-left xl:text-6xl">
+      <section id="hero" className="flex min-h-[calc(100vh-72px)] bg-hero-blob">
+        <div className="container mx-auto flex grow flex-col gap-8 items-center justify-center">
+          <h1 className="font-display text-center text-4xl sm:text-5xl xl:text-7xl">
             Najlepsza powtórka
             <br />
             do teoretycznego
@@ -36,10 +31,12 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div className="md:flex-1">
-          <SplineViewer url="https://prod.spline.design/YFClLEYnfyqizPjI/scene.splinecode" />
-        </div>
       </section>
+      <p className="py-8 text-lg font-bold text-red-500 text-center">
+        <span className="uppercase">WAŻNE: </span>Strona jest publicznie dostępna w ramach
+        testowania, ale wciąż jest rozwijana i nie jest w finałowym stanie. Istnieje
+        możliwość resetu danych użytkowników.
+      </p>
       <Section
         title="INF.02/EE.08"
         subtitle="Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych"
@@ -140,11 +137,6 @@ export default function Home() {
           />
         </div>
       </Section>
-      <Section
-        title="Wesprzyj rozwój strony"
-        subtitle="Nasza strona jest w 100% darmowa a jej kod źródłowy jest dostępny dla wszystkich"
-        id="donate"
-      ></Section>
     </>
   )
 }
