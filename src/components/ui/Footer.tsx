@@ -30,7 +30,7 @@ export default function Footer() {
                 Kod źródłowy
               </Link>
               <Link href="/contact">Kontakt</Link>
-              <Link href="/privacy-policy">Polityka prywatności</Link>
+              <Link href="/privacy">Polityka prywatności</Link>
             </div>
           </div>
         </div>
