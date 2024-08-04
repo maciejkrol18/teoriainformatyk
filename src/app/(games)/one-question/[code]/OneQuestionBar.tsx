@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import { BarChart, Dices, HelpCircle, Skull } from 'lucide-react'
-import { Button } from '../ui/Button'
+import { Button } from '@/components/ui/Button'
 import { Question } from '@/types/question'
 import { SetStateAction } from 'react'
 import { toast } from 'sonner'
