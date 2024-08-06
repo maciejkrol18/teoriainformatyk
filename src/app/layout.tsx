@@ -6,8 +6,9 @@ import localFont from 'next/font/local'
 import React from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import Providers from './providers'
-import { TailwindIndicator } from './tailwind-indicator'
+import { TailwindIndicator } from '@/components/ui/tailwind-indicator'
 import ToasterWrapper from '@/components/ui/ToasterWrapper'
+import Skeleton from '@/components/ui/Skeleton'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -17,7 +18,10 @@ const interDisplay = localFont({
 })
 
 export const viewport = {
-  themeColor: '#883dbd',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
 }
 
 export const metadata: Metadata = {
@@ -36,6 +40,7 @@ export const metadata: Metadata = {
     'inf03',
     'egzamin informatyk',
   ],
+  creator: 'Maciej Król',
   authors: [
     {
       name: 'Maciej Król',

@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function LoginPage() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 text-center sm:text-left">
         <h1 className="text-4xl font-bold">Witamy ponownie</h1>
         <p className="text-muted">Wprowadź swoje dane aby kontynuować</p>
       </div>
@@ -18,7 +18,9 @@ export default function LoginPage() {
       <OAuthButtons />
       <p className="text-sm text-muted text-center">
         Kontynuując zgadzasz się na warunki{' '}
-        <Link href="/privacy">polityki prywatności</Link>
+        <Link className="underline" href="/privacy">
+          polityki prywatności
+        </Link>
       </p>
     </div>
   )
