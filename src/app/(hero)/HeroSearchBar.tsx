@@ -1,15 +1,12 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import SearchInput from '../search/SearchInput'
 import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function HeroSearchBar() {
   const inputRef = useRef<HTMLInputElement | null>(null)
-
   const [searchQuery, setSearchQuery] = useState<string>('')
-
   const router = useRouter()
 
   return (
