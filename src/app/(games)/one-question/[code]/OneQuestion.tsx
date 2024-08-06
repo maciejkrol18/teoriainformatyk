@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Button } from '../ui/Button'
+import { Button } from '@/components/ui/Button'
 import {
   Question,
   QuestionAnswer,
@@ -10,26 +10,30 @@ import {
   QuestionContent,
   QuestionImage,
   questionAnswerVariants,
-} from '../ui/Question'
+} from '@/components/ui/Question'
 import { VariantProps } from 'class-variance-authority'
-import QuestionSkeleton from '../skeletons/QuestionSkeleton'
+import QuestionSkeleton from '@/components/skeletons/QuestionSkeleton'
 import { toast } from 'sonner'
 import SessionStats from './SessionStats'
 import OneQuestionBar from './OneQuestionBar'
 import { Question as QuestionType } from '@/types/question'
-import getUser from '@/lib/supabase/get-user'
-import { getHardCollection } from '@/lib/supabase/hard-collection'
+import { incrementCorrect, incrementIncorrect } from './actions'
 
 interface OneQuestionProps {
   examId: number
+  userId: string | null
+  fetchedHardCollection: number[]
 }
 
-export default function OneQuestion({ examId }: OneQuestionProps) {
+export default function OneQuestion({
+  examId,
+  userId,
+  fetchedHardCollection,
+}: OneQuestionProps) {
   const [question, setQuestion] = useState<QuestionType | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-  const [userId, setUserId] = useState<string | null>(null)
   const [statsOpen, setStatsOpen] = useState<boolean>(false)
-  const [hardCollection, setHardCollection] = useState<number[]>([])
+  const [hardCollection, setHardCollection] = useState<number[]>(fetchedHardCollection)
   const [hardMode, setHardMode] = useState<boolean>(false)
   const rollButtonRef = useRef<HTMLButtonElement | null>(null)
 
@@ -88,42 +92,28 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
     }
   }
 
-  const incrementCorrect = async () => {
+  const handleCorrectAnswer = async () => {
     setCorrectAnswers((prev) => prev + 1)
     if (userId) {
-      const supabase = createClient()
-      const { error } = await supabase.rpc('one_question_increment_correct', {
-        user_id: userId,
-        exam_id: examId,
-      })
-      if (error) {
-        console.error(error)
-        toast.error('Błąd aktualizacji statystyk')
-      }
+      const error = await incrementCorrect(userId, examId)
+      if (error) toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`)
     }
   }
 
-  const incrementIncorrect = async () => {
+  const handleIncorrectAnswer = async () => {
     setIncorrectAnswers((prev) => prev + 1)
     if (userId) {
-      const supabase = createClient()
-      const { error } = await supabase.rpc('one_question_increment_incorrect', {
-        user_id: userId,
-        exam_id: examId,
-      })
-      if (error) {
-        console.error(error)
-        toast.error('Błąd aktualizacji statystyk')
-      }
+      const error = await incrementIncorrect(userId, examId)
+      if (error) toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`)
     }
   }
 
   useEffect(() => {
     if (question && selectedAnswer) {
       if (selectedAnswer === question.correct_answer) {
-        incrementCorrect()
+        handleCorrectAnswer()
       } else {
-        incrementIncorrect()
+        handleIncorrectAnswer()
       }
     }
   }, [selectedAnswer])
@@ -144,16 +134,6 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
   useEffect(() => {
     rollQuestion()
   }, [hardMode])
-
-  useEffect(() => {
-    const getUserData = async () => {
-      const { user } = await getUser()
-      const collection = await getHardCollection()
-      setUserId(user && user.id)
-      setHardCollection(collection ?? [])
-    }
-    getUserData()
-  }, [])
 
   return (
     <div className="flex flex-col grow gap-8 justify-center lg:justify-between pb-[64px] lg:py-4 md:w-full md:max-w-xl md:mx-auto">
@@ -185,7 +165,8 @@ export default function OneQuestion({ examId }: OneQuestionProps) {
           </QuestionAnswersContainer>
           {question.image && (
             <QuestionImage
-              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
+              bucket="question_images"
+              filename={question.id}
               loading="lazy"
               alt={`Zdjęcie do pytania`}
             />

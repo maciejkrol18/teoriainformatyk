@@ -31,12 +31,16 @@ export default async function Header() {
             <Link href="/hardest">Najtrudniejsze pytania</Link>
           </Button>
         </nav>
-        <div className="hidden lg:flex lg:items-center gap-4">
+        <div className="flex items-center gap-4">
           <ThemeSwitch />
           <p>|</p>
-          <HeaderAuth user={data.user} />
+          <div className="hidden lg:flex items-center">
+            <HeaderAuth user={data.user} />
+          </div>
+          <div className="flex items-center lg:hidden">
+            <MobileNavigation user={data.user} />
+          </div>
         </div>
-        <MobileNavigation user={data.user} />
       </div>
     </header>
   )

@@ -10,7 +10,7 @@
 
 @layer base {
   :root {
-    --text: 0 1% 13%;
+    --foreground: 0 0% 10%;
     --muted: 0 0% 55%;
     --background: 120 4% 95%;
     --background-light: 0 0% 98%;
@@ -18,9 +18,14 @@
     --primary: 259 71% 64%;
     --secondary: 259 35% 82%;
     --accent: 261 42% 27%;
+    --loader-from: 270, 2%, 76%;
+    --loader-to: 0, 0%, 86%;
+    --correct: 143, 48%, 38%;
+    --incorrect: 0, 74%, 55%;
+    --unanswered: 226, 71%, 40%;
   }
   .dark {
-    --text: 0 0% 83%;
+    --foreground: 0 0% 83%;
     --muted: 0 0% 55%;
     --background: 120 4% 5%;
     --background-light: 0 0% 7%;
@@ -28,10 +33,21 @@
     --primary: 259 71% 36%;
     --secondary: 259 35% 18%;
     --accent: 261 42% 73%;
+    --loader-from: 0, 0%, 15%;
+    --loader-to: 150, 1%, 35%;
+    --correct: 143, 64%, 24%;
+    --incorrect: 0, 70%, 35%;
+    --unanswered: 226, 71%, 40%;
   }
 }
 
 canvas {
   margin: 0 auto;
   cursor: grab;
+}
+
+#hero {
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+  background-position: center center, center center;
 }

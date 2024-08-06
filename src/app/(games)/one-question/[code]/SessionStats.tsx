@@ -11,8 +11,8 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from '../ui/Credenza'
-import { Button } from '../ui/Button'
+} from '@/components/ui/Credenza'
+import { Button } from '@/components/ui/Button'
 
 interface SessionStatsProps {
   open: boolean

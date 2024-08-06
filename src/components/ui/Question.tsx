@@ -10,9 +10,9 @@ const questionAnswerVariants = cva('py-2 px-4 rounded-md text-left', {
     variant: {
       default: 'bg-background-bright',
       selected: 'bg-primary',
-      correct: 'bg-green-800',
-      incorrect: 'bg-red-800',
-      unanswered: 'bg-blue-800',
+      correct: 'bg-correct',
+      incorrect: 'bg-incorrect',
+      unanswered: 'bg-unanswered',
     },
   },
   defaultVariants: {
@@ -25,8 +25,9 @@ interface QuestionAnswerProps
     VariantProps<typeof questionAnswerVariants> {}
 
 interface QuestionImageProps {
-  src: string
   alt: string
+  bucket: 'question_images' | 'query_images'
+  filename: string | number
   loading: 'eager' | 'lazy'
 }
 
@@ -83,7 +84,7 @@ const QuestionAnswer = forwardRef<HTMLButtonElement, QuestionAnswerProps>(
 )
 QuestionAnswer.displayName = 'QuestionAnswer'
 
-const QuestionImage = ({ alt, src, loading }: QuestionImageProps) => {
+const QuestionImage = ({ alt, bucket, filename, loading }: QuestionImageProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <div
@@ -92,7 +93,7 @@ const QuestionImage = ({ alt, src, loading }: QuestionImageProps) => {
       }`}
     >
       <Image
-        src={src}
+        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucket}/${filename}.webp`}
         alt={alt}
         fill
         loading={loading}

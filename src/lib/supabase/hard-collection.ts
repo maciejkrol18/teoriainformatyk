@@ -1,37 +1,33 @@
 'use server'
 
-import getUser from './get-user'
+import { revalidatePath } from 'next/cache'
 import { createClient } from './server'
 
-async function getHardCollection() {
+export default async function updateHardCollection(
+  id: number,
+  action: 'add' | 'remove',
+): Promise<{
+  success: boolean
+  message: string
+}> {
   const supabase = createClient()
-  const { user } = await getUser()
-  if (user) {
-    const { data, error } = await supabase
-      .from('hard_collections')
-      .select('question_id_array')
-      .eq('user_id', user.id)
-      .single()
-    if (error) {
-      return error.code === 'PGRST116' ? [] : null
-    } else {
-      return data.question_id_array ?? null
+  if (action === 'remove') {
+    const { error } = await supabase.rpc('remove_from_hard_collection', {
+      idtoremove: id,
+    })
+    !error && revalidatePath(`/question/${id}`)
+    return {
+      success: !Boolean(error),
+      message: error?.message || `Usunięto ID ${id} ze zbioru`,
     }
   } else {
-    return null
+    const { error } = await supabase.rpc('add_to_hard_collection', {
+      newid: id,
+    })
+    !error && revalidatePath(`/question/${id}`)
+    return {
+      success: !Boolean(error),
+      message: error?.message || `Dodano ID ${id} ze zbioru`,
+    }
   }
 }
-
-async function addToHardCollection(id: number) {
-  const supabase = createClient()
-  const { data } = await supabase.rpc('add_to_hard_collection', { newid: id })
-  return data
-}
-
-async function removeFromHardCollection(id: number) {
-  const supabase = createClient()
-  const { data } = await supabase.rpc('remove_from_hard_collection', { idtoremove: id })
-  return data
-}
-
-export { getHardCollection, addToHardCollection, removeFromHardCollection }

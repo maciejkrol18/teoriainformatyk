@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
           <TailwindIndicator />
           <div
             className={cn(
-              'bg-background text-text min-h-screen flex flex-col font-sans',
+              'bg-background text-foreground min-h-screen flex flex-col font-sans',
               inter.variable,
               interDisplay.variable,
             )}

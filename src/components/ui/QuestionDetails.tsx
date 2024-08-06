@@ -10,18 +10,14 @@ import {
 } from './Question'
 import { Button } from './Button'
 import { VariantProps } from 'class-variance-authority'
-import {
-  addToHardCollection,
-  getHardCollection,
-  removeFromHardCollection,
-} from '@/lib/supabase/hard-collection'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
-import getUser from '@/lib/supabase/get-user'
+import { useState } from 'react'
 import Link from 'next/link'
+import HardCollectionButton from '../HardCollectionButton'
 
 interface QuestionDetailsProps {
   question: Question
+  fetchedHardCollection: number[]
+  isAuthenticated: boolean
   showHardCollectionButton?: boolean
 }
 
@@ -29,6 +25,8 @@ const Divider = () => <div className="h-[2px] bg-background-bright" />
 
 export default function QuestionDetails({
   question,
+  fetchedHardCollection,
+  isAuthenticated,
   showHardCollectionButton = true,
 }: QuestionDetailsProps) {
   const getAnswerVariant = (
@@ -38,53 +36,7 @@ export default function QuestionDetails({
     return answer === question.correct_answer ? 'correct' : 'default'
   }
 
-  const [hardCollection, setHardCollection] = useState<number[] | null>(null)
-  const [isInCollection, setIsInCollection] = useState<boolean>(false)
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState<boolean>(false)
-
-  const fetchData = async () => {
-    const hardCollection = (await getHardCollection()) ?? []
-    setHardCollection(hardCollection)
-  }
-
-  const fetchUser = async () => {
-    const { user } = await getUser()
-    setIsUserAuthenticated(Boolean(user))
-  }
-
-  // TODO: Unify this logic with what's in OneQuestionBar.tsx
-  const handleHardCollectionClick = async () => {
-    if (!isUserAuthenticated) {
-      toast.error('Zaloguj się, aby korzystać z tej funkcji')
-      return
-    }
-    if (hardCollection) {
-      if (isInCollection) {
-        setHardCollection((prev) => (prev ?? []).filter((id) => id !== question.id))
-        const data = await removeFromHardCollection(question.id)
-        if (data) {
-          toast.success(`Usunięto ID ${question.id} ze zbioru`)
-        }
-      } else {
-        setHardCollection((prev) => (prev ? [question.id, ...prev] : [question.id]))
-        const data = await addToHardCollection(question.id)
-        if (data) {
-          toast.success(`Dodano ID ${question.id} do zbioru`)
-        }
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchData()
-    fetchUser()
-  }, [])
-
-  useEffect(() => {
-    if (hardCollection) {
-      setIsInCollection(hardCollection.includes(question.id))
-    }
-  }, [hardCollection])
+  const [hardCollection, setHardCollection] = useState<number[]>(fetchedHardCollection)
 
   return (
     <div className="flex flex-col gap-8 py-4">
@@ -124,7 +76,8 @@ export default function QuestionDetails({
         </p>
         {question.image ? (
           <QuestionImage
-            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
+            bucket="question_images"
+            filename={question.id}
             loading="lazy"
             alt={`Zdjęcie do pytania o ID ${question.id}`}
           />
@@ -135,16 +88,19 @@ export default function QuestionDetails({
       <Divider />
       <div className="flex flex-col gap-4">
         {showHardCollectionButton && (
-          <Button
-            onClick={handleHardCollectionClick}
+          <HardCollectionButton
             disabled={!hardCollection}
             className={`${!hardCollection && 'text-muted'}`}
+            hardCollection={hardCollection}
+            setHardCollection={setHardCollection}
+            isAuthenticated={isAuthenticated}
+            targetQuestionId={question.id}
           >
             <Skull />{' '}
             {hardCollection
-              ? `${isInCollection ? 'Usuń ze' : 'Dodaj do'} zbioru trudnych pytań`
+              ? `${hardCollection.includes(question.id) ? 'Usuń ze' : 'Dodaj do'} zbioru trudnych pytań`
               : 'Ładowanie stanu zbioru...'}
-          </Button>
+          </HardCollectionButton>
         )}
         <Button asChild>
           <Link

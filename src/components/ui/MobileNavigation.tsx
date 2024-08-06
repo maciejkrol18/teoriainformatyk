@@ -68,8 +68,8 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
   }, [isOpen])
 
   return (
-    <div className="lg:hidden">
-      <button onClick={toggleOpen} className="h-full aspect-square hover:cursor-pointer">
+    <>
+      <button onClick={toggleOpen} className="hover:cursor-pointer">
         {isOpen ? <XCircle /> : <Menu />}
       </button>
       {isOpen ? (
@@ -126,6 +126,6 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
           </div>
         </nav>
       ) : null}
-    </div>
+    </>
   )
 }

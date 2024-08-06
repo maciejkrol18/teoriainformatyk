@@ -1,9 +1,10 @@
-import SearchResultModal from '@/components/search/SearchResultModal'
+import QuestionModal from '@/components/search/QuestionModal'
+import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
 
-export const revalidate = 86400
+export const revalidate = 36000
 
 const getQuestion = cache(async (id: string) => {
   const supabase = createClient()
@@ -21,7 +22,17 @@ const getQuestion = cache(async (id: string) => {
   }
 })
 
-export default async function QuestionModal({
+const getHardCollection = cache(async (userId: string) => {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('hard_collections')
+    .select('question_id_array')
+    .eq('user_id', userId)
+    .single()
+  return (data && data.question_id_array) || []
+})
+
+export default async function ParallelQuestionPage({
   params,
   searchParams,
 }: {
@@ -29,10 +40,14 @@ export default async function QuestionModal({
   searchParams: { hideHardCollection: string }
 }) {
   const question = await getQuestion(params.id)
+  const { user } = await getUser()
+  const hardCollection = user ? await getHardCollection(user.id) : []
 
   return (
-    <SearchResultModal
+    <QuestionModal
       question={question}
+      fetchedHardCollection={hardCollection}
+      isAuthenticated={user !== null}
       showHardCollectionButton={!Boolean(searchParams.hideHardCollection)}
     />
   )
