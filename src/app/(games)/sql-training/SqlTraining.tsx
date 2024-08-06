@@ -117,7 +117,8 @@ export default function SqlTraining() {
               {challenge.image && (
                 <div className="flex">
                   <QuestionImage
-                    src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/query_images/${challenge.exam_code}.webp`}
+                    bucket="query_images"
+                    filename={challenge.exam_code}
                     alt="Załączony obrazek"
                     loading="eager"
                   />

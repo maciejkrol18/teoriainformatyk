@@ -96,7 +96,8 @@ export default function QuestionView({
         )}
         {question && currentQuestionId && !showAnswer && (
           <QuestionImage
-            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${currentQuestionId}.webp`}
+            bucket="question_images"
+            filename={currentQuestionId}
             alt="Zdjęcie załączone do pytania"
             loading="lazy"
           />

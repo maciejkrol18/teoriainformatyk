@@ -76,7 +76,8 @@ export default function QuestionDetails({
         </p>
         {question.image ? (
           <QuestionImage
-            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/question_images/${question.id}.webp`}
+            bucket="question_images"
+            filename={question.id}
             loading="lazy"
             alt={`Zdjęcie do pytania o ID ${question.id}`}
           />
