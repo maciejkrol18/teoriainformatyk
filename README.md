@@ -1,102 +1,99 @@
-# teoriainformatyk
+<div align='center'>
+  
+  # teoriainformatyk
 
-teoriainformatyk is a web app for revising to the quiz part of polish INF.02/EE.08 and INF.03/EE.09/E.14 IT technician exams available at [teoriainformatyk.vercel.app](https://teoriainformatyk.vercel.app)
+  <br>
+  
+  [![production status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk.pl&up_message=online&up_color=darkgreen&down_message=offline&down_color=critical&label=production&labelColor=%23171517)](https://teoriainformatyk.pl)
+  [![preview status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk-git-dev-maciejkrol18s-projects.vercel.app%2F&up_message=online&up_color=darkgreen&down_message=offline&down_color=critical&label=preview&labelColor=%23171517)](https://teoriainformatyk.pl) <br>
+  ![nextjs 14](https://img.shields.io/badge/NextJS_14-black?logo=nextdotjs)
+  ![vercel](https://img.shields.io/badge/Vercel-black?logo=vercel&color=black)
+  ![tailwind](https://img.shields.io/badge/Tailwind_CSS-turquoise?logo=tailwindcss&color=%230d6675)
+  ![supabase](https://img.shields.io/badge/Supabase-green?logo=supabase&color=%23268057)
+  ![typescript](https://img.shields.io/badge/TypeScript-blue?logo=typescript&color=%2322548c)
+  ![biome](https://img.shields.io/badge/Biome-blue?logo=biome&color=%23324c6b)
 
-## ✨ Current features
 
-- One question mode
-  - roll and answer to a random question idefinetely
-  - see the stats for the current session, including elapsed time and percentage score
-  - save questions to two local collections
-- Exam mode
-  - roll 40 random questions and see the results at the end
-  - every score saves locally up to a max of 5 scores
-- SQL Training
-  - roll random query related tasks from previous year's exams
-  - ability to autofill the code input if you're not sure of the right answer
-- User panel
-  - managing panels for both of the local collections
-    - a hard and an easy collection (features coming to them soon)
-  - exam score history
-- Question browser
-  - search the database for a specific question by typing in its content
+</div>
+
+## 💡 About
+
+teoriainformatyk is a web app for revising to the quiz part of polish INF.02/EE.08 and INF.03/EE.09/E.14 IT technician exams available at [teoriainformatyk.pl](https://teoriainformatyk.pl). The app is currently publicly available so feel free to use it, but keep in mind that **it's still being developed - not all features are yet implemented, there may be bugs, and user data may be deleted and/or altered at any point in time.**
+
+## 👨‍🎓 Ways to revise
+
+`*` - requires to be signed in <br>
+`**` - will require a premium account (to be added soon™)
+
+### One Question
+- Keep rolling a random question and answering it as long as you like
+- See the stats for the current session, including
+  - time spent
+  - number of correct and incorrect answers
+  - amount of rolled questions
+  - percentage score
+- Save the amount of total correct and incorrect answers given in this mode and view the stats in your dashboard*
+- If you find a question to be especially hard, add it to your personal "hard questions collection" to activate hard mode during which only questions from that collection appear**
+- View information about the current question with the option to report any encountered mistakes
+### Exam
+- Roll 40 random questions, answer them, and see the results at the end
+- The score gets saved and you can browse your scores in the dashboard*
+### Flashcards*
+- Go through each available question one by one and save your progress
+- Come back and start where you left off
+- Reset your progress at any moment if you wish to
+### Question browser
+- Search through the questions available in the database by typing in a query
+- Filter the questions by the exam qualification and whether they have an image attached to them or not
+- Sort the questions by their ID or alphabetically
+- The search page is also where you access your hard questions collections, which you do by applying the "Tylko zbiór trudnych" filter**
+### SQL Training
+*INF.03 only*
+- Roll a random query related task from one of the past exams
+- Autofill the code input if you're not sure of the right answer
+- Access a separate repository (not made by me) with all of the files (such as .PDFs) regarding the exam through a link
+
+## 👤 User features
+You can create an account by signing up using an email and a password, or by using one of the social login providers (currently Google and Discord are available). A single user can sign in using multiple authentication methods (e.g. if you signed up using the email johndoe[at]mail.com, you can sign in to the same account using Discord if the discord account is also linked to the johndoe[at]mail.com address). Here's the rest of the features regarding a user:
+### Dashboard
+Here's what you see on the dashboard's homepage:
+- One Question and Flashcards stats
+  - See the percentage of correct answers given in one question mode
+  - See how much questions you have left to go through in flashcards
+- Latest 5 exams you took
+- A link to the list of questions in your hard questions collection** (which is accessed through the question browser)
+- Metadata about your account
+- Buttons with links to:
+  - Password change form - change the password currently being used to access the account through the email and password combination
+  - Stats reset form - clear your one question stats, flashcards progress and exam history all at the same time
+  - Account deletion form - delete your account purging all of the data associated to your user id in the database
+  - Help form - ask for help through a dedicated contact form
+
+### Exam history
+You can access your exam score history through the "Zobacz wszystkie" button located where the 5 latest scores are displayed. Your scores are displayed in a paginated table.
+Sort the scores by the date of their submission and the percentage score. Filter the scores by the exam's qualification and the percentage score (higher and/or lower than a specified value).
+You can select rows on the current page and choose to delete them.
+
+### Hardest questions page
+A subpage accessible only to signed in users (soon to be only those with a premium account), which displays top 50 questions deemed by the web app's userbase to be the most difficult. It works by scanning the hard question collections of all users every 24hrs, and showing most frequently occuring questions (along with the number of collection's in which a certain question is located in).
+
 
 ## 🔜 Planned features
 
-- Functionality for easy and hard question collections in One Question gamemode
-- Flashcard gamemode for making sure you went through all available questions
-- Users system for a more personalized experience and keeping data across devices (currently everything's in local storage)
-  - flashcard tracking
-  - learning streaks
-  - streak leaderboards
-  - more
-- More search options in the Question browser
-- Style redesign
+- A cheap premium account unlocking the hard question collections funcionality
+- Summaries about each answer to a question clarifying why it's either right or wrong (premium only as well)
 
-## 🧰 Technologies used
+## 🧰 The stack
 
-- Typescript
-- NextJS 14
-- Tailwind CSS
-- Supabase
+- Framework - Next.js 14
+- Language - TypeScript
+- ORM, Serverless Postgres, File storage and Auth - Supabase
+- Deployments - Vercel
+- Bot protection - HCaptcha
+- Styling - TailwindCSS
+- Components - custom + modified shadcn/ui
+- Linting and formatting - Biome
 
-## 📚 SQL table definitions
+## 👷‍♂️ Contributing
 
-> [!NOTE]
-> Images are stored in a Supabase bucket. Whether a question has an image attached to it is determined by the "image" boolean value within the table
-
-```sql
-create table
-  public.inf02 (
-    id bigint generated by default as identity,
-    created_at timestamp with time zone null,
-    content text null,
-    correct_answer text null,
-    image boolean null,
-    answers text[] null,
-    constraint inf02_pkey primary key (id)
-  ) tablespace pg_default;
-```
-
-```sql
-create table
-  public.inf03 (
-    id bigint generated by default as identity,
-    created_at timestamp with time zone null,
-    content text null,
-    correct_answer text null,
-    image boolean null,
-    answers text[] null,
-    constraint inf03_pkey primary key (id)
-  ) tablespace pg_default;
-```
-
-```sql
-create table
-  public.query_training (
-    id bigint generated by default as identity,
-    created_at timestamp with time zone not null default now(),
-    exam_code text not null,
-    comment text not null,
-    questions text[] not null,
-    answers text[] not null,
-    image boolean null default false,
-    constraint query_training_pkey primary key (id)
-  ) tablespace pg_default;
-```
-
-## 👷‍♂️ Getting Started
-
-Install required dependencies
-
-```bash
-pnpm install
-```
-
-Run the development server
-
-```bash
-pnpm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Suggest new features, report bugs etc. through [the dedicated contact form](https://teoriainformatyk.pl/contact) or [create a new issue](https://github.com/maciejkrol18/teoriainformatyk/issues)
