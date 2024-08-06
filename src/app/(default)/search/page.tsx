@@ -1,7 +1,7 @@
 import SearchBar from '@/components/search/SearchBar'
 import SearchPagination from '@/components/search/SearchPagination'
 import SearchResult from '@/components/search/SearchResult'
-import { getHardCollection } from '@/lib/supabase/hard-collection'
+import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
 import { SearchFilters } from '@/types/search-filters'
 
@@ -9,6 +9,18 @@ const RESULTS_PER_PAGE = 10
 
 interface SearchPageProps {
   searchParams: SearchFilters
+}
+
+async function getHardCollection() {
+  const { user } = await getUser()
+  if (!user) return []
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('hard_collections')
+    .select('question_id_array')
+    .eq('user_id', user.id)
+    .single()
+  return (data && data.question_id_array) || []
 }
 
 async function fetchPaginatedQuestions({
@@ -51,7 +63,7 @@ async function fetchPaginatedQuestions({
   const { data, count, error } = await dbQuery
 
   if (error) {
-    console.log(error)
+    throw new Error('Nie udało się wykonać wyszukiwania. Spróbuj ponownie.')
   }
 
   return {

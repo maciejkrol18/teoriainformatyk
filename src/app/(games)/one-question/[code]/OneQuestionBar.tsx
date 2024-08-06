@@ -7,7 +7,7 @@ import { Question } from '@/types/question'
 import { SetStateAction } from 'react'
 import { toast } from 'sonner'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+import HardCollectionButton from '@/components/HardCollectionButton'
 
 interface OneQuestionBarProps {
   openStatsFn: () => void
@@ -39,34 +39,6 @@ export default function OneQuestionBar({
     hardModeFn((prev) => !prev)
   }
 
-  // TODO: Unify this logic with what's in QuestionDetails.tsx
-  const handleHardCollectionClick = async () => {
-    if (!userId) {
-      toast.error('Zaloguj się, aby korzystać z tej funkcji')
-      return
-    }
-    if (hardCollection && currentQuestion) {
-      const supabase = createClient()
-      if (hardCollection.includes(currentQuestion.id)) {
-        setHardCollection((prev) => prev.filter((id) => id !== currentQuestion.id))
-        const { data } = await supabase.rpc('remove_from_hard_collection', {
-          idtoremove: currentQuestion.id,
-        })
-        if (data) {
-          toast.success(`Usunięto ID ${currentQuestion.id} ze zbioru`)
-        }
-      } else {
-        setHardCollection((prev) => [currentQuestion.id, ...prev])
-        const { data } = await supabase.rpc('add_to_hard_collection', {
-          newid: currentQuestion.id,
-        })
-        if (data) {
-          toast.success(`Dodano ID ${currentQuestion.id} do zbioru`)
-        }
-      }
-    }
-  }
-
   return (
     <div
       className={cn(
@@ -79,7 +51,13 @@ export default function OneQuestionBar({
           {hardMode ? 'H' : 'N'}
         </span>
       </Button>
-      <Button variant="bottomBar" onClick={handleHardCollectionClick}>
+      <HardCollectionButton
+        hardCollection={hardCollection}
+        setHardCollection={setHardCollection}
+        targetQuestionId={currentQuestion?.id}
+        isAuthenticated={userId !== null}
+        variant={'bottomBar'}
+      >
         {hardCollection &&
         currentQuestion &&
         hardCollection.includes(currentQuestion.id) ? (
@@ -87,7 +65,7 @@ export default function OneQuestionBar({
         ) : (
           <Skull />
         )}
-      </Button>
+      </HardCollectionButton>
       <Link href={`/question/${currentQuestion?.id}?hideHardCollection=true`}>
         <Button variant="bottomBar">
           <HelpCircle />
