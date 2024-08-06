@@ -22,8 +22,8 @@ export async function POST(req: Request) {
     })
   }
 
-  if (data.userAnswer.length > 100 || data.correctAnswer.length > 100) {
-    return new Response('Odpowiedź może mieć maksymalnie 100 znaków', {
+  if (data.userAnswer.length > 1000 || data.correctAnswer.length > 1000) {
+    return new Response('Odpowiedź może mieć maksymalnie 1000 znaków', {
       status: 400,
       headers: { 'Content-Type': 'text/plain' },
     })
