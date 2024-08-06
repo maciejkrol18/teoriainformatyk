@@ -1,11 +1,11 @@
 <div align='center'>
   
-  # teoriainformatyk
+  # [![logo](https://github.com/maciejkrol18/teoriainformatyk/blob/main/src/public/logo-big-dark.svg)](https://teoriainformatyk.pl)
 
   <br>
   
-  [![production status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk.pl&up_message=online&up_color=darkgreen&down_message=offline&down_color=critical&label=production&labelColor=%23171517)](https://teoriainformatyk.pl)
-  [![preview status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk-git-dev-maciejkrol18s-projects.vercel.app%2F&up_message=online&up_color=darkgreen&down_message=offline&down_color=critical&label=preview&labelColor=%23171517)](https://teoriainformatyk.pl) <br>
+  [![production status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk.pl&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=production&labelColor=%23171517)](https://teoriainformatyk.pl)
+  [![preview status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk-git-dev-maciejkrol18s-projects.vercel.app%2F&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=preview&labelColor=%23171517)](https://teoriainformatyk.pl) <br>
   ![nextjs 14](https://img.shields.io/badge/NextJS_14-black?logo=nextdotjs)
   ![vercel](https://img.shields.io/badge/Vercel-black?logo=vercel&color=black)
   ![tailwind](https://img.shields.io/badge/Tailwind_CSS-turquoise?logo=tailwindcss&color=%230d6675)
@@ -18,12 +18,11 @@
 
 ## 💡 About
 
-teoriainformatyk is a web app for revising to the quiz part of polish INF.02/EE.08 and INF.03/EE.09/E.14 IT technician exams available at [teoriainformatyk.pl](https://teoriainformatyk.pl). The app is currently publicly available so feel free to use it, but keep in mind that **it's still being developed - not all features are yet implemented, there may be bugs, and user data may be deleted and/or altered at any point in time.**
+teoriainformatyk is a free and open source web app for revising to the quiz part of polish INF.02/EE.08 and INF.03/EE.09/E.14 IT technician exams available at [teoriainformatyk.pl](https://teoriainformatyk.pl)
 
 ## 👨‍🎓 Ways to revise
 
 `*` - requires to be signed in <br>
-`**` - will require a premium account (to be added soon™)
 
 ### One Question
 - Keep rolling a random question and answering it as long as you like
@@ -33,7 +32,7 @@ teoriainformatyk is a web app for revising to the quiz part of polish INF.02/EE.
   - amount of rolled questions
   - percentage score
 - Save the amount of total correct and incorrect answers given in this mode and view the stats in your dashboard*
-- If you find a question to be especially hard, add it to your personal "hard questions collection" to activate hard mode during which only questions from that collection appear**
+- If you find a question to be especially hard, add it to your personal "hard questions collection" to activate hard mode during which only questions from that collection appear*
 - View information about the current question with the option to report any encountered mistakes
 ### Exam
 - Roll 40 random questions, answer them, and see the results at the end
@@ -61,7 +60,7 @@ Here's what you see on the dashboard's homepage:
   - See the percentage of correct answers given in one question mode
   - See how much questions you have left to go through in flashcards
 - Latest 5 exams you took
-- A link to the list of questions in your hard questions collection** (which is accessed through the question browser)
+- A link to the list of questions in your hard questions collection* (which is accessed through the question browser)
 - Metadata about your account
 - Buttons with links to:
   - Password change form - change the password currently being used to access the account through the email and password combination
@@ -75,13 +74,11 @@ Sort the scores by the date of their submission and the percentage score. Filter
 You can select rows on the current page and choose to delete them.
 
 ### Hardest questions page
-A subpage accessible only to signed in users (soon to be only those with a premium account), which displays top 50 questions deemed by the web app's userbase to be the most difficult. It works by scanning the hard question collections of all users every 24hrs, and showing most frequently occuring questions (along with the number of collection's in which a certain question is located in).
-
+A subpage accessible only to signed in users, which displays top 50 questions deemed by the web app's userbase to be the most difficult. It works by scanning the hard question collections of all users every 24hrs, and showing most frequently occuring questions (along with the number of collection's in which a certain question is located in).
 
 ## 🔜 Planned features
 
-- A cheap premium account unlocking the hard question collections funcionality
-- Summaries about each answer to a question clarifying why it's either right or wrong (premium only as well)
+- Summaries about each answer to a question clarifying why it's either right or wrong (AI generated and human verified)
 
 ## 🧰 The stack
 
