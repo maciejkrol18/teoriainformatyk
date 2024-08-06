@@ -42,12 +42,12 @@ export default function OneQuestionBar({
   return (
     <div
       className={cn(
-        'flex justify-between items-center fixed bottom-0 left-0 w-full z-40 bg-[#0b0a0aed] px-2 py-3 backdrop-blur-xl',
+        'flex justify-between items-center fixed bottom-0 left-0 w-full z-40 bg-background-bright px-2 py-3 backdrop-blur-xl',
         'lg:gap-4 lg:justify-center lg:static lg:w-auto lg:z-auto lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-0',
       )}
     >
       <Button variant="bottomBar" onClick={toggleHardMode}>
-        <span className={`${hardMode ? 'text-red-500' : 'text-green-500'}`}>
+        <span className={`${hardMode ? 'text-incorrect' : 'text-correct'}`}>
           {hardMode ? 'H' : 'N'}
         </span>
       </Button>
@@ -61,7 +61,7 @@ export default function OneQuestionBar({
         {hardCollection &&
         currentQuestion &&
         hardCollection.includes(currentQuestion.id) ? (
-          <Skull className="text-red-500" />
+          <Skull className="text-incorrect" />
         ) : (
           <Skull />
         )}

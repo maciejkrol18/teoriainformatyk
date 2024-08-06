@@ -11,7 +11,7 @@ export default function Donut({ value, size }: DonutProps) {
         cy="21"
         r="15.91549430918954"
         fill="transparent"
-        stroke="#171717"
+        stroke="hsl(var(--background-bright))"
         strokeWidth="5"
       ></circle>
 
@@ -21,7 +21,7 @@ export default function Donut({ value, size }: DonutProps) {
         r="15.91549430918954"
         fill="transparent"
         strokeWidth="5"
-        stroke="#441b9d"
+        stroke="hsl(var(--primary))"
         strokeDasharray={`${value} ${100 - value}`}
         strokeDashoffset="25"
       ></circle>

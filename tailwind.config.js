@@ -14,6 +14,9 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
+        'gradient-loading': `
+          linear-gradient(to right, hsl(var(--loader-from)), hsl(var(--loader-to)))
+        `,
         'hero-blob': `
           linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 20%, hsl(var(--background)) 60%), 
           url('../public/hero-blob.svg')
@@ -31,6 +34,9 @@ module.exports = {
         'primary': 'hsl(var(--primary))',
         'secondary': 'hsl(var(--secondary))',
         'accent': 'hsl(var(--accent))',
+        'correct': 'hsl(var(--correct))',
+        'incorrect': 'hsl(var(--incorrect))',
+        'unanswered': 'hsl(var(--unanswered))',
       },
       animation: {
         'loading': 'gradient-moving 1s ease infinite',

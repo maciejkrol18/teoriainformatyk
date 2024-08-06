@@ -10,9 +10,9 @@ const questionAnswerVariants = cva('py-2 px-4 rounded-md text-left', {
     variant: {
       default: 'bg-background-bright',
       selected: 'bg-primary',
-      correct: 'bg-green-800',
-      incorrect: 'bg-red-800',
-      unanswered: 'bg-blue-800',
+      correct: 'bg-correct',
+      incorrect: 'bg-incorrect',
+      unanswered: 'bg-unanswered',
     },
   },
   defaultVariants: {
