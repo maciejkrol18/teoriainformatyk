@@ -117,6 +117,27 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
               Wyszukiwarka pytań
             </Link>
             <Link
+              href="/hardest"
+              className="text-xl pb-2"
+              onClick={() => closeOnCurrent('/hardest')}
+            >
+              Najtrudniejsze pytania
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-xl pb-2"
+              onClick={() => closeOnCurrent('/privacy')}
+            >
+              Polityka prywatności
+            </Link>
+            <Link
+              href="/contact"
+              className="text-xl pb-2"
+              onClick={() => closeOnCurrent('/contact')}
+            >
+              Formularz kontaktowy
+            </Link>
+            <Link
               href="https://github.com/maciejkrol18/teoriainformatyk"
               target="_blank"
               className="text-xl pb-2"

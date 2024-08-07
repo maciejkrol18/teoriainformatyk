@@ -11,6 +11,7 @@ import { Button } from '../ui/Button'
 import { LoaderIcon } from 'lucide-react'
 import Link from 'next/link'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
+import Captcha from './Captcha'
 
 const schema = z.object({
   email: z
@@ -66,17 +67,7 @@ export default function LoginForm() {
         Nie pamiętam hasła
       </Link>
       <div className="flex justify-center items-center min-h-[78px] py-6">
-        <HCaptcha
-          sitekey={siteKey}
-          onVerify={handleCaptchaChange}
-          theme="dark"
-          languageOverride="pl"
-          onChalExpired={() => toast.warning('Weryfikacja Captcha wygasła')}
-          onError={(error) =>
-            toast.error(`Wystąpił błąd w trakcie weryfikacji Captcha: ${error}`)
-          }
-          ref={captchaRef}
-        />
+        <Captcha handleCaptchaChange={handleCaptchaChange} captchaRef={captchaRef} />
       </div>
       <input type="hidden" {...register('token')} />
       <p className="text-red-500 min-h-[48px]">

@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
           </Link>
         </p>
         <p>
-          Korzystamy z narzędzi analitycznych szanujących prywatność:{' '}
+          Korzystamy z narzędzi analitycznych{' '}
           <Link
             href="https://vercel.com/docs/analytics/privacy-policy"
             className="text-accent underline"
@@ -22,18 +22,25 @@ export default function PrivacyPolicyPage() {
           </Link>
         </p>
         <p>
-          Dane użytkowników są przechowywane w zewnętrznej usłudze Supabase:{' '}
+          Dane użytkowników są przechowywane w zewnętrznej usłudze{' '}
           <Link href="https://supabase.com/privacy" className="text-accent underline">
             Supabase
           </Link>
         </p>
         <p>
-          Kod strony jest dostępny dla wszystkich:{' '}
+          Kod strony jest dostępny dla wszystkich w serwisie{' '}
           <Link
             href="https://github.com/maciejkrol18/teoriainformatyk"
             className="text-accent underline"
           >
             GitHub
+          </Link>{' '}
+          i jest udostępniany na licencji{' '}
+          <Link
+            href="https://github.com/maciejkrol18/teoriainformatyk/blob/main/LICENSE.md"
+            className="text-accent underline"
+          >
+            MIT
           </Link>
         </p>
       </div>
@@ -462,6 +469,7 @@ export default function PrivacyPolicyPage() {
               >
                 Google
               </a>
+              <br />
               <a
                 rel="nofollow external"
                 href="https://discord.com/privacy"
@@ -557,14 +565,12 @@ export default function PrivacyPolicyPage() {
             href="https://vercel.com/legal/privacy-policy"
             className="text-accent underline"
           >
-            Vercel Inc.
+            Vercel
           </a>
         </strong>
-        . Wszelkie dane gromadzone i przetwarzane w serwisie są przechowywane i
-        przetwarzane w infrastrukturze usługodawcy zlokalizowanej w Polsce. Istnieje
-        możliwość dostępu do danych wskutek prac serwisowych realizowanych przez personel
-        usługodawcy. Dostęp do tych danych reguluje umowa zawarta pomiędzy Administratorem
-        a Usługodawcą.
+        . Istnieje możliwość dostępu do danych wskutek prac serwisowych realizowanych
+        przez personel usługodawcy. Dostęp do tych danych reguluje umowa zawarta pomiędzy
+        Administratorem a Usługodawcą.
       </p>
       <br />
       <p>
@@ -581,13 +587,12 @@ export default function PrivacyPolicyPage() {
             href="https://supabase.com/privacy"
             className="text-accent underline"
           >
-            Supabase Inc.
+            Supabase
           </a>
         </strong>
         . Personel wskazanego podmiotu ma dostęp do danych wprowadzonych przez
-        użytkowników podczas rejestracji i edycji konta użytkownika i/lub danych
-        dotyczących usługi Newslettera. Dostęp do tych danych reguluje umowa zawarta
-        pomiędzy Administratorem a Usługodawcą.
+        użytkowników podczas rejestracji i edycji konta użytkownika. Dostęp do tych danych
+        reguluje umowa zawarta pomiędzy Administratorem a Usługodawcą.
       </p>
       <br />
       <h2>§10 Sposób przetwarzania danych osobowych</h2>

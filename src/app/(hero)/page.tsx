@@ -32,11 +32,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <p className="m-4 p-4 text-lg font-bold border border-red-800 bg-red-600 text-white text-center">
-        <span className="uppercase">WAŻNE: </span>Strona jest publicznie dostępna w ramach
-        testowania, ale wciąż jest rozwijana i nie jest w finałowym stanie. Istnieje
-        możliwość resetu danych użytkowników.
-      </p>
       <Section
         title="INF.02/EE.08"
         subtitle="Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych"
@@ -108,33 +103,50 @@ export default function Home() {
         subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
         id="user"
       >
-        <div className="grid gap-24 max-w-xl mx-auto grid-cols-1 sm:grid-cols-2">
-          <HeroCard
-            icon={<SkullIcon />}
-            title="Zbiór trudnych pytań"
-            description="Twoja osobista kolekcja pytań, do której możesz zapisywać pytania które są dla ciebie najcięższę do zapamiętania. Zbiór ten pozwala na włączenie specjalnego trybu jednego pytania, w którym pojawiają się jedynie pytania z puli zbioru. Ponadto, zalogowani użytkownicy mogą zobaczyć listę pytań najczęściej dodawanych do zbiorów wszystkich użytkowników"
-          />
-          <HeroCard
-            icon={<GalleryHorizontalEnd />}
-            title="Fiszki"
-            description="Powtarzaj wszystkie dostępne pytania w dostępnych kwalifikacjach. Przerób każde z pytań jedno po drugim zapisując swój progres"
-          />
-          <HeroCard
-            icon={<BarChart3 />}
-            title="Statystyki"
-            description="Sprawdź ilość poprawnych i niepoprawnych odpowiedzi w trybie jednego pytania oraz ilości przerobionych pytań w trybie fiszek z obu kwalifikacji"
-          />
-          <HeroCard
-            icon={<History />}
-            title="Historia egzaminów"
-            description="Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio wykonanych egzaminów, a na oddzielnej podstronie znajdziesz tabelę ze szczegółową historią z informacjami takimi jak data wykonania egzaminu, kwalifikacja, wynik procentowy, ilości odpowiedzi oraz ile czasu zajęło ci by rozwiązać egzamin"
-          />
+        <div className="grid gap-24 max-w-3xl mx-auto grid-cols-1 sm:grid-cols-2">
+          <HeroCard icon={<SkullIcon />} title="Zbiór trudnych pytań">
+            <p className="leading-relaxed">
+              Twoja osobista kolekcja pytań, do której możesz zapisywać pytania które
+              uważasz za najcięższę. Zbiór ten pozwala na włączenie specjalnego trybu
+              jednego pytania, w którym pojawiają się jedynie pytania z puli tego zbioru.
+              Swój zbiór możesz wyświetlić z poziomu wyszukiwarki pytań, oraz modyfikować
+              go z poziomu zarówno wyszukiwarki jak i trybu jednego pytania
+            </p>
+          </HeroCard>
+          <HeroCard icon={<GalleryHorizontalEnd />} title="Fiszki">
+            <p className="leading-relaxed">
+              Powtarzaj wszystkie dostępne pytania w dostępnych kwalifikacjach. Przerób
+              każde z pytań jedno po drugim zapisując swój progres. Powracając na stronę
+              posiadasz wybór kontynuacji powtarzania tam, gdzie skończyłeś lub rozpocząć
+              powtarzanie od zera
+            </p>
+          </HeroCard>
+          <HeroCard icon={<BarChart3 />} title="Statystyki">
+            <p className="leading-relaxed">
+              Sprawdź ilość poprawnych i niepoprawnych odpowiedzi w trybie jednego pytania
+              oraz ilości przerobionych pytań w trybie fiszek z obu kwalifikacji w panelu
+              użytkownika
+            </p>
+          </HeroCard>
+          <HeroCard icon={<History />} title="Historia egzaminów">
+            <p className="leading-relaxed">
+              Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio wykonanych
+              egzaminów. Wyświetl wszystkie aby otworzyć podstronę ze szczegółową tabelą
+              wyświetlającą twoje wszystkie wyniki. Możesz filtrować, sortować i usuwać
+              swoje wyniki
+            </p>
+          </HeroCard>
           <HeroCard
             className="sm:col-span-2"
             icon={<Users />}
             title="Najtrudniejsze pytania"
-            description="Będąc użytkownikiem zyskujesz dostęp do podstrony z najtrudniejszymi pytaniami, która zawiera listę pytań najczęściej dodawanych do zbiorów trudnych pytań wśród wszystkich pozostałych użytkowników serwisu"
-          />
+          >
+            <p className="leading-relaxed">
+              Będąc użytkownikiem zyskujesz dostęp do podstrony z najtrudniejszymi
+              pytaniami, która zawiera listę pytań najczęściej dodawanych do zbiorów
+              trudnych pytań wśród wszystkich pozostałych użytkowników serwisu
+            </p>
+          </HeroCard>
         </div>
       </Section>
     </>

@@ -19,7 +19,6 @@ export default function Footer() {
               <p className="text-lg font-semibold">Więcej</p>
               <Link href="/search">Wyszukiwarka pytań</Link>
               <Link href="/dashboard">Panel użytkownika</Link>
-              <Link href="/donate">Dotacja</Link>
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-lg font-semibold">Strona</p>

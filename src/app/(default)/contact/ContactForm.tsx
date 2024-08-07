@@ -17,6 +17,7 @@ import { toast } from 'sonner'
 import * as z from 'zod'
 import { saveContact } from './actions'
 import { Loader } from 'lucide-react'
+import Captcha from '@/components/auth/Captcha'
 
 interface ContactFormProps {
   email?: string
@@ -138,16 +139,7 @@ export default function ContactForm({ email, contactType, content }: ContactForm
         {errors.content?.message as React.ReactNode}
       </p>
       <div className="mt-4">
-        <HCaptcha
-          sitekey={siteKey}
-          onVerify={handleCaptchaChange}
-          theme="dark"
-          onChalExpired={() => toast.warning('Weryfikacja hCaptcha wygasła')}
-          onError={(error) =>
-            toast.error(`Wystąpił błąd w trakcie weryfikacji hCaptcha: ${error}`)
-          }
-          ref={captchaRef}
-        />
+        <Captcha handleCaptchaChange={handleCaptchaChange} captchaRef={captchaRef} />
       </div>
       <input type="hidden" {...register('token')} />
       <p className="text-red-500 min-h-[48px]">
