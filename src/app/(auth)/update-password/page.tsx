@@ -5,21 +5,6 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 
-/*
-  This is the most hacky part of the app. 
-  Supabase docs regarding password recovery are kind of lacking.
-  For example, the auth listener NEVER sends a "PASSWORD_RECOVERY" event. 
-  
-  When the user clicks the recovery link, they get sent to the confirmation route with pkce
-  token stuff. After that get successfully validated, the user gets authenticated, the session
-  cookie is set and the user is redirected to this page.
-
-  The page performs a check whether the user has a valid password recovery request by comparing
-  the 'recovery_sent_at' field in the auth.users table with the current time as of
-  calling the rpc function and since current time gets checked within the postgres function itself
-  it seems safe as if there's no way to spoof the current time.
-*/
-
 export default async function UpdatePasswordPage() {
   const supabase = createClient()
 
