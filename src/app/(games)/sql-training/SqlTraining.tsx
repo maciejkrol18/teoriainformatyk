@@ -24,22 +24,13 @@ export default function SqlTraining() {
     } else if (!data) {
       throw new Error('Błąd pobierania pytania. Spróbuj ponownie później')
     } else {
-      if (data.questions.length !== data.answers.length) {
-        throw new Error('Fetched arrays were not of the same length')
-      }
-      const rand = Math.ceil(Math.random() * (data.questions.length - 1 - 0) + 0)
-      const content = data.questions[rand]
-      const answer = data.answers[rand]
-      if (!content || !answer) {
-        throw new Error('Failed to fetch a random content and answer pair')
-      }
       setChallenge({
         exam_code: data.exam_code,
         image: data.image,
         repo_link: data.repo_link,
         comment: data.comment,
-        content: content,
-        answer: answer,
+        content: data.challenge,
+        answer: data.correct_answer,
       })
     }
   }

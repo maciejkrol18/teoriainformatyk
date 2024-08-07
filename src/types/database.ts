@@ -342,6 +342,38 @@ export type Database = {
           },
         ]
       }
+      query_challenges: {
+        Row: {
+          challenge: string
+          correct_answer: string
+          created_at: string
+          exam_code: string
+          id: number
+        }
+        Insert: {
+          challenge: string
+          correct_answer: string
+          created_at?: string
+          exam_code: string
+          id?: number
+        }
+        Update: {
+          challenge?: string
+          correct_answer?: string
+          created_at?: string
+          exam_code?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "query_challenges_exam_code_fkey"
+            columns: ["exam_code"]
+            isOneToOne: false
+            referencedRelation: "query_training"
+            referencedColumns: ["exam_code"]
+          },
+        ]
+      }
       query_training: {
         Row: {
           answers: string[]
@@ -605,14 +637,12 @@ export type Database = {
       get_random_query_challenge: {
         Args: Record<PropertyKey, never>
         Returns: {
-          answers: string[]
-          comment: string
-          created_at: string
           exam_code: string
-          id: number
+          comment: string
           image: boolean
-          questions: string[]
           repo_link: string
+          challenge: string
+          correct_answer: string
         }[]
       }
       get_random_questions: {
