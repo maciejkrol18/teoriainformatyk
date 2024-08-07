@@ -13,6 +13,7 @@ import { VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import Link from 'next/link'
 import HardCollectionButton from '../HardCollectionButton'
+import { Checkbox } from './Checkbox'
 
 interface QuestionDetailsProps {
   question: Question
@@ -37,6 +38,7 @@ export default function QuestionDetails({
   }
 
   const [hardCollection, setHardCollection] = useState<number[]>(fetchedHardCollection)
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false)
 
   return (
     <div className="flex flex-col gap-8 py-4">
@@ -53,6 +55,16 @@ export default function QuestionDetails({
           <Layers />
           Odpowiedzi
         </p>
+        <div className="flex gap-2 items-center">
+          <Checkbox
+            checked={showCorrectAnswer}
+            onCheckedChange={(value) => setShowCorrectAnswer(!!value)}
+            id="show-correct"
+          />
+          <label htmlFor="show-correct" className="text-muted">
+            Pokaż poprawną odpowiedź
+          </label>
+        </div>
         <QuestionAnswersContainer>
           {question.answers.map((answer, index) => {
             const atlas = 'ABCD'
@@ -60,7 +72,9 @@ export default function QuestionDetails({
               <QuestionAnswer
                 key={answer}
                 className="cursor-default"
-                variant={getAnswerVariant(answer, question)}
+                variant={
+                  showCorrectAnswer ? getAnswerVariant(answer, question) : 'default'
+                }
               >
                 <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
               </QuestionAnswer>
