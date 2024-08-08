@@ -95,12 +95,15 @@ export default function QuestionView({
           </p>
         )}
         {question && currentQuestionId && !showAnswer && (
-          <QuestionImage
-            bucket="question_images"
-            filename={currentQuestionId}
-            alt="Zdjęcie załączone do pytania"
-            loading="lazy"
-          />
+          <>
+            <QuestionImage
+              bucket="question_images"
+              filename={currentQuestionId}
+              alt="Zdjęcie załączone do pytania"
+              loading="lazy"
+            />
+            <p className="text-sm text-muted">Pokaż odpowiedź</p>
+          </>
         )}
         {!question && (
           <>
