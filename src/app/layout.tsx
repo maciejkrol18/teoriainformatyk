@@ -67,19 +67,17 @@ interface RootLayoutProps {
 export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="pl" className="dark" suppressHydrationWarning>
-      <body>
+      <body
+        className={cn(
+          'font-sans bg-background text-foreground ',
+          inter.variable,
+          interDisplay.variable,
+        )}
+      >
         <Providers>
           <ToasterWrapper />
           <TailwindIndicator />
-          <div
-            className={cn(
-              'bg-background text-foreground min-h-screen flex flex-col font-sans',
-              inter.variable,
-              interDisplay.variable,
-            )}
-          >
-            {children}
-          </div>
+          <div className="min-h-screen flex flex-col">{children}</div>
           <div>{modal}</div>
           <Analytics />
         </Providers>
