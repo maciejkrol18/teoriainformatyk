@@ -32,7 +32,7 @@ export default function OneQuestionBar({
 }: OneQuestionBarProps) {
   const toggleHardMode = () => {
     if (!userId) {
-      toast.error('Zaloguj się, aby korzystać z tej funkcji')
+      toast.info('Zaloguj się, aby korzystać z tej funkcji')
       return
     }
     hardMode ? toast.info('Wyłączono tryb trudny') : toast.info('Tryb trudny włączony')
