@@ -46,7 +46,11 @@ export default function OneQuestionBar({
         'lg:gap-4 lg:justify-center lg:static lg:w-auto lg:z-auto lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-0',
       )}
     >
-      <Button variant="bottomBar" onClick={toggleHardMode}>
+      <Button
+        variant="bottomBar"
+        onClick={toggleHardMode}
+        title={hardMode ? 'Wyłącz tryb trudny' : 'Włącz tryb trudny'}
+      >
         <span className={`${hardMode ? 'text-incorrect' : 'text-correct'}`}>
           {hardMode ? 'H' : 'N'}
         </span>
@@ -57,6 +61,7 @@ export default function OneQuestionBar({
         targetQuestionId={currentQuestion?.id}
         isAuthenticated={userId !== null}
         variant={'bottomBar'}
+        title="Dodaj/usuń z zbioru trudnych pytań"
       >
         {hardCollection &&
         currentQuestion &&
@@ -67,14 +72,19 @@ export default function OneQuestionBar({
         )}
       </HardCollectionButton>
       <Link href={`/question/${currentQuestion?.id}?hideHardCollection=true`}>
-        <Button variant="bottomBar">
+        <Button variant="bottomBar" title="Wyświetl szczegóły pytania">
           <HelpCircle />
         </Button>
       </Link>
-      <Button variant="bottomBar" onClick={openStatsFn}>
+      <Button variant="bottomBar" onClick={openStatsFn} title="Statystyki sesji">
         <BarChart />
       </Button>
-      <Button variant="bottomBar" onClick={rollQuestionFn} className="block lg:hidden">
+      <Button
+        variant="bottomBar"
+        onClick={rollQuestionFn}
+        className="block lg:hidden"
+        title="Wylosuj pytanie"
+      >
         <Dices />
       </Button>
     </div>
