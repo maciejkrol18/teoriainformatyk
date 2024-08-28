@@ -75,18 +75,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_exam_scores_exam_id_fkey"
-            columns: ["exam_id"]
+            foreignKeyName: 'public_exam_scores_exam_id_fkey'
+            columns: ['exam_id']
             isOneToOne: false
-            referencedRelation: "exams"
-            referencedColumns: ["id"]
+            referencedRelation: 'exams'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_exam_scores_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'public_exam_scores_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -138,18 +138,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_flashcards_exam_id_fkey"
-            columns: ["exam_id"]
+            foreignKeyName: 'public_flashcards_exam_id_fkey'
+            columns: ['exam_id']
             isOneToOne: false
-            referencedRelation: "exams"
-            referencedColumns: ["id"]
+            referencedRelation: 'exams'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_flashcards_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'public_flashcards_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -174,11 +174,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_hard_collections_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'public_hard_collections_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -203,67 +203,13 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "hardest_questions_question_id_fkey"
-            columns: ["question_id"]
+            foreignKeyName: 'hardest_questions_question_id_fkey'
+            columns: ['question_id']
             isOneToOne: false
-            referencedRelation: "questions"
-            referencedColumns: ["id"]
+            referencedRelation: 'questions'
+            referencedColumns: ['id']
           },
         ]
-      }
-      inf02: {
-        Row: {
-          answers: string[] | null
-          content: string | null
-          correct_answer: string | null
-          created_at: string | null
-          id: number
-          image: boolean | null
-        }
-        Insert: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: boolean | null
-        }
-        Update: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: boolean | null
-        }
-        Relationships: []
-      }
-      inf03: {
-        Row: {
-          answers: string[] | null
-          content: string | null
-          correct_answer: string | null
-          created_at: string | null
-          id: number
-          image: boolean | null
-        }
-        Insert: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: boolean | null
-        }
-        Update: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: boolean | null
-        }
-        Relationships: []
       }
       one_question_scores: {
         Row: {
@@ -292,18 +238,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_one_question_scores_exam_id_fkey"
-            columns: ["exam_id"]
+            foreignKeyName: 'public_one_question_scores_exam_id_fkey'
+            columns: ['exam_id']
             isOneToOne: false
-            referencedRelation: "exams"
-            referencedColumns: ["id"]
+            referencedRelation: 'exams'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_one_question_scores_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'public_one_question_scores_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -334,11 +280,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_profile_pictures_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'public_profile_pictures_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -366,11 +312,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "query_challenges_exam_code_fkey"
-            columns: ["exam_code"]
+            foreignKeyName: 'query_challenges_exam_code_fkey'
+            columns: ['exam_code']
             isOneToOne: false
-            referencedRelation: "query_training"
-            referencedColumns: ["exam_code"]
+            referencedRelation: 'query_training'
+            referencedColumns: ['exam_code']
           },
         ]
       }
@@ -437,157 +383,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_questions_base64_exam_id_fkey"
-            columns: ["exam_id"]
+            foreignKeyName: 'public_questions_base64_exam_id_fkey'
+            columns: ['exam_id']
             isOneToOne: false
-            referencedRelation: "exams"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      questions_inf02: {
-        Row: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at: string
-          id: number
-          image: boolean
-        }
-        Insert: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at: string
-          id?: number
-          image: boolean
-        }
-        Update: {
-          answers?: string[]
-          content?: string
-          correct_answer?: string
-          created_at?: string
-          id?: number
-          image?: boolean
-        }
-        Relationships: []
-      }
-      questions_inf02_old: {
-        Row: {
-          answers: string[] | null
-          content: string | null
-          correct_answer: string | null
-          created_at: string | null
-          id: number
-          image: string | null
-        }
-        Insert: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id: number
-          image?: string | null
-        }
-        Update: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: string | null
-        }
-        Relationships: []
-      }
-      questions_inf03: {
-        Row: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at: string
-          id: number
-          image: boolean
-        }
-        Insert: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at: string
-          id?: number
-          image?: boolean
-        }
-        Update: {
-          answers?: string[]
-          content?: string
-          correct_answer?: string
-          created_at?: string
-          id?: number
-          image?: boolean
-        }
-        Relationships: []
-      }
-      questions_inf03_old: {
-        Row: {
-          answers: string[] | null
-          content: string | null
-          correct_answer: string | null
-          created_at: string | null
-          id: number
-          image: string | null
-        }
-        Insert: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id: number
-          image?: string | null
-        }
-        Update: {
-          answers?: string[] | null
-          content?: string | null
-          correct_answer?: string | null
-          created_at?: string | null
-          id?: number
-          image?: string | null
-        }
-        Relationships: []
-      }
-      questions_misalinged_images: {
-        Row: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at: string | null
-          exam_id: number
-          id: number
-          image: boolean
-        }
-        Insert: {
-          answers: string[]
-          content: string
-          correct_answer: string
-          created_at?: string | null
-          exam_id: number
-          id?: number
-          image: boolean
-        }
-        Update: {
-          answers?: string[]
-          content?: string
-          correct_answer?: string
-          created_at?: string | null
-          exam_id?: number
-          id?: number
-          image?: boolean
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_test_exam_id_fkey"
-            columns: ["exam_id"]
-            isOneToOne: false
-            referencedRelation: "exams"
-            referencedColumns: ["id"]
+            referencedRelation: 'exams'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -707,27 +507,26 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, 'public'>]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+        Database[PublicTableNameOrOptions['schema']]['Views'])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
+        PublicSchema['Views'])
+    ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -736,19 +535,19 @@ export type Tables<
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+    | keyof PublicSchema['Tables']
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -757,19 +556,19 @@ export type TablesInsert<
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+    | keyof PublicSchema['Tables']
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -778,13 +577,13 @@ export type TablesUpdate<
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
+    | keyof PublicSchema['Enums']
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
+    ? PublicSchema['Enums'][PublicEnumNameOrOptions]
     : never
