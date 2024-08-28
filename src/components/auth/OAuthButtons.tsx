@@ -3,8 +3,8 @@
 import { Provider } from '@supabase/supabase-js'
 import { Button } from '../ui/Button'
 import Image from 'next/image'
-import GoogleLogo from '../../public/google.svg'
-import DiscordLogo from '../../public/discord-mark.svg'
+import GoogleLogo from '../../../public/google.svg'
+import DiscordLogo from '../../../public/discord-mark.svg'
 import { socialSignIn } from '@/app/(auth)/actions'
 import { toast } from 'sonner'
 

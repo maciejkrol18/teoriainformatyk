@@ -4,11 +4,11 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-import logoSmallDark from '../../public/logo-small-dark.svg'
-import logoSmallLight from '../../public/logo-small-light.svg'
+import logoSmallDark from '../../../public/logo-small-dark.svg'
+import logoSmallLight from '../../../public/logo-small-light.svg'
 
-import logoBigDark from '../../public/logo-big-dark.svg'
-import logoBigLight from '../../public/logo-big-light.svg'
+import logoBigDark from '../../../public/logo-big-dark.svg'
+import logoBigLight from '../../../public/logo-big-light.svg'
 
 export default function BrandLogo({ size }: { size: 'small' | 'big' }) {
   const [mounted, setMounted] = useState(false)
