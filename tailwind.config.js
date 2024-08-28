@@ -19,7 +19,7 @@ module.exports = {
         `,
         'hero-blob': `
           linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 20%, hsl(var(--background)) 60%), 
-          url('../public/hero-blob.svg')
+          url('./public/hero-blob.svg')
         `,
       },
       backgroundSize: {
