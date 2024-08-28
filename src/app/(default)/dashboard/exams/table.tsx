@@ -39,7 +39,7 @@ export default function ExamHistoryTable({
     if (success) {
       toast.success('Usunięto wybrane wyniki')
       await new Promise((resolve) => setTimeout(resolve, 1000))
-      window && window.location.reload()
+      window?.location.reload()
     } else {
       toast.error(`Wystąpił błąd w trakcie usuwania wyników: ${error}`)
     }

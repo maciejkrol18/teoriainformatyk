@@ -20,7 +20,7 @@ async function getHardCollection() {
     .select('question_id_array')
     .eq('user_id', user.id)
     .single()
-  return (data && data.question_id_array) || []
+  return data?.question_id_array || []
 }
 
 async function fetchPaginatedQuestions({

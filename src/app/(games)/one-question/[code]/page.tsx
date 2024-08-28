@@ -12,7 +12,7 @@ async function getHardCollection(userId: string) {
     .eq('user_id', userId)
     .single()
 
-  return (data && data.question_id_array) || []
+  return data?.question_id_array || []
 }
 
 export default async function OneQuestionPage({ params }: { params: { code: string } }) {
@@ -36,7 +36,7 @@ export default async function OneQuestionPage({ params }: { params: { code: stri
       <PageTitle title="Jedno pytanie" subtitle={data.name} />
       <OneQuestion
         examId={data.id}
-        userId={user && user.id}
+        userId={user?.id || null}
         fetchedHardCollection={fetchedHardCollection}
       />
     </>

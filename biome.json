@@ -22,8 +22,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "correctness": { "useExhaustiveDependencies": "off" },
-      "complexity": { "useOptionalChain": "off" }
+      "correctness": { "useExhaustiveDependencies": "off" }
     },
     "ignore": [
       ".github/**",
