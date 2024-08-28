@@ -9,14 +9,14 @@ import {
   QuestionAnswersContainer,
   QuestionContent,
   QuestionImage,
-  questionAnswerVariants,
+  type questionAnswerVariants,
 } from '@/components/ui/Question'
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import QuestionSkeleton from '@/components/skeletons/QuestionSkeleton'
 import { toast } from 'sonner'
 import SessionStats from './SessionStats'
 import OneQuestionBar from './OneQuestionBar'
-import { Question as QuestionType } from '@/types/question'
+import type { Question as QuestionType } from '@/types/question'
 import { incrementCorrect, incrementIncorrect } from './actions'
 
 interface OneQuestionProps {

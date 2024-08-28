@@ -2,7 +2,7 @@
 
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamScore } from '@/types/exam-score'
 
 export async function saveScore(
   score: ExamScore,

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import QuestionView from './QuestionView'
-import { FlashcardView } from '@/types/flashcard-view'
+import type { FlashcardView } from '@/types/flashcard-view'
 import ReviewView from './ReviewView'
 import Card from './Card'
 import Skeleton from '../ui/Skeleton'

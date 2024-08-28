@@ -3,7 +3,7 @@
 import { forwardRef, useState } from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { VariantProps, cva } from 'class-variance-authority'
+import { type VariantProps, cva } from 'class-variance-authority'
 
 const questionAnswerVariants = cva('py-2 px-4 rounded-md text-left', {
   variants: {

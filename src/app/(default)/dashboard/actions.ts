@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/lib/supabase/server'
-import { FieldValues } from 'react-hook-form'
-import { PostgrestError } from '@supabase/supabase-js'
+import type { FieldValues } from 'react-hook-form'
+import type { PostgrestError } from '@supabase/supabase-js'
 
 export async function changePassword(formData: FieldValues): Promise<string> {
   const supabase = createClient()

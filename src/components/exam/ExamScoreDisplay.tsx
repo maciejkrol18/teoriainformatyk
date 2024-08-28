@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { ExamQuestion } from '@/types/exam-question'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamQuestion } from '@/types/exam-question'
+import type { ExamScore } from '@/types/exam-score'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import { Check, Clock, HelpCircle, XIcon } from 'lucide-react'

@@ -1,6 +1,6 @@
 'use client'
 
-import { Provider } from '@supabase/supabase-js'
+import type { Provider } from '@supabase/supabase-js'
 import { Button } from '../ui/Button'
 import Image from 'next/image'
 import GoogleLogo from '../../../public/google.svg'

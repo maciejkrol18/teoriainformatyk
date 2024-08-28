@@ -1,15 +1,15 @@
 'use client'
 
-import { Question } from '@/types/question'
+import type { Question } from '@/types/question'
 import { Layers, Image, Type, Skull, LucideAlertTriangle } from 'lucide-react'
 import {
   QuestionAnswer,
   QuestionAnswersContainer,
   QuestionImage,
-  questionAnswerVariants,
+  type questionAnswerVariants,
 } from './Question'
 import { Button } from './Button'
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import Link from 'next/link'
 import HardCollectionButton from '../HardCollectionButton'

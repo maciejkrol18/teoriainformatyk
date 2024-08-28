@@ -9,7 +9,7 @@ import {
   SelectValue,
   SelectTrigger,
 } from '@/components/ui/Select'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import type HCaptcha from '@hcaptcha/react-hcaptcha'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'

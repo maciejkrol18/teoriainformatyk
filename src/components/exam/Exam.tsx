@@ -1,6 +1,6 @@
 'use client'
 
-import { ExamQuestion } from '@/types/exam-question'
+import type { ExamQuestion } from '@/types/exam-question'
 import { useEffect, useRef, useState } from 'react'
 import {
   Question,
@@ -8,14 +8,14 @@ import {
   QuestionAnswersContainer,
   QuestionContent,
   QuestionMarker,
-  questionAnswerVariants,
+  type questionAnswerVariants,
   QuestionImage,
 } from '../ui/Question'
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import { toast } from 'sonner'
 import { v4 } from 'uuid'
 import ExamScoreDisplay from './ExamScoreDisplay'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamScore } from '@/types/exam-score'
 import { Button } from '../ui/Button'
 import ExamTimer from './ExamTimer'
 import ExamSkeleton from '../skeletons/ExamSkeleton'

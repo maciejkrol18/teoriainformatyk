@@ -1,10 +1,10 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { SetStateAction, useEffect, useState } from 'react'
+import { type SetStateAction, useEffect, useState } from 'react'
 import Card from './Card'
 import { Button } from '../ui/Button'
-import { FlashcardView } from '@/types/flashcard-view'
+import type { FlashcardView } from '@/types/flashcard-view'
 import { QuestionImage } from '../ui/Question'
 import Skeleton from '../ui/Skeleton'
 import { addToKnownQuestions } from '@/app/(games)/flashcards/[code]/actions'

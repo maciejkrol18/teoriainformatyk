@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Menu, XCircle } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { User } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import ProfileBlock from './ProfileBlock'
 
 interface MobileNavigationProps {

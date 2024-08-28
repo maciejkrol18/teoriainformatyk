@@ -1,7 +1,7 @@
 import Exam from '@/components/exam/Exam'
 import PageTitle from '@/components/ui/PageTitle'
 import { createClient } from '@/lib/supabase/server'
-import { ExamQuestion } from '@/types/exam-question'
+import type { ExamQuestion } from '@/types/exam-question'
 import { notFound } from 'next/navigation'
 
 async function getQuestions(id: number): Promise<ExamQuestion[]> {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from './Button'
-import { User } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import HeaderAuthDropdown from './HeaderAuthDropdown'
 

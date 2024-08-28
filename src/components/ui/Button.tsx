@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { VariantProps, cva } from 'class-variance-authority'
+import { type VariantProps, cva } from 'class-variance-authority'
 import { Slot } from '@radix-ui/react-slot'
 import { forwardRef } from 'react'
 

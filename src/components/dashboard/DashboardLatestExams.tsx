@@ -2,7 +2,7 @@ import DashboardBlock from './DashboardBlock'
 import Link from 'next/link'
 import { Button } from '../ui/Button'
 import ScoreBlock from '../ui/ScoreBlock'
-import { LatestExamScoresEntry } from '@/types/latest-exams-entry'
+import type { LatestExamScoresEntry } from '@/types/latest-exams-entry'
 import { createClient } from '@/lib/supabase/server'
 
 interface DashboardLatestExamsProps {

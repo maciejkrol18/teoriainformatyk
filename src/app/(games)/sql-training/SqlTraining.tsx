@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { QueryChallenge } from '@/types/query-challenge'
+import type { QueryChallenge } from '@/types/query-challenge'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Dices, ExternalLink, LoaderIcon, Send, Wand2 } from 'lucide-react'
