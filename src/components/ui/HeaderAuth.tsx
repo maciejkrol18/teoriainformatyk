@@ -24,20 +24,18 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
           <Link href="/login">Zaloguj</Link>
         </Button>
       )
-    } else {
-      return (
-        <HeaderAuthDropdown
-          email={data.email}
-          display_name={data.display_name}
-          avatar_url={data.avatar_url}
-        />
-      )
     }
-  } else {
     return (
-      <Button variant="primary" asChild>
-        <Link href="/login">Zaloguj</Link>
-      </Button>
+      <HeaderAuthDropdown
+        email={data.email}
+        display_name={data.display_name}
+        avatar_url={data.avatar_url}
+      />
     )
   }
+  return (
+    <Button variant="primary" asChild>
+      <Link href="/login">Zaloguj</Link>
+    </Button>
+  )
 }

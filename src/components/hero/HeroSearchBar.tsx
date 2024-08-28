@@ -10,12 +10,13 @@ export default function HeroSearchBar() {
   const router = useRouter()
 
   return (
+    // biome-ignore lint/a11y/useKeyWithClickEvents: the onclick event is only used to focus the input
     <form
       className="flex justify-between gap-2 p-4 rounded-full bg-background-light text-muted hover:cursor-text max-w-[512px] mx-auto"
       onClick={() => inputRef.current?.focus()}
       onSubmit={(e) => {
         e.preventDefault()
-        router.push('/search?query=' + inputRef.current?.value)
+        router.push(`/search?query=${inputRef.current?.value}`)
       }}
     >
       <Search />

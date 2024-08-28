@@ -87,7 +87,8 @@ export default function PasswordRecoveryForm() {
         </Button>
       </form>
     )
-  } else if (view === 'info') {
+  }
+  if (view === 'info') {
     return (
       <p>
         Na podany przez ciebie adres email został wysłany link do resetowania hasła. W

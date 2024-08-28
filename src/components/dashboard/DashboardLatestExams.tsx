@@ -48,10 +48,10 @@ export default async function DashboardLatestExams({
       }
     >
       {scores.length > 0 &&
-        scores.map((score, index) => {
+        scores.map((score) => {
           return (
             <ScoreBlock
-              key={index}
+              key={score.created_at}
               examName={score.exams?.name}
               percentageScore={score.percentage_score}
               createdAt={score.created_at}

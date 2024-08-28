@@ -14,12 +14,13 @@ export async function saveContact(
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      secret: process.env.NEXT_PUBLIC_HCAPTCHA_SECRET_KEY!,
-      sitekey: process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!,
+      secret: process.env.NEXT_PUBLIC_HCAPTCHA_SECRET_KEY as string,
+      sitekey: process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string,
       response: token,
     }),
   })
     .then((res) => res.json())
+    // biome-ignore lint: any
     .then((data: any) => data['success'] as boolean)
 
   if (!isCaptchaTokenValid) {
@@ -42,10 +43,9 @@ export async function saveContact(
       success: false,
       error: error.message,
     }
-  } else {
-    return {
-      success: true,
-      error: null,
-    }
+  }
+  return {
+    success: true,
+    error: null,
   }
 }

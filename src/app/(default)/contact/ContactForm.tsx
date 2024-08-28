@@ -134,7 +134,7 @@ export default function ContactForm({ email, contactType, content }: ContactForm
         {...register('content')}
         defaultValue={content || undefined}
         className="border border-background-bright bg-background-light p-2 text-sm rounded-md"
-      ></textarea>
+      />
       <p className="text-red-500 min-h-[24px]">
         {errors.content?.message as React.ReactNode}
       </p>

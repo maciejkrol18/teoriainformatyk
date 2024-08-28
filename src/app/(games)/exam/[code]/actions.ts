@@ -20,16 +20,14 @@ export async function saveScore(
         message: `Błąd zapisywania wyniku: ${error.message}`,
         error: true,
       }
-    } else {
-      return {
-        message: 'Wynik zapisany',
-        error: false,
-      }
     }
-  } else {
     return {
-      message: 'Zaloguj się, aby zapisać swój wynik',
+      message: 'Wynik zapisany',
       error: false,
     }
+  }
+  return {
+    message: 'Zaloguj się, aby zapisać swój wynik',
+    error: false,
   }
 }

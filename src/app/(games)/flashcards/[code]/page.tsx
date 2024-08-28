@@ -14,9 +14,8 @@ async function getKnownQuestions(userId: string, examId: number) {
     .single()
   if (!data || error) {
     return []
-  } else {
-    return data.question_id_array
   }
+  return data.question_id_array
 }
 
 async function getQuestionIdArray(examId: number) {
@@ -29,9 +28,8 @@ async function getQuestionIdArray(examId: number) {
 
   if (!data || data.length < 1 || error) {
     throw new Error('Failed to fetch questions from the database')
-  } else {
-    return data.map((obj) => obj.id)
   }
+  return data.map((obj) => obj.id)
 }
 
 export default async function FlashcardsPage({ params }: { params: { code: string } }) {

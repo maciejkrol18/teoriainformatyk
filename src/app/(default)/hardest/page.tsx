@@ -17,7 +17,7 @@ const fetchHardestQuestions = cache(async () => {
     .select('created_at, question_id, count, questions (content)')
   if (!data || error) {
     throw new Error(
-      `Wystąpił błąd podczas ładowania strony. Spróbuj ponownie później.${error && error.message}`,
+      `Wystąpił błąd podczas ładowania strony. Spróbuj ponownie później. Treść błędu: ${error.message || 'brak'}`,
     )
   }
   return data
@@ -34,9 +34,8 @@ export default async function HardestQuestionsPage() {
   const getLastUpdateDate = (): string => {
     if (data[0]?.created_at) {
       return dayjs(data[0].created_at).format('D MMMM YYYY, H[:]mm')
-    } else {
-      return 'nieznana'
     }
+    return 'nieznana'
   }
 
   return (

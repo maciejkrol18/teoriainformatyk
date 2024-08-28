@@ -21,7 +21,10 @@
   "organizeImports": { "enabled": true },
   "linter": {
     "enabled": true,
-    "rules": { "style": { "useBlockStatements": "off" } },
+    "rules": {
+      "correctness": { "useExhaustiveDependencies": "off" },
+      "complexity": { "useOptionalChain": "off" }
+    },
     "ignore": [
       ".github/**",
       ".next/**",

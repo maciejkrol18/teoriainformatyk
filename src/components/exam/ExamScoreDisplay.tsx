@@ -34,9 +34,8 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
     }
     if (question.correct_selected) {
       return 'green-800'
-    } else {
-      return 'red-800'
     }
+    return 'red-800'
   }
 
   return (
@@ -64,7 +63,7 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
                 question,
               )}`}
               href={`#question-${index + 1}`}
-              key={index}
+              key={question.content}
             >
               {index + 1}
             </Link>

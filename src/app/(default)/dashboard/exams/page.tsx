@@ -27,9 +27,9 @@ async function fetchPaginatedScores({
 }: ExamHistoryFilters) {
   const supabase = createClient()
 
-  const pageOffset = (parseInt(page) - 1) * RESULTS_PER_PAGE
+  const pageOffset = (Number.parseInt(page) - 1) * RESULTS_PER_PAGE
 
-  let dbQuery = supabase
+  const dbQuery = supabase
     .from('exam_scores')
     .select(
       'created_at, exam_id, user_id, score_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)',
@@ -53,15 +53,11 @@ async function fetchPaginatedScores({
 
   const { data, count, error } = await dbQuery
 
-  if (error) {
-    throw new Error(error.message)
-  } else if (!data) {
-    throw new Error('Nie udało się pobrać wyników egzaminów')
-  } else {
-    return {
-      data: data,
-      count: count,
-    }
+  if (error) throw new Error(error.message)
+  if (!data) throw new Error('Nie udało się pobrać wyników egzaminów')
+  return {
+    data: data,
+    count: count,
   }
 }
 
@@ -88,8 +84,8 @@ export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageP
   })
 
   const totalPages = count ? Math.ceil(count / RESULTS_PER_PAGE) : 1
-  const canNextPage = parseInt(page) + 1 <= totalPages
-  const canPrevPage = parseInt(page) - 1 >= 1
+  const canNextPage = Number.parseInt(page) + 1 <= totalPages
+  const canPrevPage = Number.parseInt(page) - 1 >= 1
 
   const processedExamHistory = data.map((score) => {
     const timeTook = dayjs(score.time_finished).diff(score.time_started, 'minute')
@@ -112,7 +108,7 @@ export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageP
         data={processedExamHistory}
         canNextPage={canNextPage}
         canPrevPage={canPrevPage}
-        pageNumber={parseInt(page)}
+        pageNumber={Number.parseInt(page)}
         totalPages={totalPages}
       />
     </div>

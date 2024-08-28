@@ -48,6 +48,7 @@ export default async function ParallelQuestionPage({
       question={question}
       fetchedHardCollection={hardCollection}
       isAuthenticated={user !== null}
+      // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
       showHardCollectionButton={!Boolean(searchParams.hideHardCollection)}
     />
   )

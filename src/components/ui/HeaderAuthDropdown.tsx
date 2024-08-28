@@ -29,7 +29,7 @@ export default function HeaderAuthDropdown({
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <button onClick={() => setOpen(true)}>
+        <button type="button" onClick={() => setOpen(true)}>
           <img
             src={avatar_url}
             alt="Profil"
@@ -57,6 +57,7 @@ export default function HeaderAuthDropdown({
         </DropdownMenuItem>
         <DropdownMenuItem>
           <button
+            type="button"
             className="flex gap-2 w-full"
             onClick={() => {
               setOpen(false)

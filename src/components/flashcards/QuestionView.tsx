@@ -58,9 +58,8 @@ export default function QuestionView({
 
       if (!data || error) {
         throw new Error('Failed to fetch the question')
-      } else {
-        setQuestion(data)
       }
+      setQuestion(data)
     }
     fetchQuestion()
   }, [currentQuestionId])

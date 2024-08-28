@@ -69,7 +69,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
 
   return (
     <>
-      <button onClick={toggleOpen} className="hover:cursor-pointer">
+      <button type="button" onClick={toggleOpen} className="hover:cursor-pointer">
         {isOpen ? <XCircle /> : <Menu />}
       </button>
       {isOpen ? (
@@ -81,10 +81,8 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
               <Button
                 variant="primary"
                 asChild
-                /* 
-                    MobileNavigation is not present in the auth layout
-                    so we need to set the overflow to auto manually
-                  */
+                // MobileNavigation is not present in the auth layout so we need to set the overflow to auto manually
+                // biome-ignore lint/suspicious/noAssignInExpressions: this is needed
                 onClick={() => (document.body.style.overflow = 'auto')}
               >
                 <Link href="/login">Zaloguj</Link>

@@ -14,7 +14,6 @@ export async function deleteExamScores(
 
   if (error) {
     return { success: false, error: error.message }
-  } else {
-    return { success: true, error: null }
   }
+  return { success: true, error: null }
 }

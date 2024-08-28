@@ -16,7 +16,7 @@ export default function ThemeSwitch() {
 
   if (resolvedTheme === 'dark') {
     return (
-      <button onClick={() => setTheme('light')}>
+      <button type="button" onClick={() => setTheme('light')}>
         <Sun />
       </button>
     )
@@ -24,7 +24,7 @@ export default function ThemeSwitch() {
 
   if (resolvedTheme === 'light') {
     return (
-      <button onClick={() => setTheme('dark')}>
+      <button type="button" onClick={() => setTheme('dark')}>
         <Moon />
       </button>
     )

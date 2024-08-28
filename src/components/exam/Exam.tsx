@@ -42,9 +42,8 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
             correct_selected: answer === question.correct_answer,
             selected_answer: answer === question.selected_answer ? null : answer,
           }
-        } else {
-          return el
         }
+        return el
       }),
     )
   }
@@ -54,16 +53,11 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
     question: ExamQuestion,
   ): VariantProps<typeof questionAnswerVariants>['variant'] => {
     if (isExamFinished) {
-      if (!question.selected_answer && answer === question.correct_answer) {
+      if (!question.selected_answer && answer === question.correct_answer)
         return 'unanswered'
-      } else if (answer === question.correct_answer && question.selected_answer) {
-        return 'correct'
-      } else if (
-        answer === question.selected_answer &&
-        answer !== question.correct_answer
-      ) {
+      if (answer === question.correct_answer && question.selected_answer) return 'correct'
+      if (answer === question.selected_answer && answer !== question.correct_answer)
         return 'incorrect'
-      }
     } else {
       return answer === question.selected_answer ? 'selected' : 'default'
     }
@@ -141,14 +135,14 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
         {questions.map((question, index) => {
           const atlas = 'ABCD'
           return (
-            <Question id={`question-${index + 1}`} key={index}>
+            <Question id={`question-${index + 1}`} key={question.content}>
               <QuestionMarker>{index + 1}</QuestionMarker>
               <QuestionContent>{question.content}</QuestionContent>
               <QuestionAnswersContainer>
                 {question.answers.map((answer, index) => (
                   <QuestionAnswer
                     onClick={() => setAnswer(answer, question)}
-                    key={index}
+                    key={answer}
                     variant={getAnswerVariant(answer, question)}
                     disabled={isExamFinished}
                   >
@@ -172,7 +166,6 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
         </Button>
       </div>
     )
-  } else {
-    return <ExamSkeleton />
   }
+  return <ExamSkeleton />
 }
