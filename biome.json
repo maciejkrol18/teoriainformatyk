@@ -9,7 +9,6 @@
     "lineWidth": 90,
     "attributePosition": "auto",
     "ignore": [
-      "**/*.config.js",
       ".github/**",
       ".next/**",
       ".vercel/**",
