@@ -3,7 +3,7 @@ import SearchPagination from '@/components/search/SearchPagination'
 import SearchResult from '@/components/search/SearchResult'
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
-import { SearchFilters } from '@/types/search-filters'
+import type { SearchFilters } from '@/types/search-filters'
 
 const RESULTS_PER_PAGE = 10
 
@@ -20,7 +20,7 @@ async function getHardCollection() {
     .select('question_id_array')
     .eq('user_id', user.id)
     .single()
-  return (data && data.question_id_array) || []
+  return data?.question_id_array || []
 }
 
 async function fetchPaginatedQuestions({
@@ -33,9 +33,9 @@ async function fetchPaginatedQuestions({
 }: SearchFilters) {
   const supabase = createClient()
 
-  const pageOffset = (parseInt(page) - 1) * RESULTS_PER_PAGE
+  const pageOffset = (Number.parseInt(page) - 1) * RESULTS_PER_PAGE
 
-  let dbQuery = supabase
+  const dbQuery = supabase
     .from('questions')
     .select('id, content', { count: 'exact' })
     .range(pageOffset, pageOffset + RESULTS_PER_PAGE - 1)
@@ -103,7 +103,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <p className="text-muted text-center">Brak wyników dla twojego wyszukiwania</p>
         )}
       </div>
-      <SearchPagination page={parseInt(page)} totalPages={totalPages} />
+      <SearchPagination page={Number.parseInt(page)} totalPages={totalPages} />
     </div>
   )
 }

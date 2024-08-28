@@ -2,7 +2,7 @@ import DashboardBlock from './DashboardBlock'
 import Link from 'next/link'
 import { Button } from '../ui/Button'
 import ScoreBlock from '../ui/ScoreBlock'
-import { LatestExamScoresEntry } from '@/types/latest-exams-entry'
+import type { LatestExamScoresEntry } from '@/types/latest-exams-entry'
 import { createClient } from '@/lib/supabase/server'
 
 interface DashboardLatestExamsProps {
@@ -48,10 +48,10 @@ export default async function DashboardLatestExams({
       }
     >
       {scores.length > 0 &&
-        scores.map((score, index) => {
+        scores.map((score) => {
           return (
             <ScoreBlock
-              key={index}
+              key={score.created_at}
               examName={score.exams?.name}
               percentageScore={score.percentage_score}
               createdAt={score.created_at}

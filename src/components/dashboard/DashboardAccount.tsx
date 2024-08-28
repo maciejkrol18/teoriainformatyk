@@ -26,10 +26,9 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
     .eq('user_id', userId)
     .single()
 
-  const dateJoined =
-    data && data.created_at
-      ? new Date(data.created_at).toLocaleDateString()
-      : 'Nieznana data dołączenia'
+  const dateJoined = data?.created_at
+    ? new Date(data.created_at).toLocaleDateString()
+    : 'Nieznana data dołączenia'
 
   if (!error) {
     return (
@@ -62,11 +61,10 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
         <DataParagraph label="Identyfikator" value={data.user_id} />
       </DashboardBlock>
     )
-  } else {
-    return (
-      <p className="text-muted">
-        Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
-      </p>
-    )
   }
+  return (
+    <p className="text-muted">
+      Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
+    </p>
+  )
 }

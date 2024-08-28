@@ -26,22 +26,21 @@ export default async function UpdatePasswordPage() {
         <UpdatePasswordForm />
       </div>
     )
-  } else {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-bold">Wystąpił błąd</h1>
-          <p className="text-muted">
-            Twoje konto nie posiada aktywnego żądania resetu hasła
-          </p>
-        </div>
-        <Button variant="primary">
-          <Link href="/password-recovery">Resetuj hasło</Link>
-        </Button>
-        <Button>
-          <Link href="/">Wróć na stronę główną</Link>
-        </Button>
-      </div>
-    )
   }
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-bold">Wystąpił błąd</h1>
+        <p className="text-muted">
+          Twoje konto nie posiada aktywnego żądania resetu hasła
+        </p>
+      </div>
+      <Button variant="primary">
+        <Link href="/password-recovery">Resetuj hasło</Link>
+      </Button>
+      <Button>
+        <Link href="/">Wróć na stronę główną</Link>
+      </Button>
+    </div>
+  )
 }

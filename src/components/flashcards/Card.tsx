@@ -8,7 +8,8 @@ interface CardProps {
 
 export default function Card({ children, className, onClick }: CardProps) {
   return (
-    <div
+    <button
+      type="button"
       className={cn(
         'flex flex-col min-h-[512px] gap-4 p-4 items-center justify-center bg-background-light rounded-md text-center',
         className,
@@ -16,6 +17,6 @@ export default function Card({ children, className, onClick }: CardProps) {
       onClick={onClick}
     >
       {children}
-    </div>
+    </button>
   )
 }

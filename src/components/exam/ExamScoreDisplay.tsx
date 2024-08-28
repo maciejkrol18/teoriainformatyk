@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { ExamQuestion } from '@/types/exam-question'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamQuestion } from '@/types/exam-question'
+import type { ExamScore } from '@/types/exam-score'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import { Check, Clock, HelpCircle, XIcon } from 'lucide-react'
@@ -34,9 +34,8 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
     }
     if (question.correct_selected) {
       return 'green-800'
-    } else {
-      return 'red-800'
     }
+    return 'red-800'
   }
 
   return (
@@ -64,7 +63,7 @@ export default function ExamScoreDisplay({ score, questions }: ExamScoreDisplayP
                 question,
               )}`}
               href={`#question-${index + 1}`}
-              key={index}
+              key={question.content}
             >
               {index + 1}
             </Link>

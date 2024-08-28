@@ -10,6 +10,6 @@ export default function Skeleton({ className }: SkeletonProps) {
       className={`${
         className && className
       } bg-gradient-loading animate-loading bg-size-loading w-full`}
-    ></div>
+    />
   )
 }

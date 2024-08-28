@@ -14,7 +14,7 @@ import {
 import { SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { SearchFilters } from '@/types/search-filters'
+import type { SearchFilters } from '@/types/search-filters'
 import getUser from '@/lib/supabase/get-user'
 
 interface ExamData {

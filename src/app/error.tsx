@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import BrandLogo from '@/components/ui/BrandLogo'
 
-interface ErrorProps {
+interface ErrorPageProps {
   error: Error
   reset: () => void
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function ErrorPage({ error, reset }: ErrorPageProps) {
   return (
     <>
       <div className="flex flex-col gap-8 justify-center items-center grow">

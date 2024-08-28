@@ -33,7 +33,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="w-full h-[1px] bg-background-bright"></div>
+        <div className="w-full h-[1px] bg-background-bright" />
         <p>
           <span className="text-lg">&copy;</span> {new Date().getFullYear()} Maciej Król
         </p>

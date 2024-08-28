@@ -9,7 +9,7 @@ import { checkIfAccountExists, signUp } from '@/app/(auth)/actions'
 import { toast } from 'sonner'
 import { Button } from '../ui/Button'
 import { LoaderIcon } from 'lucide-react'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import type HCaptcha from '@hcaptcha/react-hcaptcha'
 import Captcha from './Captcha'
 
 const schema = z

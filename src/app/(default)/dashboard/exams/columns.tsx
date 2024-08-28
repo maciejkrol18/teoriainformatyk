@@ -1,7 +1,7 @@
 'use client'
 
 import { Checkbox } from '@/components/ui/Checkbox'
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 export const columns: ColumnDef<ExamHistoryEntry>[] = [
   {
@@ -40,7 +40,7 @@ export const columns: ColumnDef<ExamHistoryEntry>[] = [
     accessorKey: 'percentage_score',
     header: 'Wynik',
     cell: ({ row }) => {
-      const percentageScore = parseFloat(row.getValue('percentage_score'))
+      const percentageScore = Number.parseFloat(row.getValue('percentage_score'))
       return (
         <div className={`${percentageScore > 50 ? 'text-green-500' : 'text-red-500'}`}>
           {percentageScore}%

@@ -8,7 +8,7 @@ import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '../ui/Button'
 import { LoaderIcon } from 'lucide-react'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import type HCaptcha from '@hcaptcha/react-hcaptcha'
 import { checkIfAccountExists, startPasswordRecovery } from '@/app/(auth)/actions'
 import Captcha from './Captcha'
 
@@ -87,7 +87,8 @@ export default function PasswordRecoveryForm() {
         </Button>
       </form>
     )
-  } else if (view === 'info') {
+  }
+  if (view === 'info') {
     return (
       <p>
         Na podany przez ciebie adres email został wysłany link do resetowania hasła. W

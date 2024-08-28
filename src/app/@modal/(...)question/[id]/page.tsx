@@ -29,7 +29,7 @@ const getHardCollection = cache(async (userId: string) => {
     .select('question_id_array')
     .eq('user_id', userId)
     .single()
-  return (data && data.question_id_array) || []
+  return data?.question_id_array || []
 })
 
 export default async function ParallelQuestionPage({
@@ -48,6 +48,7 @@ export default async function ParallelQuestionPage({
       question={question}
       fetchedHardCollection={hardCollection}
       isAuthenticated={user !== null}
+      // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
       showHardCollectionButton={!Boolean(searchParams.hideHardCollection)}
     />
   )

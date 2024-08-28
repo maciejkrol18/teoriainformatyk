@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { Button } from '../ui/Button'
 import { LoaderIcon } from 'lucide-react'
 import Link from 'next/link'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import type HCaptcha from '@hcaptcha/react-hcaptcha'
 import Captcha from './Captcha'
 
 const schema = z.object({

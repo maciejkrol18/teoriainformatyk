@@ -1,6 +1,6 @@
 'use client'
 
-import { HardestQuestionsEntry } from '@/types/hardest-questions-entry'
+import type { HardestQuestionsEntry } from '@/types/hardest-questions-entry'
 import { ColumnDef, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { columns } from './columns'
 import { DataTable } from '@/components/ui/DataTable'

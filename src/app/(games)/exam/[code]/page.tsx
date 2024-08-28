@@ -1,7 +1,7 @@
 import Exam from '@/components/exam/Exam'
 import PageTitle from '@/components/ui/PageTitle'
 import { createClient } from '@/lib/supabase/server'
-import { ExamQuestion } from '@/types/exam-question'
+import type { ExamQuestion } from '@/types/exam-question'
 import { notFound } from 'next/navigation'
 
 async function getQuestions(id: number): Promise<ExamQuestion[]> {
@@ -10,20 +10,16 @@ async function getQuestions(id: number): Promise<ExamQuestion[]> {
     amount: 40,
     exam_id: id,
   })
-  if (error) {
-    throw new Error(`Wystąpił błąd: ${error.message}`)
-  } else if (!data) {
-    throw new Error('Błąd pobierania pytań z bazy. Spróbuj ponownie')
-  } else {
-    return data.map((question) => {
-      return {
-        ...question,
-        answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
-        selected_answer: null,
-        correct_selected: false,
-      }
-    })
-  }
+  if (error) throw new Error(`Wystąpił błąd: ${error.message}`)
+  if (!data) throw new Error('Błąd pobierania pytań z bazy. Spróbuj ponownie')
+  return data.map((question) => {
+    return {
+      ...question,
+      answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
+      selected_answer: null,
+      correct_selected: false,
+    }
+  })
 }
 
 async function getExamData(code: string) {

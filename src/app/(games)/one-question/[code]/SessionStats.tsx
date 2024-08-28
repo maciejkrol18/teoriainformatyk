@@ -36,7 +36,7 @@ export default function SessionStats({
 
   useEffect(() => {
     setScorePercentage(
-      parseFloat(
+      Number.parseFloat(
         ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2),
       ),
     )

@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { QueryChallenge } from '@/types/query-challenge'
+import type { QueryChallenge } from '@/types/query-challenge'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Dices, ExternalLink, LoaderIcon, Send, Wand2 } from 'lucide-react'
@@ -19,20 +19,16 @@ export default function SqlTraining() {
   const fetchChallenge = async () => {
     const supabase = createClient()
     const { data, error } = await supabase.rpc('get_random_query_challenge').single()
-    if (error) {
-      throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`)
-    } else if (!data) {
-      throw new Error('Błąd pobierania pytania. Spróbuj ponownie później')
-    } else {
-      setChallenge({
-        exam_code: data.exam_code,
-        image: data.image,
-        repo_link: data.repo_link,
-        comment: data.comment,
-        content: data.challenge,
-        answer: data.correct_answer,
-      })
-    }
+    if (error) throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`)
+    if (!data) throw new Error('Błąd pobierania pytania. Spróbuj ponownie później')
+    setChallenge({
+      exam_code: data.exam_code,
+      image: data.image,
+      repo_link: data.repo_link,
+      comment: data.comment,
+      content: data.challenge,
+      answer: data.correct_answer,
+    })
   }
 
   const rollChallenge = () => {
@@ -131,6 +127,7 @@ export default function SqlTraining() {
           <Button
             className="rounded-full w-20 h-20"
             onClick={rollChallenge}
+            // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
             disabled={!Boolean(challenge)}
             aria-label="Losuj"
             title="Losuj"
@@ -140,6 +137,7 @@ export default function SqlTraining() {
           <Button
             className="rounded-full w-20 h-20"
             onClick={autoComplete}
+            // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
             disabled={!Boolean(challenge)}
             aria-label="Autouzupełnij odpowiedź"
             title="Autouzupełnij odpowiedź"
@@ -149,6 +147,7 @@ export default function SqlTraining() {
           <Button
             className="rounded-full w-20 h-20"
             onClick={checkAnswer}
+            // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
             disabled={!Boolean(challenge)}
             aria-label="Sprawdź odpowiedź"
             title="Sprawdź odpowiedź"

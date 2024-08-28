@@ -17,17 +17,18 @@ export default async function updateHardCollection(
     })
     !error && revalidatePath(`/question/${id}`)
     return {
+      // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
       success: !Boolean(error),
       message: error?.message || `Usunięto ID ${id} ze zbioru`,
     }
-  } else {
-    const { error } = await supabase.rpc('add_to_hard_collection', {
-      newid: id,
-    })
-    !error && revalidatePath(`/question/${id}`)
-    return {
-      success: !Boolean(error),
-      message: error?.message || `Dodano ID ${id} ze zbioru`,
-    }
+  }
+  const { error } = await supabase.rpc('add_to_hard_collection', {
+    newid: id,
+  })
+  !error && revalidatePath(`/question/${id}`)
+  return {
+    // biome-ignore lint/complexity/noExtraBooleanCast: this doesn't get coerced
+    success: !Boolean(error),
+    message: error?.message || `Dodano ID ${id} ze zbioru`,
   }
 }

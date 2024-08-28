@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from './Button'
-import { User } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import HeaderAuthDropdown from './HeaderAuthDropdown'
 
@@ -24,20 +24,18 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
           <Link href="/login">Zaloguj</Link>
         </Button>
       )
-    } else {
-      return (
-        <HeaderAuthDropdown
-          email={data.email}
-          display_name={data.display_name}
-          avatar_url={data.avatar_url}
-        />
-      )
     }
-  } else {
     return (
-      <Button variant="primary" asChild>
-        <Link href="/login">Zaloguj</Link>
-      </Button>
+      <HeaderAuthDropdown
+        email={data.email}
+        display_name={data.display_name}
+        avatar_url={data.avatar_url}
+      />
     )
   }
+  return (
+    <Button variant="primary" asChild>
+      <Link href="/login">Zaloguj</Link>
+    </Button>
+  )
 }

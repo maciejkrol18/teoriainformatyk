@@ -1,6 +1,6 @@
 'use client'
 
-import { ExamQuestion } from '@/types/exam-question'
+import type { ExamQuestion } from '@/types/exam-question'
 import { useEffect, useRef, useState } from 'react'
 import {
   Question,
@@ -8,14 +8,14 @@ import {
   QuestionAnswersContainer,
   QuestionContent,
   QuestionMarker,
-  questionAnswerVariants,
+  type questionAnswerVariants,
   QuestionImage,
 } from '../ui/Question'
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import { toast } from 'sonner'
 import { v4 } from 'uuid'
 import ExamScoreDisplay from './ExamScoreDisplay'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamScore } from '@/types/exam-score'
 import { Button } from '../ui/Button'
 import ExamTimer from './ExamTimer'
 import ExamSkeleton from '../skeletons/ExamSkeleton'
@@ -42,9 +42,8 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
             correct_selected: answer === question.correct_answer,
             selected_answer: answer === question.selected_answer ? null : answer,
           }
-        } else {
-          return el
         }
+        return el
       }),
     )
   }
@@ -54,16 +53,11 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
     question: ExamQuestion,
   ): VariantProps<typeof questionAnswerVariants>['variant'] => {
     if (isExamFinished) {
-      if (!question.selected_answer && answer === question.correct_answer) {
+      if (!question.selected_answer && answer === question.correct_answer)
         return 'unanswered'
-      } else if (answer === question.correct_answer && question.selected_answer) {
-        return 'correct'
-      } else if (
-        answer === question.selected_answer &&
-        answer !== question.correct_answer
-      ) {
+      if (answer === question.correct_answer && question.selected_answer) return 'correct'
+      if (answer === question.selected_answer && answer !== question.correct_answer)
         return 'incorrect'
-      }
     } else {
       return answer === question.selected_answer ? 'selected' : 'default'
     }
@@ -141,14 +135,14 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
         {questions.map((question, index) => {
           const atlas = 'ABCD'
           return (
-            <Question id={`question-${index + 1}`} key={index}>
+            <Question id={`question-${index + 1}`} key={question.content}>
               <QuestionMarker>{index + 1}</QuestionMarker>
               <QuestionContent>{question.content}</QuestionContent>
               <QuestionAnswersContainer>
                 {question.answers.map((answer, index) => (
                   <QuestionAnswer
                     onClick={() => setAnswer(answer, question)}
-                    key={index}
+                    key={answer}
                     variant={getAnswerVariant(answer, question)}
                     disabled={isExamFinished}
                   >
@@ -172,7 +166,6 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
         </Button>
       </div>
     )
-  } else {
-    return <ExamSkeleton />
   }
+  return <ExamSkeleton />
 }

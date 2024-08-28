@@ -2,7 +2,7 @@
 
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
-import { ExamScore } from '@/types/exam-score'
+import type { ExamScore } from '@/types/exam-score'
 
 export async function saveScore(
   score: ExamScore,
@@ -20,16 +20,14 @@ export async function saveScore(
         message: `Błąd zapisywania wyniku: ${error.message}`,
         error: true,
       }
-    } else {
-      return {
-        message: 'Wynik zapisany',
-        error: false,
-      }
     }
-  } else {
     return {
-      message: 'Zaloguj się, aby zapisać swój wynik',
+      message: 'Wynik zapisany',
       error: false,
     }
+  }
+  return {
+    message: 'Zaloguj się, aby zapisać swój wynik',
+    error: false,
   }
 }

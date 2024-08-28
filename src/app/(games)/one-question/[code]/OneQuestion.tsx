@@ -9,14 +9,14 @@ import {
   QuestionAnswersContainer,
   QuestionContent,
   QuestionImage,
-  questionAnswerVariants,
+  type questionAnswerVariants,
 } from '@/components/ui/Question'
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import QuestionSkeleton from '@/components/skeletons/QuestionSkeleton'
 import { toast } from 'sonner'
 import SessionStats from './SessionStats'
 import OneQuestionBar from './OneQuestionBar'
-import { Question as QuestionType } from '@/types/question'
+import type { Question as QuestionType } from '@/types/question'
 import { incrementCorrect, incrementIncorrect } from './actions'
 
 interface OneQuestionProps {
@@ -48,9 +48,8 @@ export default function OneQuestion({
       exam_id: examId,
       range: hardMode ? hardCollection : undefined,
     })
-    if (error) {
-      throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`)
-    } else if (!data[0]) {
+    if (error) throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`)
+    if (!data[0]) {
       if (hardMode) {
         toast.warning(
           'Brak pasujących trudnych pytań w kolekcji. Powrót do trybu normalnego',
@@ -80,13 +79,10 @@ export default function OneQuestion({
     question: QuestionType,
   ): VariantProps<typeof questionAnswerVariants>['variant'] => {
     if (selectedAnswer) {
-      if (!selectedAnswer && answer === question.correct_answer) {
-        return 'unanswered'
-      } else if (answer === question.correct_answer && selectedAnswer) {
-        return 'correct'
-      } else if (answer === selectedAnswer && answer !== question.correct_answer) {
+      if (!selectedAnswer && answer === question.correct_answer) return 'unanswered'
+      if (answer === question.correct_answer && selectedAnswer) return 'correct'
+      if (answer === selectedAnswer && answer !== question.correct_answer)
         return 'incorrect'
-      }
     } else {
       return answer === selectedAnswer ? 'selected' : 'default'
     }
@@ -156,7 +152,7 @@ export default function OneQuestion({
                   onClick={() => setSelectedAnswer(answer)}
                   variant={getAnswerVariant(answer, question)}
                   disabled={Boolean(selectedAnswer)}
-                  key={index}
+                  key={answer}
                 >
                   <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
                 </QuestionAnswer>
@@ -168,7 +164,7 @@ export default function OneQuestion({
               bucket="question_images"
               filename={question.id}
               loading="lazy"
-              alt={`Zdjęcie do pytania`}
+              alt="Zdjęcie do pytania"
             />
           )}
         </Question>
