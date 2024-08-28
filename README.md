@@ -1,6 +1,6 @@
 <div align='center'>
   
-  # [![logo](https://github.com/maciejkrol18/teoriainformatyk/blob/main/src/public/logo-big-dark.svg)](https://teoriainformatyk.pl)
+  # [![logo](https://github.com/maciejkrol18/teoriainformatyk/blob/main/public/logo-big-dark.svg)](https://teoriainformatyk.pl)
 
   <br>
   
