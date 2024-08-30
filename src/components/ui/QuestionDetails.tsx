@@ -94,6 +94,7 @@ export default function QuestionDetails({
             filename={question.id}
             loading="lazy"
             alt={`Zdjęcie do pytania o ID ${question.id}`}
+            allowZoom={false}
           />
         ) : (
           <p className="text-muted">To pytanie nie posiada załączonego obrazku</p>
