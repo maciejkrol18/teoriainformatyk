@@ -1,16 +1,15 @@
-import GamemodeBlock from '@/components/hero/GamemodeBlock'
-import GamemodesWrapper from '@/components/hero/GamemodesWrapper'
-import Section from '@/components/hero/Section'
+import GamemodeBlock from './GamemodeBlock'
+import GamemodesWrapper from './GamemodesWrapper'
+import Section from '@/app/(hero)/Section'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import OneQuestionIcon from '../../../public/one-question-icon.svg'
 import ExamIcon from '../../../public/exam-icon.svg'
 import FlashcardsIcon from '../../../public/flashcards-icon.svg'
 import SqlTrainingIcon from '../../../public/sql-training-icon.svg'
-import HeroSearchBar from '@/components/hero/HeroSearchBar'
-import HeroCard from '@/components/hero/HeroCard'
+import HeroSearchBar from './HeroSearchBar'
+import HeroCard from './HeroCard'
 import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from 'lucide-react'
-
 export default function Home() {
   return (
     <>
