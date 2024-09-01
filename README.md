@@ -7,7 +7,7 @@
   [![production status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk.pl&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=production&labelColor=%23171517)](https://teoriainformatyk.pl)
   [![preview status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk-git-dev-maciejkrol18s-projects.vercel.app%2F&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=preview&labelColor=%23171517)](https://teoriainformatyk.pl) <br>
   ![nextjs 14](https://img.shields.io/badge/NextJS_14-black?logo=nextdotjs)
-  ![vercel](https://img.shields.io/badge/Vercel-black?logo=vercel&color=black)
+  ![plausible analytics](https://img.shields.io/badge/Plausible%20Analytics-black?logo=plausibleanalytics&color=%235850EC)
   ![tailwind](https://img.shields.io/badge/Tailwind_CSS-turquoise?logo=tailwindcss&color=%230d6675)
   ![supabase](https://img.shields.io/badge/Supabase-green?logo=supabase&color=%23268057)
   ![typescript](https://img.shields.io/badge/TypeScript-blue?logo=typescript&color=%2322548c)
