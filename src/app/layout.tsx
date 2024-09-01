@@ -4,11 +4,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import type React from 'react'
-import { Analytics } from '@vercel/analytics/react'
 import Providers from './providers'
 import { TailwindIndicator } from '@/components/ui/tailwind-indicator'
 import ToasterWrapper from '@/components/ui/ToasterWrapper'
-import Skeleton from '@/components/ui/Skeleton'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -26,7 +24,7 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
+    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'teoriainformatyk.pl'}`,
   ),
   title: {
     default: 'teoriainformatyk',
@@ -51,7 +49,7 @@ export const metadata: Metadata = {
     title: 'teoriainformatyk',
     description:
       'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
-    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`,
+    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'teoriainformatyk.pl'}`,
     siteName: 'teoriainformatyk',
     type: 'website',
     locale: 'pl_PL',
@@ -79,7 +77,6 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
           <TailwindIndicator />
           <div className="min-h-screen flex flex-col">{children}</div>
           <div>{modal}</div>
-          <Analytics />
         </Providers>
       </body>
     </html>
