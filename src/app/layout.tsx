@@ -7,6 +7,7 @@ import type React from 'react'
 import Providers from './providers'
 import { TailwindIndicator } from '@/components/ui/tailwind-indicator'
 import ToasterWrapper from '@/components/ui/ToasterWrapper'
+import PlausibleProvider from 'next-plausible'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -24,7 +25,7 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'teoriainformatyk.pl'}`,
+    `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.PRODUCTION_DOMAIN || 'teoriainformatyk.pl'}`,
   ),
   title: {
     default: 'teoriainformatyk',
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     title: 'teoriainformatyk',
     description:
       'Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03',
-    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'teoriainformatyk.pl'}`,
+    url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.PRODUCTION_DOMAIN || 'teoriainformatyk.pl'}`,
     siteName: 'teoriainformatyk',
     type: 'website',
     locale: 'pl_PL',
@@ -63,8 +64,22 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children, modal }: RootLayoutProps) {
+  console.log(process.env.PLAUSIBLE_URL)
   return (
     <html lang="pl" className="dark" suppressHydrationWarning>
+      <head>
+        <PlausibleProvider
+          domain={
+            process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ||
+            process.env.PRODUCTION_DOMAIN ||
+            'https://teoriainformatyk.pl'
+          }
+          customDomain={process.env.PLAUSIBLE_URL || 'https://plausible.io'}
+          trackOutboundLinks
+          trackLocalhost
+          enabled
+        />
+      </head>
       <body
         className={cn(
           'font-sans bg-background text-foreground ',
