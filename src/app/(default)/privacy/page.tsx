@@ -14,12 +14,10 @@ export default function PrivacyPolicyPage() {
         </p>
         <p>
           Korzystamy z narzędzi analitycznych{' '}
-          <Link
-            href="https://vercel.com/docs/analytics/privacy-policy"
-            className="text-accent underline"
-          >
-            Vercel Analytics
-          </Link>
+          <Link href="https://plausible.io/privacy" className="text-accent underline">
+            Plausible
+          </Link>{' '}
+          które szanują prywatność, nie wykorzystują ciasteczek oraz są zgodne z RODO
         </p>
         <p>
           Dane użytkowników są przechowywane w zewnętrznej usłudze{' '}
@@ -44,6 +42,15 @@ export default function PrivacyPolicyPage() {
           </Link>
         </p>
       </div>
+      <p className="uppercase">
+        Strona jest dostarczana „tak jak jest”, bez jakiejkolwiek gwarancji, wyraźnej lub
+        dorozumianych, w tym między innymi gwarancji przydatności handlowej, przydatności
+        do określonego celu i nienaruszania praw. W żadnym wypadku autorzy lub posiadacze
+        praw autorskich nie ponoszą odpowiedzialności za jakiekolwiek roszczenia, szkody
+        lub inne odpowiedzialność, czy to z tytułu umowy, czynu niedozwolonego lub w inny
+        sposób, wynikającą z, z lub w związku z oprogramowaniem lub użytkowaniem lub
+        innymi transakcjami dotyczącymi oprogramowaniem.
+      </p>
       <p>
         Poniższa Polityka Prywatności określa{' '}
         <strong>
@@ -486,10 +493,10 @@ export default function PrivacyPolicyPage() {
             <li>
               <a
                 rel="nofollow external"
-                href="https://vercel.com/docs/analytics/privacy-policy"
+                href="https://plausible.io/privacy"
                 className="text-accent underline"
               >
-                Vercel Analytics
+                Plausible
               </a>
             </li>
           </ul>
@@ -562,10 +569,10 @@ export default function PrivacyPolicyPage() {
         <strong>
           <a
             rel="nofollow external"
-            href="https://vercel.com/legal/privacy-policy"
+            href="https://panel.skillhost.pl/uploads/regulaminy/polityka-prywatnosci%202023-01-09.pdf"
             className="text-accent underline"
           >
-            Vercel
+            SkillHost VPS
           </a>
         </strong>
         . Istnieje możliwość dostępu do danych wskutek prac serwisowych realizowanych

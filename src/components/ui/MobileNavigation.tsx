@@ -89,9 +89,6 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
               </Button>
             )}
           </div>
-          <Link href="/" className="text-xl pb-2" onClick={() => closeOnCurrent('/')}>
-            Strona główna
-          </Link>
           <Link
             href="/#inf02"
             className="text-xl pb-2"
@@ -133,6 +130,20 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
             onClick={() => closeOnCurrent('/contact')}
           >
             Formularz kontaktowy
+          </Link>
+          <Link
+            href="https://buymeacoffee.com/maciejkrol"
+            target="_blank"
+            className="text-xl pb-2"
+          >
+            Darowizna
+          </Link>
+          <Link
+            href="https://status.teoriainformatyk.pl/status/strona"
+            target="_blank"
+            className="text-xl pb-2"
+          >
+            Status usług
           </Link>
           <Link
             href="https://github.com/maciejkrol18/teoriainformatyk"

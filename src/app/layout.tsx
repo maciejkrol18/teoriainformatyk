@@ -76,7 +76,6 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
           }
           customDomain={process.env.PLAUSIBLE_URL || 'https://plausible.io'}
           trackOutboundLinks
-          trackLocalhost
           enabled
         />
       </head>

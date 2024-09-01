@@ -19,6 +19,9 @@ export default function Footer() {
               <p className="text-lg font-semibold">Więcej</p>
               <Link href="/search">Wyszukiwarka pytań</Link>
               <Link href="/dashboard">Panel użytkownika</Link>
+              <Link href="https://buymeacoffee.com/maciejkrol" target="_blank">
+                Darowizna
+              </Link>
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-lg font-semibold">Strona</p>
@@ -26,7 +29,13 @@ export default function Footer() {
                 href="https://github.com/maciejkrol18/teoriainformatyk"
                 target="_blank"
               >
-                Kod źródłowy
+                Github
+              </Link>
+              <Link
+                href="https://status.teoriainformatyk.pl/status/strona"
+                target="_blank"
+              >
+                Status usług
               </Link>
               <Link href="/contact">Kontakt</Link>
               <Link href="/privacy">Polityka prywatności</Link>

@@ -10,6 +10,9 @@ import SqlTrainingIcon from '../../../public/sql-training-icon.svg'
 import HeroSearchBar from './HeroSearchBar'
 import HeroCard from './HeroCard'
 import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from 'lucide-react'
+import DonateButton from '../../../public/donate.svg'
+import Image from 'next/image'
+
 export default function Home() {
   return (
     <>
@@ -27,7 +30,7 @@ export default function Home() {
               <Link href="/#inf02">Zacznij powtarzać</Link>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <Link href="/#browser">Więcej</Link>
+              <Link href="/#browser">Dowiedz się więcej</Link>
             </Button>
           </div>
         </div>
@@ -96,13 +99,18 @@ export default function Home() {
         id="browser"
       >
         <HeroSearchBar />
-        <p className="mt-2 text-sm text-muted text-center">Wciśnij Enter aby wyszukać</p>
+        <p className="mt-2 text-sm text-muted text-center hidden xl:block">
+          Wciśnij Enter aby wyszukać
+        </p>
       </Section>
       <Section
         title="Zostań użytkownikiem już dziś"
         subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
         id="user"
       >
+        <Button variant="primary" asChild className="flex max-w-3xl mx-auto mb-24">
+          <Link href="/login">Dołącz teraz</Link>
+        </Button>
         <div className="grid gap-24 max-w-3xl mx-auto grid-cols-1 sm:grid-cols-2">
           <HeroCard icon={<SkullIcon />} title="Zbiór trudnych pytań">
             <p className="leading-relaxed">
@@ -148,6 +156,19 @@ export default function Home() {
             </p>
           </HeroCard>
         </div>
+      </Section>
+      <Section
+        title="Wesprzyj rozwój strony"
+        subtitle="Nasza strona jest całkowicie darmowa. Mała darowizna pomoże w utrzymaniu i rozwoju infrastruktury strony"
+        id="donate"
+      >
+        <Link
+          href="https://www.buymeacoffee.com/maciejkrol"
+          target="_blank"
+          className="block max-w-fit mx-auto"
+        >
+          <Image src={DonateButton} width={192} height={96} alt="Przycisk z darowizną" />
+        </Link>
       </Section>
     </>
   )
