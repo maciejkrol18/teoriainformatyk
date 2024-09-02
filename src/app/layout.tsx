@@ -64,7 +64,6 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children, modal }: RootLayoutProps) {
-  console.log(process.env.PLAUSIBLE_URL)
   return (
     <html lang="pl" className="dark" suppressHydrationWarning>
       <head>
