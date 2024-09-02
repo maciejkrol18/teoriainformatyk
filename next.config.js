@@ -2,11 +2,11 @@ require('dotenv').config({
   path: '.env.local',
 })
 
-const { withPlausibleProxy } = require('next-plausible')
+// const { withPlausibleProxy } = require('next-plausible')
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,4 +23,5 @@ const nextConfig = {
   output: 'standalone',
 }
 
-module.exports = withBundleAnalyzer(withPlausibleProxy(nextConfig))
+// module.exports = withBundleAnalyzer(withPlausibleProxy(nextConfig))
+module.exports = nextConfig
