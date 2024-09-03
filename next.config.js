@@ -23,4 +23,6 @@ const nextConfig = {
   output: 'standalone',
 }
 
-module.exports = withBundleAnalyzer(withPlausibleProxy()({ ...nextConfig }))
+module.exports = withBundleAnalyzer(
+  withPlausibleProxy({ customDomain: process.env.PLAUSIBLE_URL })({ ...nextConfig }),
+)
