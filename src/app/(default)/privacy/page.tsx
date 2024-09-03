@@ -48,8 +48,8 @@ export default function PrivacyPolicyPage() {
         do określonego celu i nienaruszania praw. W żadnym wypadku autorzy lub posiadacze
         praw autorskich nie ponoszą odpowiedzialności za jakiekolwiek roszczenia, szkody
         lub inne odpowiedzialności, czy to z tytułu umowy, czynu niedozwolonego lub w inny
-        sposób, wynikającego z, z lub w związku z oprogramowaniem lub użytkowaniem lub
-        innymi transakcjami dotyczącymi oprogramowania.
+        sposób, wynikającego z, z lub w związku ze stroną lub użytkowaniem lub innymi
+        transakcjami dotyczącymi strony.
       </p>
       <p>
         Poniższa Polityka Prywatności określa{' '}

@@ -68,13 +68,10 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <head>
         <PlausibleProvider
-          domain={
-            process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ||
-            process.env.PRODUCTION_DOMAIN ||
-            'https://teoriainformatyk.pl'
-          }
+          domain={process.env.PRODUCTION_DOMAIN || 'https://teoriainformatyk.pl'}
           customDomain={process.env.PLAUSIBLE_URL || 'https://plausible.io'}
           trackOutboundLinks
+          selfHosted
           enabled
         />
       </head>

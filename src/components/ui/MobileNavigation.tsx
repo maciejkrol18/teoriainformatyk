@@ -92,14 +92,14 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
           <Link
             href="/#inf02"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/#inf02')}
+            onClick={() => closeOnCurrent('/')}
           >
             INF.02/EE.08
           </Link>
           <Link
             href="/#inf03"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/#inf03')}
+            onClick={() => closeOnCurrent('/')}
           >
             INF.03/EE.09/E.14
           </Link>
