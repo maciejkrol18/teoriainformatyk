@@ -132,7 +132,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
             Formularz kontaktowy
           </Link>
           <Link
-            href="https://buymeacoffee.com/maciejkrol"
+            href="https://buycoffee.to/maciejkrol"
             target="_blank"
             className="text-xl pb-2"
           >

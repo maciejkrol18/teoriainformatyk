@@ -163,12 +163,15 @@ export default function Home() {
         id="donate"
       >
         <Link
-          href="https://www.buymeacoffee.com/maciejkrol"
+          href="https://buycoffee.to/maciejkrol"
           target="_blank"
-          className="block max-w-fit mx-auto"
+          className="block max-w-fit mx-auto bg-background-bright p-4 rounded-md"
         >
           <Image src={DonateButton} width={192} height={96} alt="Przycisk z darowizną" />
         </Link>
+        <p className="max-w-fit mx-auto text-muted text-sm mt-2">
+          Możliwość płatności BLIK
+        </p>
       </Section>
     </>
   )

@@ -19,7 +19,7 @@ export default function Footer() {
               <p className="text-lg font-semibold">Więcej</p>
               <Link href="/search">Wyszukiwarka pytań</Link>
               <Link href="/dashboard">Panel użytkownika</Link>
-              <Link href="https://buymeacoffee.com/maciejkrol" target="_blank">
+              <Link href="https://buycoffee.to/maciejkrol" target="_blank">
                 Darowizna
               </Link>
             </div>
