@@ -33,7 +33,7 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
   if (!error) {
     return (
       <DashboardBlock blockTitle="Twoje konto">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4">
           <Button asChild variant="outline">
             <Link href="/dashboard/change-password">
               <KeyRound /> Zmień hasło

@@ -108,6 +108,9 @@ export default function ExamFiltersDropdown() {
             className="h-6"
             value={scoreGreaterThan}
             defaultValue={searchParams.get('scoreGreaterThan')?.toString()}
+            type="number"
+            min={0}
+            max={100}
             onChange={(e) => {
               setScoreGreaterThan(e.target.value)
               handleGreaterThanChange(e.target.value)
@@ -118,6 +121,9 @@ export default function ExamFiltersDropdown() {
             className="h-6"
             value={scoreLessThan}
             defaultValue={searchParams.get('scoreLessThan')?.toString()}
+            type="number"
+            min={0}
+            max={100}
             onChange={(e) => {
               setScoreLessThan(e.target.value)
               handleLessThanChange(e.target.value)

@@ -38,7 +38,7 @@ export const columns: ColumnDef<HardestQuestionsEntry>[] = [
     cell: ({ row }) => {
       const id = row.original.question_id
       return (
-        <Button asChild size="sm">
+        <Button asChild size="sm" variant="secondary">
           <Link href={`/question/${id}`}>Szczegóły</Link>
         </Button>
       )
