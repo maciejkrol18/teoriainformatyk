@@ -32,7 +32,7 @@ export default function Footer() {
                 Github
               </Link>
               <Link
-                href="https://status.teoriainformatyk.pl/status/strona"
+                href="https://status.maciejkrol.dev/status/teoriainformatyk"
                 target="_blank"
               >
                 Status usług

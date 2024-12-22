@@ -139,7 +139,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
             Darowizna
           </Link>
           <Link
-            href="https://status.teoriainformatyk.pl/status/strona"
+            href="https://status.maciejkrol.dev/status/teoriainformatyk"
             target="_blank"
             className="text-xl pb-2"
           >
