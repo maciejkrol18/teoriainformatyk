@@ -54,12 +54,12 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<unknown[]> {
   const supabase = createClient()
 
   const { data } = await supabase.from('questions').select('id')
 
-  if (data === null) return null
+  if (data === null) return []
 
   return data.map((question) => ({
     id: String(question.id),
