@@ -55,12 +55,30 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams(): Promise<unknown[]> {
-  const supabase = createClient()
+  console.log('Started generating static params for /question route')
 
-  const { data } = await supabase.from('questions').select('id')
+  const headers = {
+    apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+    'Content-Type': 'application/json',
+  } as HeadersInit
 
-  if (data === null) return []
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/questions?select=id`,
+    { headers },
+  )
 
+  if (!response.ok) {
+    console.error(
+      'Failed to fetch all questions when generating static params for /question route:',
+      await response.text(),
+    )
+    return []
+  }
+
+  const data = (await response.json()) as Record<'id', number>[]
+
+  console.log('Finished generating static params for /question route')
   return data.map((question) => ({
     id: String(question.id),
   }))
