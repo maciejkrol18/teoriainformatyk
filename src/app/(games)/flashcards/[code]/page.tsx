@@ -2,7 +2,19 @@ import Flashcards from '@/components/flashcards/Flashcards'
 import PageTitle from '@/components/ui/PageTitle'
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
+
+export async function generateMetadata({
+  params,
+}: { params: { code: string } }): Promise<Metadata> {
+  // TODO: Determine the qualification text based off the db
+  const qualification = params.code === 'inf02' ? 'INF.02/EE.08' : 'INF.03/EE.09/E.14'
+  return {
+    title: `Fiszki ${qualification}`,
+    description: `Powtarzaj wszystkie pytania na egzamin teoretyczny ${qualification} w formie fiszek`,
+  }
+}
 
 async function getKnownQuestions(userId: string, examId: number) {
   const supabase = createClient()

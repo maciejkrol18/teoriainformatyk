@@ -5,9 +5,12 @@ import DashboardLatestExams from '@/components/dashboard/DashboardLatestExams'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import { Button } from '@/components/ui/Button'
 import getUser from '@/lib/supabase/get-user'
-import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+
+export const metadata = {
+  title: 'Panel użytkownika',
+}
 
 export default async function DashboardPage() {
   const { user } = await getUser()

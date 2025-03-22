@@ -5,6 +5,10 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 
+export const metadata = {
+  title: 'Aktualizacja hasła',
+}
+
 export default async function UpdatePasswordPage() {
   const supabase = createClient()
 

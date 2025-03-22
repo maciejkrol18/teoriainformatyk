@@ -1,5 +1,9 @@
 import PasswordRecoveryForm from '@/components/auth/PasswordRecoveryForm'
 
+export const metadata = {
+  title: 'Reset hasła',
+}
+
 export default function PasswordRecoveryPage() {
   return (
     <div className="flex flex-col gap-4">

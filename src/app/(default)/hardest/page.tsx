@@ -6,6 +6,10 @@ import pl from 'dayjs/locale/pl'
 import { cache } from 'react'
 import HardestQuestionsTable from './table'
 
+export const metadata = {
+  title: 'Najtrudniejsze pytania',
+}
+
 dayjs.locale(pl)
 
 export const revalidate = 36000

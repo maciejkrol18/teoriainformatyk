@@ -2,7 +2,19 @@ import Exam from '@/components/exam/Exam'
 import PageTitle from '@/components/ui/PageTitle'
 import { createClient } from '@/lib/supabase/server'
 import type { ExamQuestion } from '@/types/exam-question'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
+export async function generateMetadata({
+  params,
+}: { params: { code: string } }): Promise<Metadata> {
+  // TODO: Determine the qualification text based off the db
+  const qualification = params.code === 'inf02' ? 'INF.02/EE.08' : 'INF.03/EE.09/E.14'
+  return {
+    title: `Egzamin ${qualification}`,
+    description: `Rozwiąż losowy godzinny 40-pytaniowy egzamin teoretyczny dla zawodu technik informatyk z kwalifikacji ${qualification}`,
+  }
+}
 
 async function getQuestions(id: number): Promise<ExamQuestion[]> {
   const supabase = createClient()

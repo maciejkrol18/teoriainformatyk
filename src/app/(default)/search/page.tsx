@@ -7,6 +7,12 @@ import type { SearchFilters } from '@/types/search-filters'
 
 const RESULTS_PER_PAGE = 10
 
+export const metadata = {
+  title: 'Wyszukiwarka',
+  description:
+    'Wyszukaj wszystkie dostępne pytania w naszej bazie danych dla egzaminów INF.02/EE.08 oraz INF.03/EE.09/E.14',
+}
+
 interface SearchPageProps {
   searchParams: SearchFilters
 }

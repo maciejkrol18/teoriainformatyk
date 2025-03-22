@@ -2,7 +2,19 @@ import OneQuestion from './OneQuestion'
 import PageTitle from '@/components/ui/PageTitle'
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
+export async function generateMetadata({
+  params,
+}: { params: { code: string } }): Promise<Metadata> {
+  // TODO: Determine the qualification text based off the db
+  const qualification = params.code === 'inf02' ? 'INF.02/EE.08' : 'INF.03/EE.09/E.14'
+  return {
+    title: `Jedno pytanie ${qualification}`,
+    description: `Nieskończenie losuj i rozwiązuj jedno pytanie z kwalifikacji ${qualification} teoretycznego egzaminu zawodu technik informatyk`,
+  }
+}
 
 async function getHardCollection(userId: string) {
   const supabase = createClient()
