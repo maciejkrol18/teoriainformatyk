@@ -1,6 +1,10 @@
 import getUser from '@/lib/supabase/get-user'
 import ContactForm from './ContactForm'
 
+export const metadata = {
+  title: 'Kontakt',
+}
+
 const contactTypes = ['report', 'general', 'help', 'suggestion', 'business']
 type ContactType = (typeof contactTypes)[number]
 

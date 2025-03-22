@@ -1,6 +1,7 @@
 import QuestionDetails from '@/components/ui/QuestionDetails'
 import getUser from '@/lib/supabase/get-user'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
 
@@ -30,6 +31,27 @@ const getHardCollection = async (userId: string) => {
     .eq('user_id', userId)
     .single()
   return data?.question_id_array || []
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    id: string
+  }
+}): Promise<Metadata> {
+  const question = await getQuestion(params.id)
+  if (question === null) {
+    return {
+      title: `Pytanie #${params.id}`,
+    }
+  }
+
+  return {
+    // TODO: Determine the qualification text based off the db
+    title: `Pytanie ${params.id}`,
+    description: `"${question.content}" - znajdź odpowiedzi do pytania dla egzaminu teoretycznego z zawodu technik informatyk z kwalifikacji ${question.exam_id === 1 ? 'INF.02/EE.08' : 'INF.03/EE.09/E.14'}`,
+  }
 }
 
 export default async function QuestionPage({

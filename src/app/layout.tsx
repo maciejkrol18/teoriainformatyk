@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     'inf02',
     'inf03',
     'egzamin informatyk',
+    'jedno pytanie',
+    'kwerendy sql',
+    'fiszki',
   ],
   creator: 'Maciej Król',
   authors: [

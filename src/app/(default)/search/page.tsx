@@ -7,6 +7,10 @@ import type { SearchFilters } from '@/types/search-filters'
 
 const RESULTS_PER_PAGE = 10
 
+export const metadata = {
+  title: 'Wyszukiwarka',
+}
+
 interface SearchPageProps {
   searchParams: SearchFilters
 }

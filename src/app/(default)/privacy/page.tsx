@@ -1,5 +1,9 @@
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Polityka prywatności',
+}
+
 export default function PrivacyPolicyPage() {
   return (
     <article className="max-w-3xl mx-auto leading-relaxed [&>ul>li]:my-4 [&>p]:my-4 [&>h2]:text-2xl [&>h2]:font-semibold">

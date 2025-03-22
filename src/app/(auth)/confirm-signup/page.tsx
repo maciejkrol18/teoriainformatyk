@@ -1,6 +1,10 @@
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Potwierdzenie rejestracji',
+}
+
 export default async function ConfirmSignupPage() {
   return (
     <>

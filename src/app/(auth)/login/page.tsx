@@ -2,6 +2,10 @@ import OAuthButtons from '@/components/auth/OAuthButtons'
 import AuthForms from '@/components/auth/AuthForms'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Logowanie',
+}
+
 export default function LoginPage() {
   return (
     <div className="flex flex-col gap-4">
