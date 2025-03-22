@@ -54,6 +54,18 @@ export async function generateMetadata({
   }
 }
 
+export async function generateStaticParams() {
+  const supabase = createClient()
+
+  const { data } = await supabase.from('questions').select('id')
+
+  if (data === null) return null
+
+  return data.map((question) => ({
+    id: String(question.id),
+  }))
+}
+
 export default async function QuestionPage({
   params,
 }: {
