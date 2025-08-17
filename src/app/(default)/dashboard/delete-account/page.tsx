@@ -1,17 +1,17 @@
-import DeleteAccountForm from '@/components/dashboard/DeleteAccountForm'
-import { Button } from '@/components/ui/Button'
-import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft } from 'lucide-react'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import DeleteAccountForm from "@/components/dashboard/DeleteAccountForm";
+import { Button } from "@/components/ui/Button";
+import { createClient } from "@/lib/supabase/server";
+import { ArrowUpLeft } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function DeleteAccountPage() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/login')
+    redirect("/login");
   }
 
   return (
@@ -25,12 +25,13 @@ export default async function DeleteAccountPage() {
         <h1 className="text-4xl font-display">Usuń konto</h1>
         <p>
           <strong className="text-red-500">
-            <span className="uppercase">Uwaga!</span> Ta akcja jest nieodwracalna
+            <span className="uppercase">Uwaga!</span> Ta akcja jest
+            nieodwracalna
           </strong>
         </p>
         <p>
-          Usunięcie konta skutkuje usunięciem wszystkich danych związanych z twoim kontem
-          w naszej bazie danych, w tym statystyki i kolekcje pytań
+          Usunięcie konta skutkuje usunięciem wszystkich danych związanych z
+          twoim kontem w naszej bazie danych, w tym statystyki i kolekcje pytań
         </p>
       </div>
       <DeleteAccountForm />
@@ -38,5 +39,5 @@ export default async function DeleteAccountPage() {
         Po pomyślnym usunięciu konta nastąpi przekierowanie na stronę główną
       </p>
     </div>
-  )
+  );
 }

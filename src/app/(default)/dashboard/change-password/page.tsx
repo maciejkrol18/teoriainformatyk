@@ -1,17 +1,17 @@
-import ChangePasswordForm from '@/components/dashboard/ChangePasswordForm'
-import { Button } from '@/components/ui/Button'
-import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft } from 'lucide-react'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import ChangePasswordForm from "@/components/dashboard/ChangePasswordForm";
+import { Button } from "@/components/ui/Button";
+import { createClient } from "@/lib/supabase/server";
+import { ArrowUpLeft } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function ChangePasswordPage() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/login')
+    redirect("/login");
   }
 
   return (
@@ -24,8 +24,8 @@ export default async function ChangePasswordPage() {
       <div className="space-y-2">
         <h1 className="text-4xl font-display">Zmień hasło</h1>
         <p>
-          Poniższy formularz pozwoli ci zmienić hasło z którego korzystasz podczas
-          logowania przy użyciu adresu email
+          Poniższy formularz pozwoli ci zmienić hasło z którego korzystasz
+          podczas logowania przy użyciu adresu email
         </p>
       </div>
       <ChangePasswordForm />
@@ -33,5 +33,5 @@ export default async function ChangePasswordPage() {
         Po pomyślnej zmianie hasła nastąpi przekierowanie na stronę logowania
       </p>
     </div>
-  )
+  );
 }

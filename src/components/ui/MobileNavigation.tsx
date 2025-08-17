@@ -1,75 +1,79 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { Button } from './Button'
-import { createClient } from '@/lib/supabase/client'
-import { Menu, XCircle } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import type { User } from '@supabase/supabase-js'
-import ProfileBlock from './ProfileBlock'
+import Link from "next/link";
+import { Button } from "./Button";
+import { createClient } from "@/lib/supabase/client";
+import { Menu, XCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import type { User } from "@supabase/supabase-js";
+import ProfileBlock from "./ProfileBlock";
 
 interface MobileNavigationProps {
-  user: User | null
+  user: User | null;
 }
 
 interface UserProfile {
-  avatar_url: string
-  display_name: string
-  email: string
+  avatar_url: string;
+  display_name: string;
+  email: string;
 }
 
 export default function MobileNavigation({ user }: MobileNavigationProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const wasProfileFetched = useRef<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const wasProfileFetched = useRef<boolean>(false);
 
-  const toggleOpen = () => setIsOpen((prev) => !prev)
+  const toggleOpen = () => setIsOpen((prev) => !prev);
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (isOpen) setIsOpen(false)
-  }, [pathname])
+    if (isOpen) setIsOpen(false);
+  }, [pathname]);
 
   const closeOnCurrent = (href: string) => {
     if (pathname === href) {
-      toggleOpen()
+      toggleOpen();
     }
-  }
+  };
 
   const fetchProfile = async () => {
     if (user) {
-      const supabase = createClient()
+      const supabase = await createClient();
       const { data, error } = await supabase
-        .from('profiles')
-        .select('avatar_url, display_name, email')
-        .eq('user_id', user.id)
-        .single()
+        .from("profiles")
+        .select("avatar_url, display_name, email")
+        .eq("user_id", user.id)
+        .single();
 
       if (!data || error) {
-        return null
+        return null;
       }
 
-      setProfile(data)
-      wasProfileFetched.current = true
+      setProfile(data);
+      wasProfileFetched.current = true;
     } else {
-      return null
+      return null;
     }
-  }
+  };
 
   useEffect(() => {
-    if (wasProfileFetched.current) return
-    fetchProfile()
-  }, [])
+    if (wasProfileFetched.current) return;
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
-  }, [isOpen])
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
 
   return (
     <>
-      <button type="button" onClick={toggleOpen} className="hover:cursor-pointer">
+      <button
+        type="button"
+        onClick={toggleOpen}
+        className="hover:cursor-pointer"
+      >
         {isOpen ? <XCircle /> : <Menu />}
       </button>
       {isOpen ? (
@@ -83,7 +87,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
                 asChild
                 // MobileNavigation is not present in the auth layout so we need to set the overflow to auto manually
                 // biome-ignore lint/suspicious/noAssignInExpressions: this is needed
-                onClick={() => (document.body.style.overflow = 'auto')}
+                onClick={() => (document.body.style.overflow = "auto")}
               >
                 <Link href="/login">Zaloguj</Link>
               </Button>
@@ -92,42 +96,42 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
           <Link
             href="/#inf02"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/')}
+            onClick={() => closeOnCurrent("/")}
           >
             INF.02/EE.08
           </Link>
           <Link
             href="/#inf03"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/')}
+            onClick={() => closeOnCurrent("/")}
           >
             INF.03/EE.09/E.14
           </Link>
           <Link
             href="/search"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/search')}
+            onClick={() => closeOnCurrent("/search")}
           >
             Wyszukiwarka pytań
           </Link>
           <Link
             href="/hardest"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/hardest')}
+            onClick={() => closeOnCurrent("/hardest")}
           >
             Najtrudniejsze pytania
           </Link>
           <Link
             href="/privacy"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/privacy')}
+            onClick={() => closeOnCurrent("/privacy")}
           >
             Polityka prywatności
           </Link>
           <Link
             href="/contact"
             className="text-xl pb-2"
-            onClick={() => closeOnCurrent('/contact')}
+            onClick={() => closeOnCurrent("/contact")}
           >
             Formularz kontaktowy
           </Link>
@@ -155,5 +159,5 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
         </nav>
       ) : null}
     </>
-  )
+  );
 }

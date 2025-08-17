@@ -1,42 +1,42 @@
-import DashboardBlock from './DashboardBlock'
-import Link from 'next/link'
-import { Button } from '../ui/Button'
-import ScoreBlock from '../ui/ScoreBlock'
-import type { LatestExamScoresEntry } from '@/types/latest-exams-entry'
-import { createClient } from '@/lib/supabase/server'
+import DashboardBlock from "./DashboardBlock";
+import Link from "next/link";
+import { Button } from "../ui/Button";
+import ScoreBlock from "../ui/ScoreBlock";
+import type { LatestExamScoresEntry } from "@/types/latest-exams-entry";
+import { createClient } from "@/lib/supabase/server";
 
 interface DashboardLatestExamsProps {
-  userId: string
-  className?: string
+  userId: string;
+  className?: string;
 }
 
 async function getLatestExams(userId: string) {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('exam_scores')
-    .select('exam_id, percentage_score, created_at, exams (name)')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(4)
+    .from("exam_scores")
+    .select("exam_id, percentage_score, created_at, exams (name)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(4);
 
-  let scores: LatestExamScoresEntry[] = []
+  let scores: LatestExamScoresEntry[] = [];
 
   if (data) {
-    scores = [...scores, ...data]
+    scores = [...scores, ...data];
   }
 
   return {
     scores: scores,
     error: error?.message,
-  }
+  };
 }
 
 export default async function DashboardLatestExams({
   className,
   userId,
 }: DashboardLatestExamsProps) {
-  const { scores, error } = await getLatestExams(userId)
+  const { scores, error } = await getLatestExams(userId);
   return (
     <DashboardBlock
       blockTitle="Ostatnie egzaminy"
@@ -56,7 +56,7 @@ export default async function DashboardLatestExams({
               percentageScore={score.percentage_score}
               createdAt={score.created_at}
             />
-          )
+          );
         })}
       {scores.length === 0 && (
         <div className="flex justify-center items-center grow">
@@ -71,5 +71,5 @@ export default async function DashboardLatestExams({
         </div>
       )}
     </DashboardBlock>
-  )
+  );
 }

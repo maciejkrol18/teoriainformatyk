@@ -1,15 +1,15 @@
-import MobileNavigation from './MobileNavigation'
-import Link from 'next/link'
-import ThemeSwitch from './ThemeSwitch'
-import BrandLogo from './BrandLogo'
-import HeaderAuth from './HeaderAuth'
-import { createClient } from '@/lib/supabase/server'
-import { Button } from './Button'
+import MobileNavigation from "./MobileNavigation";
+import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch";
+import BrandLogo from "./BrandLogo";
+import HeaderAuth from "./HeaderAuth";
+import { createClient } from "@/lib/supabase/server";
+import { Button } from "./Button";
 
 export default async function Header() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
 
   return (
     <header className="py-4">
@@ -43,5 +43,5 @@ export default async function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

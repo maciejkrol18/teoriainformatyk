@@ -5,10 +5,10 @@ const contactTypes = ['report', 'general', 'help', 'suggestion', 'business']
 type ContactType = (typeof contactTypes)[number]
 
 interface ContactModalPageProps {
-  searchParams: {
+  searchParams: Promise<{
     type: ContactType
     content: string
-  }
+  }>
 }
 
 function isValidContactType(contactType: unknown): contactType is ContactType {
@@ -17,7 +17,8 @@ function isValidContactType(contactType: unknown): contactType is ContactType {
   )
 }
 
-export default async function ContactModalPage({ searchParams }: ContactModalPageProps) {
+export default async function ContactModalPage(props: ContactModalPageProps) {
+  const searchParams = await props.searchParams;
   const contactType = isValidContactType(searchParams.type)
     ? searchParams.type
     : undefined

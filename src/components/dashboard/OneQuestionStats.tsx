@@ -1,57 +1,57 @@
-'use client'
+"use client";
 
-import { createClient } from '@/lib/supabase/client'
-import { useEffect, useRef, useState } from 'react'
-import Donut from '../ui/Donut'
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useRef, useState } from "react";
+import Donut from "../ui/Donut";
 
 interface OneQuestionStats {
-  userId: string
-  examId: number
+  userId: string;
+  examId: number;
 }
 
 type Stats = {
-  correct: number
-  incorrect: number
-} | null
+  correct: number;
+  incorrect: number;
+} | null;
 
 export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
-  const [stats, setStats] = useState<Stats>(null)
-  const [scorePercentage, setScorePercentage] = useState<number>(0)
-  const [loading, setLoading] = useState<boolean>(true)
-  const wereStatsFetched = useRef<boolean>(false)
+  const [stats, setStats] = useState<Stats>(null);
+  const [scorePercentage, setScorePercentage] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const wereStatsFetched = useRef<boolean>(false);
 
   const fetchOneQuestionStats = async () => {
-    const supabase = createClient()
+    const supabase = await createClient();
 
     const { data, error } = await supabase
-      .from('one_question_scores')
-      .select('correct, incorrect')
-      .eq('user_id', userId)
-      .eq('exam_id', examId)
-      .single()
+      .from("one_question_scores")
+      .select("correct, incorrect")
+      .eq("user_id", userId)
+      .eq("exam_id", examId)
+      .single();
 
     if (error) {
-      setStats(null)
+      setStats(null);
     } else {
-      setStats(data)
+      setStats(data);
     }
 
-    setLoading(false)
-    wereStatsFetched.current = true
-  }
+    setLoading(false);
+    wereStatsFetched.current = true;
+  };
 
   useEffect(() => {
-    if (wereStatsFetched.current) return
-    fetchOneQuestionStats()
-  }, [])
+    if (wereStatsFetched.current) return;
+    fetchOneQuestionStats();
+  }, []);
 
   useEffect(() => {
     if (stats) {
       setScorePercentage(
-        Math.floor((stats.correct / (stats.correct + stats.incorrect)) * 100),
-      )
+        Math.floor((stats.correct / (stats.correct + stats.incorrect)) * 100)
+      );
     }
-  }, [stats])
+  }, [stats]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -78,5 +78,5 @@ export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
         </div>
       )}
     </div>
-  )
+  );
 }

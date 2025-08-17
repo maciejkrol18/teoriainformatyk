@@ -1,34 +1,36 @@
-import { createClient } from '@/lib/supabase/server'
-import DashboardBlock from './DashboardBlock'
-import Link from 'next/link'
-import { KeyRound, LifeBuoy, RotateCcw, Trash2 } from 'lucide-react'
-import { Button } from '../ui/Button'
+import { createClient } from "@/lib/supabase/server";
+import DashboardBlock from "./DashboardBlock";
+import Link from "next/link";
+import { KeyRound, LifeBuoy, RotateCcw, Trash2 } from "lucide-react";
+import { Button } from "../ui/Button";
 
 interface DashboardAccountProps {
-  userId: string
+  userId: string;
 }
 
 const DataParagraph = ({ label, value }: { label: string; value: string }) => {
   return (
     <p>
-      <span className="text-lg font-medium">{label}</span>{' '}
+      <span className="text-lg font-medium">{label}</span>{" "}
       <span className="text-muted">{value}</span>
     </p>
-  )
-}
+  );
+};
 
-export default async function DashboardAccount({ userId }: DashboardAccountProps) {
-  const supabase = createClient()
+export default async function DashboardAccount({
+  userId,
+}: DashboardAccountProps) {
+  const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('user_id', userId)
-    .single()
+    .from("profiles")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
 
   const dateJoined = data?.created_at
     ? new Date(data.created_at).toLocaleDateString()
-    : 'Nieznana data dołączenia'
+    : "Nieznana data dołączenia";
 
   if (!error) {
     return (
@@ -60,11 +62,11 @@ export default async function DashboardAccount({ userId }: DashboardAccountProps
         <DataParagraph label="Data dołączenia" value={dateJoined} />
         <DataParagraph label="Identyfikator" value={data.user_id} />
       </DashboardBlock>
-    )
+    );
   }
   return (
     <p className="text-muted">
       Wystąpił błąd w trakcie pobierania danych <br /> {error.message}
     </p>
-  )
+  );
 }

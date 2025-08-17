@@ -1,24 +1,24 @@
-import UpdatePasswordForm from '@/components/auth/UpdatePasswordForm'
-import { createClient } from '@/lib/supabase/server'
-import getUser from '@/lib/supabase/get-user'
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+import UpdatePasswordForm from "@/components/auth/UpdatePasswordForm";
+import { createClient } from "@/lib/supabase/server";
+import getUser from "@/lib/supabase/get-user";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 export const metadata = {
-  title: 'Aktualizacja hasła',
-}
+  title: "Aktualizacja hasła",
+};
 
 export default async function UpdatePasswordPage() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { user } = await getUser()
+  const { user } = await getUser();
 
-  if (!user?.email) redirect('/')
+  if (!user?.email) redirect("/");
 
-  const { data } = await supabase.rpc('check_password_change_validity', {
+  const { data } = await supabase.rpc("check_password_change_validity", {
     email_to_check: user.email,
-  })
+  });
 
   if (user && data) {
     return (
@@ -29,7 +29,7 @@ export default async function UpdatePasswordPage() {
         </p>
         <UpdatePasswordForm />
       </div>
-    )
+    );
   }
   return (
     <div className="flex flex-col gap-4">
@@ -46,5 +46,5 @@ export default async function UpdatePasswordPage() {
         <Link href="/">Wróć na stronę główną</Link>
       </Button>
     </div>
-  )
+  );
 }

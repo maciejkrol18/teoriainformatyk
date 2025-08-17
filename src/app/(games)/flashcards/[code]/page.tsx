@@ -1,70 +1,75 @@
-import Flashcards from '@/components/flashcards/Flashcards'
-import PageTitle from '@/components/ui/PageTitle'
-import getUser from '@/lib/supabase/get-user'
-import { createClient } from '@/lib/supabase/server'
-import type { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import Flashcards from "@/components/flashcards/Flashcards";
+import PageTitle from "@/components/ui/PageTitle";
+import getUser from "@/lib/supabase/get-user";
+import { createClient } from "@/lib/supabase/server";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: { params: { code: string } }): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ code: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
   // TODO: Determine the qualification text based off the db
-  const qualification = params.code === 'inf02' ? 'INF.02/EE.08' : 'INF.03/EE.09/E.14'
+  const qualification =
+    params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
   return {
     title: `Fiszki ${qualification}`,
     description: `Powtarzaj wszystkie pytania na egzamin teoretyczny ${qualification} w formie fiszek`,
-  }
+  };
 }
 
 async function getKnownQuestions(userId: string, examId: number) {
-  const supabase = createClient()
+  const supabase = await createClient();
   const { data, error } = await supabase
-    .from('flashcards')
-    .select('question_id_array')
-    .eq('user_id', userId)
-    .eq('exam_id', examId)
-    .single()
+    .from("flashcards")
+    .select("question_id_array")
+    .eq("user_id", userId)
+    .eq("exam_id", examId)
+    .single();
   if (!data || error) {
-    return []
+    return [];
   }
-  return data.question_id_array
+  return data.question_id_array;
 }
 
 async function getQuestionIdArray(examId: number) {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('questions')
-    .select('id')
-    .eq('exam_id', examId)
+    .from("questions")
+    .select("id")
+    .eq("exam_id", examId);
 
   if (!data || data.length < 1 || error) {
-    throw new Error('Failed to fetch questions from the database')
+    throw new Error("Failed to fetch questions from the database");
   }
-  return data.map((obj) => obj.id)
+  return data.map((obj) => obj.id);
 }
 
-export default async function FlashcardsPage({ params }: { params: { code: string } }) {
-  const supabase = createClient()
+export default async function FlashcardsPage(props: {
+  params: Promise<{ code: string }>;
+}) {
+  const params = await props.params;
+  const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('exams')
-    .select('id, name')
-    .eq('code', params.code)
-    .single()
+    .from("exams")
+    .select("id, name")
+    .eq("code", params.code)
+    .single();
 
   if (error || !data) {
-    notFound()
+    notFound();
   }
 
-  const { user } = await getUser()
+  const { user } = await getUser();
 
   if (!user) {
-    redirect('/login')
+    redirect("/login");
   }
 
-  const knownQuestions = await getKnownQuestions(user.id, data.id)
-  const questionIds = await getQuestionIdArray(data.id)
+  const knownQuestions = await getKnownQuestions(user.id, data.id);
+  const questionIds = await getQuestionIdArray(data.id);
 
   return (
     <>
@@ -77,5 +82,5 @@ export default async function FlashcardsPage({ params }: { params: { code: strin
         />
       </div>
     </>
-  )
+  );
 }

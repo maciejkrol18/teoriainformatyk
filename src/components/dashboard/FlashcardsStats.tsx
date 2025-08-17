@@ -1,70 +1,73 @@
-'use client'
+"use client";
 
-import { createClient } from '@/lib/supabase/client'
-import { useEffect, useRef, useState } from 'react'
-import Donut from '../ui/Donut'
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useRef, useState } from "react";
+import Donut from "../ui/Donut";
 
 interface FlashcardsStats {
-  userId: string
-  examId: number
+  userId: string;
+  examId: number;
 }
 
-type FinishedQuestions = number | null
+type FinishedQuestions = number | null;
 
 export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
-  const [finishedQuestions, setFinishedQuestions] = useState<FinishedQuestions>(null)
-  const [totalQuestions, setTotalQuestions] = useState<number | null>(null)
-  const [scorePercentage, setScorePercentage] = useState<number>(0)
+  const [finishedQuestions, setFinishedQuestions] =
+    useState<FinishedQuestions>(null);
+  const [totalQuestions, setTotalQuestions] = useState<number | null>(null);
+  const [scorePercentage, setScorePercentage] = useState<number>(0);
 
-  const [loading, setLoading] = useState(true)
-  const wereStatsFetched = useRef<boolean>(false)
+  const [loading, setLoading] = useState(true);
+  const wereStatsFetched = useRef<boolean>(false);
 
   const fetchFlashcardsStats = async () => {
-    const supabase = createClient()
+    const supabase = await createClient();
 
     const { data, error } = await supabase
-      .from('flashcards')
-      .select('question_id_array')
-      .eq('user_id', userId)
-      .eq('exam_id', examId)
-      .single()
+      .from("flashcards")
+      .select("question_id_array")
+      .eq("user_id", userId)
+      .eq("exam_id", examId)
+      .single();
 
     if (error || !data.question_id_array) {
-      setFinishedQuestions(null)
+      setFinishedQuestions(null);
     } else {
-      setFinishedQuestions(data.question_id_array.length)
+      setFinishedQuestions(data.question_id_array.length);
     }
 
-    setLoading(false)
-    wereStatsFetched.current = true
-  }
+    setLoading(false);
+    wereStatsFetched.current = true;
+  };
 
   const fetchQuestionCount = async () => {
-    const supabase = createClient()
+    const supabase = await createClient();
 
     const { count, error } = await supabase
-      .from('questions')
-      .select('id', { count: 'exact', head: true })
-      .eq('exam_id', examId)
+      .from("questions")
+      .select("id", { count: "exact", head: true })
+      .eq("exam_id", examId);
 
     if (error || !count) {
-      setTotalQuestions(null)
+      setTotalQuestions(null);
     } else {
-      setTotalQuestions(count)
+      setTotalQuestions(count);
     }
-  }
+  };
 
   useEffect(() => {
-    if (wereStatsFetched.current) return
-    fetchFlashcardsStats()
-    fetchQuestionCount()
-  }, [])
+    if (wereStatsFetched.current) return;
+    fetchFlashcardsStats();
+    fetchQuestionCount();
+  }, []);
 
   useEffect(() => {
     if (finishedQuestions && totalQuestions) {
-      setScorePercentage(Math.floor((finishedQuestions / totalQuestions) * 100))
+      setScorePercentage(
+        Math.floor((finishedQuestions / totalQuestions) * 100)
+      );
     }
-  }, [finishedQuestions, totalQuestions])
+  }, [finishedQuestions, totalQuestions]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -95,5 +98,5 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
         </div>
       )}
     </div>
-  )
+  );
 }
