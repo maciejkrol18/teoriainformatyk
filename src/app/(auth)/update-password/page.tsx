@@ -1,9 +1,9 @@
-import UpdatePasswordForm from "@/components/auth/UpdatePasswordForm";
+import UpdatePasswordForm from "@/components/auth/update-password-form";
 import { createClient } from "@/lib/supabase/server";
 import getUser from "@/lib/supabase/get-user";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Aktualizacja hasła",

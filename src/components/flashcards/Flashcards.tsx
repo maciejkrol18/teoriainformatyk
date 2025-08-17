@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import QuestionView from './QuestionView'
-import type { FlashcardView } from '@/types/flashcard-view'
-import ReviewView from './ReviewView'
-import Card from './Card'
-import Skeleton from '../ui/Skeleton'
-import { deleteKnownQuestions } from '@/app/(games)/flashcards/[code]/actions'
-import { toast } from 'sonner'
+import { useEffect, useRef, useState } from "react";
+import QuestionView from "./question-view";
+import type { FlashcardView } from "@/types/flashcard-view";
+import ReviewView from "./review-view";
+import Card from "./card";
+import Skeleton from "../ui/skeleton";
+import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
+import { toast } from "sonner";
 
 interface FlashcardsProps {
-  fetchedKnownQuestions: number[]
-  questionIds: number[]
-  examId: number
+  fetchedKnownQuestions: number[];
+  questionIds: number[];
+  examId: number;
 }
 
 export default function Flashcards({
@@ -20,56 +20,60 @@ export default function Flashcards({
   questionIds,
   examId,
 }: FlashcardsProps) {
-  const [questionPool, setQuestionPool] = useState<number[]>([])
-  const [poolAmount, setPoolAmount] = useState<number>(0)
-  const [view, setView] = useState<FlashcardView | null>(null)
-  const [knownQuestions, setKnownQuestions] = useState<number[]>(fetchedKnownQuestions)
-  const [amountDone, setAmountDone] = useState<number>(1)
+  const [questionPool, setQuestionPool] = useState<number[]>([]);
+  const [poolAmount, setPoolAmount] = useState<number>(0);
+  const [view, setView] = useState<FlashcardView | null>(null);
+  const [knownQuestions, setKnownQuestions] = useState<number[]>(
+    fetchedKnownQuestions
+  );
+  const [amountDone, setAmountDone] = useState<number>(1);
 
   const getQuestionPool = () => {
-    const idArray = [...questionIds]
+    const idArray = [...questionIds];
     const pool =
       knownQuestions.length > 0
         ? idArray.filter((num) => !knownQuestions.includes(num))
-        : idArray
-    setPoolAmount(pool.length)
-    setQuestionPool(pool)
-  }
+        : idArray;
+    setPoolAmount(pool.length);
+    setQuestionPool(pool);
+  };
 
   const startFromBeginning = async () => {
-    setAmountDone(1)
-    setKnownQuestions([])
-    setQuestionPool(questionIds)
-    setPoolAmount(questionIds.length)
-    setView('question')
-    const { error } = await deleteKnownQuestions(examId)
+    setAmountDone(1);
+    setKnownQuestions([]);
+    setQuestionPool(questionIds);
+    setPoolAmount(questionIds.length);
+    setView("question");
+    const { error } = await deleteKnownQuestions(examId);
     if (error) {
       if (error) {
-        toast.error(`Błąd w resetowaniu znanych fiszek: ${error.message}`)
-        console.error(error)
+        toast.error(`Błąd w resetowaniu znanych fiszek: ${error.message}`);
+        console.error(error);
       }
     } else {
-      toast.success('Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji')
+      toast.success(
+        "Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji"
+      );
     }
-  }
+  };
 
   const continueWithUnknown = () => {
-    setAmountDone(1)
-    getQuestionPool()
-    setView('question')
-  }
+    setAmountDone(1);
+    getQuestionPool();
+    setView("question");
+  };
 
   useEffect(() => {
-    getQuestionPool()
+    getQuestionPool();
     if (knownQuestions.length > 0) {
-      setView('review')
+      setView("review");
     } else {
-      setView('question')
+      setView("question");
     }
-  }, [])
+  }, []);
 
   switch (view) {
-    case 'question':
+    case "question":
       return (
         <>
           <p className="text-center">
@@ -86,8 +90,8 @@ export default function Flashcards({
             examId={examId}
           />
         </>
-      )
-    case 'review':
+      );
+    case "review":
       return (
         <ReviewView
           handleStartFromBeginning={startFromBeginning}
@@ -95,7 +99,7 @@ export default function Flashcards({
           amountKnown={knownQuestions.length}
           totalQuestionsAmount={questionIds.length}
         />
-      )
+      );
     default:
       return (
         <>
@@ -113,6 +117,6 @@ export default function Flashcards({
             <Skeleton className="h-10 grow" />
           </div>
         </>
-      )
+      );
   }
 }

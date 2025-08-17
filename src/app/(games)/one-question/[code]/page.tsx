@@ -1,5 +1,5 @@
-import OneQuestion from "./OneQuestion";
-import PageTitle from "@/components/ui/PageTitle";
+import OneQuestion from "./one-question";
+import PageTitle from "@/components/ui/page-title";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";

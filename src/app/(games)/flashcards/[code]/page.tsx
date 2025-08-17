@@ -1,5 +1,5 @@
-import Flashcards from "@/components/flashcards/Flashcards";
-import PageTitle from "@/components/ui/PageTitle";
+import Flashcards from "@/components/flashcards/flashcards";
+import PageTitle from "@/components/ui/page-title";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";

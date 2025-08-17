@@ -1,6 +1,6 @@
-import BrandLogo from '@/components/ui/BrandLogo'
-import { Button } from '@/components/ui/Button'
-import Link from 'next/link'
+import BrandLogo from "@/components/ui/brand-logo";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -11,5 +11,5 @@ export default function NotFound() {
         <Link href="/">Powrót do strony głównej</Link>
       </Button>
     </div>
-  )
+  );
 }

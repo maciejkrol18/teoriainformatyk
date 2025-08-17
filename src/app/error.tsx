@@ -1,11 +1,11 @@
-'use client'
-import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
-import BrandLogo from '@/components/ui/BrandLogo'
+"use client";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import BrandLogo from "@/components/ui/brand-logo";
 
 interface ErrorPageProps {
-  error: Error
-  reset: () => void
+  error: Error;
+  reset: () => void;
 }
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
@@ -28,5 +28,5 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         </div>
       </div>
     </>
-  )
+  );
 }

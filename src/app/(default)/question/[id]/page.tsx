@@ -1,4 +1,4 @@
-import QuestionDetails from "@/components/ui/QuestionDetails";
+import QuestionDetails from "@/components/ui/question-details";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";

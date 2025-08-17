@@ -1,5 +1,5 @@
-import ResetStatsForm from "@/components/dashboard/ResetStatsForm";
-import { Button } from "@/components/ui/Button";
+import ResetStatsForm from "@/components/dashboard/reset-stats-form";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";

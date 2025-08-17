@@ -1,6 +1,6 @@
-import SearchBar from "@/components/search/SearchBar";
-import SearchPagination from "@/components/search/SearchPagination";
-import SearchResult from "@/components/search/SearchResult";
+import SearchBar from "@/components/search/search-bar";
+import SearchPagination from "@/components/search/search-pagination";
+import SearchResult from "@/components/search/search-result";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import type { SearchFilters } from "@/types/search-filters";

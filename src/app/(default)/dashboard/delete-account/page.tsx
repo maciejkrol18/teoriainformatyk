@@ -1,5 +1,5 @@
-import DeleteAccountForm from "@/components/dashboard/DeleteAccountForm";
-import { Button } from "@/components/ui/Button";
+import DeleteAccountForm from "@/components/dashboard/delete-account-form";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";

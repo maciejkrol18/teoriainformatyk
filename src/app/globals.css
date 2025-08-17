@@ -5,7 +5,7 @@
 @font-face {
   font-family: "InterDisplay";
   font-weight: 600;
-  src: url(../assets/fonts/InterDisplay-SemiBold.woff2);
+  src: url(../assets/fonts/inter-display-semi-bold.woff2);
 }
 
 @layer base {

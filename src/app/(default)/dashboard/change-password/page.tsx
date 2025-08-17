@@ -1,5 +1,5 @@
-import ChangePasswordForm from "@/components/dashboard/ChangePasswordForm";
-import { Button } from "@/components/ui/Button";
+import ChangePasswordForm from "@/components/dashboard/change-password-form";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";

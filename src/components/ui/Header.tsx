@@ -1,10 +1,10 @@
-import MobileNavigation from "./MobileNavigation";
+import MobileNavigation from "./mobile-navigation";
 import Link from "next/link";
-import ThemeSwitch from "./ThemeSwitch";
-import BrandLogo from "./BrandLogo";
-import HeaderAuth from "./HeaderAuth";
+import ThemeSwitch from "./theme-switch";
+import BrandLogo from "./brand-logo";
+import HeaderAuth from "./header-auth";
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "./Button";
+import { Button } from "./button";
 
 export default async function Header() {
   const supabase = await createClient();

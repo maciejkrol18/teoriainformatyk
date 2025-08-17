@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import BrandLogo from './BrandLogo'
+import Link from "next/link";
+import BrandLogo from "./brand-logo";
 
 export default function Footer() {
   return (
@@ -44,9 +44,10 @@ export default function Footer() {
         </div>
         <div className="w-full h-[1px] bg-background-bright" />
         <p>
-          <span className="text-lg">&copy;</span> {new Date().getFullYear()} Maciej Król
+          <span className="text-lg">&copy;</span> {new Date().getFullYear()}{" "}
+          Maciej Król
         </p>
       </div>
     </footer>
-  )
+  );
 }

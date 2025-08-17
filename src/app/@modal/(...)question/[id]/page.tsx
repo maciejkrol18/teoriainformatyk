@@ -1,4 +1,4 @@
-import QuestionModal from "@/components/search/QuestionModal";
+import QuestionModal from "@/components/search/question-modal";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";

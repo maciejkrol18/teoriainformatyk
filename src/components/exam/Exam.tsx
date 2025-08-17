@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import type { ExamQuestion } from '@/types/exam-question'
-import { useEffect, useRef, useState } from 'react'
+import type { ExamQuestion } from "@/types/exam-question";
+import { useEffect, useRef, useState } from "react";
 import {
   Question,
   QuestionAnswer,
@@ -10,28 +10,28 @@ import {
   QuestionMarker,
   type questionAnswerVariants,
   QuestionImage,
-} from '../ui/Question'
-import type { VariantProps } from 'class-variance-authority'
-import { toast } from 'sonner'
-import { v4 } from 'uuid'
-import ExamScoreDisplay from './ExamScoreDisplay'
-import type { ExamScore } from '@/types/exam-score'
-import { Button } from '../ui/Button'
-import ExamTimer from './ExamTimer'
-import ExamSkeleton from '../skeletons/ExamSkeleton'
-import GoToTopBtn from './GoToTopBtn'
-import { saveScore } from '@/app/(games)/exam/[code]/actions'
+} from "../ui/question";
+import type { VariantProps } from "class-variance-authority";
+import { toast } from "sonner";
+import { v4 } from "uuid";
+import ExamScoreDisplay from "./exam-score-display";
+import type { ExamScore } from "@/types/exam-score";
+import { Button } from "../ui/button";
+import ExamTimer from "./exam-timer";
+import ExamSkeleton from "../skeletons/exam-skeleton";
+import GoToTopBtn from "./go-to-top-btn";
+import { saveScore } from "@/app/(games)/exam/[code]/actions";
 
 interface ExamProps {
-  examId: number
-  fetchedQuestions: ExamQuestion[]
+  examId: number;
+  fetchedQuestions: ExamQuestion[];
 }
 
 export default function Exam({ examId, fetchedQuestions }: ExamProps) {
-  const [questions, setQuestions] = useState<ExamQuestion[]>(fetchedQuestions)
-  const [isExamFinished, setIsExamFinished] = useState<boolean>(false)
-  const [finalScore, setFinalScore] = useState<ExamScore | null>(null)
-  const timeStarted = useRef<string>(new Date().toISOString())
+  const [questions, setQuestions] = useState<ExamQuestion[]>(fetchedQuestions);
+  const [isExamFinished, setIsExamFinished] = useState<boolean>(false);
+  const [finalScore, setFinalScore] = useState<ExamScore | null>(null);
+  const timeStarted = useRef<string>(new Date().toISOString());
 
   const setAnswer = (answer: string, question: ExamQuestion) => {
     setQuestions((prev) =>
@@ -40,83 +40,90 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
           return {
             ...el,
             correct_selected: answer === question.correct_answer,
-            selected_answer: answer === question.selected_answer ? null : answer,
-          }
+            selected_answer:
+              answer === question.selected_answer ? null : answer,
+          };
         }
-        return el
-      }),
-    )
-  }
+        return el;
+      })
+    );
+  };
 
   const getAnswerVariant = (
     answer: string,
-    question: ExamQuestion,
-  ): VariantProps<typeof questionAnswerVariants>['variant'] => {
+    question: ExamQuestion
+  ): VariantProps<typeof questionAnswerVariants>["variant"] => {
     if (isExamFinished) {
       if (!question.selected_answer && answer === question.correct_answer)
-        return 'unanswered'
-      if (answer === question.correct_answer && question.selected_answer) return 'correct'
-      if (answer === question.selected_answer && answer !== question.correct_answer)
-        return 'incorrect'
+        return "unanswered";
+      if (answer === question.correct_answer && question.selected_answer)
+        return "correct";
+      if (
+        answer === question.selected_answer &&
+        answer !== question.correct_answer
+      )
+        return "incorrect";
     } else {
-      return answer === question.selected_answer ? 'selected' : 'default'
+      return answer === question.selected_answer ? "selected" : "default";
     }
-  }
+  };
 
   const setScore = async () => {
     const amountCorrect = Number(
-      questions.filter((question) => question.correct_selected).length,
-    )
+      questions.filter((question) => question.correct_selected).length
+    );
     const amountIncorrect = Number(
       questions.filter(
-        (question) => question.selected_answer && !question.correct_selected,
-      ).length,
-    )
+        (question) => question.selected_answer && !question.correct_selected
+      ).length
+    );
     const amountUnanswered = Number(
-      questions.filter((question) => !question.selected_answer).length,
-    )
+      questions.filter((question) => !question.selected_answer).length
+    );
 
     const finalScore: ExamScore = {
       score_id: v4(),
-      user_id: '',
+      user_id: "",
       exam_id: examId,
-      percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
+      percentage_score: Number(
+        ((amountCorrect / questions.length) * 100).toFixed(2)
+      ),
       correct: amountCorrect,
       incorrect: amountIncorrect,
       unanswered: amountUnanswered,
       time_started: timeStarted.current,
       time_finished: new Date().toISOString(),
-    }
+    };
 
-    setFinalScore(finalScore)
+    setFinalScore(finalScore);
 
-    const data = await saveScore(finalScore)
+    const data = await saveScore(finalScore);
 
     if (data.error) {
-      toast.error(data.message)
-      console.error(data.message)
+      toast.error(data.message);
+      console.error(data.message);
     } else {
-      toast.info(data.message)
+      toast.info(data.message);
     }
-  }
+  };
 
   const endGame = () => {
     if (isExamFinished) {
-      window.location.reload()
+      window.location.reload();
     } else {
-      setScore()
-      setIsExamFinished(true)
+      setScore();
+      setIsExamFinished(true);
     }
-  }
+  };
 
   useEffect(() => {
     if (finalScore) {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth',
-      })
+        behavior: "smooth",
+      });
     }
-  }, [finalScore])
+  }, [finalScore]);
 
   if (questions.length > 0) {
     return (
@@ -133,7 +140,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
           <ExamScoreDisplay score={finalScore} questions={questions} />
         )}
         {questions.map((question, index) => {
-          const atlas = 'ABCD'
+          const atlas = "ABCD";
           return (
             <Question id={`question-${index + 1}`} key={question.content}>
               <QuestionMarker>{index + 1}</QuestionMarker>
@@ -146,7 +153,8 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
                     variant={getAnswerVariant(answer, question)}
                     disabled={isExamFinished}
                   >
-                    <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
+                    <span className="font-medium">{atlas.charAt(index)}</span>.{" "}
+                    {answer}
                   </QuestionAnswer>
                 ))}
               </QuestionAnswersContainer>
@@ -159,13 +167,17 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
                 />
               )}
             </Question>
-          )
+          );
         })}
-        <Button variant="primary" className="uppercase mb-4" onClick={() => endGame()}>
-          {isExamFinished ? 'Spróbuj ponownie' : 'Zakończ egzamin'}
+        <Button
+          variant="primary"
+          className="uppercase mb-4"
+          onClick={() => endGame()}
+        >
+          {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
         </Button>
       </div>
-    )
+    );
   }
-  return <ExamSkeleton />
+  return <ExamSkeleton />;
 }

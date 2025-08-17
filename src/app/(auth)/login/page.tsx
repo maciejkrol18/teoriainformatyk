@@ -1,10 +1,10 @@
-import OAuthButtons from '@/components/auth/OAuthButtons'
-import AuthForms from '@/components/auth/AuthForms'
-import Link from 'next/link'
+import OAuthButtons from "@/components/auth/oauth-buttons";
+import AuthForms from "@/components/auth/auth-forms";
+import Link from "next/link";
 
 export const metadata = {
-  title: 'Logowanie',
-}
+  title: "Logowanie",
+};
 
 export default function LoginPage() {
   return (
@@ -21,11 +21,11 @@ export default function LoginPage() {
       </div>
       <OAuthButtons />
       <p className="text-sm text-muted text-center">
-        Kontynuując zgadzasz się na warunki{' '}
+        Kontynuując zgadzasz się na warunki{" "}
         <Link className="underline" href="/privacy">
           polityki prywatności
         </Link>
       </p>
     </div>
-  )
+  );
 }

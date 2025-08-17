@@ -1,5 +1,5 @@
-import Exam from "@/components/exam/Exam";
-import PageTitle from "@/components/ui/PageTitle";
+import Exam from "@/components/exam/exam";
+import PageTitle from "@/components/ui/page-title";
 import { createClient } from "@/lib/supabase/server";
 import type { ExamQuestion } from "@/types/exam-question";
 import type { Metadata } from "next";
