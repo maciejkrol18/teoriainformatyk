@@ -48,7 +48,7 @@ export default function QuestionView({
         return;
       }
 
-      const supabase = await createClient();
+      const supabase = createClient();
 
       const { data, error } = await supabase
         .from("questions")

@@ -53,7 +53,7 @@ export default function ExamFiltersDropdown() {
   }, 300);
 
   const fetchExams = async () => {
-    const supabase = await createClient();
+    const supabase = createClient();
 
     const { data, error } = await supabase.from("exams").select("id, name");
 

@@ -17,7 +17,7 @@ export default function SqlTraining() {
   const [isValidating, setIsValidating] = useState(false);
 
   const fetchChallenge = async () => {
-    const supabase = await createClient();
+    const supabase = createClient();
     const { data, error } = await supabase
       .rpc("get_random_query_challenge")
       .single();

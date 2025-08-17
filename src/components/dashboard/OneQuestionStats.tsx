@@ -21,7 +21,7 @@ export default function OneQuestionStats({ userId, examId }: OneQuestionStats) {
   const wereStatsFetched = useRef<boolean>(false);
 
   const fetchOneQuestionStats = async () => {
-    const supabase = await createClient();
+    const supabase = createClient();
 
     const { data, error } = await supabase
       .from("one_question_scores")

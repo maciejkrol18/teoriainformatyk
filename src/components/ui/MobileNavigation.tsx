@@ -40,7 +40,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
 
   const fetchProfile = async () => {
     if (user) {
-      const supabase = await createClient();
+      const supabase = createClient();
       const { data, error } = await supabase
         .from("profiles")
         .select("avatar_url, display_name, email")

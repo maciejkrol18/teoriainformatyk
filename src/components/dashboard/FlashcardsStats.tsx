@@ -21,7 +21,7 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
   const wereStatsFetched = useRef<boolean>(false);
 
   const fetchFlashcardsStats = async () => {
-    const supabase = await createClient();
+    const supabase = createClient();
 
     const { data, error } = await supabase
       .from("flashcards")
