@@ -5,13 +5,7 @@ import { useRef } from "react";
 import SearchFiltersDropdown from "./search-filters-dropdown";
 import SearchInput from "./search-input";
 
-interface SearchBarProps {
-  examId?: string;
-  sortBy?: string;
-  hasImage?: string;
-}
-
-export default function SearchBar({ examId, hasImage, sortBy }: SearchBarProps) {
+export default function SearchBar() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: the onclick event is only used to focus the input

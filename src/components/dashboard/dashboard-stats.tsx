@@ -17,12 +17,10 @@ export default function DashboardStats({ className, userId }: DashboardStatsProp
       <DashboardBlock
         blockTitle="Jedno pytanie"
         blockActions={
-          <>
-            <TabsList>
-              <TabsTrigger value="inf02">INF.02/EE.08</TabsTrigger>
-              <TabsTrigger value="inf03">INF.03/EE.09/EE.14</TabsTrigger>
-            </TabsList>
-          </>
+          <TabsList>
+            <TabsTrigger value="inf02">INF.02/EE.08</TabsTrigger>
+            <TabsTrigger value="inf03">INF.03/EE.09/EE.14</TabsTrigger>
+          </TabsList>
         }
       >
         <TabsContent value="inf02">
@@ -35,12 +33,10 @@ export default function DashboardStats({ className, userId }: DashboardStatsProp
       <DashboardBlock
         blockTitle="Fiszki"
         blockActions={
-          <>
-            <TabsList>
-              <TabsTrigger value="inf02">INF.02/EE.08</TabsTrigger>
-              <TabsTrigger value="inf03">INF.03/EE.09/EE.14</TabsTrigger>
-            </TabsList>
-          </>
+          <TabsList>
+            <TabsTrigger value="inf02">INF.02/EE.08</TabsTrigger>
+            <TabsTrigger value="inf03">INF.03/EE.09/EE.14</TabsTrigger>
+          </TabsList>
         }
       >
         <TabsContent value="inf02">

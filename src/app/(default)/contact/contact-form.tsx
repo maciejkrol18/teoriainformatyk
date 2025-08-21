@@ -32,7 +32,7 @@ const schema = z.object({
   token: z.string().min(1, { message: "Weryfikacja hCaptcha jest wymagana" }),
 });
 
-const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
+const _siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
 
 export default function ContactForm({ email, contactType, content }: ContactFormProps) {
   const {

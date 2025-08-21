@@ -32,7 +32,7 @@ const schema = z
     }
   );
 
-const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
+const _siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
 
 export default function RegisterForm() {
   const [loading, setLoading] = useState<boolean>(false);

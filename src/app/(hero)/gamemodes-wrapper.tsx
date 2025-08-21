@@ -1,5 +1,3 @@
-import GamemodeBlock from "./gamemode-block";
-
 interface GamemodesWrapperProps {
   children: React.ReactNode;
 }

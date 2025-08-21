@@ -28,7 +28,7 @@ async function getQuestions(id: number): Promise<ExamQuestion[]> {
   return data.map((question) => {
     return {
       ...question,
-      answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
+      answers: question.answers.sort((_a: string, _b: string) => 0.5 - Math.random()),
       selected_answer: null,
       correct_selected: false,
     };

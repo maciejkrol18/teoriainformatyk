@@ -9,7 +9,7 @@ import ThemeSwitch from "./theme-switch";
 export default async function Header() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
 
   return (
     <header className="py-4">

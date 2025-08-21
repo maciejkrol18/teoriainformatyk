@@ -61,7 +61,7 @@ export default function OneQuestion({
     } else {
       const questionWithShuffledAnswers = {
         ...data[0],
-        answers: data[0].answers.sort((a: string, b: string) => 0.5 - Math.random()),
+        answers: data[0].answers.sort((_a: string, _b: string) => 0.5 - Math.random()),
       };
       setQuestion(questionWithShuffledAnswers);
     }

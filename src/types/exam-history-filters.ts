@@ -1,4 +1,4 @@
-interface ExamHistoryFilters {
+export interface ExamHistoryFilters {
   user: string;
   page: string;
   examId?: string;

@@ -5,7 +5,6 @@ import { ZoomIn } from "lucide-react";
 import Image from "next/image";
 import { forwardRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
 
 const questionAnswerVariants = cva("py-2 px-4 rounded-md text-left", {
   variants: {
@@ -34,21 +33,20 @@ interface QuestionImageProps {
   allowZoom?: boolean;
 }
 
-const QuestionMarker = forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      className={cn(
-        "flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit aspect-square",
-        className
-      )}
-      {...props}
-      ref={ref}
-    />
-  );
-});
+const QuestionMarker = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        className={cn(
+          "flex items-center bg-background-bright text-lg font-bold rounded-full p-4 max-w-fit aspect-square",
+          className
+        )}
+        {...props}
+        ref={ref}
+      />
+    );
+  }
+);
 QuestionMarker.displayName = "QuestionMarker";
 
 const QuestionContent = forwardRef<
@@ -69,13 +67,7 @@ const QuestionAnswersContainer = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  return (
-    <div
-      className={cn("flex flex-col gap-4", className)}
-      {...props}
-      ref={ref}
-    />
-  );
+  return <div className={cn("flex flex-col gap-4", className)} {...props} ref={ref} />;
 });
 QuestionAnswersContainer.displayName = "QuestionAnswersContainer";
 
@@ -169,21 +161,20 @@ const QuestionImage = ({
   );
 };
 
-const Question = forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      className={cn(
-        "flex flex-col gap-4 bg-background-light p-4 rounded-lg",
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
-});
+const Question = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        className={cn(
+          "flex flex-col gap-4 bg-background-light p-4 rounded-lg",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
 Question.displayName = "Question";
 
 export {

@@ -10,23 +10,21 @@ interface ErrorPageProps {
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
   return (
-    <>
-      <div className="flex flex-col gap-8 justify-center items-center grow">
-        <BrandLogo size="big" />
-        <h1 className="text-3xl font-bold">Serwer napotkał błąd</h1>
-        <p className="text-center text-lg">
-          <span className="font-semibold">Błąd: </span>
-          {error.message}
-        </p>
-        <div className="flex flex-col gap-4 text-center">
-          <Button variant="primary" onClick={reset}>
-            Spróbuj ponownie
-          </Button>
-          <Button>
-            <Link href="/">Powrót na stronę główną</Link>
-          </Button>
-        </div>
+    <div className="flex flex-col gap-8 justify-center items-center grow">
+      <BrandLogo size="big" />
+      <h1 className="text-3xl font-bold">Serwer napotkał błąd</h1>
+      <p className="text-center text-lg">
+        <span className="font-semibold">Błąd: </span>
+        {error.message}
+      </p>
+      <div className="flex flex-col gap-4 text-center">
+        <Button variant="primary" onClick={reset}>
+          Spróbuj ponownie
+        </Button>
+        <Button>
+          <Link href="/">Powrót na stronę główną</Link>
+        </Button>
       </div>
-    </>
+    </div>
   );
 }

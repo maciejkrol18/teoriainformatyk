@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
 import type { FlashcardView } from "@/types/flashcard-view";

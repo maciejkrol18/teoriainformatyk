@@ -1,4 +1,4 @@
-interface ExamHistoryEntry {
+export interface ExamHistoryEntry {
   created_at: string;
   exam_id: number | null;
   user_id: string | null;

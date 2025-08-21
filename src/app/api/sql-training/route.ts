@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       status: 200,
       headers: { "Content-Type": "text/plain" },
     });
-  } catch (error) {
+  } catch (_error) {
     return new Response("false", {
       status: 200,
       headers: { "Content-Type": "text/plain" },

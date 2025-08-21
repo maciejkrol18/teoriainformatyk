@@ -22,9 +22,13 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "recommended": true,
       "correctness": {
         "useExhaustiveDependencies": "off",
         "noUnusedImports": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUnusedLabels": "error",
+        "noUnusedVariables": "error",
         "noUnreachable": "error"
       },
       "style": {
@@ -38,6 +42,9 @@
         "useNumberNamespace": "error",
         "noInferrableTypes": "error",
         "noUselessElse": "error"
+      },
+      "a11y": {
+        "noStaticElementInteractions": "off"
       }
     },
     "includes": [

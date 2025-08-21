@@ -31,7 +31,7 @@ const schema = z
     }
   );
 
-const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
+const _siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
 
 type PasswordRecoveryFormView = "form" | "info";
 
