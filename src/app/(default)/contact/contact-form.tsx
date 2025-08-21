@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import * as z from "zod";
 import { saveContact } from "./actions";
 import { Loader } from "lucide-react";
-import Captcha from "@/components/auth/Captcha";
+import Captcha from "@/components/auth/captcha";
 
 interface ContactFormProps {
   email?: string;
