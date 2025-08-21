@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { createClient } from "@/lib/supabase/client";
+import type { VariantProps } from "class-variance-authority";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import QuestionSkeleton from "@/components/skeletons/question-skeleton";
 import { Button } from "@/components/ui/button";
 import {
   Question,
@@ -11,13 +13,11 @@ import {
   QuestionImage,
   type questionAnswerVariants,
 } from "@/components/ui/question";
-import type { VariantProps } from "class-variance-authority";
-import QuestionSkeleton from "@/components/skeletons/question-skeleton";
-import { toast } from "sonner";
-import SessionStats from "./session-stats";
-import OneQuestionBar from "./one-question-bar";
+import { createClient } from "@/lib/supabase/client";
 import type { Question as QuestionType } from "@/types/question";
 import { incrementCorrect, incrementIncorrect } from "./actions";
+import OneQuestionBar from "./one-question-bar";
+import SessionStats from "./session-stats";
 
 interface OneQuestionProps {
   examId: number;
@@ -33,9 +33,7 @@ export default function OneQuestion({
   const [question, setQuestion] = useState<QuestionType | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [statsOpen, setStatsOpen] = useState<boolean>(false);
-  const [hardCollection, setHardCollection] = useState<number[]>(
-    fetchedHardCollection
-  );
+  const [hardCollection, setHardCollection] = useState<number[]>(fetchedHardCollection);
   const [hardMode, setHardMode] = useState<boolean>(false);
   const rollButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -50,8 +48,7 @@ export default function OneQuestion({
       exam_id: examId,
       range: hardMode ? hardCollection : undefined,
     });
-    if (error)
-      throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`);
+    if (error) throw new Error(`Błąd pobierania pytania z bazy: ${error.message}`);
     if (!data[0]) {
       if (hardMode) {
         toast.warning(
@@ -59,16 +56,12 @@ export default function OneQuestion({
         );
         setHardMode(false);
       } else {
-        throw new Error(
-          "Baza nie mogła znaleźć pasującego pytania. Spróbuj ponownie."
-        );
+        throw new Error("Baza nie mogła znaleźć pasującego pytania. Spróbuj ponownie.");
       }
     } else {
       const questionWithShuffledAnswers = {
         ...data[0],
-        answers: data[0].answers.sort(
-          (a: string, b: string) => 0.5 - Math.random()
-        ),
+        answers: data[0].answers.sort((a: string, b: string) => 0.5 - Math.random()),
       };
       setQuestion(questionWithShuffledAnswers);
     }
@@ -86,10 +79,8 @@ export default function OneQuestion({
     question: QuestionType
   ): VariantProps<typeof questionAnswerVariants>["variant"] => {
     if (selectedAnswer) {
-      if (!selectedAnswer && answer === question.correct_answer)
-        return "unanswered";
-      if (answer === question.correct_answer && selectedAnswer)
-        return "correct";
+      if (!selectedAnswer && answer === question.correct_answer) return "unanswered";
+      if (answer === question.correct_answer && selectedAnswer) return "correct";
       if (answer === selectedAnswer && answer !== question.correct_answer)
         return "incorrect";
     } else {
@@ -101,8 +92,7 @@ export default function OneQuestion({
     setCorrectAnswers((prev) => prev + 1);
     if (userId) {
       const error = await incrementCorrect(userId, examId);
-      if (error)
-        toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`);
+      if (error) toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`);
     }
   };
 
@@ -110,8 +100,7 @@ export default function OneQuestion({
     setIncorrectAnswers((prev) => prev + 1);
     if (userId) {
       const error = await incrementIncorrect(userId, examId);
-      if (error)
-        toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`);
+      if (error) toast.error(`Wystąpił błąd w trakcie aktualizacji statystyk: ${error}`);
     }
   };
 
@@ -165,8 +154,7 @@ export default function OneQuestion({
                   disabled={Boolean(selectedAnswer)}
                   key={answer}
                 >
-                  <span className="font-medium">{atlas.charAt(index)}</span>.{" "}
-                  {answer}
+                  <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
                 </QuestionAnswer>
               );
             })}

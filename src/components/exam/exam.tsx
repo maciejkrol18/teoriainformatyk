@@ -1,26 +1,26 @@
 "use client";
 
-import type { ExamQuestion } from "@/types/exam-question";
+import type { VariantProps } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { v4 } from "uuid";
+import { saveScore } from "@/app/(games)/exam/[code]/actions";
+import type { ExamQuestion } from "@/types/exam-question";
+import type { ExamScore } from "@/types/exam-score";
+import ExamSkeleton from "../skeletons/exam-skeleton";
+import { Button } from "../ui/button";
 import {
   Question,
   QuestionAnswer,
   QuestionAnswersContainer,
   QuestionContent,
+  QuestionImage,
   QuestionMarker,
   type questionAnswerVariants,
-  QuestionImage,
 } from "../ui/question";
-import type { VariantProps } from "class-variance-authority";
-import { toast } from "sonner";
-import { v4 } from "uuid";
 import ExamScoreDisplay from "./exam-score-display";
-import type { ExamScore } from "@/types/exam-score";
-import { Button } from "../ui/button";
 import ExamTimer from "./exam-timer";
-import ExamSkeleton from "../skeletons/exam-skeleton";
 import GoToTopBtn from "./go-to-top-btn";
-import { saveScore } from "@/app/(games)/exam/[code]/actions";
 
 interface ExamProps {
   examId: number;
@@ -40,8 +40,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
           return {
             ...el,
             correct_selected: answer === question.correct_answer,
-            selected_answer:
-              answer === question.selected_answer ? null : answer,
+            selected_answer: answer === question.selected_answer ? null : answer,
           };
         }
         return el;
@@ -58,10 +57,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
         return "unanswered";
       if (answer === question.correct_answer && question.selected_answer)
         return "correct";
-      if (
-        answer === question.selected_answer &&
-        answer !== question.correct_answer
-      )
+      if (answer === question.selected_answer && answer !== question.correct_answer)
         return "incorrect";
     } else {
       return answer === question.selected_answer ? "selected" : "default";
@@ -85,9 +81,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
       score_id: v4(),
       user_id: "",
       exam_id: examId,
-      percentage_score: Number(
-        ((amountCorrect / questions.length) * 100).toFixed(2)
-      ),
+      percentage_score: Number(((amountCorrect / questions.length) * 100).toFixed(2)),
       correct: amountCorrect,
       incorrect: amountIncorrect,
       unanswered: amountUnanswered,
@@ -153,8 +147,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
                     variant={getAnswerVariant(answer, question)}
                     disabled={isExamFinished}
                   >
-                    <span className="font-medium">{atlas.charAt(index)}</span>.{" "}
-                    {answer}
+                    <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
                   </QuestionAnswer>
                 ))}
               </QuestionAnswersContainer>
@@ -169,11 +162,7 @@ export default function Exam({ examId, fetchedQuestions }: ExamProps) {
             </Question>
           );
         })}
-        <Button
-          variant="primary"
-          className="uppercase mb-4"
-          onClick={() => endGame()}
-        >
+        <Button variant="primary" className="uppercase mb-4" onClick={() => endGame()}>
           {isExamFinished ? "Spróbuj ponownie" : "Zakończ egzamin"}
         </Button>
       </div>

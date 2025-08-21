@@ -1,20 +1,17 @@
 "use client";
 
-import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
-import DashboardBlock from "./dashboard-block";
-import OneQuestionStats from "./one-question-stats";
-import FlashcardsStats from "./flashcards-stats";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import DashboardBlock from "./dashboard-block";
+import FlashcardsStats from "./flashcards-stats";
+import OneQuestionStats from "./one-question-stats";
 
 interface DashboardStatsProps {
   className?: string;
   userId: string;
 }
 
-export default function DashboardStats({
-  className,
-  userId,
-}: DashboardStatsProps) {
+export default function DashboardStats({ className, userId }: DashboardStatsProps) {
   return (
     <Tabs defaultValue="inf02" className={cn("flex flex-col gap-8", className)}>
       <DashboardBlock

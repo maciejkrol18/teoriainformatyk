@@ -1,13 +1,13 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { LoaderIcon } from "lucide-react";
-import { updatePassword } from "@/app/(auth)/actions";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
+import { updatePassword } from "@/app/(auth)/actions";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const schema = z
   .object({
@@ -45,11 +45,7 @@ export default function UpdatePasswordForm() {
         {errors.newPassword?.message as React.ReactNode}
       </p>
       <label htmlFor="confirmPassword">Potwierdź nowe hasło</label>
-      <Input
-        id="confirmPassword"
-        type="password"
-        {...register("confirmPassword")}
-      />
+      <Input id="confirmPassword" type="password" {...register("confirmPassword")} />
       <p className="text-red-500 min-h-[24px]">
         {errors.confirmPassword?.message as React.ReactNode}
       </p>

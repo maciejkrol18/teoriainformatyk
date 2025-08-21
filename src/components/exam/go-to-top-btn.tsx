@@ -1,8 +1,8 @@
 "use client";
 
 import { ChevronUp } from "lucide-react";
-import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 
 interface GoToTopBtnProps {
   scrollThreshold: number;

@@ -1,17 +1,16 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Exam from "@/components/exam/exam";
 import PageTitle from "@/components/ui/page-title";
 import { createClient } from "@/lib/supabase/server";
 import type { ExamQuestion } from "@/types/exam-question";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 export async function generateMetadata(props: {
   params: Promise<{ code: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
   // TODO: Determine the qualification text based off the db
-  const qualification =
-    params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
+  const qualification = params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
   return {
     title: `Egzamin ${qualification}`,
     description: `Rozwiąż losowy godzinny 40-pytaniowy egzamin teoretyczny dla zawodu technik informatyk z kwalifikacji ${qualification}`,
@@ -29,9 +28,7 @@ async function getQuestions(id: number): Promise<ExamQuestion[]> {
   return data.map((question) => {
     return {
       ...question,
-      answers: question.answers.sort(
-        (a: string, b: string) => 0.5 - Math.random()
-      ),
+      answers: question.answers.sort((a: string, b: string) => 0.5 - Math.random()),
       selected_answer: null,
       correct_selected: false,
     };
@@ -52,9 +49,7 @@ async function getExamData(code: string) {
   }
 }
 
-export default async function ExamPage(props: {
-  params: Promise<{ code: string }>;
-}) {
+export default async function ExamPage(props: { params: Promise<{ code: string }> }) {
   const params = await props.params;
   const examData = await getExamData(params.code);
   const fetchedQuestions = await getQuestions(examData.id);

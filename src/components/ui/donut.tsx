@@ -1,6 +1,6 @@
 interface DonutProps {
-  value: number
-  size: number
+  value: number;
+  size: number;
 }
 
 export default function Donut({ value, size }: DonutProps) {
@@ -32,5 +32,5 @@ export default function Donut({ value, size }: DonutProps) {
         strokeDashoffset="25"
       />
     </svg>
-  )
+  );
 }

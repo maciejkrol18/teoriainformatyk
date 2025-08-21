@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "./button";
 import { LayoutDashboard, LogOut } from "lucide-react";
+import Link from "next/link";
 import { signOut } from "@/app/(auth)/actions";
+import { Button } from "./button";
 
 interface UserProfile {
   avatar_url: string;
@@ -33,11 +33,7 @@ export default function ProfileBlock({ profile }: ProfileBlockProps) {
           </p>
         </div>
       </div>
-      <Button
-        variant="outline"
-        className="justify-start p-0 border-none"
-        asChild
-      >
+      <Button variant="outline" className="justify-start p-0 border-none" asChild>
         <Link href="/dashboard">
           <LayoutDashboard /> Panel użytkownika
         </Link>

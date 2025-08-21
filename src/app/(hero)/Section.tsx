@@ -1,8 +1,8 @@
 interface SectionProps {
-  title: string
-  subtitle: string
-  id: string
-  children?: React.ReactNode
+  title: string;
+  subtitle: string;
+  id: string;
+  children?: React.ReactNode;
 }
 
 export default function Section({ title, subtitle, id, children }: SectionProps) {
@@ -14,5 +14,5 @@ export default function Section({ title, subtitle, id, children }: SectionProps)
       </div>
       <div className="py-24">{children}</div>
     </section>
-  )
+  );
 }

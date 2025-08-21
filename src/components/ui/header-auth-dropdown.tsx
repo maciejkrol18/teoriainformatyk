@@ -1,6 +1,9 @@
 "use client";
 
+import { LayoutDashboard, LogOut } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
+import { signOut } from "@/app/(auth)/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-import Link from "next/link";
-import { LayoutDashboard, LogOut } from "lucide-react";
-import { signOut } from "@/app/(auth)/actions";
 
 interface HeaderAuthDropdownProps {
   email: string;

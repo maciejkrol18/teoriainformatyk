@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { declension } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Card from "./card";
 import ProgressResetWarning from "./progress-reset-warning";
-import { declension } from "@/lib/utils";
 
 interface ReviewViewProps {
   handleStartFromBeginning: () => void;
@@ -26,9 +26,7 @@ export default function ReviewView({
         {isComplete ? (
           <>
             <p className="text-2xl font-semibold text-accent">Gratulacje!</p>
-            <p className="text-lg">
-              Przerobiono wszystkie pytania z tej kwalifikacji
-            </p>
+            <p className="text-lg">Przerobiono wszystkie pytania z tej kwalifikacji</p>
           </>
         ) : (
           <>
@@ -37,18 +35,15 @@ export default function ReviewView({
               {declension(amountKnown, "pytanie", "pytania", "pytań")}
             </p>
             <p className="text-lg">
-              {declension(leftToLearn, "Pozostało", "Pozostały", "Pozostało")}{" "}
-              Ci jeszcze {leftToLearn}{" "}
-              {declension(leftToLearn, "pytanie", "pytania", "pytań")}
+              {declension(leftToLearn, "Pozostało", "Pozostały", "Pozostało")} Ci jeszcze{" "}
+              {leftToLearn} {declension(leftToLearn, "pytanie", "pytania", "pytań")}
             </p>
             <div className="flex w-full items-center gap-2 px-4">
               <div className="bg-background-bright h-4 grow rounded-md">
                 <div
                   className="bg-primary w-full h-full rounded-md"
                   style={{
-                    width: `${Math.floor(
-                      (amountKnown / totalQuestionsAmount) * 100
-                    )}%`,
+                    width: `${Math.floor((amountKnown / totalQuestionsAmount) * 100)}%`,
                   }}
                 />
               </div>

@@ -1,9 +1,9 @@
-import DeleteAccountForm from "@/components/dashboard/delete-account-form";
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import DeleteAccountForm from "@/components/dashboard/delete-account-form";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function DeleteAccountPage() {
   const supabase = await createClient();
@@ -25,13 +25,12 @@ export default async function DeleteAccountPage() {
         <h1 className="text-4xl font-display">Usuń konto</h1>
         <p>
           <strong className="text-red-500">
-            <span className="uppercase">Uwaga!</span> Ta akcja jest
-            nieodwracalna
+            <span className="uppercase">Uwaga!</span> Ta akcja jest nieodwracalna
           </strong>
         </p>
         <p>
-          Usunięcie konta skutkuje usunięciem wszystkich danych związanych z
-          twoim kontem w naszej bazie danych, w tym statystyki i kolekcje pytań
+          Usunięcie konta skutkuje usunięciem wszystkich danych związanych z twoim kontem
+          w naszej bazie danych, w tym statystyki i kolekcje pytań
         </p>
       </div>
       <DeleteAccountForm />

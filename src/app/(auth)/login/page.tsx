@@ -1,6 +1,6 @@
-import OAuthButtons from "@/components/auth/oauth-buttons";
-import AuthForms from "@/components/auth/auth-forms";
 import Link from "next/link";
+import AuthForms from "@/components/auth/auth-forms";
+import OAuthButtons from "@/components/auth/oauth-buttons";
 
 export const metadata = {
   title: "Logowanie",

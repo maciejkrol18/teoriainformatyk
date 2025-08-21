@@ -1,12 +1,12 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "../ui/input";
 import type React from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 import { resetStats } from "@/app/(default)/dashboard/actions";
+import { Input } from "../ui/input";
 
 const CONFIRMATION_PHRASE = "Zresetuj statystyki";
 
@@ -43,11 +43,7 @@ export default function ResetStatsForm() {
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="currentPassword">Twoje hasło</label>
-        <Input
-          id="currentPassword"
-          type="password"
-          {...register("currentPassword")}
-        />
+        <Input id="currentPassword" type="password" {...register("currentPassword")} />
         {errors.currentPassword?.message && (
           <p className="text-red-500">
             {errors.currentPassword?.message as React.ReactNode}
@@ -58,11 +54,7 @@ export default function ResetStatsForm() {
         <label htmlFor="confirmationPhrase">
           Potwierdź reset (wpisz &quot;{CONFIRMATION_PHRASE}&quot;)
         </label>
-        <Input
-          id="confirmationPhrase"
-          type="text"
-          {...register("confirmationPhrase")}
-        />
+        <Input id="confirmationPhrase" type="text" {...register("confirmationPhrase")} />
         {errors.confirmationPhrase?.message && (
           <p className="text-red-500">
             {errors.confirmationPhrase?.message as React.ReactNode}

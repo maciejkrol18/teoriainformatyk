@@ -1,5 +1,9 @@
 "use client";
 
+import { SlidersHorizontal } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,10 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
-import { SlidersHorizontal } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
 
 interface ExamData {
   id: number;
@@ -30,10 +30,7 @@ export default function ExamFiltersDropdown() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleFilterChange = (
-    filter: keyof ExamHistoryFilters,
-    value?: string
-  ) => {
+  const handleFilterChange = (filter: keyof ExamHistoryFilters, value?: string) => {
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set(filter, value);
@@ -89,9 +86,7 @@ export default function ExamFiltersDropdown() {
               </DropdownMenuRadioItem>
             ))
           ) : (
-            <p className="py-1.5 pl-8 pr-2 text-sm">
-              Ładowanie kwalifikacji...
-            </p>
+            <p className="py-1.5 pl-8 pr-2 text-sm">Ładowanie kwalifikacji...</p>
           )}
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
@@ -100,9 +95,7 @@ export default function ExamFiltersDropdown() {
           value={searchParams.get("sortBy") || "id"}
           onValueChange={(value) => handleFilterChange("sortBy", value)}
         >
-          <DropdownMenuRadioItem value={"created_at"}>
-            Data
-          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value={"created_at"}>Data</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value={"percentage_score"}>
             Wynik procentowy
           </DropdownMenuRadioItem>

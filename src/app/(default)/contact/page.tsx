@@ -17,8 +17,7 @@ interface ContactPageProps {
 
 function isValidContactType(contactType: unknown): contactType is ContactType {
   return (
-    typeof contactType === "string" &&
-    contactTypes.includes(contactType as ContactType)
+    typeof contactType === "string" && contactTypes.includes(contactType as ContactType)
   );
 }
 

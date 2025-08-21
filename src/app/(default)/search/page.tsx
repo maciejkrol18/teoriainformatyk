@@ -96,9 +96,7 @@ export default async function SearchPage(props: SearchPageProps) {
     hardOnly: hardOnly,
   });
 
-  const totalPages = totalAmount
-    ? Math.ceil(totalAmount / RESULTS_PER_PAGE)
-    : 1;
+  const totalPages = totalAmount ? Math.ceil(totalAmount / RESULTS_PER_PAGE) : 1;
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
@@ -109,9 +107,7 @@ export default async function SearchPage(props: SearchPageProps) {
             return <SearchResult question={question} key={question.id} />;
           })
         ) : (
-          <p className="text-muted text-center">
-            Brak wyników dla twojego wyszukiwania
-          </p>
+          <p className="text-muted text-center">Brak wyników dla twojego wyszukiwania</p>
         )}
       </div>
       <SearchPagination page={Number.parseInt(page)} totalPages={totalPages} />

@@ -49,5 +49,7 @@ canvas {
 #hero {
   background-size: cover, cover;
   background-repeat: no-repeat;
-  background-position: center center, center center;
+  background-position:
+    center center,
+    center center;
 }

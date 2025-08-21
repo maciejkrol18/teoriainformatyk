@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import BrandLogo from "@/components/ui/brand-logo";
+import { Button } from "@/components/ui/button";
 
 interface ErrorPageProps {
   error: Error;

@@ -1,14 +1,14 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { type SetStateAction, useEffect, useState } from "react";
-import Card from "./card";
-import { Button } from "../ui/button";
+import { toast } from "sonner";
+import { addToKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
+import { createClient } from "@/lib/supabase/client";
 import type { FlashcardView } from "@/types/flashcard-view";
+import { Button } from "../ui/button";
 import { QuestionImage } from "../ui/question";
 import Skeleton from "../ui/skeleton";
-import { addToKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
-import { toast } from "sonner";
+import Card from "./card";
 
 interface QuestionViewProps {
   currentQuestionId: number | null;
@@ -79,9 +79,7 @@ export default function QuestionView({
       setKnownQuestions((prev) => [currentQuestionId, ...prev]);
       const { error } = await addToKnownQuestions(examId, currentQuestionId);
       if (error) {
-        toast.error(
-          `Błąd w dodawaniu pytania do listy znanych fiszek: ${error.message}`
-        );
+        toast.error(`Błąd w dodawaniu pytania do listy znanych fiszek: ${error.message}`);
         console.error(error);
       }
     }
@@ -89,10 +87,7 @@ export default function QuestionView({
 
   return (
     <>
-      <Card
-        onClick={() => setShowAnswer((prev) => !prev)}
-        className="cursor-pointer"
-      >
+      <Card onClick={() => setShowAnswer((prev) => !prev)} className="cursor-pointer">
         {question && (
           <p className="text-xl font-semibold leading-relaxed">
             {showAnswer ? question.correct_answer : question.content}
@@ -124,11 +119,7 @@ export default function QuestionView({
         <Button className="grow" onClick={goToNextInPool} disabled={!question}>
           Nie umiem
         </Button>
-        <Button
-          className="grow"
-          onClick={handleKnowQuestion}
-          disabled={!question}
-        >
+        <Button className="grow" onClick={handleKnowQuestion} disabled={!question}>
           Umiem
         </Button>
       </div>

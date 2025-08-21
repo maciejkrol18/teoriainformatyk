@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Button } from "./button";
 import type { User } from "@supabase/supabase-js";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { Button } from "./button";
 import HeaderAuthDropdown from "./header-auth-dropdown";
 
 interface HeaderAuthProps {

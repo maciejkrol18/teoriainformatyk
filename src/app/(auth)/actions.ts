@@ -1,15 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-
-import { createClient } from "@/lib/supabase/server";
-import type { FieldValues } from "react-hook-form";
 import type {
   Provider,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
 } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import type { FieldValues } from "react-hook-form";
+import { createClient } from "@/lib/supabase/server";
 
 export async function signIn(formData: FieldValues): Promise<{
   error: string;

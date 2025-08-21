@@ -1,6 +1,11 @@
 "use client";
 
+import { SlidersHorizontal } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import getUser from "@/lib/supabase/get-user";
+import type { SearchFilters } from "@/types/search-filters";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -11,11 +16,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { SlidersHorizontal } from "lucide-react";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { SearchFilters } from "@/types/search-filters";
-import getUser from "@/lib/supabase/get-user";
 
 interface ExamData {
   id: number;
@@ -83,9 +83,7 @@ export default function SearchFiltersDropdown() {
               </DropdownMenuRadioItem>
             ))
           ) : (
-            <p className="py-1.5 pl-8 pr-2 text-sm">
-              Ładowanie kwalifikacji...
-            </p>
+            <p className="py-1.5 pl-8 pr-2 text-sm">Ładowanie kwalifikacji...</p>
           )}
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
@@ -95,9 +93,7 @@ export default function SearchFiltersDropdown() {
           onValueChange={(value) => handleFilterChange("sortBy", value)}
         >
           <DropdownMenuRadioItem value={"id"}>ID</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value={"content"}>
-            Alfabetycznie
-          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value={"content"}>Alfabetycznie</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Załączony obrazek</DropdownMenuLabel>

@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import QuestionView from "./question-view";
-import type { FlashcardView } from "@/types/flashcard-view";
-import ReviewView from "./review-view";
-import Card from "./card";
-import Skeleton from "../ui/skeleton";
-import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
 import { toast } from "sonner";
+import { deleteKnownQuestions } from "@/app/(games)/flashcards/[code]/actions";
+import type { FlashcardView } from "@/types/flashcard-view";
+import Skeleton from "../ui/skeleton";
+import Card from "./card";
+import QuestionView from "./question-view";
+import ReviewView from "./review-view";
 
 interface FlashcardsProps {
   fetchedKnownQuestions: number[];
@@ -23,9 +23,7 @@ export default function Flashcards({
   const [questionPool, setQuestionPool] = useState<number[]>([]);
   const [poolAmount, setPoolAmount] = useState<number>(0);
   const [view, setView] = useState<FlashcardView | null>(null);
-  const [knownQuestions, setKnownQuestions] = useState<number[]>(
-    fetchedKnownQuestions
-  );
+  const [knownQuestions, setKnownQuestions] = useState<number[]>(fetchedKnownQuestions);
   const [amountDone, setAmountDone] = useState<number>(1);
 
   const getQuestionPool = () => {
@@ -51,9 +49,7 @@ export default function Flashcards({
         console.error(error);
       }
     } else {
-      toast.success(
-        "Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji"
-      );
+      toast.success("Pomyślnie zresetowano progres w fiszkach w tej kwalifikacji");
     }
   };
 

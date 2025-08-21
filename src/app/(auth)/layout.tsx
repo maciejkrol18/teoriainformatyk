@@ -1,11 +1,7 @@
-import BrandLogo from "@/components/ui/brand-logo";
 import Link from "next/link";
+import BrandLogo from "@/components/ui/brand-logo";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex grow">
       <div className="flex flex-col justify-center grow max-w-[640px] mx-auto xl:mx-0 px-8 py-4">

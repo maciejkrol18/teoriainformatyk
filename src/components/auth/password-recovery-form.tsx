@@ -1,18 +1,15 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "../ui/input";
-import { useRef, useState } from "react";
-import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { LoaderIcon } from "lucide-react";
 import type HCaptcha from "@hcaptcha/react-hcaptcha";
-import {
-  checkIfAccountExists,
-  startPasswordRecovery,
-} from "@/app/(auth)/actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+import { checkIfAccountExists, startPasswordRecovery } from "@/app/(auth)/actions";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import Captcha from "./captcha";
 
 const schema = z
@@ -64,9 +61,7 @@ export default function PasswordRecoveryForm() {
             window ? window.location.origin : "http://localhost:3000"
           );
           if (error) {
-            toast.error(
-              `Wystąpił błąd w trakcie przetwarzania formularza: ${error}`
-            );
+            toast.error(`Wystąpił błąd w trakcie przetwarzania formularza: ${error}`);
           } else {
             setView("info");
           }
@@ -80,10 +75,7 @@ export default function PasswordRecoveryForm() {
           {errors.email?.message as React.ReactNode}
         </p>
         <div className="flex justify-center items-center min-h-[78px] py-6">
-          <Captcha
-            handleCaptchaChange={handleCaptchaChange}
-            captchaRef={captchaRef}
-          />
+          <Captcha handleCaptchaChange={handleCaptchaChange} captchaRef={captchaRef} />
         </div>
         <input type="hidden" {...register("token")} />
         <p className="text-red-500 min-h-[48px]">
@@ -99,8 +91,8 @@ export default function PasswordRecoveryForm() {
   if (view === "info") {
     return (
       <p>
-        Na podany przez ciebie adres email został wysłany link do resetowania
-        hasła. W treści wiadomości znajdują się dalsze instrukcje.
+        Na podany przez ciebie adres email został wysłany link do resetowania hasła. W
+        treści wiadomości znajdują się dalsze instrukcje.
       </p>
     );
   }

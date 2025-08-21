@@ -1,15 +1,15 @@
 "use client";
 
+import { Dices, ExternalLink, LoaderIcon, Send, Wand2 } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { QuestionImage } from "@/components/ui/question";
+import Skeleton from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/client";
 import type { QueryChallenge } from "@/types/query-challenge";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Dices, ExternalLink, LoaderIcon, Send, Wand2 } from "lucide-react";
 import QueryInput from "./query-input";
-import { toast } from "sonner";
-import { QuestionImage } from "@/components/ui/question";
-import Link from "next/link";
-import Skeleton from "@/components/ui/skeleton";
 
 export default function SqlTraining() {
   const [challenge, setChallenge] = useState<QueryChallenge | null>(null);
@@ -18,13 +18,9 @@ export default function SqlTraining() {
 
   const fetchChallenge = async () => {
     const supabase = createClient();
-    const { data, error } = await supabase
-      .rpc("get_random_query_challenge")
-      .single();
-    if (error)
-      throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`);
-    if (!data)
-      throw new Error("Błąd pobierania pytania. Spróbuj ponownie później");
+    const { data, error } = await supabase.rpc("get_random_query_challenge").single();
+    if (error) throw new Error(`Wystąpił błąd: ${error.message}, ${error.details}`);
+    if (!data) throw new Error("Błąd pobierania pytania. Spróbuj ponownie później");
     setChallenge({
       exam_code: data.exam_code,
       image: data.image,
@@ -103,8 +99,7 @@ export default function SqlTraining() {
                 <ExternalLink />
               </Link>
               <p className="text-xl leading-relaxed">
-                <span className="font-bold">Napisz zapytanie</span>{" "}
-                {challenge.content}
+                <span className="font-bold">Napisz zapytanie</span> {challenge.content}
               </p>
               {challenge.image && (
                 <div className="flex">

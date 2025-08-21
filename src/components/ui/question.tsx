@@ -1,10 +1,10 @@
 "use client";
 
-import { forwardRef, useEffect, useState } from "react";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { ZoomIn } from "lucide-react";
+import Image from "next/image";
+import { forwardRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 import { Button } from "./button";
 
 const questionAnswerVariants = cva("py-2 px-4 rounded-md text-left", {

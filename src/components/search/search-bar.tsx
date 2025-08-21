@@ -11,11 +11,7 @@ interface SearchBarProps {
   hasImage?: string;
 }
 
-export default function SearchBar({
-  examId,
-  hasImage,
-  sortBy,
-}: SearchBarProps) {
+export default function SearchBar({ examId, hasImage, sortBy }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: the onclick event is only used to focus the input

@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
-import DashboardBlock from "./dashboard-block";
-import Link from "next/link";
 import { KeyRound, LifeBuoy, RotateCcw, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import { Button } from "../ui/button";
+import DashboardBlock from "./dashboard-block";
 
 interface DashboardAccountProps {
   userId: string;
@@ -17,9 +17,7 @@ const DataParagraph = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export default async function DashboardAccount({
-  userId,
-}: DashboardAccountProps) {
+export default async function DashboardAccount({ userId }: DashboardAccountProps) {
   const supabase = await createClient();
 
   const { data, error } = await supabase

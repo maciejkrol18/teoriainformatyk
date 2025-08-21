@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   Credenza,
   CredenzaBody,
@@ -7,12 +9,9 @@ import {
   CredenzaHeader,
   CredenzaTitle,
 } from "@/components/ui/credenza";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import QuestionDetails from "../ui/question-details";
 
-interface QuestionModalProps
-  extends React.ComponentProps<typeof QuestionDetails> {
+interface QuestionModalProps extends React.ComponentProps<typeof QuestionDetails> {
   showHardCollectionButton?: boolean;
 }
 

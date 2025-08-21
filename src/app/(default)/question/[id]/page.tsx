@@ -1,9 +1,9 @@
-import QuestionDetails from "@/components/ui/question-details";
-import getUser from "@/lib/supabase/get-user";
-import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import QuestionDetails from "@/components/ui/question-details";
+import getUser from "@/lib/supabase/get-user";
+import { createClient } from "@/lib/supabase/server";
 
 export const revalidate = 86400;
 

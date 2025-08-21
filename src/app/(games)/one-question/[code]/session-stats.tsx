@@ -3,6 +3,7 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Credenza,
   CredenzaBody,
@@ -12,7 +13,6 @@ import {
   CredenzaHeader,
   CredenzaTitle,
 } from "@/components/ui/credenza";
-import { Button } from "@/components/ui/button";
 
 interface SessionStatsProps {
   open: boolean;
@@ -37,18 +37,13 @@ export default function SessionStats({
   useEffect(() => {
     setScorePercentage(
       Number.parseFloat(
-        ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(
-          2
-        )
+        ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2)
       )
     );
   }, [correctAnswers, incorrectAnswers]);
 
   useEffect(() => {
-    const counterInterval = setInterval(
-      () => setCounter((prev) => prev + 1),
-      1000
-    );
+    const counterInterval = setInterval(() => setCounter((prev) => prev + 1), 1000);
     return () => clearInterval(counterInterval);
   }, []);
 
@@ -60,9 +55,7 @@ export default function SessionStats({
         </CredenzaHeader>
         <CredenzaBody>
           <div className="flex flex-col gap-4 text-center text-lg lg:text-left">
-            <p>
-              Upłynęło {dayjs.duration(counter, "seconds").format("HH:mm:ss")}
-            </p>
+            <p>Upłynęło {dayjs.duration(counter, "seconds").format("HH:mm:ss")}</p>
             <p>{correctAnswers} poprawnych odpowiedzi </p>
             <p>{incorrectAnswers} niepoprawnych odpowiedzi</p>
             <p>{timesRolled} wylosowanych pytań</p>

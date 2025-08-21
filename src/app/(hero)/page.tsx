@@ -1,23 +1,17 @@
-import GamemodeBlock from "./gamemode-block";
-import GamemodesWrapper from "./gamemodes-wrapper";
+import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import Section from "@/app/(hero)/section";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import OneQuestionIcon from "../../../public/one-question-icon.svg";
+import DonateButton from "../../../public/donate.svg";
 import ExamIcon from "../../../public/exam-icon.svg";
 import FlashcardsIcon from "../../../public/flashcards-icon.svg";
+import OneQuestionIcon from "../../../public/one-question-icon.svg";
 import SqlTrainingIcon from "../../../public/sql-training-icon.svg";
-import HeroSearchBar from "./hero-search-bar";
+import GamemodeBlock from "./gamemode-block";
+import GamemodesWrapper from "./gamemodes-wrapper";
 import HeroCard from "./hero-card";
-import {
-  BarChart3,
-  GalleryHorizontalEnd,
-  History,
-  SkullIcon,
-  Users,
-} from "lucide-react";
-import DonateButton from "../../../public/donate.svg";
-import Image from "next/image";
+import HeroSearchBar from "./hero-search-bar";
 
 export default function Home() {
   return (
@@ -114,45 +108,40 @@ export default function Home() {
         subtitle="Zarejestruj się w naszym serwisie aby otrzymać poniższe korzyści"
         id="user"
       >
-        <Button
-          variant="primary"
-          asChild
-          className="flex max-w-3xl mx-auto mb-24"
-        >
+        <Button variant="primary" asChild className="flex max-w-3xl mx-auto mb-24">
           <Link href="/login">Dołącz teraz</Link>
         </Button>
         <div className="grid gap-24 max-w-3xl mx-auto grid-cols-1 sm:grid-cols-2">
           <HeroCard icon={<SkullIcon />} title="Zbiór trudnych pytań">
             <p className="leading-relaxed">
-              Twoja osobista kolekcja pytań, do której możesz zapisywać pytania
-              które uważasz za najcięższę. Zbiór ten pozwala na włączenie
-              specjalnego trybu jednego pytania, w którym pojawiają się jedynie
-              pytania z puli tego zbioru. Swój zbiór możesz wyświetlić z poziomu
-              wyszukiwarki pytań, oraz modyfikować go z poziomu zarówno
-              wyszukiwarki jak i trybu jednego pytania
+              Twoja osobista kolekcja pytań, do której możesz zapisywać pytania które
+              uważasz za najcięższę. Zbiór ten pozwala na włączenie specjalnego trybu
+              jednego pytania, w którym pojawiają się jedynie pytania z puli tego zbioru.
+              Swój zbiór możesz wyświetlić z poziomu wyszukiwarki pytań, oraz modyfikować
+              go z poziomu zarówno wyszukiwarki jak i trybu jednego pytania
             </p>
           </HeroCard>
           <HeroCard icon={<GalleryHorizontalEnd />} title="Fiszki">
             <p className="leading-relaxed">
-              Powtarzaj wszystkie dostępne pytania w dostępnych kwalifikacjach.
-              Przerób każde z pytań jedno po drugim zapisując swój progres.
-              Powracając na stronę posiadasz wybór kontynuacji powtarzania tam,
-              gdzie skończyłeś lub rozpocząć powtarzanie od zera
+              Powtarzaj wszystkie dostępne pytania w dostępnych kwalifikacjach. Przerób
+              każde z pytań jedno po drugim zapisując swój progres. Powracając na stronę
+              posiadasz wybór kontynuacji powtarzania tam, gdzie skończyłeś lub rozpocząć
+              powtarzanie od zera
             </p>
           </HeroCard>
           <HeroCard icon={<BarChart3 />} title="Statystyki">
             <p className="leading-relaxed">
-              Sprawdź ilość poprawnych i niepoprawnych odpowiedzi w trybie
-              jednego pytania oraz ilości przerobionych pytań w trybie fiszek z
-              obu kwalifikacji w panelu użytkownika
+              Sprawdź ilość poprawnych i niepoprawnych odpowiedzi w trybie jednego pytania
+              oraz ilości przerobionych pytań w trybie fiszek z obu kwalifikacji w panelu
+              użytkownika
             </p>
           </HeroCard>
           <HeroCard icon={<History />} title="Historia egzaminów">
             <p className="leading-relaxed">
-              Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio
-              wykonanych egzaminów. Wyświetl wszystkie aby otworzyć podstronę ze
-              szczegółową tabelą wyświetlającą twoje wszystkie wyniki. Możesz
-              filtrować, sortować i usuwać swoje wyniki
+              Na głównej stronie panelu użytkownika znajdziesz 5 ostatnio wykonanych
+              egzaminów. Wyświetl wszystkie aby otworzyć podstronę ze szczegółową tabelą
+              wyświetlającą twoje wszystkie wyniki. Możesz filtrować, sortować i usuwać
+              swoje wyniki
             </p>
           </HeroCard>
           <HeroCard
@@ -161,10 +150,9 @@ export default function Home() {
             title="Najtrudniejsze pytania"
           >
             <p className="leading-relaxed">
-              Będąc użytkownikiem zyskujesz dostęp do podstrony z
-              najtrudniejszymi pytaniami, która zawiera listę pytań najczęściej
-              dodawanych do zbiorów trudnych pytań wśród wszystkich pozostałych
-              użytkowników serwisu
+              Będąc użytkownikiem zyskujesz dostęp do podstrony z najtrudniejszymi
+              pytaniami, która zawiera listę pytań najczęściej dodawanych do zbiorów
+              trudnych pytań wśród wszystkich pozostałych użytkowników serwisu
             </p>
           </HeroCard>
         </div>
@@ -179,12 +167,7 @@ export default function Home() {
           target="_blank"
           className="block max-w-fit mx-auto bg-background-bright p-4 rounded-md"
         >
-          <Image
-            src={DonateButton}
-            width={192}
-            height={96}
-            alt="Przycisk z darowizną"
-          />
+          <Image src={DonateButton} width={192} height={96} alt="Przycisk z darowizną" />
         </Link>
         <p className="max-w-fit mx-auto text-muted text-sm mt-2">
           Możliwość płatności BLIK

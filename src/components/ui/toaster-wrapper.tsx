@@ -1,8 +1,8 @@
 "use client";
 
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { useTheme } from "next-themes";
 import { Toaster } from "sonner";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 const desktop = "(min-width: 768px)";
 

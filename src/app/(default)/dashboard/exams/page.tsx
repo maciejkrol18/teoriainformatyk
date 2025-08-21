@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
+import dayjs from "dayjs";
+import pl from "dayjs/locale/pl";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import dayjs from "dayjs";
-import pl from "dayjs/locale/pl";
+import { Button } from "@/components/ui/button";
+import getUser from "@/lib/supabase/get-user";
+import { createClient } from "@/lib/supabase/server";
 import { declension } from "@/lib/utils";
 import ExamHistoryTable from "./table";
-import getUser from "@/lib/supabase/get-user";
 
 const RESULTS_PER_PAGE = 10;
 
@@ -89,19 +89,11 @@ export default async function ExamHistoryPage(props: ExamHistoryPageProps) {
   const canPrevPage = Number.parseInt(page) - 1 >= 1;
 
   const processedExamHistory = data.map((score) => {
-    const timeTook = dayjs(score.time_finished).diff(
-      score.time_started,
-      "minute"
-    );
+    const timeTook = dayjs(score.time_finished).diff(score.time_started, "minute");
     return {
       ...score,
       created_at: dayjs(score.created_at).format("D MMMM YYYY, H[:]mm"),
-      time_took: `${timeTook} ${declension(
-        timeTook,
-        "minuta",
-        "minuty",
-        "minut"
-      )}`,
+      time_took: `${timeTook} ${declension(timeTook, "minuta", "minuty", "minut")}`,
     };
   });
 

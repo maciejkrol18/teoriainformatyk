@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Potwierdzenie rejestracji",
@@ -11,11 +11,11 @@ export default async function ConfirmSignupPage() {
       <div className="flex flex-col gap-4 justify-center grow">
         <h1 className="text-4xl font-bold">Potwierdź rejestrację</h1>
         <p className="text-muted">
-          Na podany adres email została wysłana wiadomość z linkiem do
-          potwierdzenia swojej rejestracji. Potwierdzenie rejestracji jest
-          wymagane aby zalogowanie się na nowo utworzone konto było możliwe.
-          Pamiętaj o sprawdzeniu folderu spam, jeśli nie widzisz wiadomości w
-          swojej skrzynce odbiorczej. Możesz zamknąć te kartę przeglądarki.
+          Na podany adres email została wysłana wiadomość z linkiem do potwierdzenia
+          swojej rejestracji. Potwierdzenie rejestracji jest wymagane aby zalogowanie się
+          na nowo utworzone konto było możliwe. Pamiętaj o sprawdzeniu folderu spam, jeśli
+          nie widzisz wiadomości w swojej skrzynce odbiorczej. Możesz zamknąć te kartę
+          przeglądarki.
         </p>
         <Button variant="primary" asChild>
           <Link href="/">Przejdź na stronę główną</Link>

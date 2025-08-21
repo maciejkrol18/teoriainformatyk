@@ -1,12 +1,12 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 interface GamemodeBlockProps {
-  title: string
-  subtitle: string
-  href: string
-  imageSrc: string
+  title: string;
+  subtitle: string;
+  href: string;
+  imageSrc: string;
 }
 
 export default function GamemodeBlock({
@@ -24,5 +24,5 @@ export default function GamemodeBlock({
       <h3 className="font-bold text-2xl">{title}</h3>
       <p>{subtitle}</p>
     </Link>
-  )
+  );
 }

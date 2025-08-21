@@ -1,9 +1,9 @@
-import DashboardBlock from "./dashboard-block";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import type { LatestExamScoresEntry } from "@/types/latest-exams-entry";
 import { Button } from "../ui/button";
 import ScoreBlock from "../ui/score-block";
-import type { LatestExamScoresEntry } from "@/types/latest-exams-entry";
-import { createClient } from "@/lib/supabase/server";
+import DashboardBlock from "./dashboard-block";
 
 interface DashboardLatestExamsProps {
   userId: string;

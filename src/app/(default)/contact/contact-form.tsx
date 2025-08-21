@@ -1,23 +1,23 @@
 "use client";
 
+import type HCaptcha from "@hcaptcha/react-hcaptcha";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
+import { useRef } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+import Captcha from "@/components/auth/captcha";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
-  SelectValue,
   SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
-import type HCaptcha from "@hcaptcha/react-hcaptcha";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
 import { saveContact } from "./actions";
-import { Loader } from "lucide-react";
-import Captcha from "@/components/auth/captcha";
 
 interface ContactFormProps {
   email?: string;
@@ -28,19 +28,13 @@ interface ContactFormProps {
 const schema = z.object({
   email: z.string().email({ message: "Nieprawidłowy adres email" }),
   contactType: z.string().min(1, { message: "Wybierz rodzaj wiadomości" }),
-  content: z
-    .string()
-    .min(10, { message: "Wiadomość musi mieć przynajmniej 10 znaków" }),
+  content: z.string().min(10, { message: "Wiadomość musi mieć przynajmniej 10 znaków" }),
   token: z.string().min(1, { message: "Weryfikacja hCaptcha jest wymagana" }),
 });
 
 const siteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string;
 
-export default function ContactForm({
-  email,
-  contactType,
-  content,
-}: ContactFormProps) {
+export default function ContactForm({ email, contactType, content }: ContactFormProps) {
   const {
     register,
     handleSubmit,
@@ -98,13 +92,12 @@ export default function ContactForm({
         <ul className="text-muted text-sm leading-relaxed">
           <li>Ogólne - ogólne pytania</li>
           <li>
-            Zgłoszenie błędu - zgłaszanie błędów w działaniu strony lub jej
-            zawartości
+            Zgłoszenie błędu - zgłaszanie błędów w działaniu strony lub jej zawartości
           </li>
           <li>Pomoc - pytania związane z obsługą strony</li>
           <li>
-            Sugestia rozwoju strony - pomysły dotyczące nowych funkcjonalności
-            strony lub ulepszenia tych już istniejących
+            Sugestia rozwoju strony - pomysły dotyczące nowych funkcjonalności strony lub
+            ulepszenia tych już istniejących
           </li>
           <li>Współpraca - reklama Twojego produktu etc.</li>
         </ul>
@@ -125,9 +118,7 @@ export default function ContactForm({
               <SelectItem value="general">Ogólne</SelectItem>
               <SelectItem value="report">Zgłoszenie błędu</SelectItem>
               <SelectItem value="help">Pomoc</SelectItem>
-              <SelectItem value="suggestion">
-                Sugestia rozwoju strony
-              </SelectItem>
+              <SelectItem value="suggestion">Sugestia rozwoju strony</SelectItem>
               <SelectItem value="business">Współpraca</SelectItem>
             </SelectContent>
           </Select>
@@ -148,10 +139,7 @@ export default function ContactForm({
         {errors.content?.message as React.ReactNode}
       </p>
       <div className="mt-4">
-        <Captcha
-          handleCaptchaChange={handleCaptchaChange}
-          captchaRef={captchaRef}
-        />
+        <Captcha handleCaptchaChange={handleCaptchaChange} captchaRef={captchaRef} />
       </div>
       <input type="hidden" {...register("token")} />
       <p className="text-red-500 min-h-[48px]">

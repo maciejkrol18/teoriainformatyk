@@ -1,9 +1,9 @@
-import getUser from "@/lib/supabase/get-user";
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import dayjs from "dayjs";
 import pl from "dayjs/locale/pl";
+import { redirect } from "next/navigation";
 import { cache } from "react";
+import getUser from "@/lib/supabase/get-user";
+import { createClient } from "@/lib/supabase/server";
 import HardestQuestionsTable from "./table";
 
 export const metadata = {
@@ -49,10 +49,9 @@ export default async function HardestQuestionsPage() {
       <div className="flex flex-col gap-2 text-center">
         <h1 className="text-4xl font-display">Najtrudniejsze pytania</h1>
         <p className="text-muted max-w-2xl mx-auto">
-          Poniżej znajduje się tabela z pytaniami które są najczęściej dodawane
-          do zbiorów trudnych pytań przez użytkowników naszego serwisu. Co 24
-          godziny strona analizuje zbiory trudnych pytań użytkowników i
-          aktualizuje poniższe dane
+          Poniżej znajduje się tabela z pytaniami które są najczęściej dodawane do zbiorów
+          trudnych pytań przez użytkowników naszego serwisu. Co 24 godziny strona
+          analizuje zbiory trudnych pytań użytkowników i aktualizuje poniższe dane
         </p>
         <p className="text-lg text-accent">
           Data ostatniej aktualizacji: {getLastUpdateDate()}

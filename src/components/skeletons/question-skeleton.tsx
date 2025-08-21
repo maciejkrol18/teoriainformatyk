@@ -10,5 +10,5 @@ export default function QuestionSkeleton() {
         <div className="h-10 rounded-md bg-gradient-loading animate-loading bg-size-loading" />
       </div>
     </div>
-  )
+  );
 }

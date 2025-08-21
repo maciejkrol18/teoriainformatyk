@@ -1,17 +1,16 @@
-import OneQuestion from "./one-question";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import PageTitle from "@/components/ui/page-title";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import OneQuestion from "./one-question";
 
 export async function generateMetadata(props: {
   params: Promise<{ code: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
   // TODO: Determine the qualification text based off the db
-  const qualification =
-    params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
+  const qualification = params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
   return {
     title: `Jedno pytanie ${qualification}`,
     description: `Nieskończenie losuj i rozwiązuj jedno pytanie z kwalifikacji ${qualification} teoretycznego egzaminu zawodu technik informatyk`,

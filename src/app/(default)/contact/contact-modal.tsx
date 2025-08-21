@@ -1,15 +1,15 @@
 "use client";
 
-import {
-  Credenza,
-  CredenzaHeader,
-  CredenzaTitle,
-  CredenzaBody,
-  CredenzaContent,
-} from "@/components/ui/credenza";
-import ContactForm from "./contact-form";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  Credenza,
+  CredenzaBody,
+  CredenzaContent,
+  CredenzaHeader,
+  CredenzaTitle,
+} from "@/components/ui/credenza";
+import ContactForm from "./contact-form";
 
 interface ContactModalProps {
   email?: string;
@@ -17,11 +17,7 @@ interface ContactModalProps {
   content?: string;
 }
 
-export default function ContactModal({
-  email,
-  contactType,
-  content,
-}: ContactModalProps) {
+export default function ContactModal({ email, contactType, content }: ContactModalProps) {
   const [open, setOpen] = useState<boolean>(true);
   const router = useRouter();
 
@@ -39,11 +35,7 @@ export default function ContactModal({
         </CredenzaHeader>
         <CredenzaBody>
           <div className="max-h-[500px] overflow-y-auto px-2">
-            <ContactForm
-              contactType={contactType}
-              content={content}
-              email={email}
-            />
+            <ContactForm contactType={contactType} content={content} email={email} />
           </div>
         </CredenzaBody>
       </CredenzaContent>

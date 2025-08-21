@@ -1,10 +1,10 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 interface SearchResultProps {
   question: {
-    id: number
-    content: string
-  }
+    id: number;
+    content: string;
+  };
 }
 
 export default function SearchResult({ question }: SearchResultProps) {
@@ -19,5 +19,5 @@ export default function SearchResult({ question }: SearchResultProps) {
         <p className="text-lg font-semibold">{question.content}</p>
       </div>
     </Link>
-  )
+  );
 }

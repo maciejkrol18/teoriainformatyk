@@ -1,6 +1,6 @@
 interface PageTitleProps {
-  title: string
-  subtitle: string
+  title: string;
+  subtitle: string;
 }
 
 export default function PageTitle({ subtitle, title }: PageTitleProps) {
@@ -9,5 +9,5 @@ export default function PageTitle({ subtitle, title }: PageTitleProps) {
       <h1 className="text-4xl font-bold font-heading">{title}</h1>
       <h2 className="text-xl text-muted">{subtitle}</h2>
     </div>
-  )
+  );
 }

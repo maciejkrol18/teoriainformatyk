@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { Search } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
 export default function HeroSearchBar() {
-  const inputRef = useRef<HTMLInputElement | null>(null)
-  const [searchQuery, setSearchQuery] = useState<string>('')
-  const router = useRouter()
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const router = useRouter();
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: the onclick event is only used to focus the input
@@ -15,8 +15,8 @@ export default function HeroSearchBar() {
       className="flex justify-between gap-2 p-4 rounded-full bg-background-light text-muted hover:cursor-text max-w-[512px] mx-auto"
       onClick={() => inputRef.current?.focus()}
       onSubmit={(e) => {
-        e.preventDefault()
-        router.push(`/search?query=${inputRef.current?.value}`)
+        e.preventDefault();
+        router.push(`/search?query=${inputRef.current?.value}`);
       }}
     >
       <Search />
@@ -29,5 +29,5 @@ export default function HeroSearchBar() {
         className="bg-transparent grow"
       />
     </form>
-  )
+  );
 }

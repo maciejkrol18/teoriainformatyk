@@ -1,12 +1,12 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "../ui/input";
 import type React from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 import { changePassword } from "@/app/(default)/dashboard/actions";
+import { Input } from "../ui/input";
 
 const schema = z
   .object({
@@ -44,11 +44,7 @@ export default function ChangePasswordForm() {
     >
       <div className="flex flex-col gap-2">
         <label htmlFor="password">Aktualne hasło</label>
-        <Input
-          id="currentPassword"
-          type="password"
-          {...register("currentPassword")}
-        />
+        <Input id="currentPassword" type="password" {...register("currentPassword")} />
         {errors.newPassword?.message && (
           <p className="text-red-500">
             {errors.currentPassword?.message as React.ReactNode}
@@ -59,9 +55,7 @@ export default function ChangePasswordForm() {
         <label htmlFor="password">Nowe hasło</label>
         <Input id="newPassword" type="password" {...register("newPassword")} />
         {errors.newPassword?.message && (
-          <p className="text-red-500">
-            {errors.newPassword?.message as React.ReactNode}
-          </p>
+          <p className="text-red-500">{errors.newPassword?.message as React.ReactNode}</p>
         )}
       </div>
       <div className="flex flex-col gap-2">

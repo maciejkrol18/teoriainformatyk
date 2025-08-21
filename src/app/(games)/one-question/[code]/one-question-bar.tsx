@@ -1,13 +1,13 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { BarChart, Dices, HelpCircle, Skull } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import type { Question } from "@/types/question";
+import Link from "next/link";
 import type { SetStateAction } from "react";
 import { toast } from "sonner";
-import Link from "next/link";
 import HardCollectionButton from "@/components/hard-collection-button";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { Question } from "@/types/question";
 
 interface OneQuestionBarProps {
   openStatsFn: () => void;
@@ -35,9 +35,7 @@ export default function OneQuestionBar({
       toast.info("Zaloguj się, aby korzystać z tej funkcji");
       return;
     }
-    hardMode
-      ? toast.info("Wyłączono tryb trudny")
-      : toast.info("Tryb trudny włączony");
+    hardMode ? toast.info("Wyłączono tryb trudny") : toast.info("Tryb trudny włączony");
     hardModeFn((prev) => !prev);
   };
 
@@ -78,11 +76,7 @@ export default function OneQuestionBar({
           <HelpCircle />
         </Button>
       </Link>
-      <Button
-        variant="bottomBar"
-        onClick={openStatsFn}
-        title="Statystyki sesji"
-      >
+      <Button variant="bottomBar" onClick={openStatsFn} title="Statystyki sesji">
         <BarChart />
       </Button>
       <Button

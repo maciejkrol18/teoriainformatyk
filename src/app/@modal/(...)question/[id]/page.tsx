@@ -1,8 +1,8 @@
+import { notFound } from "next/navigation";
+import { cache } from "react";
 import QuestionModal from "@/components/search/question-modal";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
-import { cache } from "react";
 
 export const revalidate = 36000;
 

@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "./button";
-import { createClient } from "@/lib/supabase/client";
-import { Menu, XCircle } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
+import { Menu, XCircle } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "./button";
 import ProfileBlock from "./profile-block";
 
 interface MobileNavigationProps {
@@ -69,11 +69,7 @@ export default function MobileNavigation({ user }: MobileNavigationProps) {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={toggleOpen}
-        className="hover:cursor-pointer"
-      >
+      <button type="button" onClick={toggleOpen} className="hover:cursor-pointer">
         {isOpen ? <XCircle /> : <Menu />}
       </button>
       {isOpen ? (

@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 
 interface SkeletonProps {
-  className?: string
+  className?: string;
 }
 
 export default function Skeleton({ className }: SkeletonProps) {
@@ -11,5 +11,5 @@ export default function Skeleton({ className }: SkeletonProps) {
         className && className
       } bg-gradient-loading animate-loading bg-size-loading w-full`}
     />
-  )
+  );
 }

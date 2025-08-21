@@ -1,7 +1,7 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { useEffect, useRef, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 import Donut from "../ui/donut";
 
 interface FlashcardsStats {
@@ -12,8 +12,7 @@ interface FlashcardsStats {
 type FinishedQuestions = number | null;
 
 export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
-  const [finishedQuestions, setFinishedQuestions] =
-    useState<FinishedQuestions>(null);
+  const [finishedQuestions, setFinishedQuestions] = useState<FinishedQuestions>(null);
   const [totalQuestions, setTotalQuestions] = useState<number | null>(null);
   const [scorePercentage, setScorePercentage] = useState<number>(0);
 
@@ -63,9 +62,7 @@ export default function FlashcardsStats({ userId, examId }: FlashcardsStats) {
 
   useEffect(() => {
     if (finishedQuestions && totalQuestions) {
-      setScorePercentage(
-        Math.floor((finishedQuestions / totalQuestions) * 100)
-      );
+      setScorePercentage(Math.floor((finishedQuestions / totalQuestions) * 100));
     }
   }, [finishedQuestions, totalQuestions]);
 

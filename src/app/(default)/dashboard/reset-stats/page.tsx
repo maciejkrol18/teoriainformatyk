@@ -1,9 +1,9 @@
-import ResetStatsForm from "@/components/dashboard/reset-stats-form";
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
 import { ArrowUpLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import ResetStatsForm from "@/components/dashboard/reset-stats-form";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ResetStatsPage() {
   const supabase = await createClient();
@@ -25,20 +25,17 @@ export default async function ResetStatsPage() {
         <h1 className="text-4xl font-display">Zresetuj statystyki</h1>
         <p>
           <strong className="text-red-500">
-            <span className="uppercase">Uwaga!</span> Ta akcja jest
-            nieodwracalna
+            <span className="uppercase">Uwaga!</span> Ta akcja jest nieodwracalna
           </strong>
         </p>
         <p>
-          Reset statystyk usunie wszystkie twoje statystyki związane z trybem
-          jednego pytania, usunie progres w fiszkach oraz usunie całą historię
-          egzaminów
+          Reset statystyk usunie wszystkie twoje statystyki związane z trybem jednego
+          pytania, usunie progres w fiszkach oraz usunie całą historię egzaminów
         </p>
       </div>
       <ResetStatsForm />
       <p className="text-muted">
-        Po pomyślnym resecie statystyk nastąpi przekierowanie na stronę główną
-        panelu
+        Po pomyślnym resecie statystyk nastąpi przekierowanie na stronę główną panelu
       </p>
     </div>
   );

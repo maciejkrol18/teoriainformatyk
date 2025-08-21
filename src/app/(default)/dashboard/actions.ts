@@ -1,11 +1,10 @@
 "use server";
 
+import type { PostgrestError } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-import { createClient } from "@/lib/supabase/server";
 import type { FieldValues } from "react-hook-form";
-import type { PostgrestError } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/server";
 
 export async function changePassword(formData: FieldValues): Promise<string> {
   const supabase = await createClient();
@@ -30,9 +29,7 @@ export async function changePassword(formData: FieldValues): Promise<string> {
   redirect("/login");
 }
 
-export async function resetStats(
-  formData: FieldValues
-): Promise<PostgrestError | null> {
+export async function resetStats(formData: FieldValues): Promise<PostgrestError | null> {
   const supabase = await createClient();
 
   const data = {

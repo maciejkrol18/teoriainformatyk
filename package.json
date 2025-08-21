@@ -1,5 +1,5 @@
 {
-  "name": "egzamin-informatyk",
+  "name": "teoriainformatyk",
   "version": "0.1.0",
   "private": false,
   "scripts": {
@@ -7,7 +7,9 @@
     "build": "next build",
     "postbuild": "next-sitemap --config ./next-sitemap.config.js",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome check",
+    "lint:write": "biome check --write",
+    "format": "biome format --write",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
@@ -38,7 +40,7 @@
     "dotenv": "^16.4.5",
     "eslint-config-next": "15.4.6",
     "lucide-react": "^0.294.0",
-    "next": "15.4.6",
+    "next": "15.5.0",
     "next-nprogress-bar": "^2.3.12",
     "next-plausible": "^3.12.2",
     "next-sitemap": "^4.2.3",
@@ -59,7 +61,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@biomejs/biome": "2.0.6",
     "@hcaptcha/types": "^1.0.3"
   },
   "pnpm": {

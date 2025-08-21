@@ -1,19 +1,19 @@
 "use client";
 
+import type { VariantProps } from "class-variance-authority";
+import { Image, Layers, LucideAlertTriangle, Skull, Type } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 import type { Question } from "@/types/question";
-import { Layers, Image, Type, Skull, LucideAlertTriangle } from "lucide-react";
+import HardCollectionButton from "../hard-collection-button";
+import { Button } from "./button";
+import { Checkbox } from "./checkbox";
 import {
   QuestionAnswer,
   QuestionAnswersContainer,
   QuestionImage,
   type questionAnswerVariants,
 } from "./question";
-import { Button } from "./button";
-import type { VariantProps } from "class-variance-authority";
-import { useState } from "react";
-import Link from "next/link";
-import HardCollectionButton from "../hard-collection-button";
-import { Checkbox } from "./checkbox";
 
 interface QuestionDetailsProps {
   question: Question;
@@ -37,9 +37,7 @@ export default function QuestionDetails({
     return answer === question.correct_answer ? "correct" : "default";
   };
 
-  const [hardCollection, setHardCollection] = useState<number[]>(
-    fetchedHardCollection
-  );
+  const [hardCollection, setHardCollection] = useState<number[]>(fetchedHardCollection);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
 
   return (
@@ -75,13 +73,10 @@ export default function QuestionDetails({
                 key={answer}
                 className="cursor-default"
                 variant={
-                  showCorrectAnswer
-                    ? getAnswerVariant(answer, question)
-                    : "default"
+                  showCorrectAnswer ? getAnswerVariant(answer, question) : "default"
                 }
               >
-                <span className="font-medium">{atlas.charAt(index)}</span>.{" "}
-                {answer}
+                <span className="font-medium">{atlas.charAt(index)}</span>. {answer}
               </QuestionAnswer>
             );
           })}
@@ -102,9 +97,7 @@ export default function QuestionDetails({
             allowZoom={false}
           />
         ) : (
-          <p className="text-muted">
-            To pytanie nie posiada załączonego obrazku
-          </p>
+          <p className="text-muted">To pytanie nie posiada załączonego obrazku</p>
         )}
       </div>
       <Divider />

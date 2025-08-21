@@ -1,12 +1,12 @@
 "use client";
 
 import type { Provider } from "@supabase/supabase-js";
-import { Button } from "../ui/button";
 import Image from "next/image";
-import GoogleLogo from "../../../public/google.svg";
-import DiscordLogo from "../../../public/discord-mark.svg";
-import { socialSignIn } from "@/app/(auth)/actions";
 import { toast } from "sonner";
+import { socialSignIn } from "@/app/(auth)/actions";
+import DiscordLogo from "../../../public/discord-mark.svg";
+import GoogleLogo from "../../../public/google.svg";
+import { Button } from "../ui/button";
 
 export default function OAuthButtons() {
   const signInWithProvider = async (provider: Provider) => {
