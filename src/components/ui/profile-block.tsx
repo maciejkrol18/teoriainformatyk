@@ -1,6 +1,7 @@
 "use client";
 
 import { LayoutDashboard, LogOut } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "@/app/(auth)/actions";
 import { Button } from "./button";
@@ -19,11 +20,17 @@ export default function ProfileBlock({ profile }: ProfileBlockProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <img
-          src={profile.avatar_url}
-          alt={profile.display_name}
-          className="w-12 h-12 rounded-full bg-primary"
-        />
+        {profile.avatar_url ? (
+          <Image
+            src={profile.avatar_url}
+            alt={profile.display_name}
+            className="w-12 h-12 rounded-full bg-primary"
+            width={48}
+            height={48}
+          />
+        ) : (
+          <div className="w-12 h-12 rounded-full bg-gray-300" />
+        )}
         <div>
           <p className="font-semibold text-xl whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
             {profile.display_name}

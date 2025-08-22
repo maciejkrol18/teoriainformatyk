@@ -41,15 +41,9 @@ export const columns: ColumnDef<ExamHistoryEntry>[] = [
     accessorKey: "percentage_score",
     header: "Wynik",
     cell: ({ row }) => {
-      const percentageScore = Number.parseFloat(
-        row.getValue("percentage_score")
-      );
+      const percentageScore = Number.parseFloat(row.getValue("percentage_score"));
       return (
-        <div
-          className={`${
-            percentageScore > 50 ? "text-green-500" : "text-red-500"
-          }`}
-        >
+        <div className={`${percentageScore > 50 ? "text-green-500" : "text-red-500"}`}>
           {percentageScore}%
         </div>
       );

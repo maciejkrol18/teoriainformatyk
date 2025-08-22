@@ -1,6 +1,7 @@
 "use client";
 
 import { LayoutDashboard, LogOut } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { signOut } from "@/app/(auth)/actions";
@@ -30,13 +31,17 @@ export default function HeaderAuthDropdown({
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <button type="button" onClick={() => setOpen(true)}>
-          <img
-            src={avatar_url}
-            alt="Profil"
-            width={32}
-            height={32}
-            className="rounded-full"
-          />
+          {avatar_url ? (
+            <Image
+              src={avatar_url}
+              alt="Profil"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-gray-300" />
+          )}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
