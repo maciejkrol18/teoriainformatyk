@@ -6,13 +6,12 @@
   
   [![production status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk.pl&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=production&labelColor=%23171517)](https://teoriainformatyk.pl)
   [![preview status](https://img.shields.io/website?url=https%3A%2F%2Fteoriainformatyk-git-dev-maciejkrol18s-projects.vercel.app%2F&up_message=online&up_color=%23441b9d&down_message=offline&down_color=critical&label=preview&labelColor=%23171517)](https://teoriainformatyk.pl) <br>
-  ![nextjs 14](https://img.shields.io/badge/NextJS_14-black?logo=nextdotjs)
+  ![nextjs 15](https://img.shields.io/badge/NextJS_15-black?logo=nextdotjs)
   ![plausible analytics](https://img.shields.io/badge/Plausible%20Analytics-black?logo=plausibleanalytics&color=%235850EC)
   ![tailwind](https://img.shields.io/badge/Tailwind_CSS-turquoise?logo=tailwindcss&color=%230d6675)
   ![supabase](https://img.shields.io/badge/Supabase-green?logo=supabase&color=%23268057)
   ![typescript](https://img.shields.io/badge/TypeScript-blue?logo=typescript&color=%2322548c)
   ![biome](https://img.shields.io/badge/Biome-blue?logo=biome&color=%23324c6b)
-
 
 </div>
 
@@ -25,42 +24,56 @@ teoriainformatyk is a free and open source web app for revising to the quiz part
 `*` - requires to be signed in <br>
 
 ### One Question
+
 - Keep rolling a random question and answering it as long as you like
 - See the stats for the current session, including
   - time spent
   - number of correct and incorrect answers
   - amount of rolled questions
   - percentage score
-- Save the amount of total correct and incorrect answers given in this mode and view the stats in your dashboard*
-- If you find a question to be especially hard, add it to your personal "hard questions collection" to activate hard mode during which only questions from that collection appear*
+- Save the amount of total correct and incorrect answers given in this mode and view the stats in your dashboard\*
+- If you find a question to be especially hard, add it to your personal "hard questions collection" to activate hard mode during which only questions from that collection appear\*
 - View information about the current question with the option to report any encountered mistakes
+
 ### Exam
+
 - Roll 40 random questions, answer them, and see the results at the end
-- The score gets saved and you can browse your scores in the dashboard*
-### Flashcards*
+- The score gets saved and you can browse your scores in the dashboard\*
+
+### Flashcards\*
+
 - Go through each available question one by one and save your progress
 - Come back and start where you left off
 - Reset your progress at any moment if you wish to
+
 ### Question browser
+
 - Search through the questions available in the database by typing in a query
 - Filter the questions by the exam qualification and whether they have an image attached to them or not
 - Sort the questions by their ID or alphabetically
-- The search page is also where you access your hard questions collections, which you do by applying the "Tylko zbiór trudnych" filter**
+- The search page is also where you access your hard questions collections, which you do by applying the "Tylko zbiór trudnych" filter\*\*
+
 ### SQL Training
-*INF.03 only*
+
+_INF.03 only_
+
 - Roll a random query related task from one of the past exams
 - Autofill the code input if you're not sure of the right answer
 - Access a separate repository (not made by me) with all of the files (such as .PDFs) regarding the exam through a link
 
 ## 👤 User features
+
 You can create an account by signing up using an email and a password, or by using one of the social login providers (currently Google and Discord are available). A single user can sign in using multiple authentication methods (e.g. if you signed up using the email johndoe[at]mail.com, you can sign in to the same account using Discord if the discord account is also linked to the johndoe[at]mail.com address). Here's the rest of the features regarding a user:
+
 ### Dashboard
+
 Here's what you see on the dashboard's homepage:
+
 - One Question and Flashcards stats
   - See the percentage of correct answers given in one question mode
   - See how much questions you have left to go through in flashcards
 - Latest 5 exams you took
-- A link to the list of questions in your hard questions collection* (which is accessed through the question browser)
+- A link to the list of questions in your hard questions collection\* (which is accessed through the question browser)
 - Metadata about your account
 - Buttons with links to:
   - Password change form - change the password currently being used to access the account through the email and password combination
@@ -69,11 +82,13 @@ Here's what you see on the dashboard's homepage:
   - Help form - ask for help through a dedicated contact form
 
 ### Exam history
+
 You can access your exam score history through the "Zobacz wszystkie" button located where the 5 latest scores are displayed. Your scores are displayed in a paginated table.
 Sort the scores by the date of their submission and the percentage score. Filter the scores by the exam's qualification and the percentage score (higher and/or lower than a specified value).
 You can select rows on the current page and choose to delete them.
 
 ### Hardest questions page
+
 A subpage accessible only to signed in users, which displays top 50 questions deemed by the web app's userbase to be the most difficult. It works by scanning the hard question collections of all users every 24hrs, and showing most frequently occuring questions (along with the number of collection's in which a certain question is located in).
 
 ## 🔜 Planned features
@@ -82,10 +97,10 @@ A subpage accessible only to signed in users, which displays top 50 questions de
 
 ## 🧰 The stack
 
-- Framework - Next.js 14
+- Framework - Next.js 15
 - Language - TypeScript
 - ORM, Serverless Postgres, File storage and Auth - Supabase
-- Deployments - Vercel
+- Deployments - Coolify (+ vercel, temporarily)
 - Bot protection - HCaptcha
 - Styling - TailwindCSS
 - Components - custom + modified shadcn/ui
