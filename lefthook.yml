@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: pnpm run lint:write {staged_files}
+    format:
+      run: pnpm run format
+
+commit-msg:
+  commands:
+    "lint commit message":
+      run: pnpm dlx commitlint --edit \$1

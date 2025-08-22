@@ -13,6 +13,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@commitlint/config-conventional": "^19.8.1",
     "@hcaptcha/react-hcaptcha": "^1.10.1",
     "@hookform/resolvers": "^3.3.4",
     "@next/bundle-analyzer": "15.4.6",
@@ -62,7 +63,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
-    "@hcaptcha/types": "^1.0.3"
+    "@commitlint/cli": "^19.8.1",
+    "@hcaptcha/types": "^1.0.3",
+    "lefthook": "^1.12.3"
   },
   "pnpm": {
     "overrides": {
