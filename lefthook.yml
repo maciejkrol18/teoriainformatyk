@@ -2,11 +2,11 @@ pre-commit:
   parallel: true
   commands:
     lint:
-      run: pnpm run lint:write {staged_files}
+      run: pnpm run lint {staged_files}
     format:
-      run: pnpm run format
+      run: pnpm run format {staged_files}
 
 commit-msg:
   commands:
     "lint commit message":
-      run: pnpm dlx commitlint --edit \$1
+      run: pnpm commitlint --edit $1

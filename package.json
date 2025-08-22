@@ -7,9 +7,10 @@
     "build": "next build",
     "postbuild": "next-sitemap --config ./next-sitemap.config.js",
     "start": "next start",
-    "lint": "biome check",
-    "lint:write": "biome check --write",
+    "lint": "biome check --write",
+    "lint:check": "biome check",
     "format": "biome format --write",
+    "format:check": "biome format",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
