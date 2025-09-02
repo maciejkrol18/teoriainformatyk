@@ -15,9 +15,9 @@ export default function LoginPage() {
       </div>
       <AuthForms />
       <div className="flex items-center w-full gap-4">
-        <div className="h-[1px] bg-background-bright grow" />
+        <div className="h-px bg-background-bright grow" />
         <p className="text-muted">lub kontynuuj przez</p>
-        <div className="h-[1px] bg-background-bright grow" />
+        <div className="h-px bg-background-bright grow" />
       </div>
       <OAuthButtons />
       <p className="text-sm text-muted text-center">

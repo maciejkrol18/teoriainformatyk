@@ -1,6 +1,11 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 
@@ -9,7 +14,10 @@ interface SearchPaginationProps {
   totalPages: number;
 }
 
-export default function SearchPagination({ page, totalPages }: SearchPaginationProps) {
+export default function SearchPagination({
+  page,
+  totalPages,
+}: SearchPaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -39,19 +47,22 @@ export default function SearchPagination({ page, totalPages }: SearchPaginationP
   return (
     <div className="flex flex-col gap-4 text-center">
       <div className="flex gap-4 items-center justify-center">
-        <Button onClick={() => updatePage("1")} variant={"outline"}>
+        <Button onClick={() => updatePage("1")} variant="outline">
           <ChevronsLeft />
         </Button>
-        <Button onClick={handlePrev} variant={"outline"}>
+        <Button onClick={handlePrev} variant="outline">
           <ChevronLeft />
         </Button>
         <p className="hidden sm:block">
           Strona {page} z {totalPages}
         </p>
-        <Button onClick={handleNext} variant={"outline"}>
+        <Button onClick={handleNext} variant="outline">
           <ChevronRight />
         </Button>
-        <Button onClick={() => updatePage(totalPages.toString())} variant={"outline"}>
+        <Button
+          onClick={() => updatePage(totalPages.toString())}
+          variant="outline"
+        >
           <ChevronsRight />
         </Button>
       </div>

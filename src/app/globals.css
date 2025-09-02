@@ -1,11 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@font-face {
-  font-family: "InterDisplay";
-  font-weight: 600;
-  src: url(../assets/fonts/inter-display-semi-bold.woff2);
+/*
+  v3 compat: default border color was gray-200, but v4 switched to currentcolor.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-background-bright, currentcolor);
+  }
+}
+
+@layer utilities {
+  @font-face {
+    font-family: "InterDisplay";
+    font-weight: 600;
+    src: url(../assets/fonts/inter-display-semi-bold.woff2);
+  }
+
+  .container {
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+    max-width: var(--container-6xl);
+  }
 }
 
 @layer base {
@@ -18,12 +38,13 @@
     --primary: 259 71% 64%;
     --secondary: 259 35% 82%;
     --accent: 261 42% 27%;
-    --loader-from: 270, 2%, 76%;
-    --loader-to: 0, 0%, 86%;
-    --correct: 143, 48%, 38%;
-    --incorrect: 0, 74%, 55%;
-    --unanswered: 226, 71%, 40%;
+    --loader-from: 270 2% 76%;
+    --loader-to: 0 0% 86%;
+    --correct: 143 48% 38%;
+    --incorrect: 0 74% 55%;
+    --unanswered: 226 71% 40%;
   }
+
   .dark {
     --foreground: 0 0% 83%;
     --muted: 0 0% 55%;
@@ -33,11 +54,66 @@
     --primary: 259 71% 36%;
     --secondary: 259 35% 18%;
     --accent: 261 42% 73%;
-    --loader-from: 0, 0%, 15%;
-    --loader-to: 150, 1%, 35%;
-    --correct: 143, 64%, 24%;
-    --incorrect: 0, 70%, 35%;
-    --unanswered: 226, 71%, 40%;
+    --loader-from: 0 0% 15%;
+    --loader-to: 150 1% 35%;
+    --correct: 143 64% 24%;
+    --incorrect: 0 70% 35%;
+    --unanswered: 226 71% 40%;
+  }
+}
+
+@theme {
+  --container-padding: 1rem;
+
+  --color-text: hsl(var(--foreground));
+  --color-muted: hsl(var(--muted));
+  --color-background: hsl(var(--background));
+  --color-background-light: hsl(var(--background-light));
+  --color-background-bright: hsl(var(--background-bright));
+  --color-primary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
+  --color-accent: hsl(var(--accent));
+  --color-correct: hsl(var(--correct));
+  --color-incorrect: hsl(var(--incorrect));
+  --color-unanswered: hsl(var(--unanswered));
+
+  --background-image-gradient-loading: linear-gradient(
+    to right,
+    hsl(var(--loader-from)),
+    hsl(var(--loader-to))
+  );
+  --background-image-hero-blob: linear-gradient(
+      to bottom,
+      hsl(var(--background)) 0%,
+      transparent 20%,
+      hsl(var(--background)) 60%
+    ),
+    url("../../public/hero-blob.svg");
+
+  --background-size-size-loading: 400% 400%;
+
+  --shadow-card-inset: 0px 0px 10px 0px rgba(0, 0, 0, 0.25) inset;
+
+  --font-sans: "Inter", sans-serif;
+  --font-display: "InterDisplay", Helvetica, system-ui, sans-serif;
+
+  --animate-loading: gradient-moving 1s ease infinite;
+}
+
+@keyframes gradient-moving {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* manual safelist replacement */
+@layer utilities {
+  .border-blue-800 {
+    border-color: rgb(30 64 175);
   }
 }
 
@@ -49,7 +125,5 @@ canvas {
 #hero {
   background-size: cover, cover;
   background-repeat: no-repeat;
-  background-position:
-    center center,
-    center center;
+  background-position: center center, center center;
 }

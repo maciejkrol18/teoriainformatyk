@@ -131,7 +131,7 @@ const QuestionImage = ({
               className="object-contain"
             />
           </div>
-          <p className="my-4 p-2 bg-background/70 backdrop-blur-sm rounded-md">
+          <p className="my-4 p-2 bg-background/70 backdrop-blur-xs rounded-md">
             Wciśnij klawisz 'Escape' lub kliknij w dowolnym miejscu aby zamknąć
           </p>
         </div>
@@ -144,7 +144,7 @@ const QuestionImage = ({
             e.stopPropagation();
             setZoomed(!zoomed);
           }}
-          className="absolute top-2 right-2 z-10 rounded-full p-1 bg-background/40 backdrop-blur-sm"
+          className="absolute top-2 right-2 z-10 rounded-full p-1 bg-background/40 backdrop-blur-xs"
         >
           <ZoomIn />
         </button>

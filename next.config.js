@@ -18,11 +18,19 @@ const nextConfig = {
         port: "",
         pathname: "/storage/v1/object/public/**",
       },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+        pathname: "/api/**",
+      },
     ],
   },
   output: "standalone",
 };
 
 module.exports = withBundleAnalyzer(
-  withPlausibleProxy({ customDomain: process.env.PLAUSIBLE_URL })({ ...nextConfig })
+  withPlausibleProxy({ customDomain: process.env.PLAUSIBLE_URL })({
+    ...nextConfig,
+  })
 );
