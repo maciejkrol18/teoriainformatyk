@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium",
+  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium hover:cursor-pointer",
   {
     variants: {
       variant: {
