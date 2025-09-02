@@ -5,10 +5,7 @@ import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-function Tabs({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
+function Tabs({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
@@ -25,10 +22,7 @@ function TabsList({
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
-      className={cn(
-        "inline-flex h-10 items-center rounded-md gap-4",
-        className
-      )}
+      className={cn("inline-flex h-10 items-center rounded-md gap-4", className)}
       {...props}
     />
   );

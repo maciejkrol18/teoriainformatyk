@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 
@@ -14,10 +9,7 @@ interface SearchPaginationProps {
   totalPages: number;
 }
 
-export default function SearchPagination({
-  page,
-  totalPages,
-}: SearchPaginationProps) {
+export default function SearchPagination({ page, totalPages }: SearchPaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -59,10 +51,7 @@ export default function SearchPagination({
         <Button onClick={handleNext} variant="outline">
           <ChevronRight />
         </Button>
-        <Button
-          onClick={() => updatePage(totalPages.toString())}
-          variant="outline"
-        >
+        <Button onClick={() => updatePage(totalPages.toString())} variant="outline">
           <ChevronsRight />
         </Button>
       </div>

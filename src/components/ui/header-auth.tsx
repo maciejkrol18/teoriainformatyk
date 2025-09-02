@@ -26,11 +26,7 @@ export default async function HeaderAuth({ user }: HeaderAuthProps) {
       );
     }
     return (
-      <HeaderAuthDropdown
-        email={data.email}
-        display_name={data.display_name}
-        avatar_url={data.avatar_url}
-      />
+      <HeaderAuthDropdown display_name={data.display_name} avatar_url={data.avatar_url} />
     );
   }
   return (

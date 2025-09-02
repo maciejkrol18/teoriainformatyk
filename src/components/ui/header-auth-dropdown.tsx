@@ -15,13 +15,11 @@ import {
 } from "./dropdown-menu";
 
 interface HeaderAuthDropdownProps {
-  email: string;
   display_name: string;
   avatar_url: string;
 }
 
 export default function HeaderAuthDropdown({
-  email,
   display_name,
   avatar_url,
 }: HeaderAuthDropdownProps) {
@@ -46,9 +44,8 @@ export default function HeaderAuthDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
+          <p className="text-muted">Zalogowano jako</p>
           {display_name}
-          <br />
-          <span className="text-muted">{email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

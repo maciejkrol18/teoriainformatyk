@@ -108,13 +108,13 @@
     hsl(var(--loader-from)),
     hsl(var(--loader-to))
   );
-  --background-image-hero-blob: linear-gradient(
+  --background-image-hero-blob:
+    linear-gradient(
       to bottom,
       hsl(var(--background)) 0%,
       transparent 20%,
       hsl(var(--background)) 60%
-    ),
-    url("../../public/hero-blob.svg");
+    ), url("../../public/hero-blob.svg");
 
   --background-size-size-loading: 400% 400%;
 
@@ -151,5 +151,7 @@ canvas {
 #hero {
   background-size: cover, cover;
   background-repeat: no-repeat;
-  background-position: center center, center center;
+  background-position:
+    center center,
+    center center;
 }
