@@ -18,11 +18,18 @@ const nextConfig = {
         port: "",
         pathname: "/storage/v1/object/public/**",
       },
+      // TODO: Bandaid patches. Should store pfp's in the db or just ditch them
       {
         protocol: "https",
         hostname: "ui-avatars.com",
         port: "",
         pathname: "/api/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+        port: "",
+        pathname: "/avatars/**",
       },
     ],
   },
