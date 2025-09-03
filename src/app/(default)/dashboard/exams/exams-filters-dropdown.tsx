@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
+import type { ExamHistoryFilters } from "@/types/exam-history-filters";
 
 interface ExamData {
   id: number;

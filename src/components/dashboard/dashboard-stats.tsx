@@ -41,10 +41,7 @@ export default function DashboardStats({
   questionAmounts,
 }: DashboardStatsProps) {
   return (
-    <Tabs
-      defaultValue={QUALIFICATIONS[0].code}
-      className="flex flex-col flex-1 gap-8"
-    >
+    <Tabs defaultValue={QUALIFICATIONS[0].code} className="flex flex-col flex-1 gap-8">
       <DashboardBlock
         blockTitle="Jedno pytanie"
         blockActions={

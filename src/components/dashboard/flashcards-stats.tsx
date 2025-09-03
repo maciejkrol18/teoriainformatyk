@@ -10,10 +10,7 @@ interface FlashcardsStats {
   totalQuestions: number | null | undefined;
 }
 
-export default function FlashcardsStats({
-  stats,
-  totalQuestions,
-}: FlashcardsStats) {
+export default function FlashcardsStats({ stats, totalQuestions }: FlashcardsStats) {
   const finishedQuestions = stats?.question_id_array.length;
   const scorePercentage =
     !stats || !totalQuestions

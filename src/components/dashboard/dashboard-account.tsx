@@ -23,9 +23,7 @@ const DataParagraph = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export default async function DashboardAccount({
-  accountData,
-}: DashboardAccountProps) {
+export default async function DashboardAccount({ accountData }: DashboardAccountProps) {
   const dateJoined = accountData?.created_at
     ? new Date(accountData.created_at).toLocaleDateString()
     : "Nieznana data dołączenia";
@@ -56,10 +54,7 @@ export default async function DashboardAccount({
           </Link>
         </Button>
       </div>
-      <DataParagraph
-        label="Nazwa użytkownika"
-        value={accountData.display_name}
-      />
+      <DataParagraph label="Nazwa użytkownika" value={accountData.display_name} />
       <DataParagraph
         label="Adres email"
         value={accountData.email.replace(
