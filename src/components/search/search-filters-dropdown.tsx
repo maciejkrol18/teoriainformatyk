@@ -2,9 +2,7 @@
 
 import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import getUser from "@/lib/supabase/get-user";
+import { QUALIFICATIONS } from "@/lib/constants";
 import type { SearchFilters } from "@/types/search-filters";
 import {
   DropdownMenu,
@@ -17,14 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-interface ExamData {
-  id: number;
-  name: string;
+interface SearchFiltersDropdownProps {
+  isAuthenticated: boolean;
 }
 
-export default function SearchFiltersDropdown() {
-  const [examData, setExamData] = useState<ExamData[] | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
+export default function SearchFiltersDropdown({
+  isAuthenticated,
+}: SearchFiltersDropdownProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -40,28 +37,6 @@ export default function SearchFiltersDropdown() {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  const fetchExams = async () => {
-    const supabase = createClient();
-
-    const { data, error } = await supabase.from("exams").select("id, name");
-
-    if (error || !data) {
-      setExamData(null);
-    } else {
-      setExamData(data);
-    }
-  };
-
-  const fetchUserId = async () => {
-    const { user } = await getUser();
-    setUserId(!user ? null : user.id);
-  };
-
-  useEffect(() => {
-    fetchExams();
-    fetchUserId();
-  }, []);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -76,15 +51,14 @@ export default function SearchFiltersDropdown() {
           onValueChange={(value) => handleFilterChange("examId", value)}
         >
           <DropdownMenuRadioItem value={""}>Wszystkie</DropdownMenuRadioItem>
-          {examData ? (
-            examData.map((exam) => (
-              <DropdownMenuRadioItem value={exam.id.toString()} key={exam.id}>
-                {exam.name}
-              </DropdownMenuRadioItem>
-            ))
-          ) : (
-            <p className="py-1.5 pl-8 pr-2 text-sm">Ładowanie kwalifikacji...</p>
-          )}
+          {QUALIFICATIONS.map((qualification) => (
+            <DropdownMenuRadioItem
+              value={qualification.id.toString()}
+              key={qualification.id}
+            >
+              {qualification.name}
+            </DropdownMenuRadioItem>
+          ))}
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Sortuj według</DropdownMenuLabel>
@@ -93,7 +67,9 @@ export default function SearchFiltersDropdown() {
           onValueChange={(value) => handleFilterChange("sortBy", value)}
         >
           <DropdownMenuRadioItem value={"id"}>ID</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value={"content"}>Alfabetycznie</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value={"content"}>
+            Alfabetycznie
+          </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Załączony obrazek</DropdownMenuLabel>
@@ -105,7 +81,7 @@ export default function SearchFiltersDropdown() {
           <DropdownMenuRadioItem value={"true"}>Tak</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value={"false"}>Nie</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
-        {userId && (
+        {isAuthenticated && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Użytkownik</DropdownMenuLabel>

@@ -96,18 +96,25 @@ export default async function SearchPage(props: SearchPageProps) {
     hardOnly: hardOnly,
   });
 
-  const totalPages = totalAmount ? Math.ceil(totalAmount / RESULTS_PER_PAGE) : 1;
+  const totalPages = totalAmount
+    ? Math.ceil(totalAmount / RESULTS_PER_PAGE)
+    : 1;
+
+  const supabase = createClient();
+  const { data: user } = await (await supabase).auth.getUser();
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
-      <SearchBar />
+      <SearchBar isAuthenticated={Boolean(user.user?.id)} />
       <div className="flex flex-col gap-4">
         {results && results.length > 0 ? (
           results.map((question) => {
             return <SearchResult question={question} key={question.id} />;
           })
         ) : (
-          <p className="text-muted text-center">Brak wyników dla twojego wyszukiwania</p>
+          <p className="text-muted text-center">
+            Brak wyników dla twojego wyszukiwania
+          </p>
         )}
       </div>
       <SearchPagination page={Number.parseInt(page)} totalPages={totalPages} />
