@@ -48,7 +48,7 @@ async function fetchPaginatedQuestions({
     .order(sortBy);
 
   if (examId) {
-    dbQuery.eq("exam_id", examId);
+    dbQuery.eq("exam_id", Number.parseInt(examId));
   }
 
   if (query) {
@@ -63,7 +63,7 @@ async function fetchPaginatedQuestions({
   }
 
   if (hasImage) {
-    dbQuery.eq("image", hasImage);
+    dbQuery.eq("image", Boolean(hasImage));
   }
 
   const { data, count, error } = await dbQuery;
@@ -100,7 +100,7 @@ export default async function SearchPage(props: SearchPageProps) {
 
   return (
     <div className="flex flex-col gap-8 md:w-full md:max-w-xl md:mx-auto">
-      <SearchBar examId={examId} sortBy={sortBy} hasImage={hasImage} />
+      <SearchBar />
       <div className="flex flex-col gap-4">
         {results && results.length > 0 ? (
           results.map((question) => {

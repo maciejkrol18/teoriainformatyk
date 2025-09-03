@@ -12,7 +12,7 @@ const getQuestion = cache(async (id: string) => {
   const { data, error } = await supabase
     .from("questions")
     .select("*")
-    .eq("id", id)
+    .eq("id", Number.parseInt(id))
     .single();
 
   if (!data || error) {

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 import { declension } from "@/lib/utils";
+import type { ExamHistoryFilters } from "@/types/exam-history-filters";
 import ExamHistoryTable from "./table";
 
 const RESULTS_PER_PAGE = 10;
@@ -40,7 +41,7 @@ async function fetchPaginatedScores({
     .order(sortBy, { ascending: false });
 
   if (examId) {
-    dbQuery.eq("exam_id", examId);
+    dbQuery.eq("exam_id", Number.parseInt(examId));
   }
 
   if (scoreLessThan) {

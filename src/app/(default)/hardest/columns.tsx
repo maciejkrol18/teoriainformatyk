@@ -3,14 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-interface HardestQuestionsEntry {
-  question_id: number;
-  count: number;
-  questions: {
-    content: string;
-  } | null;
-}
+import type { HardestQuestionsEntry } from "@/types/hardest-questions-entry";
 
 export const columns: ColumnDef<HardestQuestionsEntry>[] = [
   {
