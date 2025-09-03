@@ -25,10 +25,7 @@ export default function ExamFiltersDropdown() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleFilterChange = (
-    filter: keyof ExamHistoryFilters,
-    value?: string
-  ) => {
+  const handleFilterChange = (filter: keyof ExamHistoryFilters, value?: string) => {
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set(filter, value);
@@ -77,9 +74,7 @@ export default function ExamFiltersDropdown() {
           value={searchParams.get("sortBy") || "id"}
           onValueChange={(value) => handleFilterChange("sortBy", value)}
         >
-          <DropdownMenuRadioItem value={"created_at"}>
-            Data
-          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value={"created_at"}>Data</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value={"percentage_score"}>
             Wynik procentowy
           </DropdownMenuRadioItem>

@@ -30,9 +30,7 @@ async function getQuestions(id: number): Promise<ExamQuestion[]> {
   return data.map((question) => {
     return {
       ...question,
-      answers: question.answers.sort(
-        (_a: string, _b: string) => 0.5 - Math.random()
-      ),
+      answers: question.answers.sort((_a: string, _b: string) => 0.5 - Math.random()),
       selected_answer: null,
       correct_selected: false,
     };
@@ -53,9 +51,7 @@ async function getExamData(code: string) {
   }
 }
 
-export default async function ExamPage(props: {
-  params: Promise<{ code: string }>;
-}) {
+export default async function ExamPage(props: { params: Promise<{ code: string }> }) {
   const params = await props.params;
   const examData = await getExamData(params.code);
   const fetchedQuestions = await getQuestions(examData.id);

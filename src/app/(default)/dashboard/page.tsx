@@ -45,7 +45,7 @@ export default async function DashboardPage() {
     })
   );
 
-  const { data: accountData } = await supabase
+  const { data: profileData } = await supabase
     .from("profiles")
     .select("*")
     .eq("user_id", user.id)
@@ -80,7 +80,7 @@ export default async function DashboardPage() {
           </Link>
         </p>
       </DashboardBlock>
-      <DashboardAccount accountData={accountData} />
+      <DashboardAccount profileData={profileData} accountData={user} />
     </div>
   );
 }

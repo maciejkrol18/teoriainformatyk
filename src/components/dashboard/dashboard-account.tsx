@@ -1,17 +1,13 @@
+import type { User } from "@supabase/supabase-js";
 import { KeyRound, LifeBuoy, RotateCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
+import type { Database } from "@/types/database";
 import { Button } from "../ui/button";
 import DashboardBlock from "./dashboard-block";
 
 interface DashboardAccountProps {
-  accountData: {
-    avatar_url: string;
-    created_at: string;
-    display_name: string;
-    email: string;
-    id: number;
-    user_id: string;
-  } | null;
+  profileData: Database["public"]["Tables"]["profiles"]["Row"] | null;
+  accountData: User;
 }
 
 const DataParagraph = ({ label, value }: { label: string; value: string }) => {
@@ -23,12 +19,25 @@ const DataParagraph = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export default async function DashboardAccount({ accountData }: DashboardAccountProps) {
-  const dateJoined = accountData?.created_at
-    ? new Date(accountData.created_at).toLocaleDateString()
+const getLoginMethods = (user: User) => {
+  const methods = user.identities?.map((value) => value.provider) ?? [];
+  const didUseEmail = user.email_confirmed_at !== undefined;
+  if (didUseEmail) methods.unshift("Email i hasło");
+
+  return methods
+    .map((method) => method.charAt(0).toUpperCase() + method.substring(1))
+    .join(", ");
+};
+
+export default async function DashboardAccount({
+  profileData,
+  accountData,
+}: DashboardAccountProps) {
+  const dateJoined = profileData?.created_at
+    ? new Date(profileData.created_at).toLocaleDateString()
     : "Nieznana data dołączenia";
 
-  return accountData === null ? (
+  return profileData === null ? (
     <p className="text-muted">Wystąpił błąd w trakcie pobierania danych</p>
   ) : (
     <DashboardBlock blockTitle="Twoje konto">
@@ -54,16 +63,20 @@ export default async function DashboardAccount({ accountData }: DashboardAccount
           </Link>
         </Button>
       </div>
-      <DataParagraph label="Nazwa użytkownika" value={accountData.display_name} />
+      <DataParagraph label="Nazwa użytkownika" value={profileData.display_name} />
+      <DataParagraph
+        label="Aktywne metody logowania"
+        value={getLoginMethods(accountData)}
+      />
       <DataParagraph
         label="Adres email"
-        value={accountData.email.replace(
+        value={profileData.email.replace(
           /([^\s@])([^\s@]*)(?=@)/g,
           (_, a) => a + "*".repeat(_.length - 1)
         )}
       />
       <DataParagraph label="Data dołączenia" value={dateJoined} />
-      <DataParagraph label="Identyfikator" value={accountData.user_id} />
+      <DataParagraph label="Identyfikator" value={profileData.user_id} />
     </DashboardBlock>
   );
 }

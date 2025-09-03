@@ -67,9 +67,7 @@ export default function SearchFiltersDropdown({
           onValueChange={(value) => handleFilterChange("sortBy", value)}
         >
           <DropdownMenuRadioItem value={"id"}>ID</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value={"content"}>
-            Alfabetycznie
-          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value={"content"}>Alfabetycznie</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Załączony obrazek</DropdownMenuLabel>

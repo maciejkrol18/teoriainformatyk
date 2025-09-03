@@ -1,12 +1,7 @@
 "use client";
 
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -69,47 +64,25 @@ export default function ExamHistoryTable({
           </Button>
         </div>
         <div className="flex gap-4 justify-center items-center">
-          <Button
-            asChild
-            variant="outline"
-            onClick={() => table.resetRowSelection()}
-          >
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href="?page=1" scroll={false}>
               <ChevronsLeft />
             </Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            onClick={() => table.resetRowSelection()}
-          >
-            <Link
-              href={!canPrevPage ? "#" : `?page=${pageNumber - 1}`}
-              scroll={false}
-            >
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
+            <Link href={!canPrevPage ? "#" : `?page=${pageNumber - 1}`} scroll={false}>
               <ChevronLeft />
             </Link>
           </Button>
           <p className="text-center">
             Strona {pageNumber} z {totalPages}
           </p>
-          <Button
-            asChild
-            variant="outline"
-            onClick={() => table.resetRowSelection()}
-          >
-            <Link
-              href={!canNextPage ? "#" : `?page=${pageNumber + 1}`}
-              scroll={false}
-            >
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
+            <Link href={!canNextPage ? "#" : `?page=${pageNumber + 1}`} scroll={false}>
               <ChevronRight />
             </Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            onClick={() => table.resetRowSelection()}
-          >
+          <Button asChild variant="outline" onClick={() => table.resetRowSelection()}>
             <Link href={`?page=${totalPages}`} scroll={false}>
               <ChevronsRight />
             </Link>

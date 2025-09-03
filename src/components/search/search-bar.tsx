@@ -5,11 +5,7 @@ import { useRef } from "react";
 import SearchFiltersDropdown from "./search-filters-dropdown";
 import SearchInput from "./search-input";
 
-export default function SearchBar({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function SearchBar({ isAuthenticated }: { isAuthenticated: boolean }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: the onclick event is only used to focus the input
