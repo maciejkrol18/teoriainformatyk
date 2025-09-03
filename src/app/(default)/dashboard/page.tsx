@@ -45,6 +45,12 @@ export default async function DashboardPage() {
     })
   );
 
+  const { data: accountData } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("user_id", user.id)
+    .single();
+
   return (
     <div className="flex flex-col gap-8">
       <DashboardHeader userId={user.id} />
@@ -74,7 +80,7 @@ export default async function DashboardPage() {
           </Link>
         </p>
       </DashboardBlock>
-      <DashboardAccount userId={user.id} />
+      <DashboardAccount accountData={accountData} />
     </div>
   );
 }
