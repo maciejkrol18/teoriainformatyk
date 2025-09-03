@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import QuestionDetails from "@/components/ui/question-details";
+import { QUALIFICATIONS } from "@/lib/constants";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 
@@ -43,16 +44,17 @@ export async function generateMetadata(props: {
   if (question === null) {
     return {
       title: `Pytanie #${params.id}`,
+      description:
+        "Znajdź odpowiedzi do pytania dla egzaminu teoretycznego z zawodu technik informatyk z obu kwalifikacji",
     };
   }
 
   return {
-    // TODO: Determine the qualification text based off the db
     title: `Pytanie ${params.id}`,
     description: `"${
       question.content
     }" - znajdź odpowiedzi do pytania dla egzaminu teoretycznego z zawodu technik informatyk z kwalifikacji ${
-      question.exam_id === 1 ? "INF.02/EE.08" : "INF.03/EE.09/E.14"
+      QUALIFICATIONS[question.exam_id]?.code
     }`,
   };
 }

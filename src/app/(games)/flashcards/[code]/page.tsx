@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Flashcards from "@/components/flashcards/flashcards";
 import PageTitle from "@/components/ui/page-title";
+import { QUALIFICATIONS } from "@/lib/constants";
 import getUser from "@/lib/supabase/get-user";
 import { createClient } from "@/lib/supabase/server";
 
@@ -9,8 +10,9 @@ export async function generateMetadata(props: {
   params: Promise<{ code: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  // TODO: Determine the qualification text based off the db
-  const qualification = params.code === "inf02" ? "INF.02/EE.08" : "INF.03/EE.09/E.14";
+  const qualification = QUALIFICATIONS.find(
+    (qualification) => qualification.code === params.code
+  )?.name;
   return {
     title: `Fiszki ${qualification}`,
     description: `Powtarzaj wszystkie pytania na egzamin teoretyczny ${qualification} w formie fiszek`,
