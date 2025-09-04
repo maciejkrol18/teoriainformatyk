@@ -21,9 +21,6 @@ const DataParagraph = ({ label, value }: { label: string; value: string }) => {
 
 const getLoginMethods = (user: User) => {
   const methods = user.identities?.map((value) => value.provider) ?? [];
-  const didUseEmail = user.email_confirmed_at !== undefined;
-  if (didUseEmail) methods.unshift("Email i hasło");
-
   return methods
     .map((method) => method.charAt(0).toUpperCase() + method.substring(1))
     .join(", ");
@@ -63,7 +60,10 @@ export default async function DashboardAccount({
           </Link>
         </Button>
       </div>
-      <DataParagraph label="Nazwa użytkownika" value={profileData.display_name} />
+      <DataParagraph
+        label="Nazwa użytkownika"
+        value={profileData.display_name}
+      />
       <DataParagraph
         label="Aktywne metody logowania"
         value={getLoginMethods(accountData)}
