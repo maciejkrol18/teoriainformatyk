@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, LogOut } from "lucide-react";
+import { LayoutDashboard, Loader, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -24,6 +24,7 @@ export default function HeaderAuthDropdown({
   avatar_url,
 }: HeaderAuthDropdownProps) {
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -62,11 +63,12 @@ export default function HeaderAuthDropdown({
             type="button"
             className="flex gap-2 w-full"
             onClick={() => {
-              setOpen(false);
+              setIsLoggingOut(true);
               signOut();
             }}
           >
-            <LogOut /> Wyloguj
+            {isLoggingOut ? <Loader className="animate-spin" /> : <LogOut />}{" "}
+            Wyloguj
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
