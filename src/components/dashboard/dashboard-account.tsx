@@ -60,10 +60,7 @@ export default async function DashboardAccount({
           </Link>
         </Button>
       </div>
-      <DataParagraph
-        label="Nazwa użytkownika"
-        value={profileData.display_name}
-      />
+      <DataParagraph label="Nazwa użytkownika" value={profileData.display_name} />
       <DataParagraph
         label="Aktywne metody logowania"
         value={getLoginMethods(accountData)}

@@ -67,8 +67,7 @@ export default function HeaderAuthDropdown({
               signOut();
             }}
           >
-            {isLoggingOut ? <Loader className="animate-spin" /> : <LogOut />}{" "}
-            Wyloguj
+            {isLoggingOut ? <Loader className="animate-spin" /> : <LogOut />} Wyloguj
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

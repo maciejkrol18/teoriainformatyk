@@ -1,11 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader, Trash2 } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { deleteAccount } from "@/app/(default)/dashboard/actions";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 const CONFIRMATION_PHRASE = "Chcę usunąć swoje konto";
@@ -24,7 +26,7 @@ export default function DeleteAccountForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     resetField,
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -61,11 +63,9 @@ export default function DeleteAccountForm() {
           </p>
         )}
       </div>
-      <Input
-        type="submit"
-        value="Zatwierdź"
-        className="bg-primary hover:cursor-pointer"
-      />
+      <Button type="submit" variant="destructive">
+        {isSubmitting ? <Loader className="animate-spin" /> : <Trash2 />} Usuń konto
+      </Button>
     </form>
   );
 }

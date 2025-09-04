@@ -1,11 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader, RotateCcw } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { resetStats } from "@/app/(default)/dashboard/actions";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 const CONFIRMATION_PHRASE = "Zresetuj statystyki";
@@ -24,7 +26,7 @@ export default function ResetStatsForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     resetField,
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -61,11 +63,10 @@ export default function ResetStatsForm() {
           </p>
         )}
       </div>
-      <Input
-        type="submit"
-        value="Zatwierdź"
-        className="bg-primary hover:cursor-pointer"
-      />
+      <Button type="submit" variant="destructive">
+        {isSubmitting ? <Loader className="animate-spin" /> : <RotateCcw />} Zresetuj
+        statystyki
+      </Button>
     </form>
   );
 }

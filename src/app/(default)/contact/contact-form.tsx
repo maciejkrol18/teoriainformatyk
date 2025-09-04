@@ -2,7 +2,7 @@
 
 import type HCaptcha from "@hcaptcha/react-hcaptcha";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader } from "lucide-react";
+import { Loader, Send } from "lucide-react";
 import { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -146,8 +146,8 @@ export default function ContactForm({ email, contactType, content }: ContactForm
         {errors.token?.message as React.ReactNode}
       </p>
       <Button type="submit" variant="primary">
-        {isSubmitting && <Loader className="animate-spin" />}
-        {isSubmitting ? "Wysyłanie..." : "Wyślij wiadomość"}
+        {isSubmitting ? <Loader className="animate-spin" /> : <Send />}
+        Wyślij wiadomość
       </Button>
     </form>
   );

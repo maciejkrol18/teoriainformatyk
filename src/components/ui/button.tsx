@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium hover:cursor-pointer",
+  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium hover:cursor-pointer transition-colors",
   {
     variants: {
       variant: {
@@ -14,6 +14,8 @@ const buttonVariants = cva(
           "border border-primary bg-linear-to-b from-primary/90 to-primary/50 hover:to-primary/70",
         secondary:
           "border border-secondary bg-linear-to-b from-secondary/90 to-secondary/50",
+        destructive:
+          "border border-red-800 bg-linear-to-b from-red-600/90 to-red-600/50 hover:to-red-500/70",
         outline:
           "border border-background-bright hover:bg-linear-to-b hover:from-background-bright/90 hover:to-background-bright/50",
         link: "underline-offset-4 hover:underline",

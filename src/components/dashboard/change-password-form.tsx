@@ -1,11 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader, Save } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { changePassword } from "@/app/(default)/dashboard/actions";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 const schema = z
@@ -25,7 +27,7 @@ export default function ChangePasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     resetField,
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -71,11 +73,9 @@ export default function ChangePasswordForm() {
           </p>
         )}
       </div>
-      <Input
-        type="submit"
-        value="Zatwierdź zmiany"
-        className="bg-primary hover:cursor-pointer"
-      />
+      <Button type="submit" variant="primary">
+        {isSubmitting ? <Loader className="animate-spin" /> : <Save />} Zatwierdź zmiany
+      </Button>
     </form>
   );
 }
