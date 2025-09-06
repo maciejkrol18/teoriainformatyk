@@ -45,10 +45,6 @@ export async function socialSignIn(
   | undefined
 > {
   const supabase = await createClient();
-  console.log(
-    "[socialSignIn] 'signInWithOAuth' will redirect to",
-    `${origin}/auth/callback`
-  );
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
