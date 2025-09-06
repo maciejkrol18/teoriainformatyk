@@ -10,7 +10,9 @@ import { Button } from "../ui/button";
 
 export default function OAuthButtons() {
   const signInWithProvider = async (provider: Provider) => {
+    console.log("[OAuth Buttons] typeof window:", typeof window);
     const origin = window ? window.location.origin : "localhost:3000";
+    console.log("[OAuth Buttons] Origin resolved to", origin);
     const error = await socialSignIn(provider, origin);
     if (error) {
       toast.error(error.error);
