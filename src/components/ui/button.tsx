@@ -1,0 +1,60 @@
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef } from "react";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-lg font-medium hover:cursor-pointer transition-colors",
+  {
+    variants: {
+      variant: {
+        default:
+          "border border-background-bright bg-linear-to-b from-background-bright/90 to-background-bright/50 hover:to-background-bright/70",
+        primary:
+          "border border-primary bg-linear-to-b from-primary/90 to-primary/50 hover:to-primary/70",
+        secondary:
+          "border border-secondary bg-linear-to-b from-secondary/90 to-secondary/50",
+        destructive:
+          "border border-red-800 bg-linear-to-b from-red-600/90 to-red-600/50 hover:to-red-500/70",
+        outline:
+          "border border-background-bright hover:bg-linear-to-b hover:from-background-bright/90 hover:to-background-bright/50",
+        link: "underline-offset-4 hover:underline",
+        ghost: "hover:bg-background-light",
+        bottomBar:
+          "rounded-full bg-transparent lg:bg-background-bright lg:hover:bg-background-bright/90 lg:w-14 lg:h-14",
+      },
+      size: {
+        default: "h-10 px-4",
+        sm: "px-3",
+        lg: "h-11 px-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

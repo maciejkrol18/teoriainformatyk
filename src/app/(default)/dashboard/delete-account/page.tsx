@@ -1,17 +1,17 @@
-import DeleteAccountForm from '@/components/dashboard/DeleteAccountForm'
-import { Button } from '@/components/ui/Button'
-import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft } from 'lucide-react'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { ArrowUpLeft } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import DeleteAccountForm from "@/components/dashboard/delete-account-form";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function DeleteAccountPage() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/login')
+    redirect("/login");
   }
 
   return (
@@ -38,5 +38,5 @@ export default async function DeleteAccountPage() {
         Po pomyślnym usunięciu konta nastąpi przekierowanie na stronę główną
       </p>
     </div>
-  )
+  );
 }

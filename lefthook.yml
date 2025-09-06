@@ -1,0 +1,11 @@
+pre-commit:
+  commands:
+    lint:
+      run: pnpm run lint {staged_files}
+    format:
+      run: pnpm run format {staged_files}
+
+commit-msg:
+  commands:
+    "lint commit message":
+      run: pnpm commitlint --edit $1

@@ -1,8 +1,8 @@
-import PasswordRecoveryForm from '@/components/auth/PasswordRecoveryForm'
+import PasswordRecoveryForm from "@/components/auth/password-recovery-form";
 
 export const metadata = {
-  title: 'Reset hasła',
-}
+  title: "Reset hasła",
+};
 
 export default function PasswordRecoveryPage() {
   return (
@@ -13,5 +13,5 @@ export default function PasswordRecoveryPage() {
       </p>
       <PasswordRecoveryForm />
     </div>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-import ChangePasswordForm from '@/components/dashboard/ChangePasswordForm'
-import { Button } from '@/components/ui/Button'
-import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft } from 'lucide-react'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { ArrowUpLeft } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import ChangePasswordForm from "@/components/dashboard/change-password-form";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ChangePasswordPage() {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect('/login')
+    redirect("/login");
   }
 
   return (
@@ -33,5 +33,5 @@ export default async function ChangePasswordPage() {
         Po pomyślnej zmianie hasła nastąpi przekierowanie na stronę logowania
       </p>
     </div>
-  )
+  );
 }

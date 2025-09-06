@@ -1,78 +1,80 @@
-import { Button } from '@/components/ui/Button'
-import { createClient } from '@/lib/supabase/server'
-import { ArrowUpLeft } from 'lucide-react'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import dayjs from 'dayjs'
-import pl from 'dayjs/locale/pl'
-import { declension } from '@/lib/utils'
-import ExamHistoryTable from './table'
-import getUser from '@/lib/supabase/get-user'
+import dayjs from "dayjs";
+import pl from "dayjs/locale/pl";
+import { ArrowUpLeft } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import getUser from "@/lib/supabase/get-user";
+import { createClient } from "@/lib/supabase/server";
+import { declension } from "@/lib/utils";
+import type { ExamHistoryFilters } from "@/types/exam-history-filters";
+import ExamHistoryTable from "./table";
 
-const RESULTS_PER_PAGE = 10
+const RESULTS_PER_PAGE = 10;
 
-dayjs.locale(pl)
+dayjs.locale(pl);
 
 interface ExamHistoryPageProps {
-  searchParams: ExamHistoryFilters
+  searchParams: Promise<ExamHistoryFilters>;
 }
 
 async function fetchPaginatedScores({
   user,
-  page = '1',
+  page = "1",
   examId,
-  sortBy = 'created_at',
+  sortBy = "created_at",
   scoreLessThan,
   scoreMoreThan,
 }: ExamHistoryFilters) {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const pageOffset = (Number.parseInt(page) - 1) * RESULTS_PER_PAGE
+  const pageOffset = (Number.parseInt(page) - 1) * RESULTS_PER_PAGE;
 
   const dbQuery = supabase
-    .from('exam_scores')
+    .from("exam_scores")
     .select(
-      'created_at, exam_id, user_id, score_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)',
-      { count: 'exact' },
+      "created_at, exam_id, user_id, score_id, percentage_score, correct, incorrect, unanswered, time_finished, time_started, exams (name)",
+      { count: "exact" }
     )
-    .eq('user_id', user)
+    .eq("user_id", user)
     .range(pageOffset, pageOffset + RESULTS_PER_PAGE - 1)
-    .order(sortBy, { ascending: false })
+    .order(sortBy, { ascending: false });
 
   if (examId) {
-    dbQuery.eq('exam_id', examId)
+    dbQuery.eq("exam_id", Number.parseInt(examId));
   }
 
   if (scoreLessThan) {
-    dbQuery.lt('percentage_score', scoreLessThan)
+    dbQuery.lt("percentage_score", scoreLessThan);
   }
 
   if (scoreMoreThan) {
-    dbQuery.gt('percentage_score', scoreMoreThan)
+    dbQuery.gt("percentage_score", scoreMoreThan);
   }
 
-  const { data, count, error } = await dbQuery
+  const { data, count, error } = await dbQuery;
 
-  if (error) throw new Error(error.message)
-  if (!data) throw new Error('Nie udało się pobrać wyników egzaminów')
+  if (error) throw new Error(error.message);
+  if (!data) throw new Error("Nie udało się pobrać wyników egzaminów");
   return {
     data: data,
     count: count,
-  }
+  };
 }
 
-export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageProps) {
-  const { user } = await getUser()
+export default async function ExamHistoryPage(props: ExamHistoryPageProps) {
+  const searchParams = await props.searchParams;
+  const { user } = await getUser();
 
   if (!user) {
-    redirect('/login')
+    redirect("/login");
   }
 
-  const page = searchParams.page || '1'
-  const examId = searchParams.examId
-  const sortBy = searchParams.sortBy
-  const scoreLessThan = searchParams.scoreLessThan
-  const scoreMoreThan = searchParams.scoreMoreThan
+  const page = searchParams.page || "1";
+  const examId = searchParams.examId;
+  const sortBy = searchParams.sortBy;
+  const scoreLessThan = searchParams.scoreLessThan;
+  const scoreMoreThan = searchParams.scoreMoreThan;
 
   const { data, count } = await fetchPaginatedScores({
     user: user.id,
@@ -81,20 +83,20 @@ export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageP
     sortBy: sortBy,
     scoreLessThan: scoreLessThan,
     scoreMoreThan: scoreMoreThan,
-  })
+  });
 
-  const totalPages = count ? Math.ceil(count / RESULTS_PER_PAGE) : 1
-  const canNextPage = Number.parseInt(page) + 1 <= totalPages
-  const canPrevPage = Number.parseInt(page) - 1 >= 1
+  const totalPages = count ? Math.ceil(count / RESULTS_PER_PAGE) : 1;
+  const canNextPage = Number.parseInt(page) + 1 <= totalPages;
+  const canPrevPage = Number.parseInt(page) - 1 >= 1;
 
   const processedExamHistory = data.map((score) => {
-    const timeTook = dayjs(score.time_finished).diff(score.time_started, 'minute')
+    const timeTook = dayjs(score.time_finished).diff(score.time_started, "minute");
     return {
       ...score,
-      created_at: dayjs(score.created_at).format('D MMMM YYYY, H[:]mm'),
-      time_took: `${timeTook} ${declension(timeTook, 'minuta', 'minuty', 'minut')}`,
-    }
-  })
+      created_at: dayjs(score.created_at).format("D MMMM YYYY, H[:]mm"),
+      time_took: `${timeTook} ${declension(timeTook, "minuta", "minuty", "minut")}`,
+    };
+  });
 
   return (
     <div className="flex flex-col gap-8">
@@ -112,5 +114,5 @@ export default async function ExamHistoryPage({ searchParams }: ExamHistoryPageP
         totalPages={totalPages}
       />
     </div>
-  )
+  );
 }

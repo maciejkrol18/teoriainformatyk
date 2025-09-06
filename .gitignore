@@ -25,6 +25,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# crush agent
+dotcrush/
+.crush/
+
 # local env files
 .env*.local
 

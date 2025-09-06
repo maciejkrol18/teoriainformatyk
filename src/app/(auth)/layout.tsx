@@ -1,5 +1,5 @@
-import BrandLogo from '@/components/ui/BrandLogo'
-import Link from 'next/link'
+import Link from "next/link";
+import BrandLogo from "@/components/ui/brand-logo";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,5 +18,5 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
       </div>
     </div>
-  )
+  );
 }

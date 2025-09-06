@@ -1,8 +1,8 @@
-interface ExamHistoryFilters {
-  user: string
-  page: string
-  examId?: string
-  scoreLessThan?: string
-  scoreMoreThan?: string
-  sortBy?: string
+export interface ExamHistoryFilters {
+  user: string;
+  page: string;
+  examId?: string;
+  scoreLessThan?: string;
+  scoreMoreThan?: string;
+  sortBy?: string;
 }

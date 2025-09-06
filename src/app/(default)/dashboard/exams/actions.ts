@@ -1,19 +1,19 @@
-'use server'
+"use server";
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from "@/lib/supabase/server";
 
 export async function deleteExamScores(
-  scoresToDelete: string[],
+  scoresToDelete: string[]
 ): Promise<{ success: boolean; error: string | null }> {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const { error } = await supabase
-    .from('exam_scores')
+    .from("exam_scores")
     .delete()
-    .in('score_id', scoresToDelete)
+    .in("score_id", scoresToDelete);
 
   if (error) {
-    return { success: false, error: error.message }
+    return { success: false, error: error.message };
   }
-  return { success: true, error: null }
+  return { success: true, error: null };
 }

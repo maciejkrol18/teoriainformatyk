@@ -1,20 +1,19 @@
-'use server'
+"use server";
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-
-import { createClient } from '@/lib/supabase/server'
-import type { FieldValues } from 'react-hook-form'
 import type {
   Provider,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
-} from '@supabase/supabase-js'
+} from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import type { FieldValues } from "react-hook-form";
+import { createClient } from "@/lib/supabase/server";
 
 export async function signIn(formData: FieldValues): Promise<{
-  error: string
+  error: string;
 }> {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const data: SignInWithPasswordCredentials = {
     email: formData.email,
@@ -22,54 +21,54 @@ export async function signIn(formData: FieldValues): Promise<{
     options: {
       captchaToken: formData.token,
     },
-  }
+  };
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
     return {
       error: error.message,
-    }
+    };
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath("/", "layout");
+  redirect("/");
 }
 
 export async function socialSignIn(
   provider: Provider,
-  origin: string,
+  origin: string
 ): Promise<
   | {
-      error: string
+      error: string;
     }
   | undefined
 > {
-  const supabase = createClient()
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
       redirectTo: `${origin}/auth/callback`,
     },
-  })
+  });
   if (error) {
-    console.log(error)
+    console.log(error);
     return {
       error: error.message,
-    }
+    };
   }
   if (data.url) {
-    redirect(data.url)
+    redirect(data.url);
   }
 }
 
 export async function signUp(
   formData: FieldValues,
-  redirectTo: string,
+  redirectTo: string
 ): Promise<{
-  error: string
+  error: string;
 }> {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const data: SignUpWithPasswordCredentials = {
     email: formData.email,
@@ -78,74 +77,76 @@ export async function signUp(
       captchaToken: formData.token,
       emailRedirectTo: redirectTo,
     },
-  }
+  };
 
-  const { error } = await supabase.auth.signUp(data)
+  const { error } = await supabase.auth.signUp(data);
 
   if (error) {
     return {
       error: error.message,
-    }
+    };
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/confirm-signup')
+  revalidatePath("/", "layout");
+  redirect("/confirm-signup");
 }
 
 export async function signOut() {
-  const supabase = createClient()
-  await supabase.auth.signOut()
-  revalidatePath('/login', 'layout')
-  redirect('/login')
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/login", "layout");
+  redirect("/login");
 }
 
 export async function startPasswordRecovery(
   email: string,
   captchaToken: string,
-  redirectTo: string,
+  redirectTo: string
 ) {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
     captchaToken: captchaToken,
     redirectTo: redirectTo,
-  })
+  });
 
   return {
     data: data,
     error: error?.message,
-  }
+  };
 }
 
 export async function updatePassword(formData: FieldValues): Promise<string> {
-  const supabase = createClient()
+  const supabase = await createClient();
 
   const data = {
     newPassword: formData.newPassword,
-  }
+  };
 
-  const { error } = await supabase.auth.updateUser({ password: data.newPassword })
+  const { error } = await supabase.auth.updateUser({
+    password: data.newPassword,
+  });
 
   if (error) {
-    return error.message
+    return error.message;
   }
 
-  await supabase.auth.signOut()
+  await supabase.auth.signOut();
 
-  revalidatePath('/login', 'layout')
-  redirect('/login')
+  revalidatePath("/login", "layout");
+  redirect("/login");
 }
 
 export async function checkIfAccountExists(email: string) {
-  const supabase = createClient()
+  const supabase = await createClient();
 
-  const { data, error } = await supabase.rpc('check_account_exists', {
+  const { data, error } = await supabase.rpc("check_account_exists", {
     email_to_check: email,
-  })
+  });
 
   if (error) {
-    console.log(error)
-    return false
+    console.log(error);
+    return false;
   }
-  return Boolean(data)
+  return Boolean(data);
 }

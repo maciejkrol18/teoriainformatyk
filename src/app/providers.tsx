@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { ThemeProvider } from 'next-themes'
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+import { ThemeProvider } from "next-themes";
 
 interface ProvidersProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const progressBarCss = `
@@ -39,7 +39,7 @@ const progressBarCss = `
         -ms-transform: rotate(3deg) translate(0px, -4px);
             transform: rotate(3deg) translate(0px, -4px);
   }
-`
+`;
 
 export default function Providers({ children }: ProvidersProps) {
   return (
@@ -51,5 +51,5 @@ export default function Providers({ children }: ProvidersProps) {
       />
       {children}
     </ThemeProvider>
-  )
+  );
 }

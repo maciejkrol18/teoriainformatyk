@@ -1,17 +1,17 @@
-import GamemodeBlock from './GamemodeBlock'
-import GamemodesWrapper from './GamemodesWrapper'
-import Section from '@/app/(hero)/Section'
-import { Button } from '@/components/ui/Button'
-import Link from 'next/link'
-import OneQuestionIcon from '../../../public/one-question-icon.svg'
-import ExamIcon from '../../../public/exam-icon.svg'
-import FlashcardsIcon from '../../../public/flashcards-icon.svg'
-import SqlTrainingIcon from '../../../public/sql-training-icon.svg'
-import HeroSearchBar from './HeroSearchBar'
-import HeroCard from './HeroCard'
-import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from 'lucide-react'
-import DonateButton from '../../../public/donate.svg'
-import Image from 'next/image'
+import { BarChart3, GalleryHorizontalEnd, History, SkullIcon, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import Section from "@/app/(hero)/section";
+import { Button } from "@/components/ui/button";
+import DonateButton from "../../../public/donate.svg";
+import ExamIcon from "../../../public/exam-icon.svg";
+import FlashcardsIcon from "../../../public/flashcards-icon.svg";
+import OneQuestionIcon from "../../../public/one-question-icon.svg";
+import SqlTrainingIcon from "../../../public/sql-training-icon.svg";
+import GamemodeBlock from "./gamemode-block";
+import GamemodesWrapper from "./gamemodes-wrapper";
+import HeroCard from "./hero-card";
+import HeroSearchBar from "./hero-search-bar";
 
 export default function Home() {
   return (
@@ -174,5 +174,5 @@ export default function Home() {
         </p>
       </Section>
     </>
-  )
+  );
 }
