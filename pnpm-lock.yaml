@@ -145,8 +145,8 @@ importers:
         specifier: ^12.0.0
         version: 12.0.0
       vaul:
-        specifier: ^0.9.1
-        version: 0.9.1(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -323,8 +323,8 @@ packages:
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
 
-  '@eslint-community/eslint-utils@4.8.0':
-    resolution: {integrity: sha512-MJQFqrZgcW0UNYLGOuQpey/oTN59vyWwplvCGZztn1cKz9agZPPYpJB7h2OMmuu7VLqkvEjN8feFZJmxNF9D+Q==}
+  '@eslint-community/eslint-utils@4.9.0':
+    resolution: {integrity: sha512-ayVFHdtZ+hsq1t2Dy24wCmGXGe4q9Gu3smhLYALJrr473ZH27MsnSL+LKUlimp4BWJqMDMLmPpx/Q9R3OAlL4g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
@@ -3162,11 +3162,11 @@ packages:
     resolution: {integrity: sha512-USe1zesMYh4fjCA8ZH5+X5WIVD0J4V1Jksm1bFTVBX2F/cwSXt0RO5w/3UXbdLKmZX65MiWV+hwhSS8p6oBTGA==}
     hasBin: true
 
-  vaul@0.9.1:
-    resolution: {integrity: sha512-fAhd7i4RNMinx+WEm6pF3nOl78DFkAazcN04ElLPFF9BMCNGbY/kou8UMhIcicm0rJCNePJP0Yyza60gGOD0Jw==}
+  vaul@1.1.2:
+    resolution: {integrity: sha512-ZFkClGpWyI2WUQjdLJ/BaGuV6AVQiJ3uELGk3OYtP+B6yCO7Cmn9vPFXVJkRaGkOJu3m8bQMgtyzNHixULceQA==}
     peerDependencies:
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
 
   vfile-location@4.1.0:
     resolution: {integrity: sha512-YF23YMyASIIJXpktBa4vIGLJ5Gs88UB/XePgqPmTa7cDA+JeO3yclbpheQYCHjVHBn/yePzrXuygIL+xbvRYHw==}
@@ -3465,7 +3465,7 @@ snapshots:
       eslint: 9.33.0(jiti@2.5.1)
       eslint-visitor-keys: 3.4.3
 
-  '@eslint-community/eslint-utils@4.8.0(eslint@9.33.0(jiti@2.5.1))':
+  '@eslint-community/eslint-utils@4.9.0(eslint@9.33.0(jiti@2.5.1))':
     dependencies:
       eslint: 9.33.0(jiti@2.5.1)
       eslint-visitor-keys: 3.4.3
@@ -5047,7 +5047,7 @@ snapshots:
 
   eslint@9.33.0(jiti@2.5.1):
     dependencies:
-      '@eslint-community/eslint-utils': 4.8.0(eslint@9.33.0(jiti@2.5.1))
+      '@eslint-community/eslint-utils': 4.9.0(eslint@9.33.0(jiti@2.5.1))
       '@eslint-community/regexpp': 4.12.1
       '@eslint/config-array': 0.21.0
       '@eslint/config-helpers': 0.3.1
@@ -6541,7 +6541,7 @@ snapshots:
 
   uuid@12.0.0: {}
 
-  vaul@0.9.1(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  vaul@1.1.2(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react: 19.1.1
