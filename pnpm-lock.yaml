@@ -142,8 +142,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(react@19.1.1)
       uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
+        specifier: ^12.0.0
+        version: 12.0.0
       vaul:
         specifier: ^0.9.1
         version: 0.9.1(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -3155,8 +3155,8 @@ packages:
       '@types/react':
         optional: true
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+  uuid@12.0.0:
+    resolution: {integrity: sha512-USe1zesMYh4fjCA8ZH5+X5WIVD0J4V1Jksm1bFTVBX2F/cwSXt0RO5w/3UXbdLKmZX65MiWV+hwhSS8p6oBTGA==}
     hasBin: true
 
   vaul@0.9.1:
@@ -6534,7 +6534,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.10
 
-  uuid@9.0.1: {}
+  uuid@12.0.0: {}
 
   vaul@0.9.1(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
