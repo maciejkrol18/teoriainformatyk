@@ -35,7 +35,7 @@
     "@types/uuid": "^9.0.8",
     "@uiw/react-textarea-code-editor": "^3.0.2",
     "@vercel/speed-insights": "^1.0.4",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",
