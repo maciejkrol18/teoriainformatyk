@@ -35,7 +35,8 @@ export const metadata: Metadata = {
     default: "teoriainformatyk",
     template: "%s | teoriainformatyk",
   },
-  description: "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
+  description:
+    "Najlepsza powtórka do teoretycznych egzaminów zawodowych INF.02 i INF.03",
   keywords: [
     "technik informatyk",
     "egzamin zawodowy",
@@ -67,6 +68,9 @@ export const metadata: Metadata = {
     locale: "pl_PL",
     images: "./opengraph-image.png",
   },
+  alternates: {
+    canonical: `https://${process.env.PRODUCTION_DOMAIN}`,
+  },
 };
 
 interface RootLayoutProps {
@@ -79,7 +83,9 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
     <html lang="pl" className="dark" suppressHydrationWarning>
       <head>
         <PlausibleProvider
-          domain={process.env.PRODUCTION_DOMAIN || "https://teoriainformatyk.pl"}
+          domain={
+            process.env.PRODUCTION_DOMAIN || "https://teoriainformatyk.pl"
+          }
           customDomain={process.env.PLAUSIBLE_URL || "https://plausible.io"}
           trackOutboundLinks
           selfHosted
